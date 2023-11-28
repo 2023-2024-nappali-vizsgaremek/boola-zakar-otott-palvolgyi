@@ -4,4 +4,7 @@
 >- Betűtípus: Inter
 >- szöveg betűméret: 14pt
 >- h2 betűméret: 16pt
->- h1 betűméret
+>- h2 dekor:dőlt
+>- h1 betűméret:18pt
+>- h1 dekor: félkövér
+>- dark mode szín:
