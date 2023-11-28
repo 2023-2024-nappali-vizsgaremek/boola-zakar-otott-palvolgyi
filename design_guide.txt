@@ -1,0 +1,7 @@
+##design guidelines
+
+- Betűk:
+>- Betűtípus: Inter
+>- szöveg betűméret: 14pt
+>- h2 betűméret: 16pt
+>- h1 betűméret
