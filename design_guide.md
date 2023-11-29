@@ -1,4 +1,4 @@
-##design guidelines
+## design guidelines
 
 - Betűk:
 >- Betűtípus: Inter
