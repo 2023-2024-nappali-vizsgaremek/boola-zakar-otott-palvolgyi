@@ -7,6 +7,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Border Width="500" Height="400" Style="{StaticResource borderSecondary}">
+            <StackPanel>
+                <Label Style="{StaticResource text}">This is normal text</Label>
+                <Label Style="{StaticResource h2}">This is h2</Label>
+                <Label Style="{StaticResource h1}">This is h1</Label>
+                <Button Style="{StaticResource controlSecondary}">Button</Button>
+            </StackPanel>
+        </Border>
 
     </Grid>
 </Window>

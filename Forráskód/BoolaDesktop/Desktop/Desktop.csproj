@@ -6,5 +6,8 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
+	<ItemGroup>
+		<Resource Include="Resources/Inter.ttf"/>
+	</ItemGroup>
 
 </Project>
