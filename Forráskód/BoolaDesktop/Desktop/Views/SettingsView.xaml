@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="Desktop.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:Desktop.ViewModels"
+             xmlns:local="clr-namespace:Desktop.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <vm:SettingsViewModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="300"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">Beállítások:</Label>
+        <Label Grid.Row="1" Grid.Column="0">Név:</Label>
+        <Label Grid.Row="2" Grid.Column="0">e-mail:</Label>
+        <Label Grid.Row="3" Grid.Column="0">Jelszó:</Label>
+        <Label Grid.Row="4" Grid.Column="0">nyelv:</Label>
+        <Label Grid.Row="5" Grid.Column="0">személyre szabott e-mail-k:</Label>
+        <Label Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="2">Profilok:</Label>
+
+        <Label Grid.Row="7" Grid.Column="0" Margin="2" Grid.RowSpan="3">Rólunk:</Label>
+
+        <Button Grid.Row="6" Margin="0,67,-78,8" HorizontalAlignment="Right" MinWidth="80" Grid.Column="1" Height="25"
+                Command="{Binding DoSaveCommand}"
+                CommandParameter="{Binding Settings}"
+                >Mentés</Button>
+        <Button Grid.Row="6" Margin="0,36,-78,39" HorizontalAlignment="Right" MinWidth="80" Grid.Column="1" Height="25"
+                Command="{Binding DoDeleteCommand}"
+                CommandParameter="{Binding Settings}"
+                >Törlés</Button>
+        <Button Grid.Row="6" Margin="0,2,-78,73" HorizontalAlignment="Right" MinWidth="80" Grid.Column="1" Height="25"
+                Command="{Binding DoNewSettingsCommand}"
+                >új adat</Button>
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Settings.Name}" VerticalAlignment="Center" Width="211"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,4" Grid.Row="2" TextWrapping="Wrap" Text="{Binding Settings.email}" VerticalAlignment="Bottom" Width="211" RenderTransformOrigin="0.507,0.014"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" TextWrapping="Wrap" Text="{Binding Settings.password}" VerticalAlignment="Center" Width="211"/>
+        <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="10,23,0,0" Grid.Row="3" VerticalAlignment="Center" Width="211" Grid.RowSpan="2" ItemsSource="{Binding Nyelv}"
+                  SelectedItem="{Binding SelectNyelv}"
+                  />
+        <RadioButton Grid.Column="1" Content="igen" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="5" VerticalAlignment="Center"/>
+        <RadioButton Grid.Column="1" Content="nem" HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Center" Margin="64,0,0,0"/>
+        <ListBox Grid.Row="6" Margin="2,2,2,2" Grid.Column="1" ItemsSource="{Binding Lis}" SelectedItem="{Binding Settings}"/>
+        <GroupBox Header="" Grid.Row="7" Margin="2,0,-345,0"  Content="{Binding Szoveg}" VerticalAlignment="Center" Height="168" Grid.Column="1"/>
+    </Grid>
+</UserControl>
