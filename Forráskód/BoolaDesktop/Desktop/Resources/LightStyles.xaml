@@ -42,6 +42,14 @@
     </Style>
     <Style TargetType="TextBox">
         <Setter Property="Background" Value="#dff4ff"></Setter>
-        <Setter Property="Foreground" Value="#006783"
+        <Setter Property="Foreground" Value="#006783"></Setter>
+        <Setter Property="BorderThickness" Value="1"></Setter>
+        <Setter Property="BorderBrush" Value="#191c1e"></Setter>
+    </Style>
+    <Style TargetType="ComboBox">
+        <Setter Property="Background" Value="#dff4ff"></Setter>
+        <Setter Property="Foreground" Value="#006783"></Setter>
+        <Setter Property="BorderThickness" Value="1"></Setter>
+        <Setter Property="BorderBrush" Value="#191c1e"></Setter>
     </Style>
 </ResourceDictionary>
