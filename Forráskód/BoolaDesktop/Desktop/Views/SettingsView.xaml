@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:Desktop.ViewModels"
              xmlns:local="clr-namespace:Desktop.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d" Width="1064" Height="488">
     <UserControl.DataContext>
         <vm:SettingsViewModel/>
     </UserControl.DataContext>
@@ -57,6 +56,6 @@
         <RadioButton Grid.Column="1" Content="igen" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="5" VerticalAlignment="Center"/>
         <RadioButton Grid.Column="1" Content="nem" HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Center" Margin="64,0,0,0"/>
         <ListBox Grid.Row="6" Margin="2,2,2,2" Grid.Column="1" ItemsSource="{Binding Lis}" SelectedItem="{Binding Settings}"/>
-        <GroupBox Header="" Grid.Row="7" Margin="2,0,-345,0"  Content="{Binding Szoveg}" VerticalAlignment="Center" Height="168" Grid.Column="1"/>
+        <GroupBox Header="" Grid.Row="7" Margin="2,0,-447,0"  Content="{Binding Szoveg}" VerticalAlignment="Center" Height="168" Grid.Column="1"/>
     </Grid>
 </UserControl>
