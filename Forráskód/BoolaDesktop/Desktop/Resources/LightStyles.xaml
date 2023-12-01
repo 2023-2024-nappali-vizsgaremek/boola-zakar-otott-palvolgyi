@@ -9,6 +9,7 @@
         <Setter Property="FontSize" Value="14pt"></Setter>
     </Style>
     <Style TargetType="GroupBox">
+        <Setter Property="BorderBrush" Value="#191c1e"></Setter>
         <Setter Property="Foreground" Value="#006783"></Setter>
         <Setter Property="FontFamily" Value="./#Inter Regular"></Setter>
         <Setter Property="FontSize" Value="14pt"></Setter>
@@ -51,5 +52,18 @@
         <Setter Property="Foreground" Value="#006783"></Setter>
         <Setter Property="BorderThickness" Value="1"></Setter>
         <Setter Property="BorderBrush" Value="#191c1e"></Setter>
+    </Style>
+    <Style TargetType="RadioButton">
+        <Setter Property="Foreground" Value="#006783"></Setter>
+        <Setter Property="BorderBrush" Value="#191c1e"></Setter>
+    </Style>
+    <Style TargetType="ListBox">
+        <Setter Property="Background" Value="#dff4ff"></Setter>
+        <Setter Property="Foreground" Value="#006783"></Setter>
+        <Setter Property="BorderBrush" Value="#191c1e"></Setter>
+    </Style>
+    <Style TargetType="Button">
+        <Setter Property="Background" Value="#004d67"></Setter>
+        <Setter Property="Foreground" Value="#bce9ff"></Setter>
     </Style>
 </ResourceDictionary>
