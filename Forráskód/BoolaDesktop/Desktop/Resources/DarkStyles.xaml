@@ -51,5 +51,22 @@
         <Setter Property="Foreground" Value="#bce9ff"></Setter>
         <Setter Property="BorderThickness" Value="1"></Setter>
         <Setter Property="BorderBrush" Value="#191c1e"></Setter>
+        <Setter Property="Width" Value="211"></Setter>
+    </Style>
+    <Style TargetType="RadioButton">
+        <Setter Property="Foreground" Value="#bce9ff"></Setter>
+        <Setter Property="BorderBrush" Value="#191c1e"></Setter>
+    </Style>
+    <Style TargetType="ListBox">
+        <Setter Property="Background" Value="#001f2a"></Setter>
+        <Setter Property="Foreground" Value="#bce9ff"></Setter>
+        <Setter Property="BorderBrush" Value="#191c1e"></Setter>
+    </Style>
+    <Style TargetType="Button">
+        <Setter Property="Background" Value="#0080aa"></Setter>
+        <Setter Property="Foreground" Value="#bce9ff"></Setter>
+    </Style>
+    <Style TargetType="ComboBoxItem">
+        <Setter Property="Width" Value="211"></Setter>
     </Style>
 </ResourceDictionary>
