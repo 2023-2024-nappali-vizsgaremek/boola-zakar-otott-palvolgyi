@@ -16,4 +16,12 @@ class DbConnector(dbLocation: String) {
             exitProcess(0)
         }
     }
+
+    fun getConnection():Connection{
+        return db;
+    }
+
+    fun testConnection():Boolean{
+        return db.isValid(5)
+    }
 }
