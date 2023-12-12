@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Desktop.Models
 {
-    internal class NewExpnse
+    public class NewExpnse
     {
        
 

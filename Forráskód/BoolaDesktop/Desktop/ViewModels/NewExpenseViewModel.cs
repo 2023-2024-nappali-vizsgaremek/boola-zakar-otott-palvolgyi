@@ -54,7 +54,7 @@ namespace Desktop.ViewModels
             Expnse.currency= cur.First();
 }
         [RelayCommand]
-        public void DoSave(NewExpnse newExpnse)
+        public void Add(NewExpnse newExpnse)
         {
             Lista.Add(newExpnse);
             OnPropertyChanged(nameof(Lista));
