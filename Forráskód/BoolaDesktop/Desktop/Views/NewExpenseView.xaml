@@ -62,7 +62,7 @@
             <Label>Spending</Label>
 
             <Label Grid.Row="0" Grid.Column="0" Margin="5,5,5,5">Category</Label>
-            <ComboBox Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="5,5,5,5"></ComboBox>
+            <ComboBox Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Margin="0,42,139,0" Grid.ColumnSpan="2"></ComboBox>
             <Label Grid.Row="0" Grid.Column="1" Margin="5,5,5,5">Tags</Label>
             <ComboBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Margin="5,5,5,5"></ComboBox>
             <Label Grid.Row="0" Grid.Column="2" Margin="5,5,5,5">Amount</Label>

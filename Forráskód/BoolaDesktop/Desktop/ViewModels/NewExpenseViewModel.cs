@@ -8,5 +8,6 @@ namespace Desktop.ViewModels
 {
     public partial class NewExpenseViewModel
     {
+        public 
     }
 }
