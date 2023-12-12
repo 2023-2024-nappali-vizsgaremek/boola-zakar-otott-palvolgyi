@@ -21,7 +21,7 @@ namespace Desktop.ViewModels
         [RelayCommand]
         public void ChangeToAddWindow()
         {
-            //childViewModel = new newExpensesViewModel();
+            childViewModel = new NewExpenseViewModel();
         }
 
         [RelayCommand]
