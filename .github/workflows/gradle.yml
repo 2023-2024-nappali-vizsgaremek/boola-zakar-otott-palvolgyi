@@ -32,6 +32,7 @@ jobs:
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
         arguments: build
+        run: chmod +x Forráskód/Backend/backend/gradlew
         build-root-directory: Forráskód/Backend/backend/
     - name: Git deploy to Heroku
       # You may pin to the exact commit or the version.
