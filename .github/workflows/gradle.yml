@@ -35,6 +35,8 @@ jobs:
       with:
         arguments: build
         build-root-directory: Forráskód/Backend/backend/
+    - name: deepen clone
+      run: git fetch --all --unshallow
     - name: Heroku Action
       # You may pin to the exact commit or the version.
       # uses: CDNievas/heroku-action@c9cf9c85571e67583e44ec92c0d1113f66b0e838
