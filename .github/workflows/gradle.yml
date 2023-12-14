@@ -1,0 +1,52 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
+
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: [ "main","backend"]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+    - name: Build with Gradle
+      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
+      with:
+        arguments: build
+        gradle-executable: Forráskód/Backend/backend/gradle/wrapper/grade-wrapper.jar
+    - name: Git deploy to Heroku
+      # You may pin to the exact commit or the version.
+      # uses: onekiloparsec/heroku-node-deploy-subfolder@85d5701f800be8126e12b7f6f47e965c71f67b56
+      uses: onekiloparsec/heroku-node-deploy-subfolder@v1.1.0
+      with:
+        # Your Heroku API key. This will be used for authentication. You can find it in your Heroku account settings
+        api_key: ${{ secrets.HEROKU_API_KEY }}
+        # The email of your Heroku account (needed for auth).
+        email: szt2otokov@vasvari.org
+        # The app name to use for deploying/updating
+        app_name: boola_backend
+        # The Heroku branch name that you would like to deploy to (`master` or `main`).
+        heroku_branch: main
+        # The subfolder where your built code is sitted, e.g. `dist`.
+        subfolder: Forráskód/Backend/backend/build/distributions/backend-0.0.1/backend-0.0.1/bin
+          
+              
