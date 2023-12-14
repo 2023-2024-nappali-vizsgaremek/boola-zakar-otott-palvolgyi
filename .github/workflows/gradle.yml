@@ -45,7 +45,7 @@ jobs:
         # The email of your Heroku account (needed for auth).
         email: szt2otokov@vasvari.org
         # The app name to use for deploying/updating
-        app_name: boola_backend
+        app_name: boola-backend
         # The Heroku branch name that you would like to deploy to (`master` or `main`).
         heroku_branch: main
         # The subfolder where your built code is sitted, e.g. `dist`.
