@@ -52,5 +52,5 @@ jobs:
         procfile: "web: java -jar Forráskód\\Backend\\backend\\build\\libs\\backend-0.0.1.jar"
         # Set to true if you need upload files generated dynamically by the GitHub Action to Heroku
         dynamicFiles: true
-        buildpacks: "'https://github.com/heroku/heroku-buildpack-gradle.git'"
+        buildpacks: "https://github.com/heroku/heroku-buildpack-gradle.git"
         
