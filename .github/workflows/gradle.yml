@@ -35,25 +35,17 @@ jobs:
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
         arguments: build
-        working-directory: Forráskód/Backend/backend
-    - name: deepen clone
-      run: git fetch --all --unshallow
-      working-directory: Forráskód/Backend/backend
+        build-root-directory: Forráskód/Backend/backend
+   # - name: deepen clone
+    #  run: git fetch --all --unshallow
+     # working-directory: Forráskód/Backend/backend
     - name: Deploy to Heroku
-      # You may pin to the exact commit or the version.
-      # uses: CDNievas/heroku-action@c9cf9c85571e67583e44ec92c0d1113f66b0e838
-      uses: CDNievas/heroku-action@v1.0
+      uses: behe/heroku-build@v1.2
       with:
-        # Used for authentication. You can find it in your heroku homepage account settings
-        heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-        # Email from Heroku Account
-        heroku_email: szt2otokov@vasvari.org
-        # The appname to use for deploying/updating
-        heroku_app_name: boola-backend
-        # Contents of the Procfile to save and deploy
-        procfile: "web: java -jar .\\build\\libs\\backend-0.0.1.jar"
-        # Set to true if you need upload files generated dynamically by the GitHub Action to Heroku
-        dynamicFiles: true
-        buildpacks: "[\"https://github.com/heroku/heroku-buildpack-gradle.git\"]"
-        working-directory: Forráskód/Backend/backend
-        
+          # Name of Heroku application
+          app-name: boola-backend
+          # API key with the deploy role
+          api-key: ${{secrets.HEROKU_API_KEY}}
+          # Directory to upload
+          path: Forráskód/Backend/backend
+              
