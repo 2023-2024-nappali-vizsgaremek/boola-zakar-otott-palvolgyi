@@ -1,1 +1,0 @@
-web: java -jar "Forráskód\Backend\backend\build\libs\backend-0.0.1.jar"
