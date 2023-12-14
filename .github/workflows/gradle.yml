@@ -48,7 +48,4 @@ jobs:
         app_name: boola-backend
         # The Heroku branch name that you would like to deploy to (`master` or `main`).
         heroku_branch: main
-        # The subfolder where your built code is sitted, e.g. `dist`.
-        subfolder: Forráskód/Backend/backend/build/distributions/backend-0.0.1/backend-0.0.1/bin
-          
-              
+        
