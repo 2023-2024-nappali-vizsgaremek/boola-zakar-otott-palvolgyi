@@ -28,13 +28,14 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
+    - name: enter backend folder
+      run: cd Forráskód/Backend/backend
     - name: set execution rights to gradlew
-      run: chmod +x Forráskód/Backend/backend/gradlew
+      run: chmod +x ./gradlew
     - name: Build with Gradle
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
         arguments: build
-        build-root-directory: Forráskód/Backend/backend/
     - name: deepen clone
       run: git fetch --all --unshallow
     - name: Deploy to Heroku
@@ -49,7 +50,7 @@ jobs:
         # The appname to use for deploying/updating
         heroku_app_name: boola-backend
         # Contents of the Procfile to save and deploy
-        procfile: "web: java -jar Forráskód\\Backend\\backend\\build\\libs\\backend-0.0.1.jar"
+        procfile: "web: java -jar .\\build\\libs\\backend-0.0.1.jar"
         # Set to true if you need upload files generated dynamically by the GitHub Action to Heroku
         dynamicFiles: true
         buildpacks: "[\"https://github.com/heroku/heroku-buildpack-gradle.git\"]"
