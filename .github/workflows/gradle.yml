@@ -37,7 +37,7 @@ jobs:
         build-root-directory: Forráskód/Backend/backend/
     - name: deepen clone
       run: git fetch --all --unshallow
-    - name: Heroku Action
+    - name: Deploy to Heroku
       # You may pin to the exact commit or the version.
       # uses: CDNievas/heroku-action@c9cf9c85571e67583e44ec92c0d1113f66b0e838
       uses: CDNievas/heroku-action@v1.0
@@ -52,5 +52,5 @@ jobs:
         procfile: "web: java -jar Forráskód\\Backend\\backend\\build\\libs\\backend-0.0.1.jar"
         # Set to true if you need upload files generated dynamically by the GitHub Action to Heroku
         dynamicFiles: true
-        buildpacks: "['https://github.com/heroku/heroku-buildpack-gradle.git']"
+        buildpacks: "'https://github.com/heroku/heroku-buildpack-gradle.git'"
         
