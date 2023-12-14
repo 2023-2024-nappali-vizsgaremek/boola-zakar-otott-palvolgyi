@@ -12,13 +12,14 @@ class DataControllerFactory(poolSize: Int) {
     }
     companion object {
         private val controllerPool: Queue<DataController> = LinkedList()
-        fun getController():DataController{
-            try {
-                return controllerPool.remove();
+        fun getController():DataController?{
+            return try {
+                controllerPool.remove()
             } catch (e:Exception){
-                error("connection pool size exceeded!")
+                e.message?.let { error(it) }
+                null
             }
-
         }
+
     }
 }

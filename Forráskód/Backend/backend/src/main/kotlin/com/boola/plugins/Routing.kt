@@ -21,7 +21,9 @@ fun Application.configureRouting() {
             call.respondText("Hello World!")
         }
         get("/tst") {
-            call.respond(DataControllerFactory.getController().getDbStatus())
+            val con = DataControllerFactory.getController()
+            if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+            else call.respond(con.getDbStatus())
         }
     }
 }
