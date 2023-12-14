@@ -46,3 +46,6 @@ tasks.jar {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
+tasks.register("stage") {
+    dependsOn("clean","compileKotlin","assemble")
+}
