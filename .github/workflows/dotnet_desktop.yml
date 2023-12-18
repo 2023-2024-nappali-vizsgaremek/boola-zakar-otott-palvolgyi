@@ -23,8 +23,8 @@ jobs:
     - name: enter source folder
       run: cd Forráskód/BoolaDesktop
     - name: Restore dependencies
-      run: dotnet restore ./BoolaDesktop.sln
+      run: dotnet restore Desktop/Desktop.csproj
     - name: Build
-      run: dotnet build --no-restore ./BoolaDesktop.sln
+      run: dotnet build --no-restore Desktop/Desktop.csproj
     - name: Test
-      run: dotnet test --no-build --verbosity normal ./BoolaDesktop.sln
+      run: dotnet test --no-build --verbosity normal Desktop/Desktop.csproj
