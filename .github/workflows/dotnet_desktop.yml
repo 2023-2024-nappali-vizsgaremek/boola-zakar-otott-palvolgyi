@@ -21,10 +21,10 @@ jobs:
       with:
         dotnet-version: 7.0.x
     - name: enter source folder
-      run: cd Forráskód/BoolaDesktop
+      run: cd Forráskód/BoolaDesktop/Desktop
     - name: Restore dependencies
-      run: dotnet restore Desktop/Desktop.csproj
+      run: dotnet restore ./Desktop.csproj
     - name: Build
-      run: dotnet build --no-restore Desktop/Desktop.csproj
+      run: dotnet build --no-restore ./Desktop.csproj
     - name: Test
-      run: dotnet test --no-build --verbosity normal Desktop/Desktop.csproj
+      run: dotnet test --no-build --verbosity normal ./Desktop.csproj
