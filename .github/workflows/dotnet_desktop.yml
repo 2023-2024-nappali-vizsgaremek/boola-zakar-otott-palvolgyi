@@ -20,11 +20,12 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
-    - name: enter source folder
-      run: cd Forráskód/BoolaDesktop/Desktop
     - name: Restore dependencies
       run: dotnet restore ./Desktop.csproj
+      working-directory: Forráskód/BoolaDesktop/Desktop
     - name: Build
       run: dotnet build --no-restore ./Desktop.csproj
+      working-directory: Forráskód/BoolaDesktop/Desktop
     - name: Test
       run: dotnet test --no-build --verbosity normal ./Desktop.csproj
+      working-directory: Forráskód/BoolaDesktop/Desktop
