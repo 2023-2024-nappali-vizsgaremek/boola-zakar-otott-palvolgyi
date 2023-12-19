@@ -15,13 +15,13 @@ namespace Desktop.ViewModels
 
         public MainWindowViewModel()
         {
-            childViewModel = new MainMenuViewModel();
+            ChildViewModel = new MainMenuViewModel();
         }
 
         [RelayCommand]
         public void ChangeToAddWindow()
         {
-            //childViewModel = new newExpensesViewModel();
+            ChildViewModel = new NewExpenseViewModel();
         }
 
         [RelayCommand]

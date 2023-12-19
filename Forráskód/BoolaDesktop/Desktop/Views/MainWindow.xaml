@@ -17,9 +17,9 @@
         <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
             <local:SettingsView/>
         </DataTemplate>
-        <!--<DataTemplate DataType="{x:Type vm:newExpensesViewModel}">
+        <DataTemplate DataType="{x:Type vm:NewExpenseViewModel}">
             <view:NewExpenseView/>
-        </DataTemplate>-->
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
