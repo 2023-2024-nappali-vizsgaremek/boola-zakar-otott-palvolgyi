@@ -18,7 +18,7 @@
             <local:SettingsView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:NewExpenseViewModel}">
-            <view:NewExpenseView/>
+            <local:NewExpenseView/>
         </DataTemplate>
     </Window.Resources>
     <Grid>

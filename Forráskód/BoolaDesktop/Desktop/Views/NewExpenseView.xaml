@@ -36,12 +36,12 @@
             </TextBox>
             <Label Content="Currency" Grid.Column="2" Grid.Row="1" >
             </Label>
-            <ComboBox ItemsSource="{Binding Currency}" Width="120" Height="20" Grid.Column="2" Grid.Row="1" >
+            <ComboBox ItemsSource="{Binding Cur}" SelectedItem="{Binding Currency}" Width="120" Height="20" Grid.Column="2" Grid.Row="1" >
             </ComboBox>
             <Label Content="Category" Grid.Row="2">
                 
             </Label>
-            <ComboBox ItemsSource="{Binding SelectCategory}" Width="120" Height="20" Grid.Column="0" Grid.Row="2" />
+            <ComboBox ItemsSource="{Binding Cat}" SelectedItem="{Binding SelectCategory}"  Width="120" Height="20" Grid.Column="0" Grid.Row="2" />
             <Label Content="Tag" Grid.Row="2" Grid.Column="1"> 
             </Label>
             <TextBox Text="{Binding Expnse.tag}" Width="120" Height="20" Grid.Row="2" Grid.Column="1" >
