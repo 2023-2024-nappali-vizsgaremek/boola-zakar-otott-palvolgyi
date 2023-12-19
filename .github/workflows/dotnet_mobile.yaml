@@ -31,7 +31,7 @@ jobs:
       run: dotnet restore ./Mobile/Mobile.csproj
       working-directory: Forráskód/BoolaMobile
     - name: build app
-      run: dotnet build ./Mobile/Mobile.csproj -f net6.0-android --no-restore
+      run: dotnet build ./Mobile/Mobile.csproj -f net7.0-android --no-restore
       working-directory: Forráskód/BoolaMobile
     - name: test app
       run: dotnet test ./Mobile/Mobile.csproj
