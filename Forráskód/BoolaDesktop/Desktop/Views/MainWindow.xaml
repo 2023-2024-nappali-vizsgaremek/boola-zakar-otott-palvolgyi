@@ -22,16 +22,8 @@
         </DataTemplate>
     </Window.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Menu Grid.Row="0">
-            <MenuItem Header="Fájl">
-                <MenuItem Header="Add new expense" Command="{Binding ChangeToAddWindowCommand}"></MenuItem>
-                <MenuItem Header="Settings" Command="{Binding ChangeToSettingsWindowCommand}"></MenuItem>
-            </MenuItem>
-        </Menu>
+       
+       
         <ContentControl Content="{Binding ChildViewModel}" Grid.Row="1"></ContentControl>
 
     </Grid>
