@@ -37,5 +37,9 @@ namespace Desktop.ViewModels
         {
             ChildViewModel = new SettingsViewModel();
         }
+        [RelayCommand]
+        public void ChangeToProfilesWindow() {
+            ChildViewModel = new ProfileViewModel();
+        }
     }
 }
