@@ -8,6 +8,21 @@ namespace Desktop.Models
 {
     class Profile
     {
-    public int Id { get; set; }
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+
+
+        public Profile(Guid id,string Name){
+        this.Id = id;
+        this.Name = Name;
+        
+        
+        }
+        public Profile() {
+        Id = Guid.NewGuid();
+            Name = "Standard";
+        
+        }
+
     }
 }

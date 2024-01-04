@@ -13,8 +13,5 @@
 	<ItemGroup>
 		<Resource Include="Resources/Inter.ttf" />
 	</ItemGroup>
-	<ItemGroup>
-		<Folder Include="ViewModels/" />
-	</ItemGroup>
 
 </Project>
