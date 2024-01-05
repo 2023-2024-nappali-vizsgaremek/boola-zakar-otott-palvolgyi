@@ -10,7 +10,15 @@
     <UserControl.DataContext>
         <vm:ProfileViewModel/>
     </UserControl.DataContext>
+   
     <Grid>
-            
+        <Button Height="25" Width="60" Margin="0,0,700,400" Content="Vissza" Command="{Binding ChangeToMainWindowCommand}"/>
+        <Label Content=" Profil Név" Margin="0,0,0,200" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox Height="25" Width="200" Margin="0,0,0,150" Text="{Binding Profile.Name}"/>
+        <ListBox Height="100" Width="200" ItemsSource="{Binding Lista2}" SelectedItem="{Binding Profile}"/>
+        <Button Height="25" Width="60" Margin="0,150,100,0" Content="Mentés" Command="{Binding DoSaveCommand}"/>
+        
+
+
     </Grid>
 </UserControl>

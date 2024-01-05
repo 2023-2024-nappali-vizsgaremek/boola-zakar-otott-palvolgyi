@@ -41,5 +41,11 @@ namespace Desktop.ViewModels
         public void ChangeToProfilesWindow() {
             ChildViewModel = new ProfileViewModel();
         }
+        [RelayCommand]
+        public void ChangeToMainWindow()
+        {
+            ChildViewModel=new MainMenuViewModel();
+        }
+        
     }
 }
