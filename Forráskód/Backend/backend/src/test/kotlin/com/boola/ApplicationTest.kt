@@ -26,7 +26,7 @@ class ApplicationTest {
 
     @Test
     fun testDb() {
-        val db = DbConnector("localhost")
+        val db = DbConnector()
         assertEquals(db.testConnection(),true)
     }
 
@@ -56,6 +56,24 @@ class ApplicationTest {
             controller = DataControllerFactory.getController()
         }
         assert(controller == null)
+    }
+
+    @Test
+    fun testGetAccounts(){
+        val size = 1
+        DataControllerFactory(size)
+        val controller = DataControllerFactory.getController()
+        val accounts = controller?.getAccountsAll()
+        assert(accounts != null && accounts.size > 0)
+    }
+
+    @Test
+    fun testGetCurrency(){
+        val size = 1
+        DataControllerFactory(size)
+        val controller = DataControllerFactory.getController()
+        val currency = controller?.getCurrency("HUF")
+        assert(currency != null)
     }
 
 }
