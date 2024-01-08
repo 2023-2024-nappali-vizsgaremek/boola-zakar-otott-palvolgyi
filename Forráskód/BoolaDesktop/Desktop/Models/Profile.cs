@@ -25,7 +25,7 @@ namespace Desktop.Models
         }
         public override string ToString()
         {
-            return Name+" "+Id;
+            return "Teszt";
         }
 
     }
