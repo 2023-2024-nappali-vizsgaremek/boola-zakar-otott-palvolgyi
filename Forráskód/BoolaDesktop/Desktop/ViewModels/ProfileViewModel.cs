@@ -9,6 +9,7 @@ using Desktop.Models;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.ComponentModel;
+using System.Windows.Controls;
 
 namespace Desktop.ViewModels
 {
@@ -17,7 +18,8 @@ namespace Desktop.ViewModels
         [ObservableProperty]
         private Profile profile;
         [ObservableProperty]
-       private ObservableCollection<Profile> lista = new ObservableCollection<Profile>();
+       private ObservableCollection<string> lista = new ObservableCollection<string>();
+        private List<Profile> lista_ = new List<Profile>(); 
         public ProfileViewModel()
         {
             Profile= new Profile();
@@ -26,16 +28,22 @@ namespace Desktop.ViewModels
         [RelayCommand]
        public void DoSave(Profile profile)
         {
-            
-            Lista.Add(profile);
+            lista_.Add(profile);
+            Lista.Add(Profile.Name);
             OnPropertyChanged(nameof(Lista));
             MessageBox.Show(Lista.Count.ToString());
         }
         [RelayCommand]
-        public void Delete(Profile profile)
+        public void Delete( Profile profile)
         {
-            Lista.Remove(profile);
+            lista_.Remove(profile);
+            Lista.Remove(Profile.Name);
             OnPropertyChanged(nameof(Lista));
+        }
+        [RelayCommand]
+        public void ChangeToMainWindow()
+        {
+            MainWindowViewModel.Instance.ChangeToMainWindow();
         }
 
     }

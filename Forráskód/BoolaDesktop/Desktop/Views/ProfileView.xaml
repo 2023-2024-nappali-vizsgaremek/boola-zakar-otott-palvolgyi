@@ -14,14 +14,12 @@
     <Grid>
         <Button Height="25" Width="60" Margin="10,50,600,300" Content="Vissza" Command="{Binding ChangeToMainWindowCommand}"/>
         <Label Content=" Profil Név" Margin="0,0,0,200" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBox Height="25" Width="200" Margin="0,0,0,150" Text="{Binding Profile.Name}"/>
-        <ComboBox Height="25" Width="200" Text="Profilok"  ItemsSource="{Binding Lista}" SelectedItem="{Binding Profile}">
-            <ComboBox.Style>
-                <x:Null/>
-            </ComboBox.Style>
-        </ComboBox>
-        <Button Height="25" Width="60" Margin="0,100,100,0" Content="Mentés" Command="{Binding DoSaveCommand}"/>
-        <Button  Height="25" Width="60" Content="Törlés" Margin="100,100,0,0" Command="{Binding DeleteCommand}"></Button>
+        <TextBox x:Name="TextBox1" Height="25" Width="200" Margin="0,0,0,150" Text="{Binding Profile.Name}"/>
+        <ListBox Height="100" Width="200"   ItemsSource="{Binding Lista}" SelectedItem="{Binding Profile.Name}"/>
+
+
+        <Button Height="25" Width="60" Margin="0,150,100,0" Content="Mentés" Command="{Binding DoSaveCommand}"/>
+        <Button  Height="25" Width="60" Content="Törlés" Margin="100,150,0,0" Command="{Binding DeleteCommand}"></Button>
         
         
 
