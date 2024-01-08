@@ -11,11 +11,18 @@ namespace Desktop.ViewModels
 {
     public partial class MainWindowViewModel : ObservableObject
     {
-        [ObservableProperty] private ObservableObject childViewModel;
+        [ObservableProperty] 
+     private ObservableObject childViewModel;
+     
+    public static MainWindowViewModel Instance { get; private set; }
 
         public MainWindowViewModel()
         {
             ChildViewModel = new MainMenuViewModel();
+            if (Instance == null)
+            {
+                Instance = this;
+            }
         }
 
         [RelayCommand]
@@ -24,10 +31,21 @@ namespace Desktop.ViewModels
             ChildViewModel = new NewExpenseViewModel();
         }
 
+
         [RelayCommand]
         public void ChangeToSettingsWindow()
         {
             ChildViewModel = new SettingsViewModel();
         }
+        [RelayCommand]
+        public void ChangeToProfilesWindow() {
+            ChildViewModel = new ProfileViewModel();
+        }
+        [RelayCommand]
+        public void ChangeToMainWindow()
+        {
+            ChildViewModel=new MainMenuViewModel();
+        }
+        
     }
 }

@@ -24,7 +24,7 @@ namespace Desktop.ViewModels
         [ObservableProperty]
         private string pénznem;
         [ObservableProperty]
-        List<NewExpnse> lista = new List<NewExpnse>();
+        private ObservableCollection<NewExpnse> lista = new ObservableCollection<NewExpnse>();
         private Category _SelectCategory = Category.General;
         private Currency _Currency = Currency.HUF;
 
