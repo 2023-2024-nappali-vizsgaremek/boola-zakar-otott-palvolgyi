@@ -37,7 +37,7 @@ namespace Desktop.ViewModels
         [RelayCommand]
         public void ChangeToMainWindow()
         {
-            MainWindowViewModel.Instance.BackToTheMain();
+            MainWindowViewModel.Instance.ChangeToMainWindow();
         }
     }
 }

@@ -23,6 +23,10 @@ namespace Desktop.Models
             Name = "Standard";
         
         }
+        public override string ToString()
+        {
+            return Name+" "+Id;
+        }
 
     }
 }

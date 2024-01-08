@@ -17,7 +17,7 @@ namespace Desktop.ViewModels
         [ObservableProperty]
         private Profile profile;
         [ObservableProperty]
-       private ObservableCollection<Profile> lista2 = new ObservableCollection<Profile>();
+       private ObservableCollection<Profile> lista = new ObservableCollection<Profile>();
         public ProfileViewModel()
         {
             Profile= new Profile();
@@ -27,15 +27,15 @@ namespace Desktop.ViewModels
        public void DoSave(Profile profile)
         {
             
-            Lista2.Add(profile);
-            OnPropertyChanged(nameof(Lista2));
-            MessageBox.Show("dun");
+            Lista.Add(profile);
+            OnPropertyChanged(nameof(Lista));
+            MessageBox.Show(Lista.Count.ToString());
         }
         [RelayCommand]
         public void Delete(Profile profile)
         {
-            Lista2.Remove(profile);
-            OnPropertyChanged(nameof(Lista2));
+            Lista.Remove(profile);
+            OnPropertyChanged(nameof(Lista));
         }
 
     }
