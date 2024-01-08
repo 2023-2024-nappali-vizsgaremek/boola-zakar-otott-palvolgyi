@@ -10,7 +10,8 @@ class DataController(private val connection: Connection) {
     private val getAccountStatement: PreparedStatement = connection.prepareStatement(
         "SELECT * FROM account WHERE email= ?")
     private val getAccountsStatement:PreparedStatement = connection.prepareStatement("SELECT * FROM account")
-    private val getCurrencyStatement:PreparedStatement = connection.prepareStatement("SELECT name from currency WHERE code = ?")
+    private val getCurrencyStatement:PreparedStatement = connection.prepareStatement(
+        "SELECT name from currency WHERE code = ?")
     private val getCurrenciesStatement:PreparedStatement = connection.prepareStatement("SELECT * FROM currency")
 
     fun getDbStatus():Boolean {

@@ -18,8 +18,9 @@ class DbConnector() {
             db = DriverManager.getConnection(
                 "jdbc:postgresql://${herokUri.host}:${herokUri.port}${herokUri.path}?sslmode=require",username,
                 password)
+            println("Successfully connected to " + herokUri.host)
         } catch (e:SQLException) {
-            println("Postgres connection failed! Error:" + e.message + "\n exiting...")
+            error("Postgres connection failed! Error:" + e.message + "\n exiting...")
             exitProcess(0)
         }
     }
