@@ -1,1 +1,1 @@
-web: ./gradlew stage
+web: chmod a+x gradlew && ./gradlew stage
