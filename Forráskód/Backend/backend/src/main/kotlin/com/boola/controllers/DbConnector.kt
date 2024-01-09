@@ -1,18 +1,26 @@
 package com.boola.controllers
 
+import java.net.URI
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.SQLException
 import kotlin.system.exitProcess
 
-class DbConnector(dbLocation: String) {
+class DbConnector() {
     private val db: Connection
 
     init {
         try {
-            db = DriverManager.getConnection("jdbc:mariadb://$dbLocation:3306/boola?user=root&pw=")
+            val herokUri: URI = URI.create(System.getenv("DATABASE_URL"))
+            val splitUri = herokUri.userInfo.split(':')
+            val username = splitUri.first()
+            val password = splitUri.last()
+            db = DriverManager.getConnection(
+                "jdbc:postgresql://${herokUri.host}:${herokUri.port}${herokUri.path}?sslmode=require",username,
+                password)
+            println("Successfully connected to " + herokUri.host)
         } catch (e:SQLException) {
-            println("MySQL connection failed! Error:" + e.message + "\n exiting...")
+            error("Postgres connection failed! Error:" + e.message + "\n exiting...")
             exitProcess(0)
         }
     }

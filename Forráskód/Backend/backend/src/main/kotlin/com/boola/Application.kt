@@ -19,5 +19,5 @@ fun Application.module() {
     configureHTTP()
     configureSerialization()
     configureRouting()
-    DataControllerFactory(5)
+    DataControllerFactory(20)
 }

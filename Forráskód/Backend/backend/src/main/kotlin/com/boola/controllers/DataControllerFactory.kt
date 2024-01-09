@@ -7,7 +7,7 @@ class DataControllerFactory(poolSize: Int) {
 
     init {
         for (d in 0..poolSize){
-            controllerPool.add(DataController(DbConnector("localhost").getConnection()))
+            controllerPool.add(DataController(DbConnector().getConnection()))
         }
     }
     companion object {
