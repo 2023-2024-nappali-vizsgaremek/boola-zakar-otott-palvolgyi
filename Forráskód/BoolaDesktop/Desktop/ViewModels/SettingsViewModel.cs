@@ -59,5 +59,10 @@ namespace Desktop.ViewModels
             Lis.Remove(settingsDoDelete);
             OnPropertyChanged(nameof(Lis));
         }
+        [RelayCommand]
+        public void ChangeToMainWindow()
+        {
+            MainWindowViewModel.Instance.ChangeToMainWindow();
+        }
     }
 }
