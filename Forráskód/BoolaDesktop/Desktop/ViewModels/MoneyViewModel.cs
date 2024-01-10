@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Desktop.ViewModels
 {
@@ -15,7 +16,9 @@ namespace Desktop.ViewModels
         [ObservableProperty]
         private Money money;
         [ObservableProperty]
-        private ObservableCollection<Money> moneys =new ObservableCollection<Money>();
+        private List<Money> moneys = new List<Money>();
+        [ObservableProperty]
+        private ObservableCollection<string>lista=new ObservableCollection<string>();
         public MoneyViewModel()
         {
             Money = new Money();
@@ -23,14 +26,19 @@ namespace Desktop.ViewModels
         [RelayCommand]
         public void DoSave( Money money)
         {
+            Lista.Add((Money.name.ToString()+" "+Money.code.ToString()));
             Moneys.Add(money);
             OnPropertyChanged(nameof(Moneys));
+            
         }
         [RelayCommand]
         public void DoDelete(Money money)
         {
+            Lista.Remove((Money.name.ToString() + " " + Money.code.ToString()));
             Moneys.Remove(money);
             OnPropertyChanged(nameof(Moneys));
+            
+           
         }
         [RelayCommand]
         public void ChangeToMainWindow()
