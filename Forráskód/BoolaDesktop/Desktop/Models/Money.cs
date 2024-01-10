@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Desktop.Models
 {
-   public  class Money
+   public class Money
     {
-        public string name { get; }
-        public string code { get; }
+        public string name { get; set; }
+        public string code { get; set; }
         public Money(string name, string code)
         {
             this.name = name;
