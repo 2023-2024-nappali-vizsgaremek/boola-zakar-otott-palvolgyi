@@ -31,7 +31,7 @@ namespace Desktop.ViewModels
             lista_.Add(profile);
             Lista.Add(Profile.Name);
             OnPropertyChanged(nameof(Lista));
-            MessageBox.Show(Lista.Count.ToString());
+           
         }
         [RelayCommand]
         public void Delete( Profile profile)

@@ -59,5 +59,10 @@ namespace Desktop.ViewModels
             Lista.Add(newExpnse);
             OnPropertyChanged(nameof(Lista));
         }
+        [RelayCommand]
+        public void ChangeToMainWindow()
+        {
+            MainWindowViewModel.Instance.ChangeToMainWindow();
+        }
     }
 } 

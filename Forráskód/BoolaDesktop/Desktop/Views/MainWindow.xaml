@@ -23,6 +23,9 @@
         <DataTemplate DataType="{x:Type vm:ProfileViewModel}">
             <local:UserControl1/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:MoneyViewModel}">
+            <local:MoneyView/>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
        
