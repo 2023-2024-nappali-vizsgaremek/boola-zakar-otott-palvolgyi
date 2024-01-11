@@ -13,14 +13,14 @@ namespace Desktop.Models
 
         public string Payee { get; set; }
         public Category category { get; set; }
-        public Currency currency { get; set; }
+        public Money currency { get; set; }
         public string tag { get; set; }
         public bool Status { get; set; }
         public int Amount { get; set; }
         public string account { get; set; }
         public DateTime date { get; set; }
 
-        public NewExpnse(string payee, Category category, Currency currency, string tag, bool status, int amount, string account, DateTime date)
+        public NewExpnse(string payee, Category category, Money currency, string tag, bool status, int amount, string account, DateTime date)
         {
             Payee = payee;
             this.category = category;
@@ -35,7 +35,7 @@ namespace Desktop.Models
         {
             Payee = "Okt";
             this.category = Category.General;
-            this.currency = Currency.HUF;
+            this.currency = new Money();
             this.tag = "Kölcsön";
             Status = false;
             Amount = 0;
@@ -59,15 +59,6 @@ namespace Desktop.Models
     {
         public List<Category> categories = new() {Category.Travel,Category.Transport,Category.Entertaiment,Category.Health,Category.Shopping,Category.Services,Category.Bills,Category.Groceries,Category.Finance,Category.General };
     }
-    public enum Currency
-    {
-        HUF,
-        USD,
-        EUR
-        
-    }
-    public class currency
-    {
-        public List<Currency> currencies = new() { Currency.USD, Currency.USD, Currency.USD, Currency.EUR, Currency.HUF };
-    }
+    
+    
 }
