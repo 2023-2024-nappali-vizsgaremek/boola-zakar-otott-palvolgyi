@@ -35,8 +35,7 @@ class DataController(private val connection: Connection) {
         do {
             accounts.add(Account(results.getString(0), results.getString(1),
                 results.getString(2)))
-            results.next()
-        } while (!results.isLast)
+        } while (results.next())
         return accounts
     }
 
@@ -51,12 +50,10 @@ class DataController(private val connection: Connection) {
     fun getCurrenciesAll():ArrayList<Currency> {
         getCurrenciesStatement.execute()
         val currencies = ArrayList<Currency>()
-        val results = getCurrenciesStatement.resultSet;
-        results.first()
-        do{
+        val results = getCurrenciesStatement.resultSet
+        while (results.next()){
             currencies.add(Currency(results.getString("code"),results.getString("name")))
-            results.next()
-        } while (!results.isLast)
+        }
         return currencies
     }
 

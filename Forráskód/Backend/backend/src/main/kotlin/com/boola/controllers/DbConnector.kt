@@ -1,5 +1,6 @@
 package com.boola.controllers
 
+import io.github.cdimascio.dotenv.dotenv
 import java.net.URI
 import java.sql.Connection
 import java.sql.DriverManager
@@ -11,7 +12,14 @@ class DbConnector() {
 
     init {
         try {
-            val herokUri: URI = URI.create(System.getenv("DATABASE_URL"))
+            val herokUri: URI = try {
+                val uriString = System.getenv("DATABASE_URL")
+                URI.create(uriString)
+            } catch (e:NullPointerException){
+                val env = dotenv()
+                val uriString = env["DATABASE_URL"]
+                URI.create(uriString)
+            }
             val splitUri = herokUri.userInfo.split(':')
             val username = splitUri.first()
             val password = splitUri.last()
@@ -26,7 +34,7 @@ class DbConnector() {
     }
 
     fun getConnection():Connection{
-        return db;
+        return db
     }
 
     fun testConnection():Boolean{
