@@ -2,8 +2,10 @@ package com.boola.controllers
 
 import com.boola.models.Account
 import com.boola.models.Currency
+import com.boola.models.Profile
 import java.sql.Connection
 import java.sql.PreparedStatement
+import java.util.UUID
 
 class DataController(private val connection: Connection) {
 
@@ -13,6 +15,7 @@ class DataController(private val connection: Connection) {
     private val getCurrencyStatement:PreparedStatement = connection.prepareStatement(
         "SELECT name from currency WHERE code = ?")
     private val getCurrenciesStatement:PreparedStatement = connection.prepareStatement("SELECT * FROM currency")
+    private val getProfileStatement:PreparedStatement =connection.prepareStatement("SELECT * FROM profile WHERE id=?")
 
     fun getDbStatus():Boolean {
         return connection.isValid(4)
@@ -56,5 +59,12 @@ class DataController(private val connection: Connection) {
         }
         return currencies
     }
+    fun getProfile(id:UUID):Profile{
+        getProfileStatement.setObject(1,id)
+        getProfileStatement.execute()
+        val results=getProfileStatement.resultSet
+        return Profile( UUID.fromString(results.getString(0)),results.getString(1),results.getBoolean(2),results.getString(3),UUID.fromString(results.getString(4)),results.getString(5))
+    }
+
 
 }
