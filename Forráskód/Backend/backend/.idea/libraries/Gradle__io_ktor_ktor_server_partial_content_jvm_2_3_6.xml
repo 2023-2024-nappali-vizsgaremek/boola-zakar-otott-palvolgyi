@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: io.ktor:ktor-server-partial-content-jvm:2.3.6" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="io.ktor" artifactId="ktor-server-partial-content-jvm" version="2.3.6" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-partial-content-jvm/2.3.6/b393fbf2b30b35bd23a83c91f131451680612765/ktor-server-partial-content-jvm-2.3.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-partial-content-jvm/2.3.6/e4f06a717b1c54228ee26be0b38e8bf96ebb047b/ktor-server-partial-content-jvm-2.3.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

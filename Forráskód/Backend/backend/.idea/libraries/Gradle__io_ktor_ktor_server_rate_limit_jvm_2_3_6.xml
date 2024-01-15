@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: io.ktor:ktor-server-rate-limit-jvm:2.3.6" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="io.ktor" artifactId="ktor-server-rate-limit-jvm" version="2.3.6" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-rate-limit-jvm/2.3.6/c3b609459cfe4095193928c00201de1ac91e1195/ktor-server-rate-limit-jvm-2.3.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-rate-limit-jvm/2.3.6/38d93934b47b9bd360bf1d9219f617f73f5c18a6/ktor-server-rate-limit-jvm-2.3.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
