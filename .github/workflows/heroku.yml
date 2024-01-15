@@ -1,0 +1,26 @@
+
+name: Deploy server to Heroku
+
+on:
+  schedule:
+    - cron: '0 0 * * 5'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Deploy to Heroku
+      uses: behe/heroku-build@v1.2
+      with:
+          # Name of Heroku application
+          app-name: boola-backend
+          # API key with the deploy role
+          api-key: ${{secrets.HEROKU_API_KEY}}
+          # Directory to upload
+          path: Forráskód/Backend/backend

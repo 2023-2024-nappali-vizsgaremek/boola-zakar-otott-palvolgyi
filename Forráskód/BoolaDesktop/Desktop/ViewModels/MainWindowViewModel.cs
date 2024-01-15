@@ -37,5 +37,18 @@ namespace Desktop.ViewModels
         {
             ChildViewModel = new SettingsViewModel();
         }
+        [RelayCommand]
+        public void ChangeToProfilesWindow() {
+            ChildViewModel = new ProfileViewModel();
+        }
+        [RelayCommand]
+        public void ChangeToMainWindow()
+        {
+            ChildViewModel=new MainMenuViewModel();
+        }
+        [RelayCommand]
+        public void ChangeToMoneyWindow() {
+            ChildViewModel = new MoneyViewModel();
+        }
     }
 }

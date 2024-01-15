@@ -20,6 +20,12 @@
         <DataTemplate DataType="{x:Type vm:NewExpenseViewModel}">
             <local:NewExpenseView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ProfileViewModel}">
+            <local:UserControl1/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:MoneyViewModel}">
+            <local:MoneyView/>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
        

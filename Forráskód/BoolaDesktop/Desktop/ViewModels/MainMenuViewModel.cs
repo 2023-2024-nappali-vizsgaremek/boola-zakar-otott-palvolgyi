@@ -29,5 +29,20 @@ namespace Desktop.ViewModels
         {
            MainWindowViewModel.Instance.ChangeToSettingsWindow();
         }
+        [RelayCommand]
+        public void ChangeToProfilesWindow() 
+        {
+        MainWindowViewModel.Instance.ChangeToProfilesWindow();
+        }
+        [RelayCommand]
+        public void ChangeToMainWindow()
+        {
+            MainWindowViewModel.Instance.ChangeToMainWindow();
+        }
+        [RelayCommand]
+        public void ChangeToMoneyWindow()
+        {
+            MainWindowViewModel.Instance.ChangeToMoneyWindow();
+        }
     }
 }

@@ -1,0 +1,37 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
+
+name: Build and Test backend
+
+on:
+  push:
+    branches: [ "main","backend"]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: ${{secrets.DB_URL}}
+    steps:
+    - uses: actions/checkout@v3
+    - name: making gradlew executable
+      run: chmod +x Forráskód/Backend/backend/gradlew
+    - name: Gradle Build
+      # You may pin to the exact commit or the version.
+      # uses: gradle/gradle-build-action@8cbcb9948b5892387aed077daf6f90e1f0ba5b27
+      uses: gradle/gradle-build-action@v2.11.0
+      with:
+        # Path to the root directory of the build. Default is the root of the GitHub workspace.
+        build-root-directory: Forráskód/Backend/backend
+        arguments: build
+

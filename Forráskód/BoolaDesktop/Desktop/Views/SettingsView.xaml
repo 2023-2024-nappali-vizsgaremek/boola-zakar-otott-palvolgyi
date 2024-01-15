@@ -26,6 +26,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
+        <Button Height="25" Width="100" Margin="0,0,75,0" Content="Vissza" Command="{Binding ChangeToMainWindowCommand}"/>
         <Label Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">Beállítások:</Label>
         <Label Grid.Row="1" Grid.Column="0">Név:</Label>
         <Label Grid.Row="2" Grid.Column="0">e-mail:</Label>
