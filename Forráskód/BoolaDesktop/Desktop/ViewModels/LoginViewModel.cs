@@ -19,7 +19,7 @@ namespace Desktop.ViewModels
             Login = new Login();
         }
         [RelayCommand]
-        public void OnLogin()
+        public void Logon()
         {
             MessageBox.Show("Sikeres bejelentkezés");
             MainWindowViewModel.Instance.ChangeToMainWindow();

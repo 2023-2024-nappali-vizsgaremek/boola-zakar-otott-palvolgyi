@@ -26,6 +26,9 @@
         <DataTemplate DataType="{x:Type vm:MoneyViewModel}">
             <local:MoneyView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:LoginViewModel}">
+            <local:LoginWindow/>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
        
