@@ -16,7 +16,7 @@ class DataController(private val connection: Connection) {
         "SELECT name from currency WHERE code = ?")
     private val getCurrenciesStatement:PreparedStatement = connection.prepareStatement("SELECT * FROM currency")
     private val getProfileStatement:PreparedStatement =connection.prepareStatement("SELECT * FROM profile WHERE id=?")
-
+    private val getProfilesStatement:PreparedStatement=connection.prepareStatement("SELECT * FROM  profile")
     fun getDbStatus():Boolean {
         return connection.isValid(4)
     }
@@ -64,6 +64,15 @@ class DataController(private val connection: Connection) {
         getProfileStatement.execute()
         val results=getProfileStatement.resultSet
         return Profile( UUID.fromString(results.getString(0)),results.getString(1),results.getBoolean(2),results.getString(3),UUID.fromString(results.getString(4)),results.getString(5))
+    }
+    fun getAllprofile():ArrayList<Profile>{
+        getProfilesStatement.execute()
+        val Profiles=ArrayList<Profile>()
+        val results=getProfilesStatement.resultSet
+        while (results.next()){
+            Profiles.add(Profile(UUID.fromString(results.getString("id")),results.getString("name"),results.getBoolean("isBusiness"),results.getString("languageId"),UUID.fromString(results.getString("expenseListId")),results.getString("accountEmail")))
+        }
+        return Profiles
     }
 
 
