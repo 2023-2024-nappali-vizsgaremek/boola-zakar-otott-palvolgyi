@@ -20,6 +20,9 @@ class DataController(private val connection: Connection) {
         "SELECT * FROM expenselist WHERE id = ?")
     private val getExpenseListsStatement:PreparedStatement = connection.prepareStatement(
         "SELECT * FROM expenselist")
+    private val getProfileStatement:PreparedStatement =connection.prepareStatement(
+        "SELECT * FROM profile WHERE id=?")
+    private val getProfilesStatement:PreparedStatement=connection.prepareStatement("SELECT * FROM  profile")
 
     fun getDbStatus():Boolean {
         return connection.isValid(4)

@@ -1,14 +1,20 @@
 package com.boola.plugins
 
+import com.auth0.jwt.JWT
+import com.auth0.jwt.algorithms.Algorithm
 import com.boola.controllers.DataControllerFactory
+import com.boola.models.Account
+import io.github.cdimascio.dotenv.dotenv
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.statuspages.*
+import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.Identity.encode
 import kotlinx.serialization.SerializationStrategy
 import kotlinx.serialization.json.Json
+import java.util.*
 
 fun Application.configureRouting() {
     install(StatusPages) {
@@ -25,20 +31,26 @@ fun Application.configureRouting() {
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
             else call.respond(con.getDbStatus())
         }
-        get("/api/account") {
-            val con = DataControllerFactory.getController()
-            if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-            else call.respond(con.getAccountsAll())
+
+        post("/login") {
+            val user = call.receive<Account>()
+            val secret = try {
+                System.getenv("JWT_SECRET")
+            } catch (e:NullPointerException){
+                val env = dotenv()
+                env["JWT_SECRET"]
+            }
+            val token = JWT.create()
+                .withClaim("email",user.email)
+                .withExpiresAt(Date(System.currentTimeMillis() + 300000))
+                .sign(Algorithm.HMAC256(secret))
+            call.respond(hashMapOf("token" to token))
         }
 
         get("/api/account/{email}") {
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-            else {
-                val account = con.getAccount(call.parameters["email"] as String)
-                //if(account == null) call.respond(HttpStatusCode.NotFound) //TODO: make everything nullable
-                call.respond(account)
-            }
+            else call.respond(con.getAccount(call.parameters["email"] as String))
         }
 
         get("/api/currency") {

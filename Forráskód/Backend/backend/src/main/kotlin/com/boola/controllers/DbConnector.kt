@@ -1,5 +1,6 @@
 package com.boola.controllers
 
+import io.github.cdimascio.dotenv.dotenv
 import java.net.URI
 import java.sql.Connection
 import java.sql.DriverManager
