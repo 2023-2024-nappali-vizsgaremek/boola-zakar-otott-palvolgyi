@@ -18,7 +18,7 @@ namespace Desktop.ViewModels
 
         public MainWindowViewModel()
         {
-            ChildViewModel = new MainMenuViewModel();
+            ChildViewModel = new LoginViewModel();
             if (Instance == null)
             {
                 Instance = this;
