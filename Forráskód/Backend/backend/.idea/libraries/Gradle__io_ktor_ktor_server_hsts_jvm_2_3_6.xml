@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: io.ktor:ktor-server-hsts-jvm:2.3.6" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="io.ktor" artifactId="ktor-server-hsts-jvm" version="2.3.6" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-hsts-jvm/2.3.6/5155fb6e13d3f1e8a6cbf43b174d0038b9daa8f2/ktor-server-hsts-jvm-2.3.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ktor/ktor-server-hsts-jvm/2.3.6/6c8c5eb521f9239e39bd4e1947ae5e5105fed5fc/ktor-server-hsts-jvm-2.3.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
