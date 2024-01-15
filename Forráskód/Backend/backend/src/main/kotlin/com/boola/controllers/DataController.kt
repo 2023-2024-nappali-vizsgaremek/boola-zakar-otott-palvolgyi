@@ -3,6 +3,7 @@ package com.boola.controllers
 import com.boola.models.Account
 import com.boola.models.Currency
 import com.boola.models.ExpenseList
+import com.boola.models.Profile
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.util.UUID
@@ -41,8 +42,7 @@ class DataController(private val connection: Connection) {
         do {
             accounts.add(Account(results.getString(0), results.getString(1),
                 results.getString(2)))
-            results.next()
-        } while (!results.isLast)
+        } while (results.next())
         return accounts
     }
 
@@ -57,14 +57,28 @@ class DataController(private val connection: Connection) {
     fun getCurrenciesAll():ArrayList<Currency> {
         getCurrenciesStatement.execute()
         val currencies = ArrayList<Currency>()
-        val results = getCurrenciesStatement.resultSet;
-        results.first()
-        do{
+        val results = getCurrenciesStatement.resultSet
+        while (results.next()){
             currencies.add(Currency(results.getString("code"),results.getString("name")))
-            results.next()
-        } while (!results.isLast)
+        }
         return currencies
     }
+    fun getProfile(id:UUID):Profile{
+        getProfileStatement.setObject(1,id)
+        getProfileStatement.execute()
+        val results=getProfileStatement.resultSet
+        return Profile( UUID.fromString(results.getString(0)),results.getString(1),results.getBoolean(2),results.getString(3),UUID.fromString(results.getString(4)),results.getString(5))
+    }
+    fun getAllprofile():ArrayList<Profile>{
+        getProfilesStatement.execute()
+        val Profiles=ArrayList<Profile>()
+        val results=getProfilesStatement.resultSet
+        while (results.next()){
+            Profiles.add(Profile(UUID.fromString(results.getString("id")),results.getString("name"),results.getBoolean("isBusiness"),results.getString("languageId"),UUID.fromString(results.getString("expenseListId")),results.getString("accountEmail")))
+        }
+        return Profiles
+    }
+
 
     fun getExpenseList(id: UUID):ExpenseList{
         getExpenseListStatement.setObject(0,id)

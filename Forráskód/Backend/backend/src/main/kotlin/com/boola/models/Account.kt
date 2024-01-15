@@ -1,3 +1,6 @@
 package com.boola.models
 
-data class Account(val email: String, val pwHash:String, val name:String);
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class Account(val email: String, val pwHash:String, val name:String)

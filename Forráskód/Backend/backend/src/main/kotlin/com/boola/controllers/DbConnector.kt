@@ -1,6 +1,5 @@
 package com.boola.controllers
 
-import io.github.cdimascio.dotenv.dotenv
 import java.net.URI
 import java.sql.Connection
 import java.sql.DriverManager
@@ -22,11 +21,10 @@ class DbConnector() {
             val username = splitUri.first()
             val password = splitUri.last()
             db = DriverManager.getConnection(
-                "jdbc:postgresql://${herokUri.host}:${herokUri.port}${herokUri.path}?sslmode=require", username,
-                password
-            )
+                "jdbc:postgresql://${herokUri.host}:${herokUri.port}${herokUri.path}?sslmode=require",username,
+                password)
             println("Successfully connected to " + herokUri.host)
-        } catch (e: SQLException) {
+        } catch (e:SQLException) {
             error("Postgres connection failed! Error:" + e.message + "\n exiting...")
             exitProcess(0)
         }

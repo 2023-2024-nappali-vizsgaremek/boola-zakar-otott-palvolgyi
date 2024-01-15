@@ -4,6 +4,10 @@ name: Deploy server to Heroku
 on:
   schedule:
     - cron: '0 0 * * 5'
+  pull_request:
+    branches: ['backend']
+    types:
+      - closed
 
 permissions:
   contents: read
