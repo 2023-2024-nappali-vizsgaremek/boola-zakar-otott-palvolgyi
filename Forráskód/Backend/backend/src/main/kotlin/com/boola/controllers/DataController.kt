@@ -2,8 +2,10 @@ package com.boola.controllers
 
 import com.boola.models.Account
 import com.boola.models.Currency
+import com.boola.models.ExpenseList
 import java.sql.Connection
 import java.sql.PreparedStatement
+import java.util.UUID
 
 class DataController(private val connection: Connection) {
 
@@ -13,6 +15,10 @@ class DataController(private val connection: Connection) {
     private val getCurrencyStatement:PreparedStatement = connection.prepareStatement(
         "SELECT name from currency WHERE code = ?")
     private val getCurrenciesStatement:PreparedStatement = connection.prepareStatement("SELECT * FROM currency")
+    private val getExpenseListStatement:PreparedStatement = connection.prepareStatement(
+        "SELECT * FROM expenselist WHERE id = ?")
+    private val getExpenseListsStatement:PreparedStatement = connection.prepareStatement(
+        "SELECT * FROM expenselist")
 
     fun getDbStatus():Boolean {
         return connection.isValid(4)
@@ -23,8 +29,8 @@ class DataController(private val connection: Connection) {
         getAccountStatement.execute()
         val results = getAccountStatement.resultSet
         results.first()
-        return Account(results.getString(0), results.getString(1), results.getString(2)
-        )
+        return Account(results.getString(0), results.getString(1),
+            results.getString(2))
     }
 
     fun getAccountsAll():ArrayList<Account>{
@@ -58,6 +64,31 @@ class DataController(private val connection: Connection) {
             results.next()
         } while (!results.isLast)
         return currencies
+    }
+
+    fun getExpenseList(id: UUID):ExpenseList{
+        getExpenseListStatement.setObject(0,id)
+        getExpenseListStatement.execute()
+
+        val results = getExpenseListStatement.resultSet;
+        results.first()
+        return ExpenseList(
+            UUID.fromString(results.getString(0)),results.getLong(1),
+            results.getString(2))
+    }
+
+    fun getExpenseListsAll():ArrayList<ExpenseList>{
+        getExpenseListsStatement.execute()
+        val lists = ArrayList<ExpenseList>()
+        val results = getExpenseListsStatement.resultSet
+        results.first()
+        do {
+            lists.add(ExpenseList(
+                UUID.fromString(results.getString(0)),results.getLong(1),
+                results.getString(2)))
+            results.next()
+        } while (!results.isLast)
+        return lists
     }
 
 }
