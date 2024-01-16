@@ -13,6 +13,10 @@ class DataController(private val connection: Connection) {
     private val getAccountStatement: PreparedStatement = connection.prepareStatement(
         "SELECT * FROM account WHERE email= ?")
     private val getAccountsStatement:PreparedStatement = connection.prepareStatement("SELECT * FROM account")
+    private val addAccountStatement:PreparedStatement = connection.prepareStatement(
+        "INSERT INTO account VALUE (?,?,?)")
+    private val setAccountStatement:PreparedStatement = connection.prepareStatement(
+        "UPDATE account SET email=?, password=?,name=? WHERE email=?")
     private val getCurrencyStatement:PreparedStatement = connection.prepareStatement(
         "SELECT name from currency WHERE code = ?")
     private val getCurrenciesStatement:PreparedStatement = connection.prepareStatement("SELECT * FROM currency")
@@ -47,6 +51,25 @@ class DataController(private val connection: Connection) {
                 results.getString(2)))
         } while (results.next())
         return accounts
+    }
+
+    fun addAccount(accountToAdd:Account){
+        addAccountStatement.run {
+            setString(0,accountToAdd.email)
+            setString(1,accountToAdd.pwHash)
+            setString(2,accountToAdd.name)
+            execute()
+        }
+    }
+
+    fun setAccount(accountEmail:String,newData:Account){
+        setAccountStatement.run {
+            setString(0,newData.email)
+            setString(1,newData.pwHash)
+            setString(2,newData.name)
+            setString(3,accountEmail)
+            execute()
+        }
     }
 
     fun getCurrency(code:String):String {

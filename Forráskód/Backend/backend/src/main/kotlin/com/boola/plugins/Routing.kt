@@ -59,6 +59,31 @@ fun Application.configureRouting() {
             else call.respond(con.getAccount(call.parameters["email"] as String))
         }
 
+        post("/register") {
+            val con = DataControllerFactory.getController()
+            if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+            else {
+                val account = call.receive<Account>()
+                con.addAccount(account)
+                call.respond(HttpStatusCode.Created)
+            }
+        }
+
+        put("/api/account/{email}"){
+            val con = DataControllerFactory.getController()
+            if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+            else {
+                try {
+                    call.parameters["email"]?.let { con.setAccount(it,call.receive<Account>()) }
+                    call.respond(HttpStatusCode.OK)
+                } catch (e:Exception){
+                    e.message?.let { error(it) }
+                    call.respond(HttpStatusCode.BadRequest)
+                }
+
+            }
+        }
+
         get("/api/currency") {
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
