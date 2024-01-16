@@ -3,21 +3,24 @@ package com.boola.plugins
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import io.github.cdimascio.dotenv.dotenv
+import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
+import io.ktor.server.response.*
 
 fun Application.configureSecurity() {
     val jwtAudience = "https://localhost:8080/login"
     val jwtDomain = "https://localhost:8080"
-    val jwtRealm = "Boola login"
-    val jwtSecret = try {System.getenv("JWT_SECRET") }
+    val jwtRealm = "Boola-public"
+    val env = dotenv()
+    val jwtSecret = /*try {System.getenv("JWT_SECRET") }
     catch (e:NullPointerException){
         val env = dotenv()
         env["JWT_SECRET"]
-    }
+    }*/ env["JWT_SECRET"]
     authentication {
-        jwt {
+        jwt("boola-auth") {
             realm = jwtRealm
             verifier(
                 JWT
@@ -27,7 +30,13 @@ fun Application.configureSecurity() {
                     .build()
             )
             validate { credential ->
-                if (credential.payload.audience.contains(jwtAudience)) JWTPrincipal(credential.payload) else null
+                if (credential.payload.getClaim("email").asString() != "")
+                    JWTPrincipal(credential.payload)
+                else null
+            }
+
+            challenge { _, _ ->
+                call.respond(HttpStatusCode.Unauthorized)
             }
         }
     }

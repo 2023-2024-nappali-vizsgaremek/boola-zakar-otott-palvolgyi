@@ -4,6 +4,7 @@ import com.boola.controllers.DataController
 import com.boola.controllers.DataControllerFactory
 import com.boola.controllers.DbConnector
 import com.boola.plugins.*
+import io.github.cdimascio.dotenv.dotenv
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*

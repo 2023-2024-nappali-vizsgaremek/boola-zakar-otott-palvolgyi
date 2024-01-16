@@ -7,6 +7,7 @@ import com.boola.models.Account
 import io.github.cdimascio.dotenv.dotenv
 import io.ktor.http.*
 import io.ktor.server.application.*
+import io.ktor.server.auth.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -26,10 +27,13 @@ fun Application.configureRouting() {
         get("/") {
             call.respondText("Hello World!")
         }
-        get("/tst") {
-            val con = DataControllerFactory.getController()
-            if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-            else call.respond(con.getDbStatus())
+
+        authenticate("boola-auth") {
+            get("/tst") {
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else call.respond(con.getDbStatus())
+            }
         }
 
         post("/login") {
@@ -43,6 +47,8 @@ fun Application.configureRouting() {
             val token = JWT.create()
                 .withClaim("email",user.email)
                 .withExpiresAt(Date(System.currentTimeMillis() + 300000))
+                .withAudience("https://localhost:8080/login")
+                .withIssuer("https://localhost:8080")
                 .sign(Algorithm.HMAC256(secret))
             call.respond(hashMapOf("token" to token))
         }
@@ -63,6 +69,14 @@ fun Application.configureRouting() {
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
             else call.respond(con.getCurrency(call.parameters["code"] as String))
+        }
+
+        authenticate("boola-auth") {
+            get("/api/profile/{id}"){
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else call.respond(con.getProfile(UUID.fromString(call.parameters["id"])))
+            }
         }
     }
 }
