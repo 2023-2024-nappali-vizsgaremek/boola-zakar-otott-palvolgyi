@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Desktop.Models
 {
-   public class Money
+   public class Categories
     {
         public string name { get; set; }
         public string code { get; set; }
-        public Money(string name, string code)
+        public Categories(string name, string code)
         {
             this.name = name;
             this.code = code;
         }
-        public Money() {
+        public Categories() {
             this.name = "Forint";
             this.code = "HUF";
             

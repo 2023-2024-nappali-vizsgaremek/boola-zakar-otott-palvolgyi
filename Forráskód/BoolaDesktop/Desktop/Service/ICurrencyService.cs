@@ -9,7 +9,7 @@ namespace Desktop.Service
 {
     public interface ICurrencyService
     {
-        public  Task<List<Money>> GetAllCurrencys();
-        public  Task<Money> GetCurrency(string code);
+        public  Task<List<Categories>> GetAllCurrencys();
+        public  Task<Categories> GetCurrency(string code);
     }
 }

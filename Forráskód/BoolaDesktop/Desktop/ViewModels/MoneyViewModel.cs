@@ -14,17 +14,17 @@ namespace Desktop.ViewModels
     public partial class MoneyViewModel:ObservableObject
     {
         [ObservableProperty]
-        private Money money;
+        private Categories money;
         [ObservableProperty]
-        private List<Money> moneys = new List<Money>();
+        private List<Categories> moneys = new List<Categories>();
         [ObservableProperty]
         private ObservableCollection<string>lista=new ObservableCollection<string>();
         public MoneyViewModel()
         {
-            Money = new Money();
+            Money = new Categories();
         }
         [RelayCommand]
-        public void DoSave( Money money)
+        public void DoSave( Categories money)
         {
             Lista.Add((Money.name.ToString()+" "+Money.code.ToString()));
             Moneys.Add(money);
@@ -32,7 +32,7 @@ namespace Desktop.ViewModels
             
         }
         [RelayCommand]
-        public void DoDelete(Money money)
+        public void DoDelete(Categories money)
         {
             Lista.Remove((Money.name.ToString() + " " + Money.code.ToString()));
             Moneys.Remove(money);

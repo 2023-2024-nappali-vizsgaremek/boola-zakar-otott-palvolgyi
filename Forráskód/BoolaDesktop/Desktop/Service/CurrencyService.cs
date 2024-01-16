@@ -16,18 +16,18 @@ namespace Desktop.Service
         {
             httpClient=httpClientFactory?.CreateClient("BoolaApi");
         }
-        public async Task<List<Money>> GetAllCurrencys()
+        public async Task<List<Categories>> GetAllCurrencys()
         {
-            var resp = await httpClient.GetFromJsonAsync<List<Money>>("/api/currency");
-            if(resp is null) return new List<Money>();
+            var resp = await httpClient.GetFromJsonAsync<List<Categories>>("/api/currency");
+            if(resp is null) return new List<Categories>();
             return resp.ToList();
         }
 
-        public async Task<Money> GetCurrency(string code)
+        public async Task<Categories> GetCurrency(string code)
         {
             var resp=await httpClient.GetStringAsync("/api/currency/"+code);
-            if (resp is null) return new Money();
-            return new Money(resp, code);
+            if (resp is null) return new Categories();
+            return new Categories(resp, code);
         }
         
     }
