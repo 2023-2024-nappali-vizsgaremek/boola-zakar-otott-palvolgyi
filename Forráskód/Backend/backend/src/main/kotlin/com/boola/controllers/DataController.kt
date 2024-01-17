@@ -27,6 +27,12 @@ class DataController(private val connection: Connection) {
     private val getProfileStatement:PreparedStatement =connection.prepareStatement(
         "SELECT * FROM profile WHERE id=?")
     private val getProfilesStatement:PreparedStatement=connection.prepareStatement("SELECT * FROM  profile")
+    private val addProfileStatement:PreparedStatement=connection.prepareStatement(
+        "INSERT INTO profile VAlUE (?,?,?,?,?,?,?)")
+    private val setPofileStatement:PreparedStatement=connection.prepareStatement(
+        "UPDATE  profile SET id=?,name=?,isBusiness=?,languageId=?,expenseListId=?,accountEmail=? WHERE id=?")
+    private val deleteProfileStatement:PreparedStatement=connection.prepareStatement(
+        "DELETE From profile where id=?")
 
     fun getDbStatus():Boolean {
         return connection.isValid(4)
@@ -104,6 +110,41 @@ class DataController(private val connection: Connection) {
         }
         return Profiles
     }
+    fun setProfile(id:UUID,newData:Profile){
+        setPofileStatement.run {
+            setObject(0,newData.id)
+            setString(1,newData.name)
+            setBoolean(2,newData.isBusiness)
+            setString(3,newData.languageId)
+            setObject(4,newData.expenseListId)
+            setString(5,newData.accountEmail)
+            setObject(6,id)
+            execute()
+        }
+    }
+    fun deleteProfile(newData: Profile){
+        deleteProfileStatement.run {
+            setObject(0,newData.id)
+            setString(1,newData.name)
+            setBoolean(2,newData.isBusiness)
+            setString(3,newData.languageId)
+            setObject(4,newData.expenseListId)
+            setString(5,newData.accountEmail)
+            execute()
+        }
+    }
+    fun addProfile(newData:Profile){
+        addProfileStatement.run {
+            setObject(0,newData.id)
+            setString(1,newData.name)
+            setBoolean(2,newData.isBusiness)
+            setString(3,newData.languageId)
+            setObject(4,newData.expenseListId)
+            setString(5,newData.accountEmail)
+            execute()
+        }
+    }
+
 
 
     fun getExpenseList(id: UUID):ExpenseList{
