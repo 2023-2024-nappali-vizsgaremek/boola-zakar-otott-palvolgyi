@@ -38,6 +38,7 @@ fun Application.configureRouting() {
 
         post("/login") {
             val user = call.receive<Account>()
+
             val secret = try {
                 System.getenv("JWT_SECRET")
             } catch (e:NullPointerException){

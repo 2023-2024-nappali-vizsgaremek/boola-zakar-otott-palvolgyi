@@ -7,7 +7,7 @@ import java.sql.DriverManager
 import java.sql.SQLException
 import kotlin.system.exitProcess
 
-class DbConnector() {
+class DbConnector {
     private val db: Connection
 
     init {
@@ -21,17 +21,18 @@ class DbConnector() {
             val splitUri = herokUri.userInfo.split(':')
             val username = splitUri.first()
             val password = splitUri.last()
+            println("jdbc:postgresql://${herokUri.host}:${herokUri.port}${herokUri.path}")
             db = DriverManager.getConnection(
-                "jdbc:postgresql://${herokUri.host}:${herokUri.port}${herokUri.path}?sslmode=require",username,
+                "jdbc:postgresql://${herokUri.host}:${herokUri.port}${herokUri.path}",username,
                 password)
             println("Successfully connected to " + herokUri.host)
         } catch (e:SQLException) {
-            error("Postgres connection failed! Error:" + e.message + "\n exiting...")
+            error("Postgres connection failed! Error:" + e.cause + "\n exiting...")
             exitProcess(0)
         }
     }
         fun getConnection(): Connection {
-            return db;
+            return db
         }
 
         fun testConnection(): Boolean {

@@ -64,7 +64,7 @@ class DataController(private val connection: Connection) {
     fun addAccount(accountToAdd:Account){
         addAccountStatement.run {
             setString(0,accountToAdd.email)
-            setString(1,accountToAdd.pwHash)
+            setString(1,accountToAdd.pwHash)    //todo: check model value order and name
             setString(2,accountToAdd.name)
             execute()
         }

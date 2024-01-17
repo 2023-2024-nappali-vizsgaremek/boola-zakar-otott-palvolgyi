@@ -13,14 +13,16 @@ fun Application.configureSecurity() {
     val jwtAudience = "https://localhost:8080/login"
     val jwtDomain = "https://localhost:8080"
     val jwtRealm = "Boola-public"
-    val env = dotenv()
-    val jwtSecret = /*try {System.getenv("JWT_SECRET") }
-    catch (e:NullPointerException){
+    val envSecret = System.getenv("JWT_SECRET")
+    val jwtSecret:String = if(envSecret == null) {
         val env = dotenv()
         env["JWT_SECRET"]
-    }*/ env["JWT_SECRET"]
+    } else {
+        envSecret
+    }
+
     authentication {
-        jwt("boola-auth") {
+       jwt("boola-auth") {
             realm = jwtRealm
             verifier(
                 JWT
