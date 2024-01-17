@@ -17,6 +17,8 @@ class DataController(private val connection: Connection) {
         "INSERT INTO account VALUE (?,?,?)")
     private val setAccountStatement:PreparedStatement = connection.prepareStatement(
         "UPDATE account SET email=?, password=?,name=? WHERE email=?")
+    private val deleteAccountStatement:PreparedStatement=connection.prepareStatement(
+        " DELETE FROM account WHERE emial=?")
     private val getCurrencyStatement:PreparedStatement = connection.prepareStatement(
         "SELECT name from currency WHERE code = ?")
     private val getCurrenciesStatement:PreparedStatement = connection.prepareStatement("SELECT * FROM currency")
@@ -61,6 +63,14 @@ class DataController(private val connection: Connection) {
 
     fun addAccount(accountToAdd:Account){
         addAccountStatement.run {
+            setString(0,accountToAdd.email)
+            setString(1,accountToAdd.pwHash)
+            setString(2,accountToAdd.name)
+            execute()
+        }
+    }
+    fun deleteAccount(accountToAdd:Account){
+        deleteAccountStatement.run {
             setString(0,accountToAdd.email)
             setString(1,accountToAdd.pwHash)
             setString(2,accountToAdd.name)
