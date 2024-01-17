@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.boola.controllers.DataControllerFactory
 import com.boola.models.Account
+import com.boola.models.Profile
 import io.github.cdimascio.dotenv.dotenv
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -78,10 +79,27 @@ fun Application.configureRouting() {
                     call.parameters["email"]?.let { con.setAccount(it,call.receive<Account>()) }
                     call.respond(HttpStatusCode.OK)
                 } catch (e:Exception){
-                    e.message?.let { error(it) }
+                    e.message?.let { print(it) }
                     call.respond(HttpStatusCode.BadRequest)
                 }
 
+            }
+        }
+        delete("/api/account/{email}")
+        {
+            val con = DataControllerFactory.getController()
+            if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+            else{
+                try{
+                call.parameters["email"]?.let {con.deleteAccount(con.getAccount(it))}
+                call.respond(HttpStatusCode.NoContent)
+            }
+                catch(e:Exception)
+                {
+                    e.message?.let { print(it) }
+                    call.respond(HttpStatusCode.BadRequest)
+
+                }
             }
         }
 
@@ -103,6 +121,47 @@ fun Application.configureRouting() {
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else call.respond(con.getProfile(UUID.fromString(call.parameters["id"])))
             }
+            post("/api/profile/{id}") {
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else {
+                    val profile = call.receive<Profile>()
+                    con.addProfile(profile)
+                    call.respond(HttpStatusCode.Created)
+                }
+
+            }
+            put("/api/profile/{id}") {
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else {
+                    try {
+                        call.parameters["email"]?.let { con.setProfile(UUID.fromString(it),call.receive<Profile>()) }
+                        call.respond(HttpStatusCode.OK)
+                    } catch (e:Exception){
+                        e.message?.let { print(it) }
+                        call.respond(HttpStatusCode.BadRequest)
+                    }
+
+                }
+            }
+            delete("/api/profile/{id}") {
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else{
+                    try{
+                        call.parameters["email"]?.let {con.deleteProfile(con.getProfile(UUID.fromString(it)))}
+                        call.respond(HttpStatusCode.NoContent)
+                    }
+                    catch(e:Exception)
+                    {
+                        e.message?.let { print(it) }
+                        call.respond(HttpStatusCode.BadRequest)
+
+                    }
+                }
+            }
         }
+
     }
 }

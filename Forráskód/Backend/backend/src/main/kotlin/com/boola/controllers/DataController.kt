@@ -4,6 +4,7 @@ import com.boola.models.Account
 import com.boola.models.Currency
 import com.boola.models.ExpenseList
 import com.boola.models.Profile
+import kotlinx.coroutines.newFixedThreadPoolContext
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.util.UUID
@@ -12,27 +13,44 @@ class DataController(private val connection: Connection) {
 
     private val getAccountStatement: PreparedStatement = connection.prepareStatement(
         "SELECT * FROM account WHERE email= ?")
+
     private val getAccountsStatement:PreparedStatement = connection.prepareStatement("SELECT * FROM account")
+
     private val addAccountStatement:PreparedStatement = connection.prepareStatement(
         "INSERT INTO account VALUE (?,?,?)")
+
     private val setAccountStatement:PreparedStatement = connection.prepareStatement(
         "UPDATE account SET email=?, password=?,name=? WHERE email=?")
+
     private val deleteAccountStatement:PreparedStatement=connection.prepareStatement(
         " DELETE FROM account WHERE emial=?")
+
     private val getCurrencyStatement:PreparedStatement = connection.prepareStatement(
         "SELECT name from currency WHERE code = ?")
+
     private val getCurrenciesStatement:PreparedStatement = connection.prepareStatement("SELECT * FROM currency")
+
     private val getExpenseListStatement:PreparedStatement = connection.prepareStatement(
         "SELECT * FROM expenselist WHERE id = ?")
+
     private val getExpenseListsStatement:PreparedStatement = connection.prepareStatement(
         "SELECT * FROM expenselist")
+    private val addExpenseListStatement:PreparedStatement=connection.prepareStatement(
+    "INSERT INTO expenseList VALUE (?,?,?)")
+    private val deleteExpenseListStatement:PreparedStatement=connection.prepareStatement(
+        "DELETE  FROM expenselist WHERE id=?")
+
     private val getProfileStatement:PreparedStatement =connection.prepareStatement(
         "SELECT * FROM profile WHERE id=?")
+
     private val getProfilesStatement:PreparedStatement=connection.prepareStatement("SELECT * FROM  profile")
+
     private val addProfileStatement:PreparedStatement=connection.prepareStatement(
         "INSERT INTO profile VAlUE (?,?,?,?,?,?,?)")
+
     private val setPofileStatement:PreparedStatement=connection.prepareStatement(
         "UPDATE  profile SET id=?,name=?,isBusiness=?,languageId=?,expenseListId=?,accountEmail=? WHERE id=?")
+
     private val deleteProfileStatement:PreparedStatement=connection.prepareStatement(
         "DELETE From profile where id=?")
 
@@ -181,7 +199,13 @@ class DataController(private val connection: Connection) {
         } while (!results.isLast)
         return lists
     }
-
+fun addExopenseList(newData:ExpenseList){
+    addExpenseListStatement.run {
+        setObject(0,newData.id)
+        setLong(1, newData.balance)
+        setString(  2,newData.currencyCode)
+    }
+}
 
 
 }
