@@ -14,21 +14,21 @@ namespace Desktop.Service
         private readonly HttpClient? httpClient;
         public CurrencyService(IHttpClientFactory? httpClientFactory)
         {
-            httpClient=httpClientFactory?.CreateClient("BoolaApi");
+            httpClient = httpClientFactory?.CreateClient("BoolaApi");
         }
-        public async Task<List<Categories>> GetAllCurrencys()
+        public async Task<List<Money>> GetAllCurrencys()
         {
-            var resp = await httpClient.GetFromJsonAsync<List<Categories>>("/api/currency");
-            if(resp is null) return new List<Categories>();
+            var resp = await httpClient.GetFromJsonAsync<List<Money>>("/api/currency");
+            if (resp is null) return new List<Money>();
             return resp.ToList();
         }
 
-        public async Task<Categories> GetCurrency(string code)
+        public async Task<Money> GetCurrency(string code)
         {
-            var resp=await httpClient.GetStringAsync("/api/currency/"+code);
-            if (resp is null) return new Categories();
-            return new Categories(resp, code);
+            var resp = await httpClient.GetStringAsync("/api/currency/" + code);
+            if (resp is null) return new Money();
+            return new Money(resp, code);
         }
-        
+
     }
 }

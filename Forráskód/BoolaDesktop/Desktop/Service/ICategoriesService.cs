@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Desktop.Service
 {
-    public interface ICurrencyService
+    public interface ICategoriesService
     {
-        public Task<List<Money>> GetAllCurrencys();
-        public Task<Money> GetCurrency(string code);
+        public Task<List<Money>> GetAllCategories();
+        public Task<Money> GetCategories(string code);
     }
 }

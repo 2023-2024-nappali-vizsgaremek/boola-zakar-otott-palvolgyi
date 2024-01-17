@@ -5,40 +5,41 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace Desktop.ViewModels
 {
-    public partial class MoneyViewModel:ObservableObject
+    public partial class MoneyViewModel : ObservableObject
     {
         [ObservableProperty]
-        private Categories money;
+        private Money money;
         [ObservableProperty]
-        private List<Categories> moneys = new List<Categories>();
+        private List<Money> moneys = new List<Money>();
         [ObservableProperty]
-        private ObservableCollection<string>lista=new ObservableCollection<string>();
+        private ObservableCollection<string> lista = new ObservableCollection<string>();
         public MoneyViewModel()
         {
-            Money = new Categories();
+            Money = new Money();
         }
         [RelayCommand]
-        public void DoSave( Categories money)
+        public void DoSave(Money money)
         {
-            Lista.Add((Money.name.ToString()+" "+Money.code.ToString()));
+            Lista.Add((Money.name.ToString() + " " + Money.code.ToString()));
             Moneys.Add(money);
             OnPropertyChanged(nameof(Moneys));
-            
+
         }
         [RelayCommand]
-        public void DoDelete(Categories money)
+        public void DoDelete(Money money)
         {
             Lista.Remove((Money.name.ToString() + " " + Money.code.ToString()));
             Moneys.Remove(money);
             OnPropertyChanged(nameof(Moneys));
-            
-           
+
+
         }
         [RelayCommand]
         public void ChangeToMainWindow()
