@@ -21,7 +21,6 @@ class DbConnector {
             val splitUri = herokUri.userInfo.split(':')
             val username = splitUri.first()
             val password = splitUri.last()
-            println("jdbc:postgresql://${herokUri.host}:${herokUri.port}${herokUri.path}")
             db = DriverManager.getConnection(
                 "jdbc:postgresql://${herokUri.host}:${herokUri.port}${herokUri.path}",username,
                 password)
