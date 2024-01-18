@@ -26,6 +26,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
+        <Button Height="25" Width="100" Margin="0,0,75,0" Content="Vissza" Command="{Binding ChangeToMainWindowCommand}"/>
         <Label Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">Beállítások:</Label>
         <Label Grid.Row="1" Grid.Column="0">Név:</Label>
         <Label Grid.Row="2" Grid.Column="0">e-mail:</Label>
@@ -51,11 +52,11 @@
         <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,4" Grid.Row="2" TextWrapping="Wrap" Text="{Binding Settings.email}" VerticalAlignment="Bottom" Width="211" RenderTransformOrigin="0.507,0.014"/>
         <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" TextWrapping="Wrap" Text="{Binding Settings.password}" VerticalAlignment="Center" Width="211"/>
         <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="10,23,0,0" Grid.Row="3" VerticalAlignment="Center" Width="211" Grid.RowSpan="2" ItemsSource="{Binding Nyelv}"
-                  SelectedItem="{Binding SelectNyelv}"
+                  SelectedItem="{Binding SelectNyelv}" SelectionChanged="ComboBox_SelectionChanged"
                   />
         <RadioButton Grid.Column="1" Content="igen" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="5" VerticalAlignment="Center"/>
         <RadioButton Grid.Column="1" Content="nem" HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Center" Margin="64,0,0,0"/>
         <ListBox Grid.Row="6" Margin="2,2,2,2" Grid.Column="1" ItemsSource="{Binding Lis}" SelectedItem="{Binding Settings}"/>
-        <GroupBox Header="" Grid.Row="7" Margin="2,0,-447,0"  Content="{Binding Szoveg}" VerticalAlignment="Center" Height="168" Grid.Column="1"/>
+        <GroupBox  Grid.Row="7" Margin="2,0,-447,0"  Content="{Binding Szoveg}" VerticalAlignment="Center" Height="168" Grid.Column="1"/>
     </Grid>
 </UserControl>
