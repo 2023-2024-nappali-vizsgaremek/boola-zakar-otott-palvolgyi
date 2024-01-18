@@ -37,6 +37,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("org.postgresql:postgresql:42.7.1")
     implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
+    implementation("at.favre.lib:bcrypt:0.10.2")
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
     testImplementation("io.ktor:ktor-server-test-host-jvm:2.3.6")

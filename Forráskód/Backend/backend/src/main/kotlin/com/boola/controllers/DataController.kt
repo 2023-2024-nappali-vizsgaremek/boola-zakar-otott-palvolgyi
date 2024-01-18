@@ -1,15 +1,18 @@
 package com.boola.controllers
 
+import at.favre.lib.crypto.bcrypt.BCrypt
 import com.boola.models.Account
 import com.boola.models.Currency
 import com.boola.models.ExpenseList
 import com.boola.models.Profile
+import io.ktor.util.*
 import java.security.MessageDigest
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.util.UUID
 import kotlin.random.Random
 import kotlin.text.StringBuilder
+import kotlin.text.toCharArray
 
 class DataController(private val connection: Connection) {
 
@@ -17,11 +20,11 @@ class DataController(private val connection: Connection) {
         "SELECT * FROM account WHERE email= ?")
     private val getAccountsStatement:PreparedStatement = connection.prepareStatement("SELECT * FROM account")
     private val addAccountStatement:PreparedStatement = connection.prepareStatement(
-        "INSERT INTO account VALUE (?,?,?,?)")
+        "INSERT INTO account (email, passwordhash, name, salt) VALUES (?,?,?,?)")
     private val setAccountStatement:PreparedStatement = connection.prepareStatement(
-        "UPDATE account SET email=?, password=?,name=? WHERE email=?")
+        "UPDATE account SET email=?, passwordHash=?,name=? WHERE email=?")
     private val deleteAccountStatement:PreparedStatement=connection.prepareStatement(
-        " DELETE FROM account WHERE emial=?")
+        " DELETE FROM account WHERE email=?")
     private val getAccountSaltStatement:PreparedStatement=connection.prepareStatement(
         "SELECT salt from account WHERE email=?")
     private val getCurrencyStatement:PreparedStatement = connection.prepareStatement(
@@ -35,9 +38,10 @@ class DataController(private val connection: Connection) {
         "SELECT * FROM profile WHERE id=?")
     private val getProfilesStatement:PreparedStatement=connection.prepareStatement("SELECT * FROM  profile")
     private val addProfileStatement:PreparedStatement=connection.prepareStatement(
-        "INSERT INTO profile VAlUE (?,?,?,?,?,?,?)")
+        "INSERT INTO profile (id, name, isbusiness, expenselistid, languagecode, accountemail)" +
+                " VAlUES (?,?,?,?,?,?)")
     private val setProfileStatement:PreparedStatement=connection.prepareStatement(
-        "UPDATE  profile SET id=?,name=?,isBusiness=?,languageId=?,expenseListId=?,accountEmail=? WHERE id=?")
+        "UPDATE  profile SET id=?,name=?,isBusiness=?,languagecode=?,expenseListId=?,accountEmail=? WHERE id=?")
     private val deleteProfileStatement:PreparedStatement=connection.prepareStatement(
         "DELETE From profile where id=?")
 
@@ -49,8 +53,9 @@ class DataController(private val connection: Connection) {
         getAccountStatement.setString(1, email)
         getAccountStatement.execute()
         val results = getAccountStatement.resultSet
-        return Account(results.getString(0), results.getString(1),
-            results.getString(2))
+        results.next()
+        return Account(results.getString(1), results.getString(2),
+            results.getString(3))
     }
 
     fun getAccountsAll():ArrayList<Account>{
@@ -69,14 +74,15 @@ class DataController(private val connection: Connection) {
             setString(1,accountToAdd.email)
             val salt = StringBuilder()
             for(i in 0..8){
-                salt.append(Char(Random.nextInt()))
+                val code = Random.nextInt(0, UShort.MAX_VALUE.toInt())
+                println("Adding a $code to the salt")
+                salt.append(Char(code))
             }
-            val hashedPwBytes = MessageDigest.getInstance("SHA-256").digest((salt.append(accountToAdd.pwHash)
+            /*val hashedPwBytes = MessageDigest.getInstance("SHA-256").digest((salt.append(accountToAdd.pwHash)
                 .toString().toByteArray()))
-            val hashedPwString:StringBuilder = StringBuilder()
-            for(b in hashedPwBytes){
-                hashedPwString.append(Char(b.toInt()))
-            }
+            val hashedPwString:StringBuilder = StringBuilder()*/
+            val hashedPwString = BCrypt.withDefaults().hashToString(6,(salt.toString() + accountToAdd.pwHash)
+                .toCharArray())
             setString(2,hashedPwString.toString())
             setString(3,accountToAdd.name)
             setString(4,salt.toString())
@@ -105,13 +111,18 @@ class DataController(private val connection: Connection) {
     fun getAccountSalt(accountEmail: String): String {
         getAccountSaltStatement.setString(1, accountEmail)
         getAccountSaltStatement.execute()
-        return getAccountSaltStatement.resultSet.getString(1)
+        val results = getAccountSaltStatement.resultSet
+        results.next()
+        return if(results.isLast)
+            results.getString(1)
+        else ""
     }
 
     fun getCurrency(code:String):String {
         getCurrencyStatement.setString(1,code)
         getCurrencyStatement.execute()
         val results = getCurrencyStatement.resultSet
+        results.next()
         return results.getString(1)
     }
 
@@ -128,6 +139,7 @@ class DataController(private val connection: Connection) {
         getProfileStatement.setObject(1,id)
         getProfileStatement.execute()
         val results=getProfileStatement.resultSet
+        results.next()
         return Profile( UUID.fromString(results.getString(1)),results.getString(2),
             results.getBoolean(3),results.getString(4),
             UUID.fromString(results.getString(5)),results.getString(6))

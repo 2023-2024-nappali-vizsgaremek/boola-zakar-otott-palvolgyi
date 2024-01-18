@@ -1,5 +1,6 @@
 package com.boola.plugins
 
+import at.favre.lib.crypto.bcrypt.BCrypt
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.boola.controllers.DataControllerFactory
@@ -43,10 +44,12 @@ fun Application.configureRouting() {
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
             else {
-                val pwhash = MessageDigest.getInstance("SHA-256").digest(
-                    (con.getAccountSalt(user.email) + user.pwHash).toByteArray())
-                val storedHash = con.getAccount(user.email).pwHash.toByteArray()
-                if(!pwhash.contentEquals(storedHash)) call.respond(HttpStatusCode.Unauthorized)
+                val sentPw = (con.getAccountSalt(user.email) + user.pwHash)
+                    .toCharArray()
+                val storedPw = con.getAccount(user.email).pwHash.toCharArray()
+                println("Stored $storedPw, got $sentPw")
+                val verification = BCrypt.verifyer().verify(sentPw, storedPw)
+                if(!verification.verified) call.respond(HttpStatusCode.Unauthorized)
                 val secret = try {
                     System.getenv("JWT_SECRET")
                 } catch (e:NullPointerException){
@@ -56,8 +59,8 @@ fun Application.configureRouting() {
                 val token = JWT.create()
                     .withClaim("email",user.email)
                     .withExpiresAt(Date(System.currentTimeMillis() + 300000))
-                    .withAudience("https://localhost:8080/login")
-                    .withIssuer("https://localhost:8080")
+                    .withAudience("http://localhost:8080/login")
+                    .withIssuer("http://localhost:8080")
                     .sign(Algorithm.HMAC256(secret))
                 call.respond(hashMapOf("token" to token))
             }
