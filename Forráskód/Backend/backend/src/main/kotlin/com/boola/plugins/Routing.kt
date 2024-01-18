@@ -12,9 +12,11 @@ import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import io.ktor.util.*
 import io.ktor.util.Identity.encode
 import kotlinx.serialization.SerializationStrategy
 import kotlinx.serialization.json.Json
+import java.security.MessageDigest
 import java.util.*
 
 fun Application.configureRouting() {
@@ -38,20 +40,28 @@ fun Application.configureRouting() {
 
         post("/login") {
             val user = call.receive<Account>()
-
-            val secret = try {
-                System.getenv("JWT_SECRET")
-            } catch (e:NullPointerException){
-                val env = dotenv()
-                env["JWT_SECRET"]
+            val con = DataControllerFactory.getController()
+            if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+            else {
+                val pwhash = MessageDigest.getInstance("SHA-256").digest(
+                    (con.getAccountSalt(user.email) + user.pwHash).toByteArray())
+                val storedHash = con.getAccount(user.email).pwHash.toByteArray()
+                if(!pwhash.contentEquals(storedHash)) call.respond(HttpStatusCode.Unauthorized)
+                val secret = try {
+                    System.getenv("JWT_SECRET")
+                } catch (e:NullPointerException){
+                    val env = dotenv()
+                    env["JWT_SECRET"]
+                }
+                val token = JWT.create()
+                    .withClaim("email",user.email)
+                    .withExpiresAt(Date(System.currentTimeMillis() + 300000))
+                    .withAudience("https://localhost:8080/login")
+                    .withIssuer("https://localhost:8080")
+                    .sign(Algorithm.HMAC256(secret))
+                call.respond(hashMapOf("token" to token))
             }
-            val token = JWT.create()
-                .withClaim("email",user.email)
-                .withExpiresAt(Date(System.currentTimeMillis() + 300000))
-                .withAudience("https://localhost:8080/login")
-                .withIssuer("https://localhost:8080")
-                .sign(Algorithm.HMAC256(secret))
-            call.respond(hashMapOf("token" to token))
+
         }
 
         get("/api/account/{email}") {
