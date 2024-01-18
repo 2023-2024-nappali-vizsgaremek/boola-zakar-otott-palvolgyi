@@ -204,8 +204,18 @@ fun addExopenseList(newData:ExpenseList){
         setObject(0,newData.id)
         setLong(1, newData.balance)
         setString(  2,newData.currencyCode)
+        execute()
     }
+
 }
+    fun  deleteExpenseList(newData: ExpenseList){
+        addExpenseListStatement.run {
+            setObject(0,newData.id)
+            setLong(1, newData.balance)
+            setString(  2,newData.currencyCode)
+            execute()
+        }
+    }
 
 
 }

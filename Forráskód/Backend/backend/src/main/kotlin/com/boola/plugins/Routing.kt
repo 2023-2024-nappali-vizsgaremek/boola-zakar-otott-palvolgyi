@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.boola.controllers.DataControllerFactory
 import com.boola.models.Account
+import com.boola.models.ExpenseList
 import com.boola.models.Profile
 import io.github.cdimascio.dotenv.dotenv
 import io.ktor.http.*
@@ -121,6 +122,11 @@ fun Application.configureRouting() {
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else call.respond(con.getProfile(UUID.fromString(call.parameters["id"])))
             }
+            get("/api/profile"){
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else call.respond(con.getAllprofile())
+            }
             post("/api/profile/{id}") {
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
@@ -136,7 +142,7 @@ fun Application.configureRouting() {
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else {
                     try {
-                        call.parameters["email"]?.let { con.setProfile(UUID.fromString(it),call.receive<Profile>()) }
+                        call.parameters["id"]?.let { con.setProfile(UUID.fromString(it),call.receive<Profile>()) }
                         call.respond(HttpStatusCode.OK)
                     } catch (e:Exception){
                         e.message?.let { print(it) }
@@ -150,7 +156,47 @@ fun Application.configureRouting() {
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else{
                     try{
-                        call.parameters["email"]?.let {con.deleteProfile(con.getProfile(UUID.fromString(it)))}
+                        call.parameters["id"]?.let {con.deleteProfile(con.getProfile(UUID.fromString(it)))}
+                        call.respond(HttpStatusCode.NoContent)
+                    }
+                    catch(e:Exception)
+                    {
+                        e.message?.let { print(it) }
+                        call.respond(HttpStatusCode.BadRequest)
+
+                    }
+                }
+            }
+        }
+        authenticate ("boola-auth"){
+            get("/api/expenselist/{id}"){
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else call.respond(con.getExpenseList(UUID.fromString(call.parameters["id"])))
+            }
+            get("/api/expenselist/") {
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else call.respond(con.getExpenseListsAll())
+
+            }
+            post("/api/expenselist/{id}") {
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else {
+                    val expenselist= call.receive<ExpenseList>()
+                    con.addExopenseList(expenselist)
+                    call.respond(HttpStatusCode.Created)
+                }
+
+            }
+
+            delete("/api/profile/{id}") {
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else{
+                    try{
+                        call.parameters["email"]?.let {con.deleteExpenseList(con.getExpenseList(UUID.fromString(it)))}
                         call.respond(HttpStatusCode.NoContent)
                     }
                     catch(e:Exception)
