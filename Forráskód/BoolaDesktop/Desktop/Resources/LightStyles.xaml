@@ -69,5 +69,11 @@
     </Style>
     <Style TargetType="ComboBoxItem">
         <Setter Property="Width" Value="211"></Setter>
+        <Setter Property="Height" Value="20"/>
+    </Style>
+    <Style TargetType="ListBoxItem">
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="Height" Value="20"/>
+       
     </Style>
 </ResourceDictionary>

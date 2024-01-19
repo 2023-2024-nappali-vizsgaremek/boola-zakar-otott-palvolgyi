@@ -1,1 +1,21 @@
+POST http://localhost:8080/register
+Content-Type: application/json
+
+{
+  "email": "otottkovi@hotmail.com",
+  "pwHash": "fak",
+  "name": "tomi"
+}
+
+###
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "email": "otottkovi@hotmail.com",
+  "pwHash": "fak",
+  "name": "tomi"
+}
+
+###
 GET http://localhost:8080/tst

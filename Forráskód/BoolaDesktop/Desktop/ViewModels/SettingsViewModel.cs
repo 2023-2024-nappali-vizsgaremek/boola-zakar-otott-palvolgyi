@@ -22,7 +22,7 @@ namespace Desktop.ViewModels
         [ObservableProperty]
         private string szoveg = "Ha bármilyen kérdése vagy észrevétele van, ne habozzon kapcsolatba lépni velünk! \nA Boola Pénzügyi Alkalmazás ügyfélszolgálata mindig készen áll, hogy segítsen.\r\n\r\nWeboldal: www.boolaapp.com\r\n\r\nE-mail: info@boolaapp.com\r\n\r\nTelefonszám: +36 1 234 5678\r\n\r\nKöszönjük, hogy a Boola alkalmazást választotta pénzügyi szükségletei kielégítésére. \nTartsa velünk az úton a gazdagság és a pénzügyi függetlenség felé!";
         [ObservableProperty]
-        private List<Settings> lis = new List<Settings>();
+        private ObservableCollection<Settings> lis = new ObservableCollection<Settings>();
 
         private nyelvek _Selectnyelv = Models.nyelvek.magyar;
 
@@ -58,6 +58,11 @@ namespace Desktop.ViewModels
         {
             Lis.Remove(settingsDoDelete);
             OnPropertyChanged(nameof(Lis));
+        }
+        [RelayCommand]
+        public void ChangeToMainWindow()
+        {
+            MainWindowViewModel.Instance.ChangeToMainWindow();
         }
     }
 }

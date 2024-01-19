@@ -17,21 +17,22 @@
         <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
             <local:SettingsView/>
         </DataTemplate>
-        <!--<DataTemplate DataType="{x:Type vm:newExpensesViewModel}">
-            <view:NewExpenseView/>
-        </DataTemplate>-->
+        <DataTemplate DataType="{x:Type vm:NewExpenseViewModel}">
+            <local:NewExpenseView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ProfileViewModel}">
+            <local:UserControl1/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:MoneyViewModel}">
+            <local:MoneyView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:LoginViewModel}">
+            <local:LoginWindow/>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Menu Grid.Row="0">
-            <MenuItem Header="Fájl">
-                <MenuItem Header="Add new expense" Command="{Binding ChangeToAddWindowCommand}"></MenuItem>
-                <MenuItem Header="Settings" Command="{Binding ChangeToSettingsWindowCommand}"></MenuItem>
-            </MenuItem>
-        </Menu>
+       
+       
         <ContentControl Content="{Binding ChildViewModel}" Grid.Row="1"></ContentControl>
 
     </Grid>

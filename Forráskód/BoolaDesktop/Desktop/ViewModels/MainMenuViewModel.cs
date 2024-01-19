@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Desktop.Models;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,33 @@ namespace Desktop.ViewModels
         public MainMenuViewModel()
         {
             content = new MainContent();
+        }
+
+        [RelayCommand]
+        public void ChangeToAddWindow()
+        {
+            MainWindowViewModel.Instance.ChangeToAddWindow();
+        }
+
+        [RelayCommand]
+        public void ChangeToSettingsWindow()
+        {
+           MainWindowViewModel.Instance.ChangeToSettingsWindow();
+        }
+        [RelayCommand]
+        public void ChangeToProfilesWindow() 
+        {
+        MainWindowViewModel.Instance.ChangeToProfilesWindow();
+        }
+        [RelayCommand]
+        public void ChangeToMainWindow()
+        {
+            MainWindowViewModel.Instance.ChangeToMainWindow();
+        }
+        [RelayCommand]
+        public void ChangeToMoneyWindow()
+        {
+            MainWindowViewModel.Instance.ChangeToMoneyWindow();
         }
     }
 }
