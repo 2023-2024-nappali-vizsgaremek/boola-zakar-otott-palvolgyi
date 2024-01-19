@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Desktop.Models
 {
-    public class Categories
+    public class Category
     {
         public string name { get; set; }
 
-        public Categories() 
+        public Category() 
         {
             name = "General";
         }
 
-        public Categories(string name)
+        public Category(string name)
         {
             this.name = name;
         }

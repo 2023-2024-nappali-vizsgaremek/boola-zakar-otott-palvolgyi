@@ -12,31 +12,31 @@ using System.Windows;
 
 namespace Desktop.ViewModels
 {
-    public partial class CategoriesViewModel : ObservableObject
+    public partial class CategoryViewModel : ObservableObject
     {
         [ObservableProperty]
-        private Categories categories;
+        private Category category;
         [ObservableProperty]
-        private List<Categories> categoriess = new List<Categories>();
+        private List<Category> categories = new List<Category>();
         [ObservableProperty]
         private ObservableCollection<string> lista = new ObservableCollection<string>();
-        public CategoriesViewModel()
+        public CategoryViewModel()
         {
-            categories = new Categories();
+            category = new Category();
         }
         [RelayCommand]
-        public void DoSave(Categories category)
+        public void DoSave(Category category)
         {
-            Lista.Add(Categories.name.ToString());
-            Categoriess.Add(category);
-            OnPropertyChanged(nameof(Categoriess));
+            Lista.Add(category.name.ToString());
+            Categories.Add(category);
+            OnPropertyChanged(nameof(Categories));
         }
         [RelayCommand]
-        public void DoDelete(Categories category)
+        public void DoDelete(Category category)
         {
-            Lista.Remove(Categories.name.ToString());
-            Categoriess.Remove(category);
-            OnPropertyChanged(nameof(Categoriess));
+            Lista.Remove(category.name.ToString());
+            Categories.Add(category);
+            OnPropertyChanged(nameof(Categories));
         }
         [RelayCommand]
         public void ChangeToMainWindow()

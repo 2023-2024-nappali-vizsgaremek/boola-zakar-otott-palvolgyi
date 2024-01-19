@@ -9,7 +9,7 @@
              Height="450" Width="800">
     
     <UserControl.DataContext>
-        <vm:CategoriesViewModel/>
+        <vm:CategoryViewModel/>
     </UserControl.DataContext>
 
     <Grid>
@@ -17,7 +17,7 @@
         <Button Content="Vissza" Height="25" Width="75" Margin="0,0,600,300" Command="{Binding ChangeToMainWindowCommand }"/>
         <StackPanel>
             <Label Content="Kategoria" HorizontalAlignment="Center" Margin="0,100,0,10"/>
-            <TextBox Height="25" Width="210" Margin="0,0,0,10" Text="{Binding Categories.name}"/>
+            <TextBox Height="25" Width="210" Margin="0,0,0,10" Text="{Binding Category.name}"/>
             <ListBox Height="100" Width="210" ItemsSource="{Binding Lista}" SelectedItem="{Binding Categories}" Margin="0,0,0,10"/>
             <Button Height="25" Width="75" Margin="0,0,100,0"  Content="Mentés" Command="{Binding DoSaveCommand}"/>
             <Button Height="25" Width="75" Margin="100,-24,0,0"  Content="Törlés" Command="{Binding DoDeleteCommand}"/>

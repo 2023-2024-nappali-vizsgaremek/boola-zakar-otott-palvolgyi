@@ -13,14 +13,14 @@ namespace Desktop.Models
 
         public string Payee { get; set; }
         public Category category { get; set; }
-        public Categories currency { get; set; }
+        public Category currency { get; set; }
         public string tag { get; set; }
         public bool Status { get; set; }
         public int Amount { get; set; }
         public string account { get; set; }
         public DateTime date { get; set; }
 
-        public NewExpnse(string payee, Category category, Categories currency, string tag, bool status, int amount, string account, DateTime date)
+        public NewExpnse(string payee, Category category, Category currency, string tag, bool status, int amount, string account, DateTime date)
         {
             Payee = payee;
             this.category = category;
@@ -35,7 +35,7 @@ namespace Desktop.Models
         {
             Payee = "Okt";
             this.category = Category.General;
-            this.currency = new Categories();
+            this.currency = new Category();
             this.tag = "Kölcsön";
             Status = false;
             Amount = 0;

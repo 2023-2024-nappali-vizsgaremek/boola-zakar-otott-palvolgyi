@@ -9,25 +9,25 @@ using System.Threading.Tasks;
 
 namespace Desktop.Service
 {
-    public class CategoriesService : ICategoriesService
+    public class CategoryService : ICategoryService
     {
         private readonly HttpClient? httpClient;
-        public CategoriesService(IHttpClientFactory? httpClientFactory)
+        public CategoryService(IHttpClientFactory? httpClientFactory)
         {
             httpClient = httpClientFactory?.CreateClient("BoolaApi");
         }
-        public async Task<List<Categories>> GetAllCategories()
+        public async Task<List<Category>> GetAllCategories()
         {
-            var resp = await httpClient.GetFromJsonAsync<List<Categories>>("/api/currency");
-            if (resp is null) return new List<Categories>();
+            var resp = await httpClient.GetFromJsonAsync<List<Category>>("/api/currency");
+            if (resp is null) return new List<Category>();
             return resp.ToList();
         }
 
-        public async Task<Categories> GetCategories(string name)
+        public async Task<Category> GetCategories(string name)
         {
             var resp = await httpClient.GetStringAsync("/api/categories/" + name);
-            if (resp is null) return new Categories();
-            return new Categories(name);
+            if (resp is null) return new Category();
+            return new Category(name);
         }
 
     }
