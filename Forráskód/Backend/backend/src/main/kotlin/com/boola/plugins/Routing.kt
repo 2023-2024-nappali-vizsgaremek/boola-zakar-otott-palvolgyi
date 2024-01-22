@@ -52,5 +52,17 @@ fun Application.configureRouting() {
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
             else call.respond(con.getCurrency(call.parameters["code"] as String))
         }
+
+        get("/api/category") {
+            val con = DataControllerFactory.getController()
+            if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+            else call.respond(con.getCurrenciesAll())
+        }
+
+        get("/api/category/{code}") {
+            val con = DataControllerFactory.getController()
+            if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+            else call.respond(con.getCategory(call.parameters["id"] as String))
+        }
     }
 }

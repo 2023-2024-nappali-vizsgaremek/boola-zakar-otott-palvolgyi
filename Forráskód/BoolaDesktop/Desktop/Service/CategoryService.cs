@@ -18,16 +18,16 @@ namespace Desktop.Service
         }
         public async Task<List<Category>> GetAllCategories()
         {
-            var resp = await httpClient.GetFromJsonAsync<List<Category>>("/api/currency");
+            var resp = await httpClient.GetFromJsonAsync<List<Category>>("/api/category");
             if (resp is null) return new List<Category>();
             return resp.ToList();
         }
 
-        public async Task<Category> GetCategories(string name)
+        public async Task<Category> GetCategory(string id)
         {
-            var resp = await httpClient.GetStringAsync("/api/categories/" + name);
+            var resp = await httpClient.GetStringAsync("/api/category/" + id);
             if (resp is null) return new Category();
-            return new Category(name);
+            return new Category(id, resp);
         }
 
     }

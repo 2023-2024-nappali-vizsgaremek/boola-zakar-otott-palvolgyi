@@ -8,15 +8,18 @@ namespace Desktop.Models
 {
     public class Category
     {
+        public int id { get; set; }
         public string name { get; set; }
 
-        public Category() 
+        public Category()
         {
+            id = 0;
             name = "General";
         }
 
-        public Category(string name)
+        public Category(string name, int id)
         {
+            this.id = id;
             this.name = name;
         }
     }

@@ -13,6 +13,9 @@ class DataController(private val connection: Connection) {
     private val getCurrencyStatement:PreparedStatement = connection.prepareStatement(
         "SELECT name from currency WHERE code = ?")
     private val getCurrenciesStatement:PreparedStatement = connection.prepareStatement("SELECT * FROM currency")
+    private val getCategoryStatement:PreparedStatement = connection.prepareStatement(
+        "SELECT name from category WHERE id = ?")
+    private val getCategoriesStatement:PreparedStatement = connection.prepareStatement("SELECT * FROM category")
 
     fun getDbStatus():Boolean {
         return connection.isValid(4)
@@ -57,4 +60,21 @@ class DataController(private val connection: Connection) {
         return currencies
     }
 
+    fun getCategory(id:int):String {
+        getCategoryStatement.setString(1,code)
+        getCategoryStatement.execute()
+        val results = getCategoryStatement.resultSet
+        results.first()
+        return results.getString(1)
+    }
+
+    fun getCategoriesAll():ArrayList<Category> {
+        getCategoriesStatement.execute()
+        val categories = ArrayList<Category>()
+        val results = getCurrenciesStatement.resultSet
+        while (results.next()){
+            categories.add(Category(results.getString("id"),results.getString("name")))
+        }
+        return categories
+    }
 }
