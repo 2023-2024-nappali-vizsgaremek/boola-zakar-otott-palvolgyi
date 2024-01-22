@@ -10,6 +10,6 @@ namespace Desktop.Service
     public interface ICategoryService
     {
         public Task<List<Category>> GetAllCategories();
-        public Task<Category> GetCategory(string code);
+        public Task<Category> GetCategory(string id);
     }
 }

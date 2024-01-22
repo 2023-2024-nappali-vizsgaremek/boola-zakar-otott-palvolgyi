@@ -14,7 +14,7 @@ namespace Desktop.Models
         public Category()
         {
             id = 0;
-            name = "General";
+            name = "Default";
         }
 
         public Category(string name, int id)
