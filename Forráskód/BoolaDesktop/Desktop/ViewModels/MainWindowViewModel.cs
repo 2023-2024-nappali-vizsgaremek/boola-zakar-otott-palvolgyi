@@ -13,9 +13,20 @@ namespace Desktop.ViewModels
     {
         [ObservableProperty] 
      private ObservableObject childViewModel;
+        private NewExpenseViewModel newExpenseViewModel;
      
-    public static MainWindowViewModel Instance { get; private set; }
+    public static MainWindowViewModel Instance { get;  set; }
 
+        public MainWindowViewModel(NewExpenseViewModel newExpenseViewModel)
+        {
+            ChildViewModel = new MainMenuViewModel();
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            this.newExpenseViewModel = newExpenseViewModel;
+            
+        }
         public MainWindowViewModel()
         {
             ChildViewModel = new MainMenuViewModel();
@@ -23,12 +34,14 @@ namespace Desktop.ViewModels
             {
                 Instance = this;
             }
+            this.newExpenseViewModel = new NewExpenseViewModel(null);
+
         }
 
         [RelayCommand]
         public void ChangeToAddWindow()
         {
-            ChildViewModel = new NewExpenseViewModel();
+            ChildViewModel =newExpenseViewModel;
         }
 
 
