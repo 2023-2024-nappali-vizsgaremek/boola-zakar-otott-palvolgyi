@@ -12,34 +12,31 @@ using System.Windows;
 
 namespace Desktop.ViewModels
 {
-    public partial class MoneyViewModel : ObservableObject
+    public partial class CategoryViewModel : ObservableObject
     {
         [ObservableProperty]
-        private Money money;
+        private Category category;
         [ObservableProperty]
-        private List<Money> moneys = new List<Money>();
+        private List<Category> categories = new List<Category>();
         [ObservableProperty]
         private ObservableCollection<string> lista = new ObservableCollection<string>();
-        public MoneyViewModel()
+        public CategoryViewModel()
         {
-            Money = new Money();
+            category = new Category();
         }
         [RelayCommand]
-        public void DoSave(Money money)
+        public void DoSave(Category category)
         {
-            Lista.Add((Money.name.ToString() + " " + Money.code.ToString()));
-            Moneys.Add(money);
-            OnPropertyChanged(nameof(Moneys));
-
+            Lista.Add(category.name.ToString());
+            Categories.Add(category);
+            OnPropertyChanged(nameof(Categories));
         }
         [RelayCommand]
-        public void DoDelete(Money money)
+        public void DoDelete(Category category)
         {
-            Lista.Remove((Money.name.ToString() + " " + Money.code.ToString()));
-            Moneys.Remove(money);
-            OnPropertyChanged(nameof(Moneys));
-
-
+            Lista.Remove(category.name.ToString());
+            Categories.Add(category);
+            OnPropertyChanged(nameof(Categories));
         }
         [RelayCommand]
         public void ChangeToMainWindow()

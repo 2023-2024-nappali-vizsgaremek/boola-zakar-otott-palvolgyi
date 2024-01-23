@@ -33,6 +33,9 @@ class DataController(private val connection: Connection) {
         "SELECT name from currency WHERE code = ?")
 
     private val getCurrenciesStatement:PreparedStatement = connection.prepareStatement("SELECT * FROM currency")
+    private val getCategoryStatement:PreparedStatement = connection.prepareStatement(
+        "SELECT name from category WHERE id = ?")
+    private val getCategoriesStatement:PreparedStatement = connection.prepareStatement("SELECT * FROM category")
 
     private val getExpenseListStatement:PreparedStatement = connection.prepareStatement(
         "SELECT * FROM expenselist WHERE id = ?")
@@ -248,4 +251,21 @@ fun addExopenseList(newData:ExpenseList){
     }
 
 
+    fun getCategory(id:int):String {
+        getCategoryStatement.setString(1,code)
+        getCategoryStatement.execute()
+        val results = getCategoryStatement.resultSet
+        results.first()
+        return results.getString(1)
+    }
+
+    fun getCategoriesAll():ArrayList<Category> {
+        getCategoriesStatement.execute()
+        val categories = ArrayList<Category>()
+        val results = getCurrenciesStatement.resultSet
+        while (results.next()){
+            categories.add(Category(results.getString("id"),results.getString("name")))
+        }
+        return categories
+    }
 }

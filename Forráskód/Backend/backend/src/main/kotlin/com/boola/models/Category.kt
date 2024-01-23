@@ -1,5 +1,11 @@
 package com.boola.models
 
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class Category(val id: int, val name: String)
+
+/*
 enum class Category {
     FOOD,
     TRAVEL,
@@ -13,3 +19,4 @@ enum class Category {
     FINANCES,
     GENERAL
 }
+ */
