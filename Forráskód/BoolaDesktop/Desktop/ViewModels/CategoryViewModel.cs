@@ -27,14 +27,14 @@ namespace Desktop.ViewModels
         [RelayCommand]
         public void DoSave(Category category)
         {
-            Lista.Add(category.name.ToString());
+            Lista.Add(category.ToString());
             Categories.Add(category);
             OnPropertyChanged(nameof(Categories));
         }
         [RelayCommand]
         public void DoDelete(Category category)
         {
-            Lista.Remove(category.name.ToString());
+            Lista.Remove(category.ToString());
             Categories.Add(category);
             OnPropertyChanged(nameof(Categories));
         }
