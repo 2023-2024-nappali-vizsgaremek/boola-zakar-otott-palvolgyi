@@ -24,6 +24,7 @@
         <Button Height="25" Width="200" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,10,10,0"  Content="Settings" Command="{Binding ChangeToSettingsWindowCommand}"></Button>
         <Button Height="25" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,0,0"  Content="Profile" Command="{Binding ChangeToProfilesWindowCommand}"></Button>
         <Button Height="25" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,100,0,0"  Content="Currency" Command="{Binding ChangeToMoneyWindowCommand}"></Button>
+        <Button Height="25" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,150,0,0"  Content="Category" Command="{Binding ChangeToCategoryWindowCommand}"></Button>
         
         <Label Grid.Row="0" Height="50" Content="{Binding Content.WelcomeText}" Style="{StaticResource h1}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
         <StackPanel Grid.Row="1">

@@ -50,5 +50,10 @@ namespace Desktop.ViewModels
         public void ChangeToMoneyWindow() {
             ChildViewModel = new MoneyViewModel();
         }
+        [RelayCommand]
+        public void ChangeToCategoryWindow()
+        {
+            ChildViewModel = new CategoryViewModel();
+        }
     }
 }
