@@ -20,8 +20,8 @@
             <TextBox Height="25" Width="100" Margin="110,-35,0,10" Text="{Binding Category.id}"/>
             <TextBox Height="25" Width="100" Margin="0,0,110,10" Text="{Binding Category.name}"/>
             <ListBox Height="100" Width="210" ItemsSource="{Binding Lista}" SelectedItem="{Binding Categories}" Margin="0,0,0,10"/>
-            <Button Height="25" Width="75" Margin="0,0,100,0"  Content="Mentés" Command="{Binding DoSaveCommand}"/>
-            <Button Height="25" Width="75" Margin="100,-24,0,0"  Content="Törlés" Command="{Binding DoDeleteCommand}"/>
+            <Button Height="25" Width="75" Margin="0,0,100,0"  Content="Save" Command="{Binding DoSaveCommand}"/>
+            <Button Height="25" Width="75" Margin="100,-24,0,0"  Content="Delete" Command="{Binding DoDeleteCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

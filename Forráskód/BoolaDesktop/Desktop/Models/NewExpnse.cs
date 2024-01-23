@@ -13,14 +13,14 @@ namespace Desktop.Models
 
         public string Payee { get; set; }
         public Category category { get; set; }
-        public Category currency { get; set; }
+        public Money currency { get; set; }
         public string tag { get; set; }
         public bool Status { get; set; }
         public int Amount { get; set; }
         public string account { get; set; }
         public DateTime date { get; set; }
 
-        public NewExpnse(string payee, Category category, Category currency, string tag, bool status, int amount, string account, DateTime date)
+        public NewExpnse(string payee, Category category, Money currency, string tag, bool status, int amount, string account, DateTime date)
         {
             Payee = payee;
             this.category = category;
@@ -34,31 +34,15 @@ namespace Desktop.Models
         public NewExpnse()
         {
             Payee = "Okt";
-            this.category = Category.General;
-            this.currency = new Category();
+            this.category = new Category();
+            this.currency = new Money();
             this.tag = "Kölcsön";
             Status = false;
             Amount = 0;
             this.date = DateTime.Now;
         }
     }
-    public enum Category
-    {
-        Travel,
-        Transport,
-        Entertaiment,
-        Health,
-        Shopping,
-        Services,
-        Bills,
-        Groceries,
-        Finance,
-        General
-    }
-    public class category
-    {
-        public List<Category> categories = new() {Category.Travel,Category.Transport,Category.Entertaiment,Category.Health,Category.Shopping,Category.Services,Category.Bills,Category.Groceries,Category.Finance,Category.General };
-    }
+   
     
     
 }

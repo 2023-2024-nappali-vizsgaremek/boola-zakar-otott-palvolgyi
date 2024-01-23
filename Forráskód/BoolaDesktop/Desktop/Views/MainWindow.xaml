@@ -29,9 +29,9 @@
         <DataTemplate DataType="{x:Type vm:LoginViewModel}">
             <local:LoginWindow/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:CategoryViewModel}">
-            <local:CategoryView/>
-        </DataTemplate>
+       <!--<DataTemplate DataType="{x:Type vm:CategoryViewModel}">-->
+            <!--<local:CategoryView/>-->
+       <!-- </DataTemplate>-->
     </Window.Resources>
     <Grid>
        

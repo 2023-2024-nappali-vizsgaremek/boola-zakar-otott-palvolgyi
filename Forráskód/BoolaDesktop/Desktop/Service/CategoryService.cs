@@ -27,7 +27,7 @@ namespace Desktop.Service
         {
             var resp = await httpClient.GetStringAsync("/api/category/" + id);
             if (resp is null) return new Category();
-            return new Category(id, resp);
+            return new Category(resp,Convert.ToInt32(id));
         }
 
     }

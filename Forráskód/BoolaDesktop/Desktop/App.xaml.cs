@@ -19,7 +19,7 @@ namespace Desktop
     /// </summary>
     public partial class App : Application
     {
-        private bool _login = false;
+        //private bool _login = false;
         private IHost host;
         public App()
         {

@@ -17,29 +17,29 @@ namespace Desktop.ViewModels
         [ObservableProperty]
         private NewExpnse expnse;
         [ObservableProperty]
-        private ObservableCollection<Category> cat = new ObservableCollection<Category>(new category().categories);
+        private ObservableCollection<Category> cat = new ObservableCollection<Category>();
         [ObservableProperty]
-        private ObservableCollection<Category> cur = new ObservableCollection<Category>();
+        private ObservableCollection<Money> cur = new ObservableCollection<Money>();
         [ObservableProperty]
         private string kategória;
         [ObservableProperty]
         private string pénznem;
         [ObservableProperty]
         private ObservableCollection<NewExpnse> lista = new ObservableCollection<NewExpnse>();
-        private Category _SelectCategory = Category.General;
-        private Category _Currency = new Category();
+        private Category _SelectCategory = new Category();
+        private Money _Currency = new Money();
         private ICurrencyService currencyService;
         public NewExpenseViewModel(ICurrencyService currency)
         {
             currencyService = currency;
             Expnse = new NewExpnse();
-            Expnse.category = cat.First();
+            Expnse.category = new Category();
            
         }
         public override async Task InitializeAsync()
         {
             var c = await currencyService.GetAllCurrencys();
-            Cur = new ObservableCollection<Category>(c);
+            Cur = new ObservableCollection<Money>(c);
             
         }
         public Category SelectCategory
@@ -52,7 +52,7 @@ namespace Desktop.ViewModels
 
             }
         }
-        public Category Currency
+        public Money Currency
         {
             get => _Currency;
             set

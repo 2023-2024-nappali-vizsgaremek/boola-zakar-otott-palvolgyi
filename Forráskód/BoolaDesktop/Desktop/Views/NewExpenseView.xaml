@@ -7,9 +7,6 @@
              xmlns:local="clr-namespace:Desktop.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.DataContext>
-        <vm:NewExpenseViewModel/>
-    </UserControl.DataContext>
     <StackPanel>
         <Grid Name="Grid1" MaxWidth="700" MinWidth="400">
             <Grid.ColumnDefinitions>

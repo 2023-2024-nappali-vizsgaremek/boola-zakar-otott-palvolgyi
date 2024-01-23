@@ -9,7 +9,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace Desktop.ViewModels
 {
-    public partial class MainWindowViewModel : ObservableObject
+    public partial class MainWindowViewModel : AsyncInitializedViewModel
     {
         [ObservableProperty] 
      private ObservableObject childViewModel;
@@ -24,6 +24,10 @@ namespace Desktop.ViewModels
             {
                 Instance = this;
             }
+            else
+            {
+                return;
+            }
             this.newExpenseViewModel = newExpenseViewModel;
             
         }
@@ -33,6 +37,10 @@ namespace Desktop.ViewModels
             if (Instance == null)
             {
                 Instance = this;
+            }
+            else
+            {
+                return;
             }
             this.newExpenseViewModel = new NewExpenseViewModel(null);
 
