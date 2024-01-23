@@ -9,6 +9,8 @@ using Microsoft.Extensions.Http;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Desktop.Extensions;
+using Desktop.ViewModels;
+using Desktop.Views;
 
 namespace Desktop
 {
@@ -26,6 +28,16 @@ namespace Desktop
                 {
                     srevices.ConfigureHttpClient();
                     srevices.ConfigureApiServices();
+                    srevices.AddSingleton<MainWindowViewModel>();
+                    srevices.AddSingleton<MainWindow>(s => new MainWindow()
+                    {
+                        DataContext = s.GetRequiredService<MainWindowViewModel>()
+                    });
+                    srevices.AddSingleton<NewExpenseViewModel>();
+                    srevices.AddSingleton<NewExpenseView>(s => new NewExpenseView()
+                    {
+                        DataContext=s.GetRequiredService<NewExpenseViewModel>()
+                    });
                 })
                 .Build();
         }
