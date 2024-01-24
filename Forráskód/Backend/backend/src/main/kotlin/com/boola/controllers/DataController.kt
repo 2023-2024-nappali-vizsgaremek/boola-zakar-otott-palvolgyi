@@ -1,11 +1,9 @@
 package com.boola.controllers
 
 import at.favre.lib.crypto.bcrypt.BCrypt
-import com.boola.models.Account
-import com.boola.models.Currency
-import com.boola.models.ExpenseList
-import com.boola.models.Profile
+import com.boola.models.*
 import io.ktor.util.*
+import io.ktor.util.debug.*
 import java.security.MessageDigest
 import java.sql.Connection
 import java.sql.PreparedStatement
@@ -251,8 +249,8 @@ fun addExopenseList(newData:ExpenseList){
     }
 
 
-    fun getCategory(id:int):String {
-        getCategoryStatement.setString(1,code)
+    fun getCategory(id:Int):String {
+        getCategoryStatement.setInt(1,id)
         getCategoryStatement.execute()
         val results = getCategoryStatement.resultSet
         results.first()
@@ -264,7 +262,7 @@ fun addExopenseList(newData:ExpenseList){
         val categories = ArrayList<Category>()
         val results = getCurrenciesStatement.resultSet
         while (results.next()){
-            categories.add(Category(results.getString("id"),results.getString("name")))
+            categories.add(Category(results.getInt("id"),results.getString("name")))
         }
         return categories
     }

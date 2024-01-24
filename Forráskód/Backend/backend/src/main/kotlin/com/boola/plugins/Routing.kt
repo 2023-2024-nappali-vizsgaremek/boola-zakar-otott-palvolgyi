@@ -136,10 +136,10 @@ fun Application.configureRouting() {
             else call.respond(con.getCurrenciesAll())
         }
 
-        get("/api/category/{code}") {
+        get("/api/category/{id}") {
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-            else call.respond(con.getCategory(call.parameters["id"] as String))
+            else call.respond(con.getCategory(call.parameters["id"] as Int))
         }
         authenticate("boola-auth") {
             get("/api/profile/{id}"){
@@ -150,7 +150,7 @@ fun Application.configureRouting() {
             get("/api/profile"){
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-                else call.respond(con.getAllprofile())
+                else call.respond(con.getAllProfile())
             }
             post("/api/profile/{id}") {
                 val con = DataControllerFactory.getController()
