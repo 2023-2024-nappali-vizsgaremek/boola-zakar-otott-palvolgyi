@@ -13,6 +13,7 @@ namespace Desktop.Models
         public string password { get; set; }
         public nyelvek nyelv { get; set; }
 
+
         public Settings(string name, string email, string password, nyelvek nyelv)
         {
 
