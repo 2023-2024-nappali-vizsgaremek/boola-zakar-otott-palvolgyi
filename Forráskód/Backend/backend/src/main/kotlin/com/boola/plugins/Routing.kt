@@ -50,12 +50,13 @@ fun Application.configureRouting() {
                 println("Stored $storedPw, got $sentPw")
                 val verification = BCrypt.verifyer().verify(sentPw, storedPw)
                 if(!verification.verified) call.respond(HttpStatusCode.Unauthorized)
-                val secret = try {
+                val secret:String = try {
                     System.getenv("JWT_SECRET")
-                } catch (e:NullPointerException){
+                } catch (_:NullPointerException){
                     val env = dotenv()
                     env["JWT_SECRET"]
                 }
+                println("$secret is the secret")
                 val token = JWT.create()
                     .withClaim("email",user.email)
                     .withExpiresAt(Date(System.currentTimeMillis() + 300000))
