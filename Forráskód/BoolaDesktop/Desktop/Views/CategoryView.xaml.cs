@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace Desktop.Views
 {
     /// <summary>
-    /// Interaction logic for MainMenuView.xaml
+    /// Interaction logic for CategoriesView.xaml
     /// </summary>
-    public partial class MainMenuView : UserControl
+    public partial class CategoriesView : UserControl
     {
-        public MainMenuView()
+        public CategoriesView()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

@@ -24,10 +24,11 @@
         <Button Height="25" Width="200" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,10,10,0"  Content="Settings" Command="{Binding ChangeToSettingsWindowCommand}"></Button>
         <Button Height="25" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,10,0,0"  Content="Profile" Command="{Binding ChangeToProfilesWindowCommand}"></Button>
         <Button Height="25" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,100,0,0"  Content="Currency" Command="{Binding ChangeToMoneyWindowCommand}"></Button>
-        
+        <Button Height="25" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,51,0,0"  Content="Category" Command="{Binding ChangeToCategoryWindowCommand}" Grid.Row="1"></Button>
+
         <Label Grid.Row="0" Height="50" Content="{Binding Content.WelcomeText}" Style="{StaticResource h1}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
         <StackPanel Grid.Row="1">
-            
+
             <Label Style="{StaticResource h2}">Havi költés:</Label>
             <Label Content="{Binding Content.MonthlySpend}"></Label>
             <Label Style="{StaticResource h2}">Egyenleg:</Label>
@@ -42,8 +43,8 @@
                     </Style>
                 </Label.Style>
             </Label>
-            
-            
+
+
         </StackPanel>
         <Button Grid.Row="1" Height="25" Width="200" Margin="0,0,0,25" VerticalAlignment="Bottom" Content="Add new expense" Command="{Binding ChangeToAddWindowCommand}"></Button>
     </Grid>

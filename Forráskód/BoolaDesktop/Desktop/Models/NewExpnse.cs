@@ -34,7 +34,7 @@ namespace Desktop.Models
         public NewExpnse()
         {
             Payee = "Okt";
-            this.category = Category.General;
+            this.category = new Category();
             this.currency = new Money();
             this.tag = "Kölcsön";
             Status = false;
@@ -42,23 +42,7 @@ namespace Desktop.Models
             this.date = DateTime.Now;
         }
     }
-    public enum Category
-    {
-        Travel,
-        Transport,
-        Entertaiment,
-        Health,
-        Shopping,
-        Services,
-        Bills,
-        Groceries,
-        Finance,
-        General
-    }
-    public class category
-    {
-        public List<Category> categories = new() {Category.Travel,Category.Transport,Category.Entertaiment,Category.Health,Category.Shopping,Category.Services,Category.Bills,Category.Groceries,Category.Finance,Category.General };
-    }
+   
     
     
 }

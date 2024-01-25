@@ -9,13 +9,28 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace Desktop.ViewModels
 {
-    public partial class MainWindowViewModel : ObservableObject
+    public partial class MainWindowViewModel : AsyncInitializedViewModel
     {
         [ObservableProperty] 
      private ObservableObject childViewModel;
+        private NewExpenseViewModel newExpenseViewModel;
      
-    public static MainWindowViewModel Instance { get; private set; }
+    public static MainWindowViewModel Instance { get;  set; }
 
+        public MainWindowViewModel(NewExpenseViewModel newExpenseViewModel)
+        {
+            ChildViewModel = new MainMenuViewModel();
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                return;
+            }
+            this.newExpenseViewModel = newExpenseViewModel;
+            
+        }
         public MainWindowViewModel()
         {
             ChildViewModel = new LoginViewModel();
@@ -23,12 +38,18 @@ namespace Desktop.ViewModels
             {
                 Instance = this;
             }
+            else
+            {
+                return;
+            }
+            this.newExpenseViewModel = new NewExpenseViewModel(null);
+
         }
 
         [RelayCommand]
         public void ChangeToAddWindow()
         {
-            ChildViewModel = new NewExpenseViewModel();
+            ChildViewModel =newExpenseViewModel;
         }
 
 
@@ -49,6 +70,11 @@ namespace Desktop.ViewModels
         [RelayCommand]
         public void ChangeToMoneyWindow() {
             ChildViewModel = new MoneyViewModel();
+        }
+        [RelayCommand]
+        public void ChangeToCategoryWindow()
+        {
+            ChildViewModel = new CategoryViewModel();
         }
     }
 }
