@@ -85,18 +85,28 @@ class ApplicationTest {
 
     @Test
     fun testLogin(){
-        val server = testApplication {
+        testApplication {
             application {
                 configureSecurity()
                 configureRouting()
                 configureHTTP()
                 configureSerialization()
             }
-
-            var resp = client.post("/register"){
-                setBody(Json.encodeToJsonElement<Account>(Account("otottkovi@hotmail.com","password",
-                    "Tomika")))
+            val body = Json.encodeToJsonElement<Account>(
+                Account(
+                    "otottkovi@hotmail.com", "password",
+                    "Tomika"
+                )
+            ).toString()
+            client.post("/register"){
+                contentType(ContentType.Application.Json)
+                setBody(body)
             }
+            var resp = client.post("/login"){
+                contentType(ContentType.Application.Json)
+                setBody(body)
+            }
+            println("y:" + resp.bodyAsText())
             val token = Json.decodeFromString<JsonWebToken>(resp.bodyAsText())
             resp = client.get("/tst"){
                 header("Authorization","Bearer " + token.token)
