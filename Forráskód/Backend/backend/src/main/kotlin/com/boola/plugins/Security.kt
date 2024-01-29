@@ -39,7 +39,7 @@ fun Application.configureSecurity() {
             }
 
             challenge { _, _ ->
-                call.respond(HttpStatusCode.Unauthorized)
+                call.respond(HttpStatusCode.Unauthorized,"The token was incorrect")
             }
         }
     }
