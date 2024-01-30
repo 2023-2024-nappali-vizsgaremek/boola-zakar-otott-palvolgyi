@@ -16,13 +16,11 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.*
-import io.ktor.util.Identity.encode
-import kotlinx.serialization.SerializationStrategy
-import kotlinx.serialization.json.Json
-import java.security.MessageDigest
 import java.util.*
 
 private const val AccessTokenLifetime = 900000
+
+private const val RefreshTokenLifetime = 259200000
 
 fun Application.configureRouting() {
     install(StatusPages) {
@@ -53,7 +51,7 @@ fun Application.configureRouting() {
                 val storedPw = con.getAccount(user.email).pwHash.toCharArray()
                 println("Stored $storedPw, got $sentPw")
                 val verification = BCrypt.verifyer().verify(sentPw, storedPw)
-                if(!verification.verified) call.respond(HttpStatusCode.Unauthorized)
+                if(!verification.verified) call.respond(HttpStatusCode.Unauthorized,"Incorrect password!")
                 val secret:String = try {
                     System.getenv("JWT_SECRET")
                 } catch (_:NullPointerException){
@@ -61,13 +59,19 @@ fun Application.configureRouting() {
                     env["JWT_SECRET"]
                 }
                 println("$secret is the secret")
-                val token = JWT.create()
+                val accessToken = JWT.create()
                     .withClaim("email",user.email)
                     .withExpiresAt(Date(System.currentTimeMillis() + AccessTokenLifetime))
                     .withAudience("https://localhost:8080/login")
                     .withIssuer("https://localhost:8080")
                     .sign(Algorithm.HMAC256(secret))
-                call.respond(hashMapOf("token" to token))
+                val refreshToken = JWT.create()
+                    .withClaim("email",user.email)
+                    .withExpiresAt(Date(System.currentTimeMillis() + RefreshTokenLifetime))
+                    .withAudience("https://localhost:8080/refresh")
+                    .withIssuer("https://localhost:8080")
+                    .sign(Algorithm.HMAC256(secret))
+                call.respond(hashMapOf("access" to accessToken,"refresh" to refreshToken))
             }
 
         }
@@ -118,6 +122,25 @@ fun Application.configureRouting() {
 
                 }
             }
+        }
+
+        authenticate("boola-refresh") {
+           post("/refresh"){
+               val email = call.receive<String>()
+               val secret = try {
+                   System.getenv("JWT_SECRET")
+               } catch (_:NullPointerException){
+                   val env = dotenv()
+                   env["JWT_SECRET"]
+               }
+               val accessToken = JWT.create()
+                   .withClaim("email",email)
+                   .withExpiresAt(Date(System.currentTimeMillis() + RefreshTokenLifetime))
+                   .withAudience("https://localhost:8080/refresh")
+                   .withIssuer("https://localhost:8080")
+                   .sign(Algorithm.HMAC256(secret))
+               call.respond(hashMapOf("access" to accessToken))
+           }
         }
 
         get("/api/currency") {
