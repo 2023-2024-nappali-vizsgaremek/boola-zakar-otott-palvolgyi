@@ -91,6 +91,7 @@ class ApplicationTest {
                 configureRouting()
                 configureHTTP()
                 configureSerialization()
+                DataControllerFactory(10)
             }
             val body = Json.encodeToJsonElement<Account>(
                 Account(

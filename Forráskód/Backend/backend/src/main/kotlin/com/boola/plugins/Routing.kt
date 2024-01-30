@@ -22,6 +22,8 @@ import kotlinx.serialization.json.Json
 import java.security.MessageDigest
 import java.util.*
 
+private const val AccessTokenLifetime = 900000
+
 fun Application.configureRouting() {
     install(StatusPages) {
         exception<Throwable> { call, cause ->
@@ -61,9 +63,9 @@ fun Application.configureRouting() {
                 println("$secret is the secret")
                 val token = JWT.create()
                     .withClaim("email",user.email)
-                    .withExpiresAt(Date(System.currentTimeMillis() + 300000))
-                    .withAudience("http://localhost:8080/login")
-                    .withIssuer("http://localhost:8080")
+                    .withExpiresAt(Date(System.currentTimeMillis() + AccessTokenLifetime))
+                    .withAudience("https://localhost:8080/login")
+                    .withIssuer("https://localhost:8080")
                     .sign(Algorithm.HMAC256(secret))
                 call.respond(hashMapOf("token" to token))
             }
