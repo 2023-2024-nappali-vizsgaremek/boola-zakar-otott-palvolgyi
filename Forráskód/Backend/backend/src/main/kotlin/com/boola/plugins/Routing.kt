@@ -165,7 +165,11 @@ fun Application.configureRouting() {
         get("/api/category/{id}") {
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-            else call.respond(con.getCategory(call.parameters["id"] as Int))
+            else {
+                val id = call.parameters["id"]
+                if(id == null) call.respond(HttpStatusCode.NotFound)
+                else call.respond(con.getCategory(id.toInt()))
+            }
         }
         authenticate("boola-auth") {
             get("/api/profile/{id}"){
