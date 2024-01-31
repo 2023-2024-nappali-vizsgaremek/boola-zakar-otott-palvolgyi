@@ -39,15 +39,6 @@ namespace Desktop.ViewModels
         {
             MainWindowViewModel.Instance.ChangeToMainWindow();
         }
-        [RelayCommand]
-        public void ChangeToMoneyWindow()
-        {
-            MainWindowViewModel.Instance.ChangeToMoneyWindow();
-        }
-        [RelayCommand]
-        public void ChangeToCategoryWindow()
-        {
-            MainWindowViewModel.Instance.ChangeToCategoryWindow();
-        }
+       
     }
 }

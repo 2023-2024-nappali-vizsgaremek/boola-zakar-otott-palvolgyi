@@ -67,14 +67,6 @@ namespace Desktop.ViewModels
         {
             ChildViewModel=new MainMenuViewModel();
         }
-        [RelayCommand]
-        public void ChangeToMoneyWindow() {
-            ChildViewModel = new MoneyViewModel();
-        }
-        [RelayCommand]
-        public void ChangeToCategoryWindow()
-        {
-            ChildViewModel = new CategoryViewModel();
-        }
+       
     }
 }
