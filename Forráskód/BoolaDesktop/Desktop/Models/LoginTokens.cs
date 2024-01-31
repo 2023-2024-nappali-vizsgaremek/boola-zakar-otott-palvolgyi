@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Desktop.Models
 {
-    public record LoginTokens(string AccessToken, string RefreshToken)
+    public record LoginTokens(string access, string refresh)
     {
     }
 }

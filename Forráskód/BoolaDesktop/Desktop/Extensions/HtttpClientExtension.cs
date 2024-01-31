@@ -12,7 +12,7 @@ namespace Desktop.Extensions
     {
         public static void ConfigureHttpClient(this IServiceCollection services)
         {
-            services.AddHttpClient("BoolaApi", options => new Uri("https://localhost:8080"));
+            services.AddHttpClient("BoolaApi", options => options.BaseAddress = new Uri("https://localhost:8080"));
                 }
     }
 }

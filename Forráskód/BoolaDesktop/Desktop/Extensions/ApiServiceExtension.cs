@@ -14,6 +14,8 @@ namespace Desktop.Extensions
         public static void ConfigureApiServices(this IServiceCollection services)
         {
             services.AddScoped<ICurrencyService, CurrencyService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ILoginService, LoginService>();
         }
     }
 }

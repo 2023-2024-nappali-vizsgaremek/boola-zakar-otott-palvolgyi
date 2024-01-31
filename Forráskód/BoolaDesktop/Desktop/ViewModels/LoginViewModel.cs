@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Desktop.Models;
+using Desktop.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,19 +11,23 @@ using System.Windows;
 
 namespace Desktop.ViewModels
 {
-    public partial class LoginViewModel:ObservableObject
+    public partial class LoginViewModel : ObservableObject
     {
         [ObservableProperty]
         private Login login;
-        public LoginViewModel() {
-
+        private ILoginService loginService;
+        public LoginViewModel(ILoginService loginService)
+        {
+            this.loginService = loginService;
             Login = new Login();
         }
         [RelayCommand]
-        public void Logon()
+        public async Task Logon()
         {
-            MessageBox.Show("Sikeres bejelentkezés");
-            MainWindowViewModel.Instance.ChangeToMainWindow();
+            var account = await loginService.GetAccount(login);
+            var tokens = await loginService.PostLogin(account);
+            if(tokens is null) return;
+            
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Desktop.Service
 {
     public  interface ILoginService
     {
-        public Task<Login> postLogin(Account account);
+        Task<Account?> GetAccount(Login login);
+        public Task<LoginTokens?> PostLogin(Account account);
     }
 }
