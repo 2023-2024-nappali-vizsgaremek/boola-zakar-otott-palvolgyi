@@ -1,11 +1,9 @@
 package com.boola.controllers
 
 import at.favre.lib.crypto.bcrypt.BCrypt
-import com.boola.models.Account
-import com.boola.models.Currency
-import com.boola.models.ExpenseList
-import com.boola.models.Profile
+import com.boola.models.*
 import io.ktor.util.*
+import io.ktor.util.debug.*
 import java.security.MessageDigest
 import java.sql.Connection
 import java.sql.PreparedStatement
@@ -18,7 +16,9 @@ class DataController(private val connection: Connection) {
 
     private val getAccountStatement: PreparedStatement = connection.prepareStatement(
         "SELECT * FROM account WHERE email= ?")
+
     private val getAccountsStatement:PreparedStatement = connection.prepareStatement("SELECT * FROM account")
+
     private val addAccountStatement:PreparedStatement = connection.prepareStatement(
         "INSERT INTO account (email, passwordhash, name, salt) VALUES (?,?,?,?)")
     private val setAccountStatement:PreparedStatement = connection.prepareStatement(
@@ -29,15 +29,29 @@ class DataController(private val connection: Connection) {
         "SELECT salt from account WHERE email=?")
     private val getCurrencyStatement:PreparedStatement = connection.prepareStatement(
         "SELECT name from currency WHERE code = ?")
+
     private val getCurrenciesStatement:PreparedStatement = connection.prepareStatement("SELECT * FROM currency")
+    private val getCategoryStatement:PreparedStatement = connection.prepareStatement(
+        "SELECT name from category WHERE id = ?")
+    private val getCategoriesStatement:PreparedStatement = connection.prepareStatement("SELECT * FROM category")
+
     private val getExpenseListStatement:PreparedStatement = connection.prepareStatement(
         "SELECT * FROM expenselist WHERE id = ?")
+
     private val getExpenseListsStatement:PreparedStatement = connection.prepareStatement(
         "SELECT * FROM expenselist")
+    private val addExpenseListStatement:PreparedStatement=connection.prepareStatement(
+    "INSERT INTO expenseList VALUE (?,?,?)")
+    private val deleteExpenseListStatement:PreparedStatement=connection.prepareStatement(
+        "DELETE  FROM expenselist WHERE id=?")
+
     private val getProfileStatement:PreparedStatement =connection.prepareStatement(
         "SELECT * FROM profile WHERE id=?")
+
     private val getProfilesStatement:PreparedStatement=connection.prepareStatement("SELECT * FROM  profile")
+
     private val addProfileStatement:PreparedStatement=connection.prepareStatement(
+
         "INSERT INTO profile (id, name, isbusiness, expenselistid, languagecode, accountemail)" +
                 " VAlUES (?,?,?,?,?,?)")
     private val setProfileStatement:PreparedStatement=connection.prepareStatement(
@@ -216,7 +230,38 @@ class DataController(private val connection: Connection) {
         }
         return lists
     }
+fun addExopenseList(newData:ExpenseList){
+    addExpenseListStatement.run {
+        setObject(0,newData.id)
+        setLong(1, newData.balance)
+        setString(  2,newData.currencyCode)
+        execute()
+    }
+
+}
+    fun  deleteExpenseList(newData: UUID){
+        deleteExpenseListStatement.run {
+            setObject(0,newData)
+            execute()
+        }
+    }
 
 
+    fun getCategory(id:Int):String {
+        getCategoryStatement.setInt(1,id)
+        getCategoryStatement.execute()
+        val results = getCategoryStatement.resultSet
+        results.first()
+        return results.getString(1)
+    }
 
+    fun getCategoriesAll():ArrayList<Category> {
+        getCategoriesStatement.execute()
+        val categories = ArrayList<Category>()
+        val results = getCurrenciesStatement.resultSet
+        while (results.next()){
+            categories.add(Category(results.getInt("id"),results.getString("name")))
+        }
+        return categories
+    }
 }
