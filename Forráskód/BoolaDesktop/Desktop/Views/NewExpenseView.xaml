@@ -7,9 +7,6 @@
              xmlns:local="clr-namespace:Desktop.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.DataContext>
-        <vm:NewExpenseViewModel/>
-    </UserControl.DataContext>
     <StackPanel>
         <Grid Name="Grid1" MaxWidth="700" MinWidth="400">
             <Grid.ColumnDefinitions>
@@ -25,7 +22,7 @@
                 <RowDefinition Height="75"></RowDefinition>
             </Grid.RowDefinitions>
             <Button Content="Vissza" Height="25" Width="100" Margin="0,0,20,20" Command="{Binding ChangeToMainWindowCommand}"/>
-            <Label Grid.Column="1"  Style="{StaticResource h1}" Content="Add Expense"
+            <Label Grid.Column="1"  Style="{StaticResource h1}" Content="Add Expense">
             </Label>
             <Label Content="Payee" Grid.Row="1" Grid.Column="0">
             </Label>
