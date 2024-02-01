@@ -49,21 +49,22 @@ class DataController(private val connection: Connection) {
 
     private val addProfileStatement:PreparedStatement=connection.prepareStatement(
 
-        "INSERT INTO profile (id, name, isbusiness, expenselistid, languagecode, accountemail)" +
-                " VAlUES (?,?,?,?,?,?)")
+        "INSERT INTO profile (name, isbusiness, expenselistid, languagecode, accountemail)" +
+                " VAlUES (?,?,?,?,?)")
     private val setProfileStatement:PreparedStatement=connection.prepareStatement(
-        "UPDATE  profile SET id=?,name=?,isBusiness=?,languagecode=?,expenseListId=?,accountEmail=? WHERE id=?")
+        "UPDATE  profile SET name=?,isBusiness=?,languagecode=?,expenseListId=?,accountEmail=? WHERE id=?")
     private val deleteProfileStatement:PreparedStatement=connection.prepareStatement(
         "DELETE From profile where id=?")
     private val getPartnersStatement:PreparedStatement = connection.prepareStatement(
-        "SELECT * FROM partner"
-    )
+        "SELECT * FROM partner")
     private val getPartnerStatement:PreparedStatement = connection.prepareStatement(
-        "SELECT * FROM partner WHERE id=?"
-    )
+        "SELECT * FROM partner WHERE id=?")
     private val addPartnerStatement:PreparedStatement = connection.prepareStatement(
-        "INSERT INTO partner (id,name) VALUES (?,?)"
-    )
+        "INSERT INTO partner (id,name) VALUES (?,?)")
+    private val setPartnerStatement:PreparedStatement = connection.prepareStatement(
+    "UPDATE partner SET name=? WHERE= id=?")
+    private val deletePartnerStatement:PreparedStatement = connection.prepareStatement(
+    "DELETE FROM partner WHERE id=?")
 
     fun getDbStatus():Boolean {
         return connection.isValid(4)
@@ -176,35 +177,32 @@ class DataController(private val connection: Connection) {
     }
     fun setProfile(id:UUID,newData:Profile){
         setProfileStatement.run {
-            setObject(1,newData.id)
-            setString(2,newData.name)
-            setBoolean(3,newData.isBusiness)
-            setString(4,newData.languageId)
-            setObject(5,newData.expenseListId)
-            setString(6,newData.accountEmail)
-            setObject(7,id)
+            setString(1,newData.name)
+            setBoolean(2,newData.isBusiness)
+            setString(3,newData.languageId)
+            setObject(4,newData.expenseListId)
+            setString(5,newData.accountEmail)
+            setObject(6,id)
             execute()
         }
     }
     fun deleteProfile(newData: Profile){
         deleteProfileStatement.run {
-            setObject(1,newData.id)
-            setString(2,newData.name)
-            setBoolean(3,newData.isBusiness)
-            setString(4,newData.languageId)
-            setObject(5,newData.expenseListId)
-            setString(6,newData.accountEmail)
+            setString(3,newData.name)
+            setBoolean(4,newData.isBusiness)
+            setString(5,newData.languageId)
+            setObject(6,newData.expenseListId)
+            setString(7,newData.accountEmail)
             execute()
         }
     }
     fun addProfile(newData:Profile){
         addProfileStatement.run {
-            setObject(1,newData.id)
-            setString(2,newData.name)
-            setBoolean(3,newData.isBusiness)
-            setString(4,newData.languageId)
-            setObject(5,newData.expenseListId)
-            setString(6,newData.accountEmail)
+            setString(1,newData.name)
+            setBoolean(2,newData.isBusiness)
+            setString(3,newData.languageId)
+            setObject(4,newData.expenseListId)
+            setString(5,newData.accountEmail)
             execute()
         }
     }
@@ -232,7 +230,7 @@ class DataController(private val connection: Connection) {
         }
         return lists
     }
-fun addExopenseList(newData:ExpenseList){
+fun getExpenseList(newData:ExpenseList){
     addExpenseListStatement.run {
         setObject(0,newData.id)
         setLong(1, newData.balance)
@@ -242,7 +240,7 @@ fun addExopenseList(newData:ExpenseList){
 
 }
     fun  deleteExpenseList(newData: ExpenseList){
-        addExpenseListStatement.run {
+        deleteExpenseListStatement.run {
             setObject(0,newData.id)
             setLong(1, newData.balance)
             setString(  2,newData.currencyCode)
@@ -286,5 +284,24 @@ fun addExopenseList(newData:ExpenseList){
         return Partner(results.getByte(1),results.getString(2))
     }
 
+    fun addPartner(partnerToAdd:Partner){
+        addPartnerStatement.run {
+            setByte(1,partnerToAdd.id)
+            setString(2,partnerToAdd.name)
+            execute()
+        }
+    }
+
+    fun setPartner(newData:Partner,id:Byte){
+        setPartnerStatement.run{
+            setString(1,newData.name)
+            setByte(2,id)
+            execute()
+        }
+    }
+    fun deletePartner(id:Byte){
+        deletePartnerStatement.setByte(1,id)
+        deletePartnerStatement.execute()
+    }
 
 }

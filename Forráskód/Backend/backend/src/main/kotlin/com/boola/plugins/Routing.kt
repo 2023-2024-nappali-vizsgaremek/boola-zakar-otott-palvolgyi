@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm
 import com.boola.controllers.DataControllerFactory
 import com.boola.models.Account
 import com.boola.models.ExpenseList
+import com.boola.models.Partner
 import com.boola.models.Profile
 import io.github.cdimascio.dotenv.dotenv
 import io.ktor.http.*
@@ -159,7 +160,7 @@ fun Application.configureRouting() {
         get("/api/category") {
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-            else call.respond(con.getCurrenciesAll())
+            else call.respond(con.getCategoriesAll())
         }
 
         get("/api/category/{id}") {
@@ -240,25 +241,68 @@ fun Application.configureRouting() {
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else {
                     val expenselist= call.receive<ExpenseList>()
-                    con.addExopenseList(expenselist)
+                    con.getExpenseList(expenselist)
                     call.respond(HttpStatusCode.Created)
                 }
 
             }
-
-            delete("/api/profile/{id}") {
+            delete("/api/expenselist/{id}") {
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-                else{
-                    try{
-                        call.parameters["email"]?.let {con.deleteExpenseList(con.getExpenseList(UUID.fromString(it)))}
-                        call.respond(HttpStatusCode.NoContent)
+                else {
+                    val idString = call.parameters["id"]
+                    if(idString == null) call.respond(HttpStatusCode.NotFound)
+                    else {
+                        con.deleteExpenseList()
                     }
-                    catch(e:Exception)
-                    {
-                        e.message?.let { print(it) }
-                        call.respond(HttpStatusCode.BadRequest)
-
+                }
+            }
+        }
+        authenticate("boola-auth") {
+            get("/api/partner/"){
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else call.respond(con.getPartnersAll())
+            }
+            get("/api/partner/{id}") {
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else {
+                    val idString = call.parameters["id"]
+                    if(idString == null) call.respond(HttpStatusCode.NotFound)
+                    else call.respond(con.getPartner(idString.toByte()))
+                }
+            }
+            post("/api/partner/"){
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else {
+                    val partner = call.receive<Partner>()
+                    con.addPartner(partner)
+                    call.respond(HttpStatusCode.Created)
+                }
+            }
+            put("/api/partner/{id}"){
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else {
+                    val partner = call.receive<Partner>()
+                    val idString = call.parameters["id"]
+                    idString?.let {
+                        call.respond(con.setPartner(partner,it.toByte()))
+                    }
+                    call.respond(HttpStatusCode.NotFound)
+                }
+            }
+            delete("/api/partner/{id}"){
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else {
+                    val idString = call.parameters["id"]
+                    if(idString == null) call.respond(HttpStatusCode.NotFound)
+                    else {
+                        con.deletePartner(idString.toByte())
+                        call.respond(HttpStatusCode.NoContent)
                     }
                 }
             }
