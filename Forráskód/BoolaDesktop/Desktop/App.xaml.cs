@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Desktop.Extensions;
 using Desktop.ViewModels;
 using Desktop.Views;
+using Desktop.Service;
 
 namespace Desktop
 {

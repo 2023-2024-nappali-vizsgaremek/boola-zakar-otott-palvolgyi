@@ -34,6 +34,11 @@ namespace Desktop.Service
             if(resp is null || resp.StatusCode != System.Net.HttpStatusCode.OK) return null;
             var json = await resp.Content.ReadAsStringAsync();
             var tokens = JsonSerializer.Deserialize<LoginTokens>(json);
+            if(tokens is not null)
+            {
+                AuthService.AuthToken = tokens.access;
+                AuthService.RefreshToken = tokens.refresh;
+            }
             return tokens; 
         }
 
