@@ -24,7 +24,7 @@ namespace Desktop
         private IHost host;
         public App()
         {
-            host=Host.CreateDefaultBuilder()
+            host = Host.CreateDefaultBuilder()
                 .ConfigureServices(srevices =>
                 {
                     srevices.ConfigureHttpClient();
@@ -37,7 +37,13 @@ namespace Desktop
                     srevices.AddSingleton<NewExpenseViewModel>();
                     srevices.AddSingleton<NewExpenseView>(s => new NewExpenseView()
                     {
-                        DataContext=s.GetRequiredService<NewExpenseViewModel>()
+                        DataContext = s.GetRequiredService<NewExpenseViewModel>()
+                    });
+                    MessageBox.Show("true dis");
+                    srevices.AddSingleton<LoginViewModel>();
+                    srevices.AddSingleton<LoginWindow>(s => new LoginWindow()
+                    {
+                        DataContext = s.GetRequiredService<LoginViewModel>()
                     });
                 })
                 .Build();

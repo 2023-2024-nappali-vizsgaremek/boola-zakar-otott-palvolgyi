@@ -17,6 +17,7 @@ namespace Desktop.Service
         private bool IsClientAvailable => httpClient != null;
         public LoginService(IHttpClientFactory? httpClientFactory)
         {
+            MessageBox.Show((httpClient is null) + " dat");
             httpClient = httpClientFactory?.CreateClient("BoolaApi");
         }
 
