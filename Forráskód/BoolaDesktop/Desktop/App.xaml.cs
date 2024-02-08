@@ -39,7 +39,6 @@ namespace Desktop
                     {
                         DataContext = s.GetRequiredService<NewExpenseViewModel>()
                     });
-                    MessageBox.Show("true dis");
                     srevices.AddSingleton<LoginViewModel>();
                     srevices.AddSingleton<LoginWindow>(s => new LoginWindow()
                     {
