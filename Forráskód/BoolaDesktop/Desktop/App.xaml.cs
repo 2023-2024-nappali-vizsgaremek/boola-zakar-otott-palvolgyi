@@ -24,11 +24,12 @@ namespace Desktop
     /// </summary>
     public partial class App : Application
     {
-        private   readonly bool _login = true;
+        private readonly bool _login = true;
         private  IHost host;
-        public App()
+
+        protected async override void OnStartup(StartupEventArgs e)
         {
-           /* host = Host.CreateDefaultBuilder()
+            host = Host.CreateDefaultBuilder()
                 .ConfigureServices(srevices =>
                 {
                     srevices.ConfigureHttpClient();
@@ -45,29 +46,7 @@ namespace Desktop
                         DataContext = s.GetRequiredService<LoginViewModel>()
                     });
                 })
-                .Build();*/
-        }
-        protected async override void OnStartup(StartupEventArgs e)
-        {
-            host = Host.CreateDefaultBuilder()
-                .ConfigureServices(srevices =>
-                {
-                    srevices.ConfigureHttpClient();
-                    srevices.ConfigureApiServices();
-                    srevices.AddSingleton<NewExpenseViewModel>();
-                    srevices.AddSingleton<NewExpenseView>(s => new NewExpenseView()
-                    {
-                        DataContext = s.GetRequiredService<NewExpenseViewModel>()
-                    });
-                   ;
-                    srevices.AddSingleton<LoginViewModel>();
-                    srevices.AddSingleton<LoginWindow>(s => new LoginWindow()
-                    {
-                        DataContext = s.GetRequiredService<LoginViewModel>()
-                    });
-                })
                 .Build();
-
             await host.StartAsync();
                 var loginView = host.Services.GetRequiredService<LoginWindow>();
                 loginView.Show();
