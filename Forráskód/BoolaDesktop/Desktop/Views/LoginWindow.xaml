@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Desktop.Views.LoginWindow"
+﻿<Window x:Class="Desktop.Views.LoginWindow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -15,4 +15,4 @@
         <Button Height="25" Width="100" Content="Register" Margin="0,200,0,0"/>
 
     </Grid>
-</UserControl>
+</Window>

@@ -12,6 +12,10 @@ using Desktop.Extensions;
 using Desktop.ViewModels;
 using Desktop.Views;
 using Desktop.Service;
+using System.Security.Authentication.ExtendedProtection;
+using System.Runtime.CompilerServices;
+using Microsoft.Extensions.Http;
+using Microsoft.Extensions.Hosting;
 
 namespace Desktop
 {
@@ -20,20 +24,15 @@ namespace Desktop
     /// </summary>
     public partial class App : Application
     {
-        //private bool _login = false;
-        private IHost host;
+        private   readonly bool _login = true;
+        private  IHost host;
         public App()
         {
-            host = Host.CreateDefaultBuilder()
+           /* host = Host.CreateDefaultBuilder()
                 .ConfigureServices(srevices =>
                 {
                     srevices.ConfigureHttpClient();
                     srevices.ConfigureApiServices();
-                    srevices.AddSingleton<MainWindowViewModel>();
-                    srevices.AddSingleton<MainWindow>(s => new MainWindow()
-                    {
-                        DataContext = s.GetRequiredService<MainWindowViewModel>()
-                    });
                     srevices.AddSingleton<NewExpenseViewModel>();
                     srevices.AddSingleton<NewExpenseView>(s => new NewExpenseView()
                     {
@@ -46,7 +45,55 @@ namespace Desktop
                         DataContext = s.GetRequiredService<LoginViewModel>()
                     });
                 })
+                .Build();*/
+        }
+        protected async override void OnStartup(StartupEventArgs e)
+        {
+            host = Host.CreateDefaultBuilder()
+                .ConfigureServices(srevices =>
+                {
+                    srevices.ConfigureHttpClient();
+                    srevices.ConfigureApiServices();
+                    srevices.AddSingleton<NewExpenseViewModel>();
+                    srevices.AddSingleton<NewExpenseView>(s => new NewExpenseView()
+                    {
+                        DataContext = s.GetRequiredService<NewExpenseViewModel>()
+                    });
+                   ;
+                    srevices.AddSingleton<LoginViewModel>();
+                    srevices.AddSingleton<LoginWindow>(s => new LoginWindow()
+                    {
+                        DataContext = s.GetRequiredService<LoginViewModel>()
+                    });
+                })
                 .Build();
+
+            await host.StartAsync();
+                var loginView = host.Services.GetRequiredService<LoginWindow>();
+                loginView.Show();
+                loginView.IsVisibleChanged += (_, _) =>
+                {
+                    if (loginView.IsVisible == false && loginView.IsLoaded)
+                    {
+                        var mainView = host.Services.GetRequiredService<MainWindow>();
+                        mainView.Show();
+                        try
+                        {
+                            loginView.Close();
+                        }
+                        catch { }
+                    }
+
+                };
+         
+
+
+
+
+            }
+        private void Application_Startup( object sender,StartupEventArgs e)
+        {
+            
         }
 
     }

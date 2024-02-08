@@ -21,14 +21,14 @@ namespace Desktop.ViewModels
 
         public MainWindowViewModel(NewExpenseViewModel newExpenseViewModel,LoginViewModel loginViewModel)
         {
-            MessageBox.Show("dis");
+            
             ChildViewModel = loginViewModel;
             Instance ??= this;
             this.newExpenseViewModel = newExpenseViewModel;
         }
         public MainWindowViewModel()
         {
-            MessageBox.Show("dat");
+         
             ChildViewModel = new LoginViewModel(new LoginService(null));
             if (Instance == null)
             {

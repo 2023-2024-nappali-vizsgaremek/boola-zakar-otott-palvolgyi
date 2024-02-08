@@ -24,10 +24,12 @@ namespace Desktop.ViewModels
         [RelayCommand]
         public async Task Logon()
         {
-            var account = await loginService.GetAccount(login);
+            var account = await loginService.GetAccount(Login);
             var tokens = await loginService.PostLogin(account);
             if(tokens is null) return;
-            
+            AuthService.AuthToken = tokens.access;
+            AuthService.RefreshToken = tokens.refresh;
+            MainWindowViewModel.Instance.ChangeToMainWindow();
         }
     }
 }
