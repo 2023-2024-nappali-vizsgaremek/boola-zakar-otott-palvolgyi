@@ -6,34 +6,30 @@ using System.Threading.Tasks;
 using Desktop.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Windows;
+using Desktop.Service;
 
 namespace Desktop.ViewModels
 {
     public partial class MainWindowViewModel : AsyncInitializedViewModel
     {
-        [ObservableProperty] 
-     private ObservableObject childViewModel;
+        [ObservableProperty]
+        private ObservableObject childViewModel;
         private NewExpenseViewModel newExpenseViewModel;
-     
-    public static MainWindowViewModel Instance { get;  set; }
 
-        public MainWindowViewModel(NewExpenseViewModel newExpenseViewModel)
+        public static MainWindowViewModel Instance { get; set; }
+
+        public MainWindowViewModel(NewExpenseViewModel newExpenseViewModel,LoginViewModel loginViewModel)
         {
-            ChildViewModel = new MainMenuViewModel();
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-            else
-            {
-                return;
-            }
-            this.newExpenseViewModel = newExpenseViewModel;
             
+            ChildViewModel = loginViewModel;
+            Instance ??= this;
+            this.newExpenseViewModel = newExpenseViewModel;
         }
         public MainWindowViewModel()
         {
-            ChildViewModel = new LoginViewModel();
+         
+            ChildViewModel = new LoginViewModel(new LoginService(null));
             if (Instance == null)
             {
                 Instance = this;
@@ -42,14 +38,13 @@ namespace Desktop.ViewModels
             {
                 return;
             }
-            this.newExpenseViewModel = new NewExpenseViewModel(null);
-
+            this.newExpenseViewModel = new NewExpenseViewModel(new CurrencyService(null));
         }
 
         [RelayCommand]
         public void ChangeToAddWindow()
         {
-            ChildViewModel =newExpenseViewModel;
+            ChildViewModel = newExpenseViewModel;
         }
 
 
@@ -59,22 +54,15 @@ namespace Desktop.ViewModels
             ChildViewModel = new SettingsViewModel();
         }
         [RelayCommand]
-        public void ChangeToProfilesWindow() {
+        public void ChangeToProfilesWindow()
+        {
             ChildViewModel = new ProfileViewModel();
         }
         [RelayCommand]
         public void ChangeToMainWindow()
         {
-            ChildViewModel=new MainMenuViewModel();
+            ChildViewModel = new MainMenuViewModel();
         }
-        [RelayCommand]
-        public void ChangeToMoneyWindow() {
-            ChildViewModel = new MoneyViewModel();
-        }
-        [RelayCommand]
-        public void ChangeToCategoryWindow()
-        {
-            ChildViewModel = new CategoryViewModel();
-        }
+
     }
 }
