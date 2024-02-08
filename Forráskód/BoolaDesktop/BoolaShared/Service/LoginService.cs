@@ -8,6 +8,8 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.Extensions.Http;
+using Microsoft.Extensions.Hosting;
 
 namespace Desktop.Service
 {
