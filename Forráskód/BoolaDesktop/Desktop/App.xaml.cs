@@ -14,8 +14,6 @@ using Desktop.Views;
 using Desktop.Service;
 using System.Security.Authentication.ExtendedProtection;
 using System.Runtime.CompilerServices;
-using Microsoft.Extensions.Http;
-using Microsoft.Extensions.Hosting;
 
 namespace Desktop
 {
