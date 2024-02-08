@@ -15,7 +15,7 @@ namespace Desktop.Extensions
         {
             services.AddHttpClient("BoolaApi", options =>
             {
-                options.BaseAddress = new Uri("https://localhost:8080");
+                options.BaseAddress = new Uri("http://localhost:8080");
             }
                 );
         }

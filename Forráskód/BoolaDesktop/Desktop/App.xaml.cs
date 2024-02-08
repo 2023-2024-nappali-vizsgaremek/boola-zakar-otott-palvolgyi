@@ -50,20 +50,7 @@ namespace Desktop
             await host.StartAsync();
                 var loginView = host.Services.GetRequiredService<LoginWindow>();
                 loginView.Show();
-                loginView.IsVisibleChanged += (_, _) =>
-                {
-                    if (loginView.IsVisible == false && loginView.IsLoaded)
-                    {
-                        var mainView = host.Services.GetRequiredService<MainWindow>();
-                        mainView.Show();
-                        try
-                        {
-                            loginView.Close();
-                        }
-                        catch { }
-                    }
-
-                };
+                
          
 
 
