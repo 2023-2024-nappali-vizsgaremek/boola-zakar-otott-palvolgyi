@@ -34,8 +34,6 @@ namespace Desktop.Service
         {
             if(!IsClientAvailable) return null;
             var resp = await httpClient!.PostAsJsonAsync("/login", account);
-
-            MessageBox.Show(JsonSerializer.SerializeToElement(account).GetString());
             if(resp is null || resp.StatusCode != System.Net.HttpStatusCode.OK) return null;
             var json = await resp.Content.ReadAsStringAsync();
             var tokens = JsonSerializer.Deserialize<LoginTokens>(json);
