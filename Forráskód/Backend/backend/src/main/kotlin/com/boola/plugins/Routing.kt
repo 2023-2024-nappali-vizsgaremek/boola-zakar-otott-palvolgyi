@@ -47,8 +47,7 @@ fun Application.configureRouting() {
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
             else {
-                val sentPw = (con.getAccountSalt(user.email) + user.pwHash)
-                    .toCharArray()
+                val sentPw = user.pwHash.toCharArray()
                 val storedPw = con.getAccount(user.email).pwHash.toCharArray()
                 println("Stored $storedPw, got $sentPw")
                 val verification = BCrypt.verifyer().verify(sentPw, storedPw)

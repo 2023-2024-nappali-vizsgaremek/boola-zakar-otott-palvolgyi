@@ -20,3 +20,7 @@ Content-Type: application/json
 ###
 GET http://localhost:8080/tst
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im90b3R0a292aUBob3RtYWlsLmNvbSIsImV4cCI6MTcwNjUyMzExMSwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL2xvZ2luIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwIn0.rOUNF3Sa_WjJLWVaDUbfQQtd_Zv7N9wvOjRqmuAfReM
+
+###
+GET http://localhost:8080/api/account/otottkovi@hotmail.com
+
