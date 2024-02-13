@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Desktop.ViewModels
 {
-     public class AsyncInitializedViewModel:ObservableObject
+     public abstract class AsyncInitializedViewModel:ObservableObject
     {
 
        public virtual Task InitializeAsync() { return Task.CompletedTask; }

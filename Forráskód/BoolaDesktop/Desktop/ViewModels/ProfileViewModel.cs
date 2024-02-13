@@ -13,7 +13,7 @@ using System.Windows.Controls;
 
 namespace Desktop.ViewModels
 {
-   partial  class ProfileViewModel : ObservableObject
+   public abstract  class ProfileViewModel : ObservableObject
     {
         [ObservableProperty]
         private Profile profile;

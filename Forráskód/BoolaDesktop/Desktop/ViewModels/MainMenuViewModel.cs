@@ -9,33 +9,33 @@ using System.Threading.Tasks;
 
 namespace Desktop.ViewModels
 {
-    public partial class MainMenuViewModel : ObservableObject
+    public abstract class MainMenuViewModel : ObservableObject
     {
-        [ObservableProperty] private MainContent content;
+      private MainContent content;
 
         public MainMenuViewModel()
         {
             content = new MainContent();
         }
 
-        [RelayCommand]
-        public void ChangeToAddWindow()
+   
+        protected void ChangeToAddWindow()
         {
             MainWindowViewModel.Instance.ChangeToAddWindow();
         }
 
-        [RelayCommand]
-        public void ChangeToSettingsWindow()
+
+        protected void ChangeToSettingsWindow()
         {
            MainWindowViewModel.Instance.ChangeToSettingsWindow();
         }
-        [RelayCommand]
-        public void ChangeToProfilesWindow() 
+
+        protected void ChangeToProfilesWindow() 
         {
         MainWindowViewModel.Instance.ChangeToProfilesWindow();
         }
-        [RelayCommand]
-        public void ChangeToMainWindow()
+
+        protected void ChangeToMainWindow()
         {
             MainWindowViewModel.Instance.ChangeToMainWindow();
         }

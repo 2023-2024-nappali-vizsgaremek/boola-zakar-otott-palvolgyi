@@ -11,20 +11,20 @@ using System.Windows;
 
 namespace Desktop.ViewModels
 {
-    public partial class LoginViewModel : ObservableObject
+    public abstract class LoginViewModel : ObservableObject
     {
-        [ObservableProperty]
+        
         private Login login;
         private ILoginService loginService;
         public LoginViewModel(ILoginService loginService)
         {
             this.loginService = loginService;
-            Login = new Login();
+            login = new Login();
         }
-        [RelayCommand]
-        public async Task Logon()
+        
+        protected async Task Logon()
         {
-            var account = await loginService.GetAccount(Login);
+            var account = await loginService.GetAccount(login);
             var tokens = await loginService.PostLogin(account);
             if(tokens is null) return;
             AuthService.AuthToken = tokens.access;

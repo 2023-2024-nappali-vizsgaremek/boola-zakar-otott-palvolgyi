@@ -11,25 +11,21 @@ using Desktop.Service;
 
 namespace Desktop.ViewModels
 {
-    public partial class MainWindowViewModel : AsyncInitializedViewModel
+    public abstract class MainWindowViewModel : AsyncInitializedViewModel
     {
-        [ObservableProperty]
+        
         private ObservableObject childViewModel;
         private NewExpenseViewModel newExpenseViewModel;
+        private ProfileViewModel profileViewModel;
+        private SettingsViewModel settingsViewModel;
 
         public static MainWindowViewModel Instance { get; set; }
 
-        public MainWindowViewModel(NewExpenseViewModel newExpenseViewModel,LoginViewModel loginViewModel)
-        {
-            
-            ChildViewModel = loginViewModel;
-            Instance ??= this;
-            this.newExpenseViewModel = newExpenseViewModel;
-        }
+       
         public MainWindowViewModel()
         {
          
-            ChildViewModel = new LoginViewModel(new LoginService(null));
+           //todo ChildviewModel assigment
             if (Instance == null)
             {
                 Instance = this;
@@ -38,31 +34,37 @@ namespace Desktop.ViewModels
             {
                 return;
             }
-            this.newExpenseViewModel = new NewExpenseViewModel(new CurrencyService(null));
+          
         }
 
-        [RelayCommand]
+        protected MainWindowViewModel(LoginViewModel childViewModel, NewExpenseViewModel newExpenseViewModel, ProfileViewModel profileViewModel, SettingsViewModel settingsViewModel)
+        {
+           
+            this.childViewModel = childViewModel;
+            Instance ??= this;
+            this.newExpenseViewModel = newExpenseViewModel;
+            this.profileViewModel = profileViewModel;
+            this.settingsViewModel = settingsViewModel;
+        }
+
         public void ChangeToAddWindow()
         {
-            ChildViewModel = newExpenseViewModel;
+            childViewModel = newExpenseViewModel;
         }
 
 
-        [RelayCommand]
+  
         public void ChangeToSettingsWindow()
         {
-            ChildViewModel = new SettingsViewModel();
+            childViewModel = settingsViewModel;
         }
-        [RelayCommand]
+      
         public void ChangeToProfilesWindow()
         {
-            ChildViewModel = new ProfileViewModel();
+            childViewModel = profileViewModel;
         }
-        [RelayCommand]
-        public void ChangeToMainWindow()
-        {
-            ChildViewModel = new MainMenuViewModel();
-        }
+
+        public abstract void ChangeToMainWindow();
 
     }
 }
