@@ -13,37 +13,32 @@ using System.Windows.Controls;
 
 namespace Desktop.ViewModels
 {
-   partial  class ProfileViewModel : ObservableObject
+    public partial class ProfileViewModel : BoolaShared.ViewModels.ProfileViewModel
     {
         [ObservableProperty]
         private Profile profile;
         [ObservableProperty]
-       private ObservableCollection<string> lista = new ObservableCollection<string>();
-        private List<Profile> lista_ = new List<Profile>(); 
+        private ObservableCollection<string> lista = new ObservableCollection<string>();
+        private List<Profile> lista_ = new List<Profile>();
         public ProfileViewModel()
         {
-            Profile= new Profile();
+            Profile = new Profile();
 
         }
         [RelayCommand]
-       public void DoSave(Profile profile)
+        public new void DoSave(Profile profile)
         {
-            lista_.Add(profile);
-            Lista.Add(Profile.Name);
-            OnPropertyChanged(nameof(Lista));
-           
+            base.DoSave(profile);
         }
         [RelayCommand]
-        public void Delete( Profile profile)
+        public new void Delete(Profile profile)
         {
-            lista_.Remove(profile);
-            Lista.Remove(Profile.Name);
-            OnPropertyChanged(nameof(Lista));
+            base.Delete(profile);
         }
         [RelayCommand]
-        public void ChangeToMainWindow()
+        public new void ChangeToMainWindow()
         {
-            MainWindowViewModel.Instance.ChangeToMainWindow();
+            base.ChangeToMainWindow();
         }
 
     }

@@ -9,36 +9,41 @@ using System.Threading.Tasks;
 
 namespace Desktop.ViewModels
 {
-    public partial class MainMenuViewModel : ObservableObject
+    public partial class MainMenuViewModel : BoolaShared.ViewModels.MainMenuViewModel
     {
-        [ObservableProperty] private MainContent content;
+        [ObservableProperty]
+        private MainContent content;
 
         public MainMenuViewModel()
         {
             content = new MainContent();
         }
 
+
         [RelayCommand]
-        public void ChangeToAddWindow()
+        public new void ChangeToAddWindow()
         {
-            MainWindowViewModel.Instance.ChangeToAddWindow();
+            base.ChangeToAddWindow();
+        }
+
+
+        [RelayCommand]
+        public new void ChangeToSettingsWindow()
+        {
+            base.ChangeToMainWindow();
         }
 
         [RelayCommand]
-        public void ChangeToSettingsWindow()
+        public new void ChangeToProfilesWindow()
         {
-           MainWindowViewModel.Instance.ChangeToSettingsWindow();
+            base.ChangeToProfilesWindow();
         }
+
         [RelayCommand]
-        public void ChangeToProfilesWindow() 
+        public new void ChangeToMainWindow()
         {
-        MainWindowViewModel.Instance.ChangeToProfilesWindow();
+            base.ChangeToMainWindow();
         }
-        [RelayCommand]
-        public void ChangeToMainWindow()
-        {
-            MainWindowViewModel.Instance.ChangeToMainWindow();
-        }
-       
+
     }
 }

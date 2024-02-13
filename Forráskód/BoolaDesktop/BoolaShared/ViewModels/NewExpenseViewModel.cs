@@ -8,38 +8,37 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Documents;
 
-namespace Desktop.ViewModels
+
+namespace BoolaShared.ViewModels
 {
-    public partial class NewExpenseViewModel : BoolaShared.ViewModels.NewExpenseViewModel
+    public abstract class NewExpenseViewModel : AsyncInitializedViewModel
     {
-        [ObservableProperty]
         private NewExpnse expnse;
-        [ObservableProperty]
+        
         private ObservableCollection<Category> cat = new ObservableCollection<Category>();
-        [ObservableProperty]
+    
         private ObservableCollection<Money> cur = new ObservableCollection<Money>();
-        [ObservableProperty]
+     
         private string kategória;
-        [ObservableProperty]
+   
         private string pénznem;
-        [ObservableProperty]
+
         private ObservableCollection<NewExpnse> lista = new ObservableCollection<NewExpnse>();
         private Category _SelectCategory = new Category();
         private Money _Currency = new Money();
         private ICurrencyService currencyService;
-        public NewExpenseViewModel(ICurrencyService currency) : base(currency)
+        public NewExpenseViewModel(ICurrencyService currency)
         {
             currencyService = currency;
-            Expnse = new NewExpnse();
-            Expnse.category = new Category();
+            expnse = new NewExpnse();
+            expnse.category = new Category();
            
         }
         public override async Task InitializeAsync()
         {
             var c = await currencyService.GetAllCurrencys();
-            Cur = new ObservableCollection<Money>(c);
+            cur = new ObservableCollection<Money>(c);
             
         }
         public Category SelectCategory
@@ -48,7 +47,7 @@ namespace Desktop.ViewModels
             set
             {
                 SetProperty(ref _SelectCategory, value);
-                Expnse.category = SelectCategory;
+                expnse.category = SelectCategory;
 
             }
         }
@@ -58,21 +57,22 @@ namespace Desktop.ViewModels
             set
             {
                 SetProperty(ref _Currency, value);
-                Expnse.currency = Currency;
+                expnse.currency = Currency;
 
             }
         }
-        [RelayCommand]
-        public new void Add(NewExpnse newExpnse)
+
+        public void Add(NewExpnse newExpnse)
         {
-            base.Add(newExpnse);
+            lista.Add(newExpnse);
+            OnPropertyChanged(nameof(lista));
+        }
+        
+        public void ChangeToMainWindow()
+        {
+            MainWindowViewModel.Instance.ChangeToMainWindow();
         }
 
-        [RelayCommand]
-        public new void ChangeToMainWindow()
-        {
-            base.ChangeToMainWindow();
-        }
 
     }
 } 
