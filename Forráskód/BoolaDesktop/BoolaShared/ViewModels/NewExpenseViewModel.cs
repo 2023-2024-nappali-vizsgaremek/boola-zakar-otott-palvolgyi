@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Desktop.ViewModels
+namespace BoolaShared.ViewModels
 {
     public abstract class NewExpenseViewModel : AsyncInitializedViewModel
     {

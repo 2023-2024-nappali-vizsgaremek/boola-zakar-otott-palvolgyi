@@ -9,7 +9,7 @@ using CommunityToolkit.Mvvm.Input;
 using System.Windows;
 using Desktop.Service;
 
-namespace Desktop.ViewModels
+namespace BoolaShared.ViewModels
 {
     public abstract class MainWindowViewModel : AsyncInitializedViewModel
     {

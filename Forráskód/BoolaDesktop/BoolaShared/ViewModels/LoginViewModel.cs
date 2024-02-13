@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Desktop.ViewModels
+namespace BoolaShared.ViewModels
 {
     public abstract class LoginViewModel : ObservableObject
     {

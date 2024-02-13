@@ -10,7 +10,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.ComponentModel;
 
-namespace Desktop.ViewModels
+namespace BoolaShared.ViewModels
 {
    public abstract  class ProfileViewModel : ObservableObject
     {
