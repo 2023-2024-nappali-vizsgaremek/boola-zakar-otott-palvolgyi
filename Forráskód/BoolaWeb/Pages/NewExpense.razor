@@ -22,6 +22,15 @@
     <input type="number"/>
 </div>
 <div>
+    <label>Currency</label>
+  <select>
+        @foreach(var m in money)
+        {
+           <option>m.name</option>
+        }
+    </select>
+</div>
+<div>
     <label>Exclude from statistics</label>
     <input type="checkbox"/>
 </div>
@@ -36,7 +45,7 @@
 </div>
 <div>
     <label>Paid</label>
-    <input name="staus" type="radio" />
+    <input name="status" type="radio" />
     <label>Not Paid yet</label>
     <input name="status" type="radio"/>
 </div>
@@ -48,15 +57,12 @@
     <label>Payee</label>
     <input type="text"/>
 </div>
-<button id="gomb" class="btn btn-primary" @onclick="IncrementCount">Save</button>
+<button id="gomb" class="btn btn-primary">Save</button>
 
 
 @code {
     private List<Category> categories = new List<Category>();
-    private int currentCount = 0;
+    private List<Money> money = new List<Money>();
 
-    private void IncrementCount()
-    {
-        currentCount++;
-    }
+
 }

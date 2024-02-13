@@ -8,6 +8,8 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.Extensions.Http;
+using Microsoft.Extensions.Hosting;
 
 namespace Desktop.Service
 {
@@ -32,7 +34,6 @@ namespace Desktop.Service
         {
             if(!IsClientAvailable) return null;
             var resp = await httpClient!.PostAsJsonAsync("/login", account);
-            MessageBox.Show(resp.StatusCode.ToString());
             if(resp is null || resp.StatusCode != System.Net.HttpStatusCode.OK) return null;
             var json = await resp.Content.ReadAsStringAsync();
             var tokens = JsonSerializer.Deserialize<LoginTokens>(json);

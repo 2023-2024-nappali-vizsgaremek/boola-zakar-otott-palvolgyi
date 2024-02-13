@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoolaShared.Models
+namespace Desktop.Models
 {
     public class Settings
     {
