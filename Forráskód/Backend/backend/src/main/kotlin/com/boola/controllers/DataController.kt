@@ -2,6 +2,11 @@ package com.boola.controllers
 
 import at.favre.lib.crypto.bcrypt.BCrypt
 import com.boola.models.*
+
+import io.ktor.util.*
+import io.ktor.util.debug.*
+import java.security.MessageDigest
+
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.util.UUID
@@ -49,8 +54,10 @@ class DataController(private val connection: Connection) {
 
     private val addProfileStatement:PreparedStatement=connection.prepareStatement(
 
+
         "INSERT INTO profile (name, isbusiness, expenselistid, languagecode, accountemail)" +
                 " VAlUES (?,?,?,?,?)")
+
     private val setProfileStatement:PreparedStatement=connection.prepareStatement(
         "UPDATE  profile SET name=?,isBusiness=?,languagecode=?,expenseListId=?,accountEmail=? WHERE id=?")
     private val deleteProfileStatement:PreparedStatement=connection.prepareStatement(
@@ -230,7 +237,8 @@ class DataController(private val connection: Connection) {
         }
         return lists
     }
-fun getExpenseList(newData:ExpenseList){
+
+fun addExopenseList(newData:ExpenseList){
     addExpenseListStatement.run {
         setObject(0,newData.id)
         setLong(1, newData.balance)
@@ -239,11 +247,10 @@ fun getExpenseList(newData:ExpenseList){
     }
 
 }
-    fun  deleteExpenseList(newData: ExpenseList){
+    fun  deleteExpenseList(newData: UUID){
         deleteExpenseListStatement.run {
-            setObject(0,newData.id)
-            setLong(1, newData.balance)
-            setString(  2,newData.currencyCode)
+            setObject(1,newData)
+
             execute()
         }
     }
@@ -253,6 +260,7 @@ fun getExpenseList(newData:ExpenseList){
         getCategoryStatement.setInt(1,id)
         getCategoryStatement.execute()
         val results = getCategoryStatement.resultSet
+
         results.next()
         return results.getString(1)
     }

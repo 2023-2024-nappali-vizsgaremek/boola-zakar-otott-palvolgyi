@@ -6,7 +6,9 @@ import com.auth0.jwt.algorithms.Algorithm
 import com.boola.controllers.DataControllerFactory
 import com.boola.models.Account
 import com.boola.models.ExpenseList
+
 import com.boola.models.Partner
+
 import com.boola.models.Profile
 import io.github.cdimascio.dotenv.dotenv
 import io.ktor.http.*
@@ -51,15 +53,19 @@ fun Application.configureRouting() {
                 val storedPw = con.getAccount(user.email).pwHash.toCharArray()
                 println("Stored $storedPw, got $sentPw")
                 val verification = BCrypt.verifyer().verify(sentPw, storedPw)
+
+
                 if(!verification.verified) call.respond(HttpStatusCode.Unauthorized,"Incorrect password!")
                 val secret:String = try {
+
                     System.getenv("JWT_SECRET")
-                } catch (_:NullPointerException){
+                } catch (e:NullPointerException){
                     val env = dotenv()
                     env["JWT_SECRET"]
                 }
-                println("$secret is the secret")
+
                 val accessToken = JWT.create()
+
                     .withClaim("email",user.email)
                     .withExpiresAt(Date(System.currentTimeMillis() + AccessTokenLifetime))
                     .withAudience("https://localhost:8080/login")
@@ -124,6 +130,7 @@ fun Application.configureRouting() {
             }
         }
 
+
         authenticate("boola-refresh") {
            post("/refresh"){
                val email = call.receive<String>()
@@ -143,6 +150,7 @@ fun Application.configureRouting() {
            }
         }
 
+
         get("/api/currency") {
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
@@ -160,16 +168,20 @@ fun Application.configureRouting() {
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
             else call.respond(con.getCategoriesAll())
+
         }
 
         get("/api/category/{id}") {
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+
+
             else {
                 val id = call.parameters["id"]
                 if(id == null) call.respond(HttpStatusCode.NotFound)
                 else call.respond(con.getCategory(id.toInt()))
             }
+
         }
         authenticate("boola-auth") {
             get("/api/profile/{id}"){
@@ -229,22 +241,27 @@ fun Application.configureRouting() {
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else call.respond(con.getExpenseList(UUID.fromString(call.parameters["id"])))
             }
+
             get("/api/expenselist/") {
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else call.respond(con.getExpenseListsAll())
 
             }
+
             post("/api/expenselist/{id}") {
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else {
                     val expenselist= call.receive<ExpenseList>()
-                    con.getExpenseList(expenselist)
+
+                    con.addExopenseList(expenselist)
+
                     call.respond(HttpStatusCode.Created)
                 }
 
             }
+
             delete("/api/expenselist/{id}") {
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
@@ -252,7 +269,8 @@ fun Application.configureRouting() {
                     val idString = call.parameters["id"]
                     if(idString == null) call.respond(HttpStatusCode.NotFound)
                     else {
-                        con.deleteExpenseList()
+                        con.deleteExpenseList(UUID.fromString(idString))
+                        call.respond(HttpStatusCode.NoContent)
                     }
                 }
             }
@@ -302,6 +320,7 @@ fun Application.configureRouting() {
                     else {
                         con.deletePartner(idString.toByte())
                         call.respond(HttpStatusCode.NoContent)
+
                     }
                 }
             }
