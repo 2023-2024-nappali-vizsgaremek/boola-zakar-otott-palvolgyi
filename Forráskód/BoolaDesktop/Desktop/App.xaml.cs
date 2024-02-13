@@ -23,7 +23,7 @@ namespace Desktop
     public partial class App : Application
     {
         private readonly bool _login = true;
-        private  IHost host;
+        private IHost host;
 
         protected async override void OnStartup(StartupEventArgs e)
         {
@@ -37,26 +37,26 @@ namespace Desktop
                     {
                         DataContext = s.GetRequiredService<NewExpenseViewModel>()
                     });
-                    srevices.AddSingleton<LoginViewModel>();
+                    srevices.AddSingleton<LoginViewModelDesktop>();
                     srevices.AddSingleton<LoginWindow>(s => new LoginWindow()
                     {
-                        DataContext = s.GetRequiredService<LoginViewModel>()
+                        DataContext = s.GetRequiredService<LoginViewModelDesktop>()
                     });
                 })
                 .Build();
             await host.StartAsync();
-                var loginView = host.Services.GetRequiredService<LoginWindow>();
-                loginView.Show();
-                
-         
+            var loginView = host.Services.GetRequiredService<LoginWindow>();
+            loginView.Show();
 
 
 
 
-            }
-        private void Application_Startup( object sender,StartupEventArgs e)
+
+
+        }
+        private void Application_Startup(object sender, StartupEventArgs e)
         {
-            
+
         }
 
     }

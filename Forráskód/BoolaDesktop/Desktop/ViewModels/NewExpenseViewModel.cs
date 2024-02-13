@@ -12,7 +12,7 @@ using System.Windows.Documents;
 
 namespace Desktop.ViewModels
 {
-    public partial class NewExpenseViewModel : AsyncInitializedViewModel
+    public partial class NewExpenseViewModel : BoolaShared.ViewModels.NewExpenseViewModel
     {
         [ObservableProperty]
         private NewExpnse expnse;
@@ -29,7 +29,7 @@ namespace Desktop.ViewModels
         private Category _SelectCategory = new Category();
         private Money _Currency = new Money();
         private ICurrencyService currencyService;
-        public NewExpenseViewModel(ICurrencyService currency)
+        public NewExpenseViewModel(ICurrencyService currency) : base(currency)
         {
             currencyService = currency;
             Expnse = new NewExpnse();
@@ -62,19 +62,17 @@ namespace Desktop.ViewModels
 
             }
         }
-       
-          
+        [RelayCommand]
+        public new void Add(NewExpnse newExpnse)
+        {
+            base.Add(newExpnse);
+        }
 
         [RelayCommand]
-        public void Add(NewExpnse newExpnse)
+        public new void ChangeToMainWindow()
         {
-            Lista.Add(newExpnse);
-            OnPropertyChanged(nameof(Lista));
+            base.ChangeToMainWindow();
         }
-        [RelayCommand]
-        public void ChangeToMainWindow()
-        {
-            MainWindowViewModel.Instance.ChangeToMainWindow();
-        }
+
     }
 } 

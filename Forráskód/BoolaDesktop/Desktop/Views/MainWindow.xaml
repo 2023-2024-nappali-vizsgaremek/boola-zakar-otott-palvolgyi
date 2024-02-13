@@ -25,7 +25,7 @@
             <local:UserControl1/>
         </DataTemplate>
         
-        <DataTemplate DataType="{x:Type vm:LoginViewModel}">
+        <DataTemplate DataType="{x:Type vm:LoginViewModelDesktop}">
             <local:LoginWindow/>
         </DataTemplate>
 

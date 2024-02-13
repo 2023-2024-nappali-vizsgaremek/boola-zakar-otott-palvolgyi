@@ -61,9 +61,18 @@ namespace BoolaShared.ViewModels
 
             }
         }
-       
-          
 
+        public void Add(NewExpnse newExpnse)
+        {
+            lista.Add(newExpnse);
+            OnPropertyChanged(nameof(lista));
+        }
         
+        public void ChangeToMainWindow()
+        {
+            MainWindowViewModel.Instance.ChangeToMainWindow();
+        }
+
+
     }
 } 

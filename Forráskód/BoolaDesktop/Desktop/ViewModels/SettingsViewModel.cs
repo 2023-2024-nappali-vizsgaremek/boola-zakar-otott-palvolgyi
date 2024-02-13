@@ -11,7 +11,7 @@ using System.Windows.Documents;
 
 namespace Desktop.ViewModels
 {
-    public partial class SettingsViewModel : ObservableObject
+    public partial class SettingsViewModel : BoolaShared.ViewModels.SettingsViewModel
     {
         [ObservableProperty]
         private Settings settings;
@@ -42,27 +42,25 @@ namespace Desktop.ViewModels
 
         }
         [RelayCommand]
-        public void DoSave(Settings newSettings)
+        public new void DoSave(Settings newSettings)
         {
-            Lis.Add(newSettings);
-            OnPropertyChanged(nameof(Lis));
+            base.DoSave(newSettings);
         }
 
         [RelayCommand]
-        public void DoNewSettings()
+        public new void DoNewSettings()
         {
-            Settings = new();
+            base.DoNewSettings();
         }
         [RelayCommand]
-        public void DoDelete(Settings settingsDoDelete)
+        public new void DoDelete(Settings settingsDoDelete)
         {
-            Lis.Remove(settingsDoDelete);
-            OnPropertyChanged(nameof(Lis));
+            base.DoDelete(settingsDoDelete);
         }
         [RelayCommand]
-        public void ChangeToMainWindow()
+        public new void ChangeToMainWindow()
         {
-            MainWindowViewModel.Instance.ChangeToMainWindow();
+            base.ChangeToMainWindow();
         }
     }
 }

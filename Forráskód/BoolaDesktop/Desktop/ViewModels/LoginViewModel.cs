@@ -11,25 +11,20 @@ using System.Windows;
 
 namespace Desktop.ViewModels
 {
-    public abstract class LoginViewModel : ObservableObject
+    public partial class LoginViewModelDesktop : BoolaShared.ViewModels.LoginViewModel
     {
-        
         private Login login;
         private ILoginService loginService;
-        public LoginViewModel(ILoginService loginService)
+        public LoginViewModelDesktop(ILoginService loginService) : base(loginService)
         {
             this.loginService = loginService;
             login = new Login();
         }
-        
-        protected async Task Logon()
+
+        [RelayCommand]
+        public async Task Logon()
         {
-            var account = await loginService.GetAccount(login);
-            var tokens = await loginService.PostLogin(account);
-            if(tokens is null) return;
-            AuthService.AuthToken = tokens.access;
-            AuthService.RefreshToken = tokens.refresh;
-            MainWindowViewModel.Instance.ChangeToMainWindow();
+            await base.Logon();
         }
     }
 }

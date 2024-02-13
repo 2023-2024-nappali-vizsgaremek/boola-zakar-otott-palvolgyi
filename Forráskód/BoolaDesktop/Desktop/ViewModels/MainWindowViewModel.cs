@@ -11,9 +11,9 @@ using Desktop.Service;
 
 namespace Desktop.ViewModels
 {
-    public abstract class MainWindowViewModel : AsyncInitializedViewModel
+    public partial class MainWindowViewModel : BoolaShared.ViewModels.MainWindowViewModel
     {
-        
+
         private ObservableObject childViewModel;
         private NewExpenseViewModel newExpenseViewModel;
         private ProfileViewModel profileViewModel;
@@ -21,11 +21,11 @@ namespace Desktop.ViewModels
 
         public static MainWindowViewModel Instance { get; set; }
 
-       
+
         public MainWindowViewModel()
         {
-         
-           //todo ChildviewModel assigment
+
+            //todo ChildviewModel assigment
             if (Instance == null)
             {
                 Instance = this;
@@ -34,12 +34,13 @@ namespace Desktop.ViewModels
             {
                 return;
             }
-          
+
         }
 
-        protected MainWindowViewModel(LoginViewModel childViewModel, NewExpenseViewModel newExpenseViewModel, ProfileViewModel profileViewModel, SettingsViewModel settingsViewModel)
+        public MainWindowViewModel(LoginViewModelDesktop childViewModel, NewExpenseViewModel newExpenseViewModel,
+            ProfileViewModel profileViewModel, SettingsViewModel settingsViewModel)
         {
-           
+
             this.childViewModel = childViewModel;
             Instance ??= this;
             this.newExpenseViewModel = newExpenseViewModel;
@@ -47,24 +48,30 @@ namespace Desktop.ViewModels
             this.settingsViewModel = settingsViewModel;
         }
 
+        [RelayCommand]
         public void ChangeToAddWindow()
         {
             childViewModel = newExpenseViewModel;
         }
 
 
-  
+
+        [RelayCommand]
         public void ChangeToSettingsWindow()
         {
             childViewModel = settingsViewModel;
         }
-      
+
+        [RelayCommand]
         public void ChangeToProfilesWindow()
         {
             childViewModel = profileViewModel;
         }
 
-        public abstract void ChangeToMainWindow();
-
+        [RelayCommand]
+        public override void ChangeToMainWindow()
+        {
+            childViewModel = new MainMenuViewModel();
+        }
     }
 }

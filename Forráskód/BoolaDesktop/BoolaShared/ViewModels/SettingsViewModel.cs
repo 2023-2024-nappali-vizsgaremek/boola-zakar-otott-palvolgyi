@@ -24,7 +24,7 @@ namespace BoolaShared.ViewModels
      
         private ObservableCollection<Settings> lis = new ObservableCollection<Settings>();
 
-        private nyelvek _Selectnyelv = Models.nyelvek.magyar;
+        private nyelvek _Selectnyelv = Desktop.Models.nyelvek.magyar;
 
         public nyelvek Selectnyelv
         {
@@ -41,6 +41,30 @@ namespace BoolaShared.ViewModels
             settings.nyelv = nyelv.First();
 
         }
-       
+
+         
+        public void DoSave(Settings newSettings)
+        {
+            lis.Add(newSettings);
+            OnPropertyChanged(nameof(lis));
+        }
+
+         
+        public void DoNewSettings()
+        {
+            settings = new();
+        }
+         
+        public void DoDelete(Settings settingsDoDelete)
+        {
+            lis.Remove(settingsDoDelete);
+            OnPropertyChanged(nameof(lis));
+        }
+         
+        public void ChangeToMainWindow()
+        {
+            MainWindowViewModel.Instance.ChangeToMainWindow();
+        }
+
     }
 }

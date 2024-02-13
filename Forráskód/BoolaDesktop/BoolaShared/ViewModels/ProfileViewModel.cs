@@ -9,6 +9,7 @@ using Desktop.Models;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.ComponentModel;
+using System.Collections;
 
 namespace BoolaShared.ViewModels
 {
@@ -24,7 +25,26 @@ namespace BoolaShared.ViewModels
             profile= new Profile();
 
         }
-       
+
+         
+        public void DoSave(Profile profile)
+        {
+            lista_.Add(profile);
+            lista.Add(profile.Name);
+            OnPropertyChanged(nameof(profile));
+        }
+         
+        public void Delete(Profile profile)
+        {
+            lista_.Remove(profile);
+            lista.Remove(profile.Name);
+            OnPropertyChanged(nameof(lista));
+        }
+         
+        public void ChangeToMainWindow()
+        {
+            MainWindowViewModel.Instance.ChangeToMainWindow();
+        }
 
     }
 }
