@@ -1,5 +1,6 @@
 package com.boola
 
+import at.favre.lib.crypto.bcrypt.BCrypt
 import com.boola.controllers.DataController
 import com.boola.controllers.DataControllerFactory
 import com.boola.controllers.DbConnector
@@ -20,6 +21,8 @@ class ApplicationTest {
     @Test
     fun testRoot() = testApplication {
         application {
+            configureSecurity()
+            configureSerialization()
             configureRouting()
         }
         client.get("/").apply {
@@ -99,10 +102,11 @@ class ApplicationTest {
                     "Tomika"
                 )
             ).toString()
-            client.post("/register"){
+            val regResp = client.post("/register"){
                 contentType(ContentType.Application.Json)
                 setBody(body)
             }
+            assertEquals(regResp.status, HttpStatusCode.Created)
             var resp = client.post("/login"){
                 contentType(ContentType.Application.Json)
                 setBody(body)
