@@ -14,6 +14,7 @@ namespace Desktop.ViewModels
     public partial class MainWindowViewModel : BoolaShared.ViewModels.MainWindowViewModel
     {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
         private ObservableObject childViewModel;
         private NewExpenseViewModel newExpenseViewModel;
@@ -23,6 +24,17 @@ namespace Desktop.ViewModels
         public static MainWindowViewModel Instance { get; set; }
 
 
+=======
+        [ObservableProperty]
+        private ObservableObject childViewModel;
+        private NewExpenseViewModel newExpenseViewModel;
+        private ProfileViewModel profileViewModel;
+        private SettingsViewModel settingsViewModel;
+
+        public static MainWindowViewModel Instance { get; set; }
+
+
+>>>>>>> Stashed changes
 =======
         [ObservableProperty]
         private ObservableObject childViewModel;
@@ -52,6 +64,7 @@ namespace Desktop.ViewModels
         public MainWindowViewModel(LoginViewModelDesktop childViewModel, NewExpenseViewModel newExpenseViewModel,
             ProfileViewModel profileViewModel, SettingsViewModel settingsViewModel)
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         {
 
             this.childViewModel = childViewModel;
@@ -67,6 +80,9 @@ namespace Desktop.ViewModels
             childViewModel = newExpenseViewModel;
 =======
         {
+=======
+        {
+>>>>>>> Stashed changes
 
             this.childViewModel = childViewModel;
             Instance ??= this;
@@ -79,6 +95,9 @@ namespace Desktop.ViewModels
         public new void ChangeToAddWindow()
         {
             ChildViewModel = newExpenseViewModel;
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
         }
 
@@ -87,6 +106,7 @@ namespace Desktop.ViewModels
         [RelayCommand]
         public new void ChangeToSettingsWindow()
         {
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
             childViewModel = settingsViewModel;
         }
@@ -115,5 +135,20 @@ namespace Desktop.ViewModels
     }
 }
 =======
+            ChildViewModel = new Mai
+>>>>>>> Stashed changes
+=======
+            ChildViewModel = settingsViewModel;
+        }
+
+        [RelayCommand]
+        public new void ChangeToProfilesWindow()
+        {
+            ChildViewModel = profileViewModel;
+        }
+
+        [RelayCommand]
+        public override void ChangeToMainWindow()
+        {
             ChildViewModel = new Mai
 >>>>>>> Stashed changes
