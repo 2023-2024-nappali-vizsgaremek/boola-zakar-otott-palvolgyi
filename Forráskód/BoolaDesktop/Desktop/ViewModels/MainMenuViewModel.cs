@@ -27,19 +27,19 @@ namespace Desktop.ViewModels
         }
 
 
-        [RelayCommand]
+        [ICommand]
         public new void ChangeToSettingsWindow()
         {
             base.ChangeToMainWindow();
         }
 
-        [RelayCommand]
+        [ICommand]
         public new void ChangeToProfilesWindow()
         {
             base.ChangeToProfilesWindow();
         }
 
-        [RelayCommand]
+        [ICommand]
         public new void ChangeToMainWindow()
         {
             base.ChangeToMainWindow();

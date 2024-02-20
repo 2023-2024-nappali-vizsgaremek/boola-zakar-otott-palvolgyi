@@ -24,8 +24,8 @@ namespace Desktop.ViewModels
 
         
 
-        [RelayCommand]
-        public async new Task Logon()
+        [ICommand]
+        public async new Task Logonk()
         {
             login = enteredLogin;
             await base.Logon();
