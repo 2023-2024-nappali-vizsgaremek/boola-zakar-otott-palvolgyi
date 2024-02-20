@@ -13,8 +13,9 @@ namespace BoolaShared.ViewModels
 {
     public abstract class LoginViewModel : ObservableObject
     {
-        private Login login;
+        protected Login login;
         private ILoginService loginService;
+
         public LoginViewModel(ILoginService loginService)
         {
             this.loginService = loginService;

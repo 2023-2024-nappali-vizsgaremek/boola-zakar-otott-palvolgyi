@@ -9,9 +9,10 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace Desktop.ViewModels
 {
-    public partial class MainWindowViewModel : ObservableObject
+    public partial class MainWindowViewModel : BoolaShared.ViewModels.MainWindowViewModel
     {
-        [ObservableProperty] private ObservableObject childViewModel;
+        [ObservableProperty] 
+        private ObservableObject childViewModel;
 
         public MainWindowViewModel()
         {
@@ -28,6 +29,11 @@ namespace Desktop.ViewModels
         public void ChangeToSettingsWindow()
         {
             ChildViewModel = new SettingsViewModel();
+        }
+
+        public override void ChangeToMainWindow()
+        {
+            ChildViewModel = new MainMenuViewModel();
         }
     }
 }

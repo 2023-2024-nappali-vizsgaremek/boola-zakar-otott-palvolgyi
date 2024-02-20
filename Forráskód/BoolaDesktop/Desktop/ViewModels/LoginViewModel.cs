@@ -13,7 +13,8 @@ namespace Desktop.ViewModels
 {
     public partial class LoginViewModelDesktop : BoolaShared.ViewModels.LoginViewModel
     {
-        private Login login;
+		[ObservableProperty]
+        private Login enteredLogin;
         private ILoginService loginService;
         public LoginViewModelDesktop(ILoginService loginService) : base(loginService)
         {
@@ -21,9 +22,12 @@ namespace Desktop.ViewModels
             login = new Login();
         }
 
+        
+
         [RelayCommand]
-        public async Task Logon()
+        public async new Task Logon()
         {
+            login = enteredLogin;
             await base.Logon();
         }
     }

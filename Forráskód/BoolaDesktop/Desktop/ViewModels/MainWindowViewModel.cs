@@ -13,14 +13,13 @@ namespace Desktop.ViewModels
 {
     public partial class MainWindowViewModel : BoolaShared.ViewModels.MainWindowViewModel
     {
-
+        [ObservableProperty]
         private ObservableObject childViewModel;
         private NewExpenseViewModel newExpenseViewModel;
         private ProfileViewModel profileViewModel;
         private SettingsViewModel settingsViewModel;
 
         public static MainWindowViewModel Instance { get; set; }
-
 
         public MainWindowViewModel()
         {
@@ -54,18 +53,16 @@ namespace Desktop.ViewModels
             childViewModel = newExpenseViewModel;
         }
 
-
-
         [RelayCommand]
-        public void ChangeToSettingsWindow()
+        public new void ChangeToSettingsWindow()
         {
             childViewModel = settingsViewModel;
         }
 
         [RelayCommand]
-        public void ChangeToProfilesWindow()
+        public new void ChangeToProfilesWindow()
         {
-            childViewModel = profileViewModel;
+            ChildViewModel = profileViewModel;
         }
 
         [RelayCommand]

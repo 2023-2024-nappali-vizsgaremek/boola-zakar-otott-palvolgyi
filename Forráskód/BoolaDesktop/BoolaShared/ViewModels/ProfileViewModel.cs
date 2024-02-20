@@ -13,34 +13,34 @@ using System.Collections;
 
 namespace BoolaShared.ViewModels
 {
-   public abstract  class ProfileViewModel : ObservableObject
+    public abstract class ProfileViewModel : ObservableObject
     {
-   
+
         private Profile profile;
 
-       private ObservableCollection<string> lista = new ObservableCollection<string>();
-        private List<Profile> lista_ = new List<Profile>(); 
+        private ObservableCollection<string> lista = new ObservableCollection<string>();
+        private List<Profile> lista_ = new List<Profile>();
         public ProfileViewModel()
         {
-            profile= new Profile();
+            profile = new Profile();
 
         }
 
-         
+
         public void DoSave(Profile profile)
         {
             lista_.Add(profile);
             lista.Add(profile.Name);
             OnPropertyChanged(nameof(profile));
         }
-         
+
         public void Delete(Profile profile)
         {
             lista_.Remove(profile);
             lista.Remove(profile.Name);
             OnPropertyChanged(nameof(lista));
         }
-         
+
         public void ChangeToMainWindow()
         {
             MainWindowViewModel.Instance.ChangeToMainWindow();
