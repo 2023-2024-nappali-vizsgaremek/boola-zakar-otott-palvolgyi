@@ -38,7 +38,7 @@ namespace Desktop.ViewModels
         }
         public override async Task InitializeAsync()
         {
-            var c = await currencyService.GetAllCurrencys();
+            List<Money> c = await currencyService.GetAllCurrencys();
             Cur = new ObservableCollection<Money>(c);
             
         }
@@ -62,13 +62,13 @@ namespace Desktop.ViewModels
 
             }
         }
-        [RelayCommand]
+        [ICommand]
         public new void Add(NewExpnse newExpnse)
         {
             base.Add(newExpnse);
         }
 
-        [RelayCommand]
+        [ICommand]
         public new void ChangeToMainWindow()
         {
             base.ChangeToMainWindow();

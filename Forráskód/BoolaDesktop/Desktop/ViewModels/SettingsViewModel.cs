@@ -41,23 +41,23 @@ namespace Desktop.ViewModels
             Settings.nyelv = nyelv.First();
 
         }
-        [RelayCommand]
+        [ICommand]
         public new void DoSave(Settings newSettings)
         {
             base.DoSave(newSettings);
         }
 
-        [RelayCommand]
+        [ICommand]
         public new void DoNewSettings()
         {
             base.DoNewSettings();
         }
-        [RelayCommand]
+        [ICommand]
         public new void DoDelete(Settings settingsDoDelete)
         {
             base.DoDelete(settingsDoDelete);
         }
-        [RelayCommand]
+        [ICommand]
         public new void ChangeToMainWindow()
         {
             base.ChangeToMainWindow();
