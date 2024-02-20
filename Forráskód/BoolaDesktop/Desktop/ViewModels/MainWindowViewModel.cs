@@ -47,25 +47,25 @@ namespace Desktop.ViewModels
             this.settingsViewModel = settingsViewModel;
         }
 
-        [ICommand]
+        [RelayCommand]
         public void ChangeToAddWindow()
         {
             childViewModel = newExpenseViewModel;
         }
 
-        [ICommand]
+        [RelayCommand]
         public new void ChangeToSettingsWindow()
         {
             childViewModel = settingsViewModel;
         }
 
-        [ICommand]
+        [RelayCommand]
         public new void ChangeToProfilesWindow()
         {
             ChildViewModel = profileViewModel;
         }
 
-        [ICommand]
+        [RelayCommand]
         public override void ChangeToMainWindow()
         {
             childViewModel = new MainMenuViewModel();
