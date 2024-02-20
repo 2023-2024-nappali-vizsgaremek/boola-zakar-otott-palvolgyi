@@ -62,13 +62,13 @@ namespace Desktop.ViewModels
 
             }
         }
-        [RelayCommand]
+        [ICommand]
         public new void Add(NewExpnse newExpnse)
         {
             base.Add(newExpnse);
         }
 
-        [RelayCommand]
+        [ICommand]
         public new void ChangeToMainWindow()
         {
             base.ChangeToMainWindow();

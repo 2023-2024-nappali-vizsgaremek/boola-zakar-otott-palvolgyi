@@ -19,13 +19,13 @@ namespace Desktop.ViewModels
             childViewModel = new MainMenuViewModel();
         }
 
-        [RelayCommand]
+        [ICommand]
         public void ChangeToAddWindow()
         {
             //childViewModel = new newExpensesViewModel();
         }
 
-        [RelayCommand]
+        [ICommand]
         public void ChangeToSettingsWindow()
         {
             ChildViewModel = new SettingsViewModel();

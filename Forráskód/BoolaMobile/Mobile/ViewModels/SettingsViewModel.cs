@@ -40,19 +40,19 @@ namespace Desktop.ViewModels
             Settings.nyelv = nyelv.First();
 
         }
-        [RelayCommand]
+        [ICommand]
         public void DoSave(Settings newSettings)
         {
             Lis.Add(newSettings);
             OnPropertyChanged(nameof(Lis));
         }
 
-        [RelayCommand]
+        [ICommand]
         public void DoNewSettings()
         {
             Settings = new();
         }
-        [RelayCommand]
+        [ICommand]
         public void DoDelete(Settings settingsDoDelete)
         {
             Lis.Remove(settingsDoDelete);
