@@ -57,7 +57,7 @@
 	<ItemGroup>
 		<PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="6.1.0" />
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 	</ItemGroup>
 
@@ -78,6 +78,10 @@
 
 	<ItemGroup>
 	  <Resource Include="Resources\Inter.ttf" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="PresentationFramework" />
 	</ItemGroup>
 
 </Project>

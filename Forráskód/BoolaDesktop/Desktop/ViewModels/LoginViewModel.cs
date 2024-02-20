@@ -22,14 +22,10 @@ namespace Desktop.ViewModels
             login = new Login();
         }
 
-        [ICommand]
-        public async Task Logon()
-        {
-            enteredLogin = new Login();
-        }
+        
 
-        [ICommand]
-        public async new Task Logonk()
+        [RelayCommand]
+        public async new Task Logon()
         {
             login = enteredLogin;
             await base.Logon();

@@ -25,17 +25,17 @@ namespace Desktop.ViewModels
             Profile = new Profile();
 
         }
-        [ICommand]
+        [RelayCommand]
         public new void DoSave(Profile profile)
         {
             base.DoSave(profile);
         }
-        [ICommand]
+        [RelayCommand]
         public new void Delete(Profile profile)
         {
             base.Delete(profile);
         }
-        [ICommand]
+        [RelayCommand]
         public new void ChangeToMainWindow()
         {
             base.ChangeToMainWindow();
