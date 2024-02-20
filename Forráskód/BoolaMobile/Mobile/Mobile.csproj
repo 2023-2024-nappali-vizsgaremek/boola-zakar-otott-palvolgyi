@@ -66,10 +66,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\BoolaDesktop\BoolaShared\BoolaShared.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Resource Include="Resources\Inter.ttf" />
 	</ItemGroup>
 
