@@ -21,7 +21,7 @@ namespace Desktop.ViewModels
 
 
         [RelayCommand]
-        public new void ChangeToAddWindow()
+       public  new void ChangeToAddWindow()
         {
             base.ChangeToAddWindow();
         }

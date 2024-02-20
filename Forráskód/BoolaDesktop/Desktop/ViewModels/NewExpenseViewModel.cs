@@ -38,7 +38,7 @@ namespace Desktop.ViewModels
         }
         public override async Task InitializeAsync()
         {
-            var c = await currencyService.GetAllCurrencys();
+            List<Money> c = await currencyService.GetAllCurrencys();
             Cur = new ObservableCollection<Money>(c);
             
         }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Desktop.ViewModels
 {
-    public partial class MainMenuViewModel : ObservableObject
+    public partial class MainMenuViewModel :BoolaShared.ViewModels.MainMenuViewModel
     {
         [ObservableProperty] private MainContent content;
 

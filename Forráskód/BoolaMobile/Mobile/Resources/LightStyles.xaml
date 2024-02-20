@@ -1,27 +1,29 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:maui="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:emit="using:System.Reflection.Emit">
     <Style TargetType="Grid">
         <Setter Property="Background" Value="#dff4ff"></Setter>
     </Style>
-    <Style TargetType="Label">
+    <Style TargetType="emit:Label">
         <Setter Property="Foreground" Value="#006783"></Setter>
         <Setter Property="FontFamily" Value="./#Inter Regular"></Setter>
         <Setter Property="FontSize" Value="14pt"></Setter>
     </Style>
-    <Style TargetType="GroupBox">
+    <!--<Style TargetType="GroupBox">
         <Setter Property="BorderBrush" Value="#191c1e"></Setter>
         <Setter Property="Foreground" Value="#006783"></Setter>
         <Setter Property="FontFamily" Value="./#Inter Regular"></Setter>
         <Setter Property="FontSize" Value="14pt"></Setter>
-    </Style>
-    <Style TargetType="Label" x:Key="h2" >
+    </Style>-->
+    <Style TargetType="emit:Label" x:Key="h2" >
         <Setter Property="Foreground" Value="#006783"></Setter>
         <Setter Property="FontFamily" Value="./#Inter"></Setter>
         <Setter Property="FontWeight" Value="Medium"></Setter>
         <Setter Property="FontStyle" Value="Italic"></Setter>
         <Setter Property="FontSize" Value="16pt"></Setter>
     </Style>
-    <Style TargetType="Label" x:Key="h1">
+    <Style TargetType="emit:Label" x:Key="h1">
         <Setter Property="Foreground" Value="#006783"></Setter>
         <Setter Property="FontFamily" Value="./#Inter Black"></Setter>
         <Setter Property="FontWeight" Value="Bold"></Setter>
