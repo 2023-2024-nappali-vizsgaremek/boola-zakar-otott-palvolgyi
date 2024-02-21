@@ -76,6 +76,12 @@ fun Application.configureRouting() {
             else call.respond(con.getAccount(call.parameters["email"] as String))
         }
 
+        get("/api/salt/{email}"){
+            val con = DataControllerFactory.getController()
+            if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+            else call.respond(con.getAccountSalt(call.parameters["email"] as String))
+        }
+
         post("/register") {
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)

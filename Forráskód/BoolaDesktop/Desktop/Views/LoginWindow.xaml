@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Desktop.Views"
              xmlns:vm="clr-namespace:Desktop.ViewModels" 
              mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=vm:LoginViewModelDesktop, IsDesignTimeCreatable=True}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Label Content="Login" HorizontalAlignment="Center" Margin="0,100,0,0"/>
