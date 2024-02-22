@@ -2,9 +2,6 @@ package com.boola.controllers
 
 import at.favre.lib.crypto.bcrypt.BCrypt
 import com.boola.models.*
-import io.ktor.util.*
-import io.ktor.util.debug.*
-import java.security.MessageDigest
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.util.UUID
@@ -12,7 +9,7 @@ import kotlin.random.Random
 import kotlin.text.StringBuilder
 import kotlin.text.toCharArray
 
-class DataController(private val connection: Connection) {
+class DataController internal constructor(private val connection: Connection) {
 
     private val getAccountStatement: PreparedStatement = connection.prepareStatement(
         "SELECT * FROM account WHERE email= ?")
