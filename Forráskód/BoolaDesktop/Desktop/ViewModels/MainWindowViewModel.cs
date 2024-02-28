@@ -13,62 +13,51 @@ namespace Desktop.ViewModels
 {
     public partial class MainWindowViewModel : BoolaShared.ViewModels.MainWindowViewModel
     {
-        [ObservableProperty]
-        private ObservableObject childViewModel;
-        private NewExpenseViewModel newExpenseViewModel;
-        private ProfileViewModel profileViewModel;
-        private SettingsViewModel settingsViewModel;
+        public static new MainWindowViewModel Instance { get; private set;}
 
-        public static MainWindowViewModel Instance { get; set; }
+        [ObservableProperty] public new ObservableObject childViewModel;
+        private MainMenuViewModel mainMenuViewModel;
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(NewExpenseViewModel newExpenseViewModel,
+            ProfileViewModel profileViewModel, SettingsViewModel settingsViewModel) : base(newExpenseViewModel, profileViewModel,settingsViewModel)
         {
-
-            //todo ChildviewModel assigment
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-            else
-            {
-                return;
-            }
-
+            Instance ??= this;
+            this.mainMenuViewModel = new MainMenuViewModel();
+            ChildViewModel = childViewModel;
         }
 
-        public MainWindowViewModel(LoginViewModelDesktop childViewModel, NewExpenseViewModel newExpenseViewModel,
-            ProfileViewModel profileViewModel, SettingsViewModel settingsViewModel)
+        public MainWindowViewModel() : base(null, null, null)
         {
-
-            this.childViewModel = childViewModel;
             Instance ??= this;
-            this.newExpenseViewModel = newExpenseViewModel;
-            this.profileViewModel = profileViewModel;
-            this.settingsViewModel = settingsViewModel;
+            mainMenuViewModel = new MainMenuViewModel();
+            childViewModel = mainMenuViewModel;
         }
 
         [RelayCommand]
-        public void ChangeToAddWindow()
+        public new void ChangeToAddWindow()
         {
-            childViewModel = newExpenseViewModel;
+            base.ChangeToAddWindow();
+            ChildViewModel = base.childViewModel;
         }
 
         [RelayCommand]
         public new void ChangeToSettingsWindow()
         {
-            childViewModel = settingsViewModel;
+            base.ChangeToSettingsWindow();
+            ChildViewModel = base.childViewModel;
         }
 
         [RelayCommand]
         public new void ChangeToProfilesWindow()
         {
-            ChildViewModel = profileViewModel;
+            base.ChangeToProfilesWindow();
+            ChildViewModel = base.childViewModel;
         }
 
         [RelayCommand]
         public override void ChangeToMainWindow()
         {
-            childViewModel = new MainMenuViewModel();
+            ChildViewModel = mainMenuViewModel;
         }
     }
 }

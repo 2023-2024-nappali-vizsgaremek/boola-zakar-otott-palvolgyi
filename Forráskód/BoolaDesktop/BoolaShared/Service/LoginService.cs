@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Extensions.Http;
 using Microsoft.Extensions.Hosting;
+using BCrypt.Net;
 
 namespace Desktop.Service
 {
@@ -25,8 +26,15 @@ namespace Desktop.Service
 
         public async Task<Account?> GetAccount(Login login)
         {
-            if(IsClientAvailable) return null;
-            var resp = await httpClient.GetFromJsonAsync<Account>("/api/account/" + login.email);
+            if(!IsClientAvailable) return null;
+            var resp = await httpClient!.GetFromJsonAsync<Account>("/api/account/" + login.email);
+            return resp;
+        }
+
+        private async Task<string?> GetAccountSalt(string email)
+        {
+            if(!IsClientAvailable) return null;
+            var resp = await httpClient!.GetStringAsync("/api/salt/" + email);
             return resp;
         }
 
@@ -34,10 +42,10 @@ namespace Desktop.Service
         {
             if(!IsClientAvailable) return null;
             var resp = await httpClient!.PostAsJsonAsync("/login", account);
-            if(resp is null || resp.StatusCode != System.Net.HttpStatusCode.OK) return null;
-            var json = await resp.Content.ReadAsStringAsync();
+            if (resp is null || resp.StatusCode != System.Net.HttpStatusCode.OK) return null;
+            var json = await resp.Content.ReadAsStringAsync(); 
             var tokens = JsonSerializer.Deserialize<LoginTokens>(json);
-            if(tokens is not null)
+            if (tokens is not null)
             {
                 AuthService.AuthToken = tokens.access;
                 AuthService.RefreshToken = tokens.refresh;

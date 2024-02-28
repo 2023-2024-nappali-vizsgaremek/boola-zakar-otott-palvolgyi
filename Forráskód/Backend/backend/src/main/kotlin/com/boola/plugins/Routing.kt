@@ -19,6 +19,7 @@ import io.ktor.util.*
 import io.ktor.util.Identity.encode
 import kotlinx.serialization.SerializationStrategy
 import kotlinx.serialization.json.Json
+import java.nio.charset.Charset
 import java.security.MessageDigest
 import java.util.*
 
@@ -49,11 +50,9 @@ fun Application.configureRouting() {
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
             else {
-                val sentPw = (con.getAccountSalt(user.email) + user.pwHash)
-                    .toCharArray()
+                val sentPw = user.pwHash.toCharArray()
                 val storedPw = con.getAccount(user.email).pwHash.toCharArray()
-                println("Stored $storedPw, got $sentPw")
-                val verification = BCrypt.verifyer().verify(sentPw, storedPw)
+                val verification = BCrypt.verifyer().verify(sentPw,storedPw)
                 if(!verification.verified) {
                     call.respond(HttpStatusCode.Unauthorized)
                     DataControllerFactory.returnController(con)
@@ -71,7 +70,7 @@ fun Application.configureRouting() {
                     .withAudience("http://localhost:8080/login")
                     .withIssuer("http://localhost:8080")
                     .sign(Algorithm.HMAC256(secret))
-                call.respond(hashMapOf("token" to token))
+                call.respond(hashMapOf("access" to token, "refresh" to ""))
                 DataControllerFactory.returnController(con)
             }
 

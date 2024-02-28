@@ -26,21 +26,12 @@ namespace BoolaShared.ViewModels
         protected async Task Logon()
         {
             var account = await loginService.GetAccount(login);
+            account.pwHash = login.Password;
             var tokens = await loginService.PostLogin(account);
-            var stream = new FileStream("account.txt",FileMode.Create);
-            using(var sw = new StreamWriter(stream))
-            {
-                sw.WriteLine("account:");
-                JsonSerializer.Serialize(stream,account);
-                sw.WriteLine("login: ");
-                JsonSerializer.Serialize(stream,login);
-                sw.Flush();
-                sw.Close();
-            }
-            if(tokens is null) return;
+            if (tokens is null || tokens.access is null) return;
             AuthService.AuthToken = tokens.access;
             AuthService.RefreshToken = tokens.refresh;
-            MainWindowViewModel.Instance.ChangeToMainWindow();
+            
         }
     }
 }
