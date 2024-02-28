@@ -26,6 +26,7 @@ namespace BoolaShared.ViewModels
         protected async Task Logon()
         {
             var account = await loginService.GetAccount(login);
+            if(account == null) return;
             account.pwHash = login.Password;
             var tokens = await loginService.PostLogin(account);
             if (tokens is null || tokens.access is null) return;

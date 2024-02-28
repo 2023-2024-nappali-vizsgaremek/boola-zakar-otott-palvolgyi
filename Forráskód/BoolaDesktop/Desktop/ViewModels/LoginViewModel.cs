@@ -32,7 +32,8 @@ namespace Desktop.ViewModels
         {
             login = EnteredLogin;
             await base.Logon();
-            IsVisible = false;
+            if(AuthService.AuthToken is not "") IsVisible = false;
+            else MessageBox.Show("Nem sikerült bejelentkezni!");    //todo: better error messages
         }
     }
 }

@@ -20,39 +20,37 @@ namespace Desktop.Service
         private bool IsClientAvailable => httpClient != null;
         public LoginService(IHttpClientFactory? httpClientFactory)
         {
-          
+
             httpClient = httpClientFactory?.CreateClient("BoolaApi");
         }
 
         public async Task<Account?> GetAccount(Login login)
         {
-            if(!IsClientAvailable) return null;
-            var resp = await httpClient!.GetFromJsonAsync<Account>("/api/account/" + login.email);
-            return resp;
-        }
-
-        private async Task<string?> GetAccountSalt(string email)
-        {
-            if(!IsClientAvailable) return null;
-            var resp = await httpClient!.GetStringAsync("/api/salt/" + email);
+            if (!IsClientAvailable) return null;
+            Account? resp = null;
+            try
+            {
+                resp = await httpClient!.GetFromJsonAsync<Account>("/api/account/" + login.email);
+            }
+            catch { }
             return resp;
         }
 
         public async Task<LoginTokens?> PostLogin(Account account)
         {
-            if(!IsClientAvailable) return null;
+            if (!IsClientAvailable) return null;
             var resp = await httpClient!.PostAsJsonAsync("/login", account);
             if (resp is null || resp.StatusCode != System.Net.HttpStatusCode.OK) return null;
-            var json = await resp.Content.ReadAsStringAsync(); 
+            var json = await resp.Content.ReadAsStringAsync();
             var tokens = JsonSerializer.Deserialize<LoginTokens>(json);
             if (tokens is not null)
             {
                 AuthService.AuthToken = tokens.access;
                 AuthService.RefreshToken = tokens.refresh;
             }
-            return tokens; 
+            return tokens;
         }
 
-        
+
     }
 }
