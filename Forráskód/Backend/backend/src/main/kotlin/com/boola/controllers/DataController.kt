@@ -2,19 +2,14 @@ package com.boola.controllers
 
 import at.favre.lib.crypto.bcrypt.BCrypt
 import com.boola.models.*
-
-import io.ktor.util.*
-import io.ktor.util.debug.*
-import java.security.MessageDigest
-
+import io.ktor.utils.io.charsets.*
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.util.UUID
 import kotlin.random.Random
 import kotlin.text.StringBuilder
-import kotlin.text.toCharArray
 
-class DataController(private val connection: Connection) {
+class DataController internal constructor(private val connection: Connection) {
 
     private val getAccountStatement: PreparedStatement = connection.prepareStatement(
         "SELECT * FROM account WHERE email= ?")
@@ -101,14 +96,14 @@ class DataController(private val connection: Connection) {
         addAccountStatement.run {
             setString(1,accountToAdd.email)
             val salt = StringBuilder()
-            for(i in 0..8){
-                val code = Random.nextInt(0, UShort.MAX_VALUE.toInt())
+            for(i in 0..15){
+                val code = Random.nextInt(1, Byte.MAX_VALUE.toInt())
                 println("Adding a $code to the salt")
                 salt.append(Char(code))
             }
-            val hashedPwString = BCrypt.withDefaults().hashToString(6,(salt.toString() + accountToAdd.pwHash)
-                .toCharArray())
-            setString(2,hashedPwString.toString())
+            val hashedPwArray = BCrypt.withDefaults().hash(6,salt.toString().toByteArray(),accountToAdd.pwHash
+                .toByteArray())
+            setString(2,String(hashedPwArray,Charset.forName("utf-8")))
             setString(3,accountToAdd.name)
             setString(4,salt.toString())
             execute()

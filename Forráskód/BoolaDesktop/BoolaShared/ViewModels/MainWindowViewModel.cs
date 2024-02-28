@@ -14,7 +14,7 @@ namespace BoolaShared.ViewModels
     public abstract class MainWindowViewModel : AsyncInitializedViewModel
     {
         
-        private ObservableObject childViewModel;
+        protected ObservableObject childViewModel;
         private NewExpenseViewModel newExpenseViewModel;
         private ProfileViewModel profileViewModel;
         private SettingsViewModel settingsViewModel;
@@ -24,23 +24,11 @@ namespace BoolaShared.ViewModels
        
         public MainWindowViewModel()
         {
-         
-           //todo ChildviewModel assigment
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-            else
-            {
-                return;
-            }
-          
+            Instance ??= this;
         }
 
-        protected MainWindowViewModel(LoginViewModel childViewModel, NewExpenseViewModel newExpenseViewModel, ProfileViewModel profileViewModel, SettingsViewModel settingsViewModel)
-        {
-           
-            this.childViewModel = childViewModel;
+        protected MainWindowViewModel(NewExpenseViewModel newExpenseViewModel, ProfileViewModel profileViewModel, SettingsViewModel settingsViewModel)
+        { 
             Instance ??= this;
             this.newExpenseViewModel = newExpenseViewModel;
             this.profileViewModel = profileViewModel;

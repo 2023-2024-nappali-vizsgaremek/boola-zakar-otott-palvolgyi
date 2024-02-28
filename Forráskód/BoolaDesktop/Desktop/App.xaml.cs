@@ -11,7 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Desktop.Extensions;
 using Desktop.ViewModels;
 using Desktop.Views;
-using Desktop.Service;
 using System.Security.Authentication.ExtendedProtection;
 using System.Runtime.CompilerServices;
 
@@ -32,6 +31,11 @@ namespace Desktop
                 {
                     srevices.ConfigureHttpClient();
                     srevices.ConfigureApiServices();
+                    srevices.AddSingleton<MainWindowViewModel>();
+                    srevices.AddSingleton(s => new MainWindow()
+                    {
+                        DataContext = s.GetRequiredService<MainWindowViewModel>()
+                    });
                     srevices.AddSingleton<NewExpenseViewModel>();
                     srevices.AddSingleton<NewExpenseView>(s => new NewExpenseView()
                     {
@@ -47,7 +51,15 @@ namespace Desktop
             await host.StartAsync();
             var loginView = host.Services.GetRequiredService<LoginWindow>();
             loginView.Show();
-
+            loginView.IsVisibleChanged += (_,_) =>
+            {
+                if(!loginView.IsVisible)
+                {
+                    var mainView = host.Services.GetRequiredService<MainWindow>();
+                    mainView.Show();
+                    loginView.Close();
+                }
+            };
 
 
 

@@ -16,9 +16,12 @@ class DataControllerFactory(poolSize: Int) {
             return try {
                 controllerPool.remove()
             } catch (e:Exception){
-                e.message?.let { error(it) }
-                null
+                error("Connection limit exceeded!")
             }
+        }
+
+        fun returnController(controller: DataController){
+            controllerPool.add(controller)
         }
 
     }

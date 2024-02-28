@@ -40,7 +40,10 @@ fun Application.configureRouting() {
             get("/tst") {
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-                else call.respond(con.getDbStatus())
+                else{
+                    call.respond(con.getDbStatus())
+                    DataControllerFactory.returnController(con)
+                }
             }
         }
 
@@ -51,11 +54,11 @@ fun Application.configureRouting() {
             else {
                 val sentPw = user.pwHash.toCharArray()
                 val storedPw = con.getAccount(user.email).pwHash.toCharArray()
-                println("Stored $storedPw, got $sentPw")
-                val verification = BCrypt.verifyer().verify(sentPw, storedPw)
-
-
-                if(!verification.verified) call.respond(HttpStatusCode.Unauthorized,"Incorrect password!")
+                val verification = BCrypt.verifyer().verify(sentPw,storedPw)
+                if(!verification.verified) {
+                    call.respond(HttpStatusCode.Unauthorized)
+                    DataControllerFactory.returnController(con)
+                }
                 val secret:String = try {
 
                     System.getenv("JWT_SECRET")
@@ -85,7 +88,19 @@ fun Application.configureRouting() {
         get("/api/account/{email}") {
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-            else call.respond(con.getAccount(call.parameters["email"] as String))
+            else{
+                call.respond(con.getAccount(call.parameters["email"] as String))
+                DataControllerFactory.returnController(con)
+            }
+        }
+
+        get("/api/salt/{email}"){
+            val con = DataControllerFactory.getController()
+            if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+            else {
+                call.respond(con.getAccountSalt(call.parameters["email"] as String))
+                DataControllerFactory.returnController(con)
+            }
         }
 
         post("/register") {
@@ -95,6 +110,7 @@ fun Application.configureRouting() {
                 val account = call.receive<Account>()
                 con.addAccount(account)
                 call.respond(HttpStatusCode.Created)
+                DataControllerFactory.returnController(con)
             }
         }
 
@@ -105,9 +121,11 @@ fun Application.configureRouting() {
                 try {
                     call.parameters["email"]?.let { con.setAccount(it,call.receive<Account>()) }
                     call.respond(HttpStatusCode.OK)
+                    DataControllerFactory.returnController(con)
                 } catch (e:Exception){
                     e.message?.let { print(it) }
                     call.respond(HttpStatusCode.BadRequest)
+                    DataControllerFactory.returnController(con)
                 }
 
             }
@@ -120,11 +138,13 @@ fun Application.configureRouting() {
                 try{
                 call.parameters["email"]?.let {con.deleteAccount(con.getAccount(it))}
                 call.respond(HttpStatusCode.NoContent)
+                    DataControllerFactory.returnController(con)
             }
                 catch(e:Exception)
                 {
                     e.message?.let { print(it) }
                     call.respond(HttpStatusCode.BadRequest)
+                    DataControllerFactory.returnController(con)
 
                 }
             }
@@ -154,45 +174,56 @@ fun Application.configureRouting() {
         get("/api/currency") {
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-            else call.respond(con.getCurrenciesAll())
+            else{
+                call.respond(con.getCurrenciesAll())
+                DataControllerFactory.returnController(con)
+            }
         }
 
         get("/api/currency/{code}") {
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-            else call.respond(con.getCurrency(call.parameters["code"] as String))
+            else {
+                call.respond(con.getCurrency(call.parameters["code"] as String))
+                DataControllerFactory.returnController(con)
+            }
         }
 
 
         get("/api/category") {
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-            else call.respond(con.getCategoriesAll())
-
+            else {
+                call.respond(con.getCurrenciesAll())
+                DataControllerFactory.returnController(con)
+            }
         }
 
         get("/api/category/{id}") {
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-
-
             else {
                 val id = call.parameters["id"]
-                if(id == null) call.respond(HttpStatusCode.NotFound)
+                if(id == null) call.respond(HttpStatusCode.BadRequest)
                 else call.respond(con.getCategory(id.toInt()))
             }
-
         }
         authenticate("boola-auth") {
             get("/api/profile/{id}"){
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-                else call.respond(con.getProfile(UUID.fromString(call.parameters["id"])))
+                else {
+                    call.respond(con.getCurrenciesAll())
+                    DataControllerFactory.returnController(con)
+                }
             }
             get("/api/profile"){
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-                else call.respond(con.getAllProfile())
+                else {
+                    call.respond(con.getCurrenciesAll())
+                    DataControllerFactory.returnController(con)
+                }
             }
             post("/api/profile/{id}") {
                 val con = DataControllerFactory.getController()
@@ -201,6 +232,7 @@ fun Application.configureRouting() {
                     val profile = call.receive<Profile>()
                     con.addProfile(profile)
                     call.respond(HttpStatusCode.Created)
+                    DataControllerFactory.returnController(con)
                 }
 
             }
@@ -211,9 +243,11 @@ fun Application.configureRouting() {
                     try {
                         call.parameters["id"]?.let { con.setProfile(UUID.fromString(it),call.receive<Profile>()) }
                         call.respond(HttpStatusCode.OK)
+                        DataControllerFactory.returnController(con)
                     } catch (e:Exception){
                         e.message?.let { print(it) }
                         call.respond(HttpStatusCode.BadRequest)
+                        DataControllerFactory.returnController(con)
                     }
 
                 }
@@ -225,11 +259,13 @@ fun Application.configureRouting() {
                     try{
                         call.parameters["id"]?.let {con.deleteProfile(con.getProfile(UUID.fromString(it)))}
                         call.respond(HttpStatusCode.NoContent)
+                        DataControllerFactory.returnController(con)
                     }
                     catch(e:Exception)
                     {
                         e.message?.let { print(it) }
                         call.respond(HttpStatusCode.BadRequest)
+                        DataControllerFactory.returnController(con)
 
                     }
                 }
@@ -239,13 +275,19 @@ fun Application.configureRouting() {
             get("/api/expenselist/{id}"){
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-                else call.respond(con.getExpenseList(UUID.fromString(call.parameters["id"])))
+                else {
+                    call.respond(con.getCurrenciesAll())
+                    DataControllerFactory.returnController(con)
+                }
             }
 
             get("/api/expenselist/") {
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-                else call.respond(con.getExpenseListsAll())
+                else {
+                    call.respond(con.getCurrenciesAll())
+                    DataControllerFactory.returnController(con)
+                }
 
             }
 
@@ -258,6 +300,7 @@ fun Application.configureRouting() {
                     con.addExopenseList(expenselist)
 
                     call.respond(HttpStatusCode.Created)
+                    DataControllerFactory.returnController(con)
                 }
 
             }
@@ -271,6 +314,7 @@ fun Application.configureRouting() {
                     else {
                         con.deleteExpenseList(UUID.fromString(idString))
                         call.respond(HttpStatusCode.NoContent)
+                        DataControllerFactory.returnController(con)
                     }
                 }
             }
@@ -320,7 +364,6 @@ fun Application.configureRouting() {
                     else {
                         con.deletePartner(idString.toByte())
                         call.respond(HttpStatusCode.NoContent)
-
                     }
                 }
             }

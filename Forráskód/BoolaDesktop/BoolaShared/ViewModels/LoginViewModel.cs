@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -25,11 +26,12 @@ namespace BoolaShared.ViewModels
         protected async Task Logon()
         {
             var account = await loginService.GetAccount(login);
+            account.pwHash = login.Password;
             var tokens = await loginService.PostLogin(account);
-            if(tokens is null) return;
+            if (tokens is null || tokens.access is null) return;
             AuthService.AuthToken = tokens.access;
             AuthService.RefreshToken = tokens.refresh;
-            MainWindowViewModel.Instance.ChangeToMainWindow();
+            
         }
     }
 }
