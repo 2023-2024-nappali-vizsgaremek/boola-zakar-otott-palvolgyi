@@ -6,6 +6,9 @@ import com.auth0.jwt.algorithms.Algorithm
 import com.boola.controllers.DataControllerFactory
 import com.boola.models.Account
 import com.boola.models.ExpenseList
+
+import com.boola.models.Partner
+
 import com.boola.models.Profile
 import io.github.cdimascio.dotenv.dotenv
 import io.ktor.http.*
@@ -16,11 +19,11 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.*
-import io.ktor.util.Identity.encode
-import kotlinx.serialization.SerializationStrategy
-import kotlinx.serialization.json.Json
-import java.security.MessageDigest
 import java.util.*
+
+private const val AccessTokenLifetime = 900000
+
+private const val RefreshTokenLifetime = 259200000
 
 fun Application.configureRouting() {
     install(StatusPages) {
@@ -46,26 +49,35 @@ fun Application.configureRouting() {
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
             else {
-                val sentPw = (con.getAccountSalt(user.email) + user.pwHash)
-                    .toCharArray()
+                val sentPw = user.pwHash.toCharArray()
                 val storedPw = con.getAccount(user.email).pwHash.toCharArray()
                 println("Stored $storedPw, got $sentPw")
                 val verification = BCrypt.verifyer().verify(sentPw, storedPw)
-                if(!verification.verified) call.respond(HttpStatusCode.Unauthorized)
+
+
+                if(!verification.verified) call.respond(HttpStatusCode.Unauthorized,"Incorrect password!")
                 val secret:String = try {
+
                     System.getenv("JWT_SECRET")
-                } catch (_:NullPointerException){
+                } catch (e:NullPointerException){
                     val env = dotenv()
                     env["JWT_SECRET"]
                 }
-                println("$secret is the secret")
-                val token = JWT.create()
+
+                val accessToken = JWT.create()
+
                     .withClaim("email",user.email)
-                    .withExpiresAt(Date(System.currentTimeMillis() + 300000))
-                    .withAudience("http://localhost:8080/login")
-                    .withIssuer("http://localhost:8080")
+                    .withExpiresAt(Date(System.currentTimeMillis() + AccessTokenLifetime))
+                    .withAudience("https://localhost:8080/login")
+                    .withIssuer("https://localhost:8080")
                     .sign(Algorithm.HMAC256(secret))
-                call.respond(hashMapOf("token" to token))
+                val refreshToken = JWT.create()
+                    .withClaim("email",user.email)
+                    .withExpiresAt(Date(System.currentTimeMillis() + RefreshTokenLifetime))
+                    .withAudience("https://localhost:8080/refresh")
+                    .withIssuer("https://localhost:8080")
+                    .sign(Algorithm.HMAC256(secret))
+                call.respond(hashMapOf("access" to accessToken,"refresh" to refreshToken))
             }
 
         }
@@ -118,6 +130,27 @@ fun Application.configureRouting() {
             }
         }
 
+
+        authenticate("boola-refresh") {
+           post("/refresh"){
+               val email = call.receive<String>()
+               val secret = try {
+                   System.getenv("JWT_SECRET")
+               } catch (_:NullPointerException){
+                   val env = dotenv()
+                   env["JWT_SECRET"]
+               }
+               val accessToken = JWT.create()
+                   .withClaim("email",email)
+                   .withExpiresAt(Date(System.currentTimeMillis() + RefreshTokenLifetime))
+                   .withAudience("https://localhost:8080/refresh")
+                   .withIssuer("https://localhost:8080")
+                   .sign(Algorithm.HMAC256(secret))
+               call.respond(hashMapOf("access" to accessToken))
+           }
+        }
+
+
         get("/api/currency") {
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
@@ -134,13 +167,21 @@ fun Application.configureRouting() {
         get("/api/category") {
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-            else call.respond(con.getCurrenciesAll())
+            else call.respond(con.getCategoriesAll())
+
         }
 
         get("/api/category/{id}") {
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-            else call.respond(con.getCategory(call.parameters["id"] as Int))
+
+
+            else {
+                val id = call.parameters["id"]
+                if(id == null) call.respond(HttpStatusCode.NotFound)
+                else call.respond(con.getCategory(id.toInt()))
+            }
+
         }
         authenticate("boola-auth") {
             get("/api/profile/{id}"){
@@ -200,35 +241,85 @@ fun Application.configureRouting() {
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else call.respond(con.getExpenseList(UUID.fromString(call.parameters["id"])))
             }
+
             get("/api/expenselist/") {
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else call.respond(con.getExpenseListsAll())
 
             }
+
             post("/api/expenselist/{id}") {
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else {
                     val expenselist= call.receive<ExpenseList>()
+
                     con.addExopenseList(expenselist)
+
                     call.respond(HttpStatusCode.Created)
                 }
 
             }
 
-            delete("/api/profile/{id}") {
+            delete("/api/expenselist/{id}") {
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-                else{
-                    try{
-                        call.parameters["email"]?.let {con.deleteExpenseList(con.getExpenseList(UUID.fromString(it)))}
+                else {
+                    val idString = call.parameters["id"]
+                    if(idString == null) call.respond(HttpStatusCode.NotFound)
+                    else {
+                        con.deleteExpenseList(UUID.fromString(idString))
                         call.respond(HttpStatusCode.NoContent)
                     }
-                    catch(e:Exception)
-                    {
-                        e.message?.let { print(it) }
-                        call.respond(HttpStatusCode.BadRequest)
+                }
+            }
+        }
+        authenticate("boola-auth") {
+            get("/api/partner/"){
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else call.respond(con.getPartnersAll())
+            }
+            get("/api/partner/{id}") {
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else {
+                    val idString = call.parameters["id"]
+                    if(idString == null) call.respond(HttpStatusCode.NotFound)
+                    else call.respond(con.getPartner(idString.toByte()))
+                }
+            }
+            post("/api/partner/"){
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else {
+                    val partner = call.receive<Partner>()
+                    con.addPartner(partner)
+                    call.respond(HttpStatusCode.Created)
+                }
+            }
+            put("/api/partner/{id}"){
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else {
+                    val partner = call.receive<Partner>()
+                    val idString = call.parameters["id"]
+                    idString?.let {
+                        call.respond(con.setPartner(partner,it.toByte()))
+                    }
+                    call.respond(HttpStatusCode.NotFound)
+                }
+            }
+            delete("/api/partner/{id}"){
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else {
+                    val idString = call.parameters["id"]
+                    if(idString == null) call.respond(HttpStatusCode.NotFound)
+                    else {
+                        con.deletePartner(idString.toByte())
+                        call.respond(HttpStatusCode.NoContent)
 
                     }
                 }
