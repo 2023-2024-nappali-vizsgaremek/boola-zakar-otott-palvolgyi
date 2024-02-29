@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace BoolaShared.Service
 {
-    public interface ICrudService<T>
-    {
-        public Task<List<T>> GetAll();
-        public Task<T> GetById(int id);
+    public interface ICrudService<T> : IReadService<T>
+    { 
         public Task Update(Profile newProfile);
         public Task Delete(int id);
     }
