@@ -1,4 +1,5 @@
-﻿using Desktop.Models;
+﻿using BoolaShared.Service;
+using Desktop.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,7 @@ using System.Threading.Tasks;
 
 namespace Desktop.Service
 {
-    public interface ICategoryService
+    public interface ICategoryService : IReadService<Category,int>
     {
-        public Task<List<Category>> GetAllCategories();
-        public Task<Category> GetCategory(string id);
     }
 }

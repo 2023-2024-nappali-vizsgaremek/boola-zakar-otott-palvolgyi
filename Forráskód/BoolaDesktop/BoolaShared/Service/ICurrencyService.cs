@@ -1,4 +1,5 @@
-﻿using Desktop.Models;
+﻿using BoolaShared.Service;
+using Desktop.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,7 @@ using System.Threading.Tasks;
 
 namespace Desktop.Service
 {
-    public interface ICurrencyService
+    public interface ICurrencyService : IReadService<Money,string>
     {
-        public Task<List<Money>> GetAllCurrencys();
-        public Task<Money> GetCurrency(string code);
     }
 }

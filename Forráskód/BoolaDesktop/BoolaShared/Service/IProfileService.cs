@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BoolaShared.Service
 {
-    public interface IProfileService : ICrudService<Profile>
+    public interface IProfileService : ICrudService<Profile,Guid>
     { 
     }
 }

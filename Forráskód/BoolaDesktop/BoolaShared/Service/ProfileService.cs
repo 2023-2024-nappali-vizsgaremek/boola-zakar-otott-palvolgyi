@@ -1,7 +1,9 @@
 ﻿using Desktop.Models;
+using Desktop.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,29 +11,38 @@ namespace BoolaShared.Service
 {
     public class ProfileService : IProfileService
     {
-        private readonly HttpClient? httpClient;
+        public HttpClient? HttpClient { get; set; }
+        public bool IsClientAvailable => HttpClient != null;
 
         public ProfileService(IHttpClientFactory? httpClientFactory)
         {
-            httpClient = httpClientFactory?.CreateClient("BoolaApi");
+           HttpClient = httpClientFactory?.CreateClient("BoolaApi");
+           HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer",AuthService.AuthToken);
         }
 
-        public Task Delete(int id)
+        public async Task Delete(Guid id)
         {
-            throw new NotImplementedException();
+            if(!IsClientAvailable) return;
+            var resp = await HttpClient.DeleteAsync("api/profile/" + id);
+            resp.EnsureSuccessStatusCode();
         }
 
-        public Task<List<Profile>> GetAll()
+        public async Task<List<Profile>> GetAll()
         {
-            throw new NotImplementedException();
+            if(!IsClientAvailable) return new List<Profile>();
+            var resp = await HttpClient.GetFromJsonAsync<List<Profile>>("api/profile");
+            if(resp is null) return new List<Profile>();
+            return resp;
         }
 
-        public Task<Profile> GetById(int id)
+        public async Task<Profile> GetById(Guid id)
         {
-            throw new NotImplementedException();
+            if(!IsClientAvailable) return null;
+            var resp = await HttpClient.GetFromJsonAsync<Profile>("api/profile/" + id);
+            return resp;
         }
 
-        public Task Update(Profile newProfile)
+        public Task Update(Profile newData)
         {
             throw new NotImplementedException();
         }

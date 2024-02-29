@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace BoolaShared.Service
 {
-    public interface ICrudService<T> : IReadService<T>
+    public interface ICrudService<TModel,TKey> : IReadService<TModel,TKey>
     { 
-        public Task Update(Profile newProfile);
-        public Task Delete(int id);
+        public Task Update(TModel newData);
+        public Task Delete(TKey id);
     }
 }
