@@ -17,7 +17,7 @@ namespace Desktop.Extensions
             {
                 options.BaseAddress = new Uri("http://localhost:8080/");
             }
-                );
+            );
         }
     }
 }

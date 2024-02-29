@@ -29,6 +29,5 @@ namespace Desktop.Service
             if (resp is null) return new Money();
             return new Money(resp, code);
         }
-
     }
 }

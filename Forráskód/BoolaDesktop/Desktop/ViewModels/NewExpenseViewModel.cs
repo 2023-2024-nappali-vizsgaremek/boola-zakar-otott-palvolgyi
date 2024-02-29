@@ -29,9 +29,11 @@ namespace Desktop.ViewModels
         private Category _SelectCategory = new Category();
         private Money _Currency = new Money();
         private ICurrencyService currencyService;
-        public NewExpenseViewModel(ICurrencyService currency) : base(currency)
+        private ICategoryService categoryService;
+        public NewExpenseViewModel(ICurrencyService currency,ICategoryService category) : base(currency)
         {
             currencyService = currency;
+            categoryService = category;
             Expnse = new NewExpnse();
             Expnse.category = new Category();
            
@@ -40,7 +42,8 @@ namespace Desktop.ViewModels
         {
             List<Money> c = await currencyService.GetAllCurrencys();
             Cur = new ObservableCollection<Money>(c);
-            
+            List<Category> categories = await categoryService.GetAllCategories();
+            Cat = new ObservableCollection<Category>(categories);
         }
         public Category SelectCategory
         {
