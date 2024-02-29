@@ -13,8 +13,8 @@ namespace BoolaShared.ViewModels
 {
     public abstract class MainWindowViewModel : AsyncInitializedViewModel
     {
-        
-        protected ObservableObject childViewModel;
+
+        protected abstract ObservableObject ChildViewModel { get; set; }
         private NewExpenseViewModel newExpenseViewModel;
         private ProfileViewModel profileViewModel;
         private SettingsViewModel settingsViewModel;
@@ -37,19 +37,19 @@ namespace BoolaShared.ViewModels
 
         public void ChangeToAddWindow()
         {
-            childViewModel = newExpenseViewModel;
+            ChildViewModel = newExpenseViewModel;
         }
 
 
   
         public void ChangeToSettingsWindow()
         {
-            childViewModel = settingsViewModel;
+            ChildViewModel = settingsViewModel;
         }
       
         public void ChangeToProfilesWindow()
         {
-            childViewModel = profileViewModel;
+            ChildViewModel = profileViewModel;
         }
 
         public abstract void ChangeToMainWindow();

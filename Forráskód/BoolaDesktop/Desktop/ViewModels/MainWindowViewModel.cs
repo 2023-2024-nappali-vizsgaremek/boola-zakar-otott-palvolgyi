@@ -15,43 +15,41 @@ namespace Desktop.ViewModels
     {
         public static new MainWindowViewModel Instance { get; private set;}
 
-        [ObservableProperty] public new ObservableObject childViewModel;
+        protected override ObservableObject ChildViewModel { get => CurrentChildViewModel;set => CurrentChildViewModel = value; }
+        [ObservableProperty] public ObservableObject currentChildViewModel;
         private MainMenuViewModel mainMenuViewModel;
 
         public MainWindowViewModel(NewExpenseViewModel newExpenseViewModel,
             ProfileViewModel profileViewModel, SettingsViewModel settingsViewModel) : base(newExpenseViewModel, profileViewModel,settingsViewModel)
         {
             Instance ??= this;
-            this.mainMenuViewModel = new MainMenuViewModel();
-            ChildViewModel = childViewModel;
+            mainMenuViewModel = new MainMenuViewModel();
+            CurrentChildViewModel = mainMenuViewModel;
         }
 
         public MainWindowViewModel() : base(null, null, null)
         {
             Instance ??= this;
             mainMenuViewModel = new MainMenuViewModel();
-            childViewModel = mainMenuViewModel;
+            currentChildViewModel = mainMenuViewModel;
         }
 
         [RelayCommand]
         public new void ChangeToAddWindow()
         {
             base.ChangeToAddWindow();
-            ChildViewModel = base.childViewModel;
         }
 
         [RelayCommand]
         public new void ChangeToSettingsWindow()
         {
             base.ChangeToSettingsWindow();
-            ChildViewModel = base.childViewModel;
         }
 
         [RelayCommand]
         public new void ChangeToProfilesWindow()
         {
             base.ChangeToProfilesWindow();
-            ChildViewModel = base.childViewModel;
         }
 
         [RelayCommand]

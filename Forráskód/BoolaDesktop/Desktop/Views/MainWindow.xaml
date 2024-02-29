@@ -29,7 +29,7 @@
     <Grid>
        
        
-        <ContentControl Content="{Binding ChildViewModel}" Grid.Row="1"></ContentControl>
+        <ContentControl Content="{Binding CurrentChildViewModel}" Grid.Row="1"></ContentControl>
 
     </Grid>
 </Window>

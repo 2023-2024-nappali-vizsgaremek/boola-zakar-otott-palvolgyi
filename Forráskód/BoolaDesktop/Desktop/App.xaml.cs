@@ -46,6 +46,16 @@ namespace Desktop
                     {
                         DataContext = s.GetRequiredService<LoginViewModelDesktop>()
                     });
+                    srevices.AddSingleton<ProfileViewModel>();
+                    srevices.AddSingleton(s => new UserControl1()
+                    {
+                        DataContext = s.GetRequiredService<ProfileViewModel>()
+                    });
+                    srevices.AddSingleton<SettingsViewModel>();
+                    srevices.AddSingleton(s => new SettingsView()
+                    {
+                        DataContext = s.GetRequiredService<SettingsViewModel>()
+                    });
                 })
                 .Build();
             await host.StartAsync();

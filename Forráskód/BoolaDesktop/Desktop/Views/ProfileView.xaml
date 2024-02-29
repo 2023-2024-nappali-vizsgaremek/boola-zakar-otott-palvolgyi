@@ -7,10 +7,7 @@
              xmlns:local="clr-namespace:Desktop.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.DataContext>
-        <vm:ProfileViewModel/>
-    </UserControl.DataContext>
-   
+
     <Grid>
         <Button Height="25" Width="60" Margin="10,50,600,300" Content="Vissza" Command="{Binding ChangeToMainWindowCommand}"/>
         <Label Content=" Profil Név" Margin="0,0,0,200" HorizontalAlignment="Center" VerticalAlignment="Center"/>

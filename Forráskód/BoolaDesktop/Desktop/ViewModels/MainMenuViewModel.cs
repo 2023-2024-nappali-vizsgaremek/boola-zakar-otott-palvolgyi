@@ -30,7 +30,7 @@ namespace Desktop.ViewModels
         [RelayCommand]
         public new void ChangeToSettingsWindow()
         {
-            base.ChangeToMainWindow();
+            base.ChangeToSettingsWindow();
         }
 
         [RelayCommand]
