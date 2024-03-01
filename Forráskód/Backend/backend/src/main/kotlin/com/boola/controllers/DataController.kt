@@ -49,12 +49,24 @@ class DataController internal constructor(private val connection: Connection) {
 
     private val addProfileStatement:PreparedStatement=connection.prepareStatement(
 
-        "INSERT INTO profile (id, name, isbusiness, expenselistid, languagecode, accountemail)" +
-                " VAlUES (?,?,?,?,?,?)")
+
+        "INSERT INTO profile (name, isbusiness, expenselistid, languagecode, accountemail)" +
+                " VAlUES (?,?,?,?,?)")
+
     private val setProfileStatement:PreparedStatement=connection.prepareStatement(
-        "UPDATE  profile SET id=?,name=?,isBusiness=?,languagecode=?,expenseListId=?,accountEmail=? WHERE id=?")
+        "UPDATE  profile SET name=?,isBusiness=?,languagecode=?,expenseListId=?,accountEmail=? WHERE id=?")
     private val deleteProfileStatement:PreparedStatement=connection.prepareStatement(
         "DELETE From profile where id=?")
+    private val getPartnersStatement:PreparedStatement = connection.prepareStatement(
+        "SELECT * FROM partner")
+    private val getPartnerStatement:PreparedStatement = connection.prepareStatement(
+        "SELECT * FROM partner WHERE id=?")
+    private val addPartnerStatement:PreparedStatement = connection.prepareStatement(
+        "INSERT INTO partner (id,name) VALUES (?,?)")
+    private val setPartnerStatement:PreparedStatement = connection.prepareStatement(
+    "UPDATE partner SET name=? WHERE= id=?")
+    private val deletePartnerStatement:PreparedStatement = connection.prepareStatement(
+    "DELETE FROM partner WHERE id=?")
 
     fun getDbStatus():Boolean {
         return connection.isValid(4)
@@ -89,9 +101,6 @@ class DataController internal constructor(private val connection: Connection) {
                 println("Adding a $code to the salt")
                 salt.append(Char(code))
             }
-            /*val hashedPwBytes = MessageDigest.getInstance("SHA-256").digest((salt.append(accountToAdd.pwHash)
-                .toString().toByteArray()))
-            val hashedPwString:StringBuilder = StringBuilder()*/
             val hashedPwArray = BCrypt.withDefaults().hash(6,salt.toString().toByteArray(),accountToAdd.pwHash
                 .toByteArray())
             setString(2,String(hashedPwArray,Charset.forName("utf-8")))
@@ -157,48 +166,45 @@ class DataController internal constructor(private val connection: Connection) {
     }
     fun getAllProfile():ArrayList<Profile>{
         getProfilesStatement.execute()
-        val Profiles=ArrayList<Profile>()
+        val profiles=ArrayList<Profile>()
         val results=getProfilesStatement.resultSet
         while (results.next()){
-            Profiles.add(Profile(UUID.fromString(results.getString("id")),
+            profiles.add(Profile(UUID.fromString(results.getString("id")),
                 results.getString("name"),results.getBoolean("isBusiness"),
                 results.getString("languageId"),
                 UUID.fromString(results.getString("expenseListId")),
                 results.getString("accountEmail")))
         }
-        return Profiles
+        return profiles
     }
     fun setProfile(id:UUID,newData:Profile){
         setProfileStatement.run {
-            setObject(1,newData.id)
-            setString(2,newData.name)
-            setBoolean(3,newData.isBusiness)
-            setString(4,newData.languageId)
-            setObject(5,newData.expenseListId)
-            setString(6,newData.accountEmail)
-            setObject(7,id)
+            setString(1,newData.name)
+            setBoolean(2,newData.isBusiness)
+            setString(3,newData.languageId)
+            setObject(4,newData.expenseListId)
+            setString(5,newData.accountEmail)
+            setObject(6,id)
             execute()
         }
     }
     fun deleteProfile(newData: Profile){
         deleteProfileStatement.run {
-            setObject(1,newData.id)
-            setString(2,newData.name)
-            setBoolean(3,newData.isBusiness)
-            setString(4,newData.languageId)
-            setObject(5,newData.expenseListId)
-            setString(6,newData.accountEmail)
+            setString(3,newData.name)
+            setBoolean(4,newData.isBusiness)
+            setString(5,newData.languageId)
+            setObject(6,newData.expenseListId)
+            setString(7,newData.accountEmail)
             execute()
         }
     }
     fun addProfile(newData:Profile){
         addProfileStatement.run {
-            setObject(1,newData.id)
-            setString(2,newData.name)
-            setBoolean(3,newData.isBusiness)
-            setString(4,newData.languageId)
-            setObject(5,newData.expenseListId)
-            setString(6,newData.accountEmail)
+            setString(1,newData.name)
+            setBoolean(2,newData.isBusiness)
+            setString(3,newData.languageId)
+            setObject(4,newData.expenseListId)
+            setString(5,newData.accountEmail)
             execute()
         }
     }
@@ -223,10 +229,10 @@ class DataController internal constructor(private val connection: Connection) {
             lists.add(ExpenseList(
                 UUID.fromString(results.getString(1)),results.getLong(2),
                 results.getString(3)))
-            results.next()
         }
         return lists
     }
+
 fun addExopenseList(newData:ExpenseList){
     addExpenseListStatement.run {
         setObject(0,newData.id)
@@ -236,11 +242,10 @@ fun addExopenseList(newData:ExpenseList){
     }
 
 }
-    fun  deleteExpenseList(newData: ExpenseList){
-        addExpenseListStatement.run {
-            setObject(0,newData.id)
-            setLong(1, newData.balance)
-            setString(  2,newData.currencyCode)
+    fun  deleteExpenseList(newData: UUID){
+        deleteExpenseListStatement.run {
+            setObject(1,newData)
+
             execute()
         }
     }
@@ -250,7 +255,8 @@ fun addExopenseList(newData:ExpenseList){
         getCategoryStatement.setInt(1,id)
         getCategoryStatement.execute()
         val results = getCategoryStatement.resultSet
-        results.first()
+
+        results.next()
         return results.getString(1)
     }
 
@@ -263,4 +269,42 @@ fun addExopenseList(newData:ExpenseList){
         }
         return categories
     }
+
+    fun getPartnersAll():ArrayList<Partner>{
+        getPartnersStatement.execute()
+        val partners = ArrayList<Partner>()
+        val results = getPartnersStatement.resultSet
+        while (results.next()){
+            partners.add(Partner(results.getByte(1),results.getString(2)))
+        }
+        return partners
+    }
+
+    fun getPartner(id:Byte):Partner{
+        getPartnerStatement.setByte(1,id)
+        val results = getPartnerStatement.resultSet
+        results.next()
+        return Partner(results.getByte(1),results.getString(2))
+    }
+
+    fun addPartner(partnerToAdd:Partner){
+        addPartnerStatement.run {
+            setByte(1,partnerToAdd.id)
+            setString(2,partnerToAdd.name)
+            execute()
+        }
+    }
+
+    fun setPartner(newData:Partner,id:Byte){
+        setPartnerStatement.run{
+            setString(1,newData.name)
+            setByte(2,id)
+            execute()
+        }
+    }
+    fun deletePartner(id:Byte){
+        deletePartnerStatement.setByte(1,id)
+        deletePartnerStatement.execute()
+    }
+
 }
