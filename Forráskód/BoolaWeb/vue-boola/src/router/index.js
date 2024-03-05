@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import basePage from "@/views/basePage"
+import basePage from "@/views/basePage.vue"
 
 
 const router = createRouter({
