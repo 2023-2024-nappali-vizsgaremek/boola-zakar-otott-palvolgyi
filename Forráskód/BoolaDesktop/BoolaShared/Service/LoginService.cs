@@ -12,7 +12,7 @@ using Microsoft.Extensions.Http;
 using Microsoft.Extensions.Hosting;
 using BCrypt.Net;
 
-namespace Desktop.Service
+namespace BoolaShared.Service
 {
     public class LoginService : ILoginService
     {

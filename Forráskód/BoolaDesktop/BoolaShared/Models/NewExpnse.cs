@@ -10,7 +10,7 @@ namespace Desktop.Models
     public class NewExpnse
     {
        
-
+        public Guid Id { get; set; }
         public string Payee { get; set; }
         public Category category { get; set; }
         public Money currency { get; set; }
@@ -20,8 +20,9 @@ namespace Desktop.Models
         public string account { get; set; }
         public DateTime date { get; set; }
 
-        public NewExpnse(string payee, Category category, Money currency, string tag, bool status, int amount, string account, DateTime date)
+        public NewExpnse(Guid id,string payee, Category category, Money currency, string tag, bool status, int amount, string account, DateTime date)
         {
+            Id = id;
             Payee = payee;
             this.category = category;
             this.currency = currency;
@@ -33,6 +34,7 @@ namespace Desktop.Models
         }
         public NewExpnse()
         {
+            Id = Guid.NewGuid();
             Payee = "Okt";
             this.category = new Category();
             this.currency = new Money();

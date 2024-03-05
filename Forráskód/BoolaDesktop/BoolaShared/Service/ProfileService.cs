@@ -1,5 +1,5 @@
 ﻿using Desktop.Models;
-using Desktop.Service;
+using BoolaShared.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +19,8 @@ namespace BoolaShared.Service
            HttpClient = httpClientFactory?.CreateClient("BoolaApi");
            HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer",AuthService.AuthToken);
         }
+
+        
 
         public async Task Delete(Guid id)
         {
@@ -42,9 +44,18 @@ namespace BoolaShared.Service
             return resp;
         }
 
-        public Task Update(Profile newData)
+        public async Task Update(Profile profile)
         {
-            throw new NotImplementedException();
+            if(!IsClientAvailable) return;
+            var resp = await HttpClient.PutAsJsonAsync("api/profile/" + profile.Id,profile);
+            resp.EnsureSuccessStatusCode();
+        }
+
+        async Task ICrudService<Profile, Guid>.Create(Profile newItem)
+        {
+            if (!IsClientAvailable) return;
+            var resp = await HttpClient.PostAsJsonAsync<Profile>("api/profile",newItem);
+            resp.EnsureSuccessStatusCode();
         }
     }
 }

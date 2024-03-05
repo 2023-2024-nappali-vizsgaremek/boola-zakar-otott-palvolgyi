@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Desktop.Service
+namespace BoolaShared.Service
 {
     public interface ICurrencyService : IReadService<Money,string>
     {

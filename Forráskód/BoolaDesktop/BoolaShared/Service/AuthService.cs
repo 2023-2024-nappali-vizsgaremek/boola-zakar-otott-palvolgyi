@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Desktop.Service
+namespace BoolaShared.Service
 {
     public static class AuthService
     {

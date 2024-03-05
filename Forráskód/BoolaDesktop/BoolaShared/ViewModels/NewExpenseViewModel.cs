@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Desktop.Models;
-using Desktop.Service;
+using BoolaShared.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -37,7 +37,7 @@ namespace BoolaShared.ViewModels
         }
         public override async Task InitializeAsync()
         {
-            var c = await currencyService.GetAllCurrencys();
+            var c = await currencyService.GetAll();
             cur = new ObservableCollection<Money>(c);
             
         }

@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Desktop.Models;
-using Desktop.Service;
+using BoolaShared.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -40,9 +40,9 @@ namespace Desktop.ViewModels
         }
         public override async Task InitializeAsync()
         {
-            List<Money> c = await currencyService.GetAllCurrencys();
+            List<Money> c = await currencyService.GetAll();
             Cur = new ObservableCollection<Money>(c);
-            List<Category> categories = await categoryService.GetAllCategories();
+            List<Category> categories = await categoryService.GetAll();
             Cat = new ObservableCollection<Category>(categories);
         }
         public Category SelectCategory

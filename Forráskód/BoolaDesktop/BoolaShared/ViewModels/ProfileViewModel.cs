@@ -10,27 +10,34 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.ComponentModel;
 using System.Collections;
+using BoolaShared.Service;
 
 namespace BoolaShared.ViewModels
 {
-    public abstract class ProfileViewModel : ObservableObject
+    public abstract class ProfileViewModel : AsyncInitializedViewModel
     {
 
         private Profile profile;
-
+        private IProfileService profileService;
         private ObservableCollection<string> lista = new ObservableCollection<string>();
         private List<Profile> lista_ = new List<Profile>();
-        public ProfileViewModel()
+        public ProfileViewModel(IProfileService profileService)
         {
             profile = new Profile();
-
+            this.profileService = profileService;
         }
 
+        public async Task GetProfiles()
+        {
+            lista_ = await profileService.GetAll();
+            lista = new ObservableCollection<string>(lista_.Select(x => x.Name));
+        }
 
         public void DoSave(Profile profile)
         {
             lista_.Add(profile);
             lista.Add(profile.Name);
+            profileService.Create(profile);
             OnPropertyChanged(nameof(profile));
         }
 
@@ -38,6 +45,7 @@ namespace BoolaShared.ViewModels
         {
             lista_.Remove(profile);
             lista.Remove(profile.Name);
+            profileService.Delete(profile.Id);
             OnPropertyChanged(nameof(lista));
         }
 

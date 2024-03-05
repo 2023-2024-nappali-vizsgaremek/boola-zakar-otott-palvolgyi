@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.ComponentModel;
 using System.Windows.Controls;
+using BoolaShared.Service;
 
 namespace Desktop.ViewModels
 {
@@ -17,13 +18,19 @@ namespace Desktop.ViewModels
     {
         [ObservableProperty]
         private Profile profile;
+        private IProfileService profileService;
         [ObservableProperty]
         private ObservableCollection<string> lista = new ObservableCollection<string>();
         private List<Profile> lista_ = new List<Profile>();
-        public ProfileViewModel()
+        public ProfileViewModel(IProfileService profile) : base(profile)
         {
             Profile = new Profile();
+            profileService = profile;
+        }
 
+        public override async Task InitializeAsync()
+        {
+            await GetProfiles();
         }
         [RelayCommand]
         public new void DoSave(Profile profile)

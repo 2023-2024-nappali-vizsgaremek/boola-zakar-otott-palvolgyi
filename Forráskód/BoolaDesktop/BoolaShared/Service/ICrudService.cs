@@ -9,6 +9,7 @@ namespace BoolaShared.Service
 {
     public interface ICrudService<TModel,TKey> : IReadService<TModel,TKey>
     { 
+        public Task Create(TModel newItem);
         public Task Update(TModel newData);
         public Task Delete(TKey id);
     }

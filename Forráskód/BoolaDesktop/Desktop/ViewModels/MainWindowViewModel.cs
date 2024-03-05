@@ -7,7 +7,6 @@ using Desktop.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows;
-using Desktop.Service;
 
 namespace Desktop.ViewModels
 {
@@ -15,7 +14,7 @@ namespace Desktop.ViewModels
     {
         public static new MainWindowViewModel Instance { get; private set;}
 
-        protected override ObservableObject ChildViewModel { get => CurrentChildViewModel;set => CurrentChildViewModel = value; }
+        protected override ObservableObject OpenedChildViewModel { get => CurrentChildViewModel;set => CurrentChildViewModel = value; }
         [ObservableProperty] public ObservableObject currentChildViewModel;
         private MainMenuViewModel mainMenuViewModel;
 
@@ -55,7 +54,7 @@ namespace Desktop.ViewModels
         [RelayCommand]
         public override void ChangeToMainWindow()
         {
-            ChildViewModel = mainMenuViewModel;
+            OpenedChildViewModel = mainMenuViewModel;
         }
     }
 }
