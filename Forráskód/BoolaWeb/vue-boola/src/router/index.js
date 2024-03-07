@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import basePage from "@/views/basePage.vue"
+import HomePage from '@/views/HomePage.vue'
 
 
 const router = createRouter({
@@ -8,32 +8,32 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: basePage
+      component: HomePage
     },
     {
-      path: '/newExpense',
-      name: 'newExpense',      
-      component: () => import('../views/newExpense.vue')
+      path: '/NewExpense',
+      name: 'NewExpense',      
+      component: () => import('../views/NewExpense.vue')
     },
     {
-      path: '/profileSelect',
-      name: 'profileSelect',      
-      component: () => import('../views/profileSelect.vue')
+      path: '/ProfileSelect',
+      name: 'ProfileSelect',      
+      component: () => import('../views/ProfileSelect.vue')
     },
     {
-      path: '/login',
-      name: 'login',      
-      component: () => import('../views/login.vue')
+      path: '/Login',
+      name: 'Login',      
+      component: () => import('../views/Login.vue')
     },
     {
-      path: '/register',
-      name: 'register',      
-      component: () => import('../views/register.vue')
+      path: '/Registration',
+      name: 'Registration',      
+      component: () => import('../views/Registration.vue')
     },
     {
-      path: '/settings',
-      name: 'settings',      
-      component: () => import('../views/settings.vue')
+      path: '/Settings',
+      name: 'Settings',      
+      component: () => import('../views/Settings.vue')
     },
   ]
 })

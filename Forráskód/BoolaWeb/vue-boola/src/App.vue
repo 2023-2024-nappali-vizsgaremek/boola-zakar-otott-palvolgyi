@@ -1,25 +1,27 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router';
 
-import Menu from './components/menu.vue';
-import aHeader from './components/header.vue';
+import Menu from './components/Menu.vue';
+import TopBar from './components/TopBar.vue';
 </script>
 
 <template>
     <header>
-        <aHeader></aHeader>
+        <TopBar></TopBar>
+        <Menu></Menu>
     </header>    
     <main>
-        <Menu></Menu>
+        
     </main>
 </template>
 
 <style>
-    @import "../public/mainStyles.css";
+    @import "../public/MainStyles.css";
+    @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
 
     main{
         height: 100lvh;
-        background-color: var(--main-light-background);        
-
+        background-color: var(--main-background);
+        transition: background 0.5s;
     }
 </style>
