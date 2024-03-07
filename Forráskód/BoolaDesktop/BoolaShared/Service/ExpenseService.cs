@@ -10,7 +10,7 @@ namespace BoolaShared.Service
 {
     public class ExpenseService : IExpenseService
     {
-        public HttpClient HttpClient { get; set; }
+        public HttpClient? HttpClient { get; set; }
         public bool IsClientAvailable => HttpClient != null;
 
         public ExpenseService(IHttpClientFactory? httpClientFactory)

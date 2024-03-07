@@ -20,12 +20,13 @@ namespace Desktop.ViewModels
         private Profile profile;
         private IProfileService profileService;
         [ObservableProperty]
-        private ObservableCollection<string> lista = new ObservableCollection<string>();
+        private ObservableCollection<string> lista;
         private List<Profile> lista_ = new List<Profile>();
         public ProfileViewModel(IProfileService profile) : base(profile)
         {
             Profile = new Profile();
             profileService = profile;
+            lista = base.lista;
         }
 
         public override async Task InitializeAsync()

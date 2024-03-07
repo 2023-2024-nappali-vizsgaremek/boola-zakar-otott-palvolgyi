@@ -16,9 +16,9 @@ namespace BoolaShared.ViewModels
     {
         private NewExpnse expnse;
         
-        private ObservableCollection<Category> cat = new ObservableCollection<Category>();
+        protected ObservableCollection<Category> cat = new ObservableCollection<Category>();
     
-        private ObservableCollection<Money> cur = new ObservableCollection<Money>();
+        protected ObservableCollection<Money> cur = new ObservableCollection<Money>();
      
         private string kategória;
    
@@ -27,44 +27,18 @@ namespace BoolaShared.ViewModels
         private ObservableCollection<NewExpnse> lista = new ObservableCollection<NewExpnse>();
         private Category _SelectCategory = new Category();
         private Money _Currency = new Money();
-        private ICurrencyService currencyService;
-        public NewExpenseViewModel(ICurrencyService currency)
+        private IExpenseService service;
+        public NewExpenseViewModel(IExpenseService expenseService)
         {
-            currencyService = currency;
             expnse = new NewExpnse();
             expnse.category = new Category();
            
-        }
-        public override async Task InitializeAsync()
-        {
-            var c = await currencyService.GetAll();
-            cur = new ObservableCollection<Money>(c);
-            
-        }
-        public Category SelectCategory
-        {
-            get => _SelectCategory;
-            set
-            {
-                SetProperty(ref _SelectCategory, value);
-                expnse.category = SelectCategory;
-
-            }
-        }
-        public Money Currency
-        {
-            get => _Currency;
-            set
-            {
-                SetProperty(ref _Currency, value);
-                expnse.currency = Currency;
-
-            }
         }
 
         public void Add(NewExpnse newExpnse)
         {
             lista.Add(newExpnse);
+            service.Create(newExpnse);
             OnPropertyChanged(nameof(lista));
         }
         

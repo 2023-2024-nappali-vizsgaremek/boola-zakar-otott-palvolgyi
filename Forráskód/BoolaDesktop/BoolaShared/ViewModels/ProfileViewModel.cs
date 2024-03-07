@@ -19,7 +19,7 @@ namespace BoolaShared.ViewModels
 
         private Profile profile;
         private IProfileService profileService;
-        private ObservableCollection<string> lista = new ObservableCollection<string>();
+        protected ObservableCollection<string> lista = new ObservableCollection<string>();
         private List<Profile> lista_ = new List<Profile>();
         public ProfileViewModel(IProfileService profileService)
         {

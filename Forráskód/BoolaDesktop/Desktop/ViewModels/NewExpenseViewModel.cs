@@ -17,9 +17,9 @@ namespace Desktop.ViewModels
         [ObservableProperty]
         private NewExpnse expnse;
         [ObservableProperty]
-        private ObservableCollection<Category> cat = new ObservableCollection<Category>();
+        private new ObservableCollection<Category> cat;
         [ObservableProperty]
-        private ObservableCollection<Money> cur = new ObservableCollection<Money>();
+        private new ObservableCollection<Money> cur;
         [ObservableProperty]
         private string kategória;
         [ObservableProperty]
@@ -30,13 +30,17 @@ namespace Desktop.ViewModels
         private Money _Currency = new Money();
         private ICurrencyService currencyService;
         private ICategoryService categoryService;
-        public NewExpenseViewModel(ICurrencyService currency,ICategoryService category) : base(currency)
+        public NewExpenseViewModel(ICurrencyService currency,ICategoryService category,IExpenseService expense) : base(expense)
         {
             currencyService = currency;
             categoryService = category;
-            Expnse = new NewExpnse();
-            Expnse.category = new Category();
-           
+            cat = base.cat;
+            cur = base.cur;
+            Expnse = new NewExpnse
+            {
+                category = new Category()
+            };
+
         }
         public override async Task InitializeAsync()
         {
