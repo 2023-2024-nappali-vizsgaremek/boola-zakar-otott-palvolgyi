@@ -19,6 +19,7 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.*
+import java.net.URI
 import java.util.*
 
 private const val AccessTokenLifetime = 900000
@@ -225,13 +226,13 @@ fun Application.configureRouting() {
                     DataControllerFactory.returnController(con)
                 }
             }
-            post("/api/profile/{id}") {
+            post("/api/profile") {
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else {
                     val profile = call.receive<Profile>()
                     con.addProfile(profile)
-                    call.respond(HttpStatusCode.Created)
+                    call.respond(HttpStatusCode.Created,"api/profile/" + profile.id)
                     DataControllerFactory.returnController(con)
                 }
 

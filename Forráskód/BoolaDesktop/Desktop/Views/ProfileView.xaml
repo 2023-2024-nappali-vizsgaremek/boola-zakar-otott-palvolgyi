@@ -15,8 +15,8 @@
         <ListBox Height="100" Width="200"   ItemsSource="{Binding Lista}" SelectedItem="{Binding Profile.Name}"/>
 
 
-        <Button Height="25" Width="60" Margin="0,150,100,0" Content="Mentés" Command="{Binding DoSaveCommand}"/>
-        <Button  Height="25" Width="60" Content="Törlés" Margin="100,150,0,0" Command="{Binding DeleteCommand}"></Button>
+        <Button Height="25" Width="60" Margin="0,150,100,0" Content="Mentés" Command="{Binding DoSaveCommand}" CommandParameter="{Binding Profile}"/>
+        <Button  Height="25" Width="60" Content="Törlés" Margin="100,150,0,0" Command="{Binding DeleteCommand}" CommandParameter="{Binding Profile}"></Button>
         
         
 

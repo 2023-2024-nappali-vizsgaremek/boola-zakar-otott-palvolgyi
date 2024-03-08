@@ -10,6 +10,10 @@ namespace Desktop.Models
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public bool IsBusiness { get; set; }
+        public string LanguageId { get; set; }
+        public Guid Guid { get; set; } = Guid.Empty;
+        public string AccountEmail { get; set; }
 
 
         public Profile(Guid id, string Name)

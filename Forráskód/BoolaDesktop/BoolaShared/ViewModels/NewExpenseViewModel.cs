@@ -32,7 +32,7 @@ namespace BoolaShared.ViewModels
         {
             expnse = new NewExpnse();
             expnse.category = new Category();
-           
+            service = expenseService;
         }
 
         public void Add(NewExpnse newExpnse)

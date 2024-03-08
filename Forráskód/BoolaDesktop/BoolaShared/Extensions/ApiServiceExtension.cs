@@ -17,6 +17,8 @@ namespace Desktop.Extensions
             services.AddScoped<ICurrencyService, CurrencyService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<IProfileService,ProfileService>();
+            services.AddScoped<IExpenseService, ExpenseService>();
         }
     }
 }
