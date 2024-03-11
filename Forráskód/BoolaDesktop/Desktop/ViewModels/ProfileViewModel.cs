@@ -17,10 +17,10 @@ namespace Desktop.ViewModels
     public partial class ProfileViewModel : BoolaShared.ViewModels.ProfileViewModel
     {
         [ObservableProperty]
-        private Profile profile;
+        private Profile profile = new();
         private IProfileService profileService;
         [ObservableProperty]
-        private ObservableCollection<string> lista;
+        private new ObservableCollection<string> lista;
         private List<Profile> lista_ = new List<Profile>();
         public ProfileViewModel(IProfileService profile) : base(profile)
         {

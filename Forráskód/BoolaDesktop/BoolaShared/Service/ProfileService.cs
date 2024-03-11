@@ -54,7 +54,7 @@ namespace BoolaShared.Service
         async Task ICrudService<Profile, Guid>.Create(Profile newItem)
         {
             if (!IsClientAvailable) return;
-            var resp = await HttpClient.PostAsJsonAsync<Profile>("api/profile",newItem);
+            var resp = await HttpClient.PostAsJsonAsync("api/profile",newItem);
             resp.EnsureSuccessStatusCode();
         }
     }

@@ -11,6 +11,7 @@ namespace BoolaShared.Service
     {
         public static string AuthToken { get; set; } = "";
         public static string RefreshToken { get; set; } = "";
+        public static string AccountEmail { get;set;} = "";
 
         public static void Refresh(string newAuthToken)
         {

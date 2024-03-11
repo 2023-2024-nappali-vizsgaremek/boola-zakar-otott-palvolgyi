@@ -32,7 +32,7 @@ namespace BoolaShared.ViewModels
             if (tokens is null || tokens.access is null) return;
             AuthService.AuthToken = tokens.access;
             AuthService.RefreshToken = tokens.refresh;
-            
+            AuthService.AccountEmail = account.email;
         }
     }
 }

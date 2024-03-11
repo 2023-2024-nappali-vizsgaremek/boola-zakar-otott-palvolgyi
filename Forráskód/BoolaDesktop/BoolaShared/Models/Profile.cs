@@ -12,22 +12,26 @@ namespace Desktop.Models
         public string Name { get; set; }
         public bool IsBusiness { get; set; }
         public string LanguageId { get; set; }
-        public Guid Guid { get; set; } = Guid.Empty;
+        public Guid ExpenseListId { get; set; } = Guid.Empty;
         public string AccountEmail { get; set; }
 
-
-        public Profile(Guid id, string Name)
+        public Profile(Guid id, string name, bool isBusiness, string languageId, Guid expenseListId, string accountEmail)
         {
-            this.Id = id;
-            this.Name = Name;
-
-
+            Id = id;
+            Name = name;
+            IsBusiness = isBusiness;
+            LanguageId = languageId;
+            ExpenseListId = expenseListId;
+            AccountEmail = accountEmail;
         }
+
         public Profile()
         {
             Id = Guid.NewGuid();
             Name = "Standard";
-
+            IsBusiness = false;
+            LanguageId = "hu-hu";
+            AccountEmail = string.Empty;
         }
         public override string ToString()
         {
