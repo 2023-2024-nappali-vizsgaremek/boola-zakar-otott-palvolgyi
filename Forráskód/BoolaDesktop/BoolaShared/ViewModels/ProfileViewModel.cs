@@ -11,6 +11,7 @@ using System.Windows;
 using System.ComponentModel;
 using System.Collections;
 using BoolaShared.Service;
+using BoolaShared.Tools;
 
 namespace BoolaShared.ViewModels
 {
@@ -37,6 +38,8 @@ namespace BoolaShared.ViewModels
         {
             lista_.Add(profile);
             lista.Add(profile.Name);
+            profile.AccountEmail = AuthService.AccountEmail;
+            FileLogger.LogObject(profile);
             profileService.Create(profile);
             OnPropertyChanged(nameof(profile));
         }
