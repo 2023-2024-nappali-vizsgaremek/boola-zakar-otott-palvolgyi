@@ -47,7 +47,7 @@ namespace BoolaShared.Service
         public async Task Update(Profile profile)
         {
             if(!IsClientAvailable) return;
-            var resp = await HttpClient.PutAsJsonAsync("api/profile/" + profile.Id,profile);
+            var resp = await HttpClient.PutAsJsonAsync("api/profile/" + profile.id,profile);
             resp.EnsureSuccessStatusCode();
         }
 

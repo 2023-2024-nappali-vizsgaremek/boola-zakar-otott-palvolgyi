@@ -31,14 +31,14 @@ namespace BoolaShared.ViewModels
         public async Task GetProfiles()
         {
             lista_ = await profileService.GetAll();
-            lista = new ObservableCollection<string>(lista_.Select(x => x.Name));
+            lista = new ObservableCollection<string>(lista_.Select(x => x.name));
         }
 
         public void DoSave(Profile profile)
         {
             lista_.Add(profile);
-            lista.Add(profile.Name);
-            profile.AccountEmail = AuthService.AccountEmail;
+            lista.Add(profile.name);
+            profile.accountEmail = AuthService.AccountEmail;
             FileLogger.LogObject(profile);
             profileService.Create(profile);
             OnPropertyChanged(nameof(profile));
@@ -47,8 +47,8 @@ namespace BoolaShared.ViewModels
         public void Delete(Profile profile)
         {
             lista_.Remove(profile);
-            lista.Remove(profile.Name);
-            profileService.Delete(profile.Id);
+            lista.Remove(profile.name);
+            profileService.Delete(profile.id);
             OnPropertyChanged(nameof(lista));
         }
 
