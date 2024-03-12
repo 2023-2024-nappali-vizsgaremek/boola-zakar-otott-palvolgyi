@@ -230,7 +230,9 @@ fun Application.configureRouting() {
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else {
-                    val profile = call.receive<Profile>()
+                    var profile = call.receive<Profile>()
+                    if(profile.expenseListId == UUID.fromString("00000000-0000-0000-0000-000000000000"))
+                        profile = profile.copy(expenseListId = null)
                     con.addProfile(profile)
                     call.respond(HttpStatusCode.Created,"api/profile/" + profile.id)
                     DataControllerFactory.returnController(con)

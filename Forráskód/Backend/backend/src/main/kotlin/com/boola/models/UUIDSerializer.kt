@@ -13,7 +13,7 @@ class UUIDSerializer : KSerializer<UUID> {
         get() = PrimitiveSerialDescriptor("UUID", PrimitiveKind.STRING)
 
     override fun deserialize(decoder: Decoder): UUID {
-        return UUID.fromString(decoder.toString())
+        return UUID.fromString(decoder.decodeString())
     }
 
     override fun serialize(encoder: Encoder, value: UUID) {

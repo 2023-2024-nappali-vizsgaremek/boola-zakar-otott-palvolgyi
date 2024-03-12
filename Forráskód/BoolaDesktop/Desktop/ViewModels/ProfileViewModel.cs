@@ -27,6 +27,7 @@ namespace Desktop.ViewModels
             Profile = new Profile();
             profileService = profile;
             lista = base.lista;
+            DoSave(this.profile);
         }
 
         public override async Task InitializeAsync()

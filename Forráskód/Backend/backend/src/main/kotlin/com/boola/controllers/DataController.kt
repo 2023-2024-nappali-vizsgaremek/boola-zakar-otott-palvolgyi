@@ -5,6 +5,8 @@ import com.boola.models.*
 import io.ktor.utils.io.charsets.*
 import java.sql.Connection
 import java.sql.PreparedStatement
+import java.sql.SQLType
+import java.sql.Types
 import java.util.UUID
 import kotlin.random.Random
 import kotlin.text.StringBuilder
@@ -48,10 +50,8 @@ class DataController internal constructor(private val connection: Connection) {
     private val getProfilesStatement:PreparedStatement=connection.prepareStatement("SELECT * FROM  profile")
 
     private val addProfileStatement:PreparedStatement=connection.prepareStatement(
-
-
         "INSERT INTO profile (name, isbusiness, expenselistid, languagecode, accountemail)" +
-                " VAlUES (?,?,?,?,?)")
+                " VAlUES (?,?,?::uuid,?,?)")
 
     private val setProfileStatement:PreparedStatement=connection.prepareStatement(
         "UPDATE  profile SET name=?,isBusiness=?,languagecode=?,expenseListId=?,accountEmail=? WHERE id=?")
@@ -202,8 +202,8 @@ class DataController internal constructor(private val connection: Connection) {
         addProfileStatement.run {
             setString(1,newData.name)
             setBoolean(2,newData.isBusiness)
-            setString(3,newData.languageId)
-            setObject(4,newData.expenseListId)
+            setObject(3,newData.expenseListId, Types.OTHER)
+            setString(4,newData.languageId)
             setString(5,newData.accountEmail)
             execute()
         }
