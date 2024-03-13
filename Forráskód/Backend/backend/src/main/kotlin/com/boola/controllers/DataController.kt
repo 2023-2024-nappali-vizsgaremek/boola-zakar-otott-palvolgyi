@@ -45,7 +45,7 @@ class DataController internal constructor(private val connection: Connection) {
         "DELETE  FROM expenselist WHERE id=?")
 
     private val getProfileStatement:PreparedStatement =connection.prepareStatement(
-        "SELECT * FROM profile WHERE id=?")
+        "SELECT * FROM profile WHERE id=?::uuid")
 
     private val getProfilesStatement:PreparedStatement=connection.prepareStatement("SELECT * FROM  profile")
 
@@ -54,9 +54,9 @@ class DataController internal constructor(private val connection: Connection) {
                 " VAlUES (?,?,?::uuid,?,?)")
 
     private val setProfileStatement:PreparedStatement=connection.prepareStatement(
-        "UPDATE  profile SET name=?,isBusiness=?,languagecode=?,expenseListId=?,accountEmail=? WHERE id=?")
+        "UPDATE  profile SET name=?,isBusiness=?,languagecode=?,expenseListId=?::uuid,accountEmail=? WHERE id=?::uuid")
     private val deleteProfileStatement:PreparedStatement=connection.prepareStatement(
-        "DELETE From profile where id=?")
+        "DELETE From profile where id=?::uuid")
     private val getPartnersStatement:PreparedStatement = connection.prepareStatement(
         "SELECT * FROM partner")
     private val getPartnerStatement:PreparedStatement = connection.prepareStatement(

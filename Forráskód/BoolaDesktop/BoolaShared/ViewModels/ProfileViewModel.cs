@@ -18,13 +18,11 @@ namespace BoolaShared.ViewModels
     public abstract class ProfileViewModel : AsyncInitializedViewModel
     {
 
-        private Profile profile;
         private IProfileService profileService;
         protected ObservableCollection<string> lista = new ObservableCollection<string>();
         private List<Profile> lista_ = new List<Profile>();
         public ProfileViewModel(IProfileService profileService)
         {
-            profile = new Profile();
             this.profileService = profileService;
         }
 

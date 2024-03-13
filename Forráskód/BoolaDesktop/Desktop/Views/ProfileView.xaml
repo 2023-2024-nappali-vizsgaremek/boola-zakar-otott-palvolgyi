@@ -13,10 +13,10 @@
         <Label Content="New profile" Margin="0,0,0,200" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <StackPanel Orientation="Horizontal" Height="50">
             <Label>Name:</Label>
-            <TextBox Height="25" Width="200" Margin="0,10,5,0" Text="{Binding Profile.Name}"/>
+            <TextBox Height="25" Width="200" Margin="0,10,5,0" Text="{Binding Profile.name}"/>
         </StackPanel>
-        <CheckBox Margin="0,0,0,0" Width="150" Height="25">This is a business profile</CheckBox>
-        <ListBox Height="100" Width="200" Margin="0,150,0,0"  ItemsSource="{Binding Lista}" SelectedItem="{Binding Profile.Name}"/>
+        <CheckBox Margin="0,0,0,0" Width="150" Height="25" IsChecked="{Binding Profile.isBusiness}">This is a business profile</CheckBox>
+        <ListBox Height="100" Width="200" Margin="0,150,0,0"  ItemsSource="{Binding Lista}" SelectedItem="{Binding Profile.name}"/>
 
 
         <Button Height="25" Width="60" Margin="0,300,100,0" Content="Mentés" Command="{Binding DoSaveCommand}" CommandParameter="{Binding Profile}"/>
