@@ -35,7 +35,7 @@ dependencies {
     implementation("io.ktor:ktor-server-netty-jvm")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
     implementation("ch.qos.logback:logback-classic:$logback_version")
-    implementation("org.postgresql:postgresql:42.7.1")
+    implementation("org.postgresql:postgresql:42.7.3")
     implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
     implementation("at.favre.lib:bcrypt:0.10.2")
     testImplementation("io.ktor:ktor-server-tests-jvm")
@@ -51,6 +51,16 @@ tasks.jar {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
-tasks.register("stage") {
-    dependsOn("clean","compileKotlin","assemble")
+tasks.register("copyToLib",Copy::class){
+    into("${layout.buildDirectory}/libs")
+    from(configurations.compileClasspath)
 }
+
+tasks.register("stage"){
+    dependsOn("compileKotlin","assemble","copyToLib")
+}
+
+tasks.build {
+    dependsOn("copyToLib")
+}
+
