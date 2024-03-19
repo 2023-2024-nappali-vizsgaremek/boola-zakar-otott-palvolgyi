@@ -6,9 +6,6 @@
              xmlns:vm="clr-namespace:Desktop.ViewModels"
              xmlns:local="clr-namespace:Desktop.Views"
              mc:Ignorable="d" Width="1064" Height="488">
-    <UserControl.DataContext>
-        <vm:SettingsViewModel/>
-    </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>

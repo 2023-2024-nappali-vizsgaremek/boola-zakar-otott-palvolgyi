@@ -1,5 +1,4 @@
-﻿using BoolaShared.Service;
-using Desktop.Models;
+﻿using Desktop.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BoolaShared.Service
 {
-    public interface ICategoryService : IReadService<Category,int>
+    public interface IExpenseService : ICrudService<NewExpnse,Guid>
     {
     }
 }

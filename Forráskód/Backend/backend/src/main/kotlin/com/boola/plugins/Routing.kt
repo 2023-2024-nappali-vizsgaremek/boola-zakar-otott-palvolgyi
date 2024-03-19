@@ -6,14 +6,13 @@ import com.auth0.jwt.algorithms.Algorithm
 import com.boola.controllers.DataControllerFactory
 import com.boola.models.Account
 import com.boola.models.ExpenseList
-
 import com.boola.models.Partner
-
 import com.boola.models.Profile
 import io.github.cdimascio.dotenv.dotenv
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
+import io.ktor.server.auth.jwt.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -33,7 +32,7 @@ fun Application.configureRouting() {
     }
     routing {
         get("/") {
-            call.respondText("Hello World!")
+            call.respondText("Hello World! This is the home of Boola, the new financial app!")
         }
 
         authenticate("boola-auth") {
@@ -90,15 +89,6 @@ fun Application.configureRouting() {
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
             else{
                 call.respond(con.getAccount(call.parameters["email"] as String))
-                DataControllerFactory.returnController(con)
-            }
-        }
-
-        get("/api/salt/{email}"){
-            val con = DataControllerFactory.getController()
-            if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-            else {
-                call.respond(con.getAccountSalt(call.parameters["email"] as String))
                 DataControllerFactory.returnController(con)
             }
         }
@@ -213,7 +203,14 @@ fun Application.configureRouting() {
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else {
-                    call.respond(con.getCurrenciesAll())
+                    val id = UUID.fromString(call.parameters["id"] as String)
+                    val principal = call.principal<JWTPrincipal>()
+                    val profile = con.getProfile(id)
+                    if(principal!!.payload.getClaim("email").asString() == profile.accountEmail){
+                        call.respond(profile)
+                        DataControllerFactory.returnController(con)
+                    }
+                    call.respond(HttpStatusCode.Forbidden)
                     DataControllerFactory.returnController(con)
                 }
             }
@@ -221,17 +218,24 @@ fun Application.configureRouting() {
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else {
-                    call.respond(con.getCurrenciesAll())
+                    val principal = call.principal<JWTPrincipal>()
+                    val email: String = principal!!.payload.getClaim("email").asString()
+                    val profiles = con.getAllProfile(email)
+                    call.respond(profiles)
                     DataControllerFactory.returnController(con)
                 }
             }
-            post("/api/profile/{id}") {
+            post("/api/profile") {
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else {
-                    val profile = call.receive<Profile>()
+                    var profile = call.receive<Profile>()
+                    if(profile.expenseListId == UUID.fromString("00000000-0000-0000-0000-000000000000")) {
+                        profile = profile.copy(expenseListId = null)
+                        con.addExopenseList(ExpenseList(UUID.randomUUID(),0,"HUF")) //send currency with request
+                    }
                     con.addProfile(profile)
-                    call.respond(HttpStatusCode.Created)
+                    call.respond(HttpStatusCode.Created,"api/profile/" + profile.id)
                     DataControllerFactory.returnController(con)
                 }
 
@@ -241,8 +245,18 @@ fun Application.configureRouting() {
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else {
                     try {
-                        call.parameters["id"]?.let { con.setProfile(UUID.fromString(it),call.receive<Profile>()) }
-                        call.respond(HttpStatusCode.OK)
+                        call.parameters["id"]?.let {
+                            val uuid = UUID.fromString(it)
+                            val oldProfile = con.getProfile(uuid)
+                            if(call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString() ==
+                                oldProfile.accountEmail){
+                                con.setProfile(uuid,call.receive<Profile>())
+                                call.respond(HttpStatusCode.OK)
+                                DataControllerFactory.returnController(con)
+                            }
+                            call.respond(HttpStatusCode.Forbidden)
+                        }
+
                         DataControllerFactory.returnController(con)
                     } catch (e:Exception){
                         e.message?.let { print(it) }
@@ -257,8 +271,16 @@ fun Application.configureRouting() {
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else{
                     try{
-                        call.parameters["id"]?.let {con.deleteProfile(con.getProfile(UUID.fromString(it)))}
-                        call.respond(HttpStatusCode.NoContent)
+                        call.parameters["id"]?.let {
+                            val uuid = UUID.fromString(it)
+                            val profile = con.getProfile(uuid)
+                            if(call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString() ==
+                                profile.accountEmail) {
+                                con.deleteProfile(con.getProfile(uuid))
+                                call.respond(HttpStatusCode.NoContent)
+                            }
+                            call.respond(HttpStatusCode.Forbidden)
+                        }
                         DataControllerFactory.returnController(con)
                     }
                     catch(e:Exception)
@@ -266,7 +288,6 @@ fun Application.configureRouting() {
                         e.message?.let { print(it) }
                         call.respond(HttpStatusCode.BadRequest)
                         DataControllerFactory.returnController(con)
-
                     }
                 }
             }
@@ -276,7 +297,19 @@ fun Application.configureRouting() {
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else {
-                    call.respond(con.getCurrenciesAll())
+                    val id = call.parameters["id"]
+                    if(id == null) call.respond(HttpStatusCode.BadRequest)
+                    val email = call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString()
+                    val uuid = UUID.fromString(id)
+                    val expenseList = con.getExpenseList(uuid)
+                    val owner = con.getAllProfile(email).first {
+                        it.expenseListId == expenseList.id
+                    }.accountEmail
+                    if(email == owner){
+                        call.respond(expenseList)
+                        DataControllerFactory.returnController(con)
+                    }
+                    call.respond(HttpStatusCode.Forbidden)
                     DataControllerFactory.returnController(con)
                 }
             }
@@ -285,37 +318,16 @@ fun Application.configureRouting() {
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else {
-                    call.respond(con.getCurrenciesAll())
-                    DataControllerFactory.returnController(con)
-                }
-
-            }
-
-            post("/api/expenselist/{id}") {
-                val con = DataControllerFactory.getController()
-                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-                else {
-                    val expenselist= call.receive<ExpenseList>()
-
-                    con.addExopenseList(expenselist)
-
-                    call.respond(HttpStatusCode.Created)
-                    DataControllerFactory.returnController(con)
-                }
-
-            }
-
-            delete("/api/expenselist/{id}") {
-                val con = DataControllerFactory.getController()
-                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-                else {
-                    val idString = call.parameters["id"]
-                    if(idString == null) call.respond(HttpStatusCode.NotFound)
-                    else {
-                        con.deleteExpenseList(UUID.fromString(idString))
-                        call.respond(HttpStatusCode.NoContent)
-                        DataControllerFactory.returnController(con)
+                    val owner = call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString()
+                    if(owner == null) call.respond(HttpStatusCode.BadRequest)
+                    val profile = con.getAllProfile(owner).first{
+                        it.accountEmail == owner
+                    }.expenseListId
+                    val expenseLists = con.getExpenseListsAll().filter {
+                        profile == it.id
                     }
+                    call.respond(expenseLists)
+                    DataControllerFactory.returnController(con)
                 }
             }
         }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using Desktop.Service;
+using BoolaShared.Service;
 
 namespace Desktop.Extensions
 {
@@ -17,6 +17,8 @@ namespace Desktop.Extensions
             services.AddScoped<ICurrencyService, CurrencyService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<IProfileService,ProfileService>();
+            services.AddScoped<IExpenseService, ExpenseService>();
         }
     }
 }

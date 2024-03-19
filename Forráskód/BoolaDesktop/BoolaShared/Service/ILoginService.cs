@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Desktop.Models;
 
-namespace Desktop.Service
+namespace BoolaShared.Service
 {
     public  interface ILoginService
     {

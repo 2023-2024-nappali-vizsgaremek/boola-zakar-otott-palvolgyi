@@ -7,14 +7,14 @@ using Desktop.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows;
-using Desktop.Service;
+using BoolaShared.Service;
 
 namespace BoolaShared.ViewModels
 {
     public abstract class MainWindowViewModel : AsyncInitializedViewModel
     {
-        
-        protected ObservableObject childViewModel;
+
+        protected abstract ObservableObject OpenedChildViewModel { get; set; }
         private NewExpenseViewModel newExpenseViewModel;
         private ProfileViewModel profileViewModel;
         private SettingsViewModel settingsViewModel;
@@ -37,19 +37,19 @@ namespace BoolaShared.ViewModels
 
         public void ChangeToAddWindow()
         {
-            childViewModel = newExpenseViewModel;
+            OpenedChildViewModel = newExpenseViewModel;
         }
 
 
   
         public void ChangeToSettingsWindow()
         {
-            childViewModel = settingsViewModel;
+            OpenedChildViewModel = settingsViewModel;
         }
       
         public void ChangeToProfilesWindow()
         {
-            childViewModel = profileViewModel;
+            OpenedChildViewModel = profileViewModel;
         }
 
         public abstract void ChangeToMainWindow();

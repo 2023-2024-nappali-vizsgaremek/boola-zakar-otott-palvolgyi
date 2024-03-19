@@ -7,22 +7,19 @@
              xmlns:local="clr-namespace:Desktop.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.DataContext>
-        <vm:ProfileViewModel/>
-    </UserControl.DataContext>
-   
+
     <Grid>
         <Button Height="25" Width="60" Margin="10,50,600,300" Content="Vissza" Command="{Binding ChangeToMainWindowCommand}"/>
-        <Label Content=" Profil Név" Margin="0,0,0,200" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBox x:Name="TextBox1" Height="25" Width="200" Margin="0,0,0,150" Text="{Binding Profile.Name}"/>
-        <ListBox Height="100" Width="200"   ItemsSource="{Binding Lista}" SelectedItem="{Binding Profile.Name}"/>
+        <Label Content="New profile" Margin="0,0,0,200" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <StackPanel Orientation="Horizontal" Height="50">
+            <Label>Name:</Label>
+            <TextBox Height="25" Width="200" Margin="0,10,5,0" Text="{Binding Profile.name}"/>
+        </StackPanel>
+        <CheckBox Margin="0,0,0,0" Width="150" Height="25" IsChecked="{Binding Profile.isBusiness}">This is a business profile</CheckBox>
+        <ListBox Height="100" Width="200" Margin="0,150,0,0"  ItemsSource="{Binding Lista}" SelectedItem="{Binding Profile.name}"/>
 
 
-        <Button Height="25" Width="60" Margin="0,150,100,0" Content="Mentés" Command="{Binding DoSaveCommand}"/>
-        <Button  Height="25" Width="60" Content="Törlés" Margin="100,150,0,0" Command="{Binding DeleteCommand}"></Button>
-        
-        
-
-
+        <Button Height="25" Width="60" Margin="0,300,100,0" Content="Mentés" Command="{Binding DoSaveCommand}" CommandParameter="{Binding Profile}"/>
+        <Button  Height="25" Width="60" Content="Törlés" Margin="100,300,0,0" Command="{Binding DeleteCommand}" CommandParameter="{Binding Profile}"></Button>
     </Grid>
 </UserControl>

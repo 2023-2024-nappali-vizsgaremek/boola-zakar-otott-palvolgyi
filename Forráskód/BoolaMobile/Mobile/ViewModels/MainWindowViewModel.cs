@@ -6,34 +6,52 @@ using System.Threading.Tasks;
 using Desktop.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using BoolaShared.ViewModels;
 
 namespace Desktop.ViewModels
 {
     public partial class MainWindowViewModel : BoolaShared.ViewModels.MainWindowViewModel
     {
-        [ObservableProperty] 
+        protected override ObservableObject OpenedChildViewModel { get => ChildViewModel; set => ChildViewModel = value; }
+        [ObservableProperty]
         private ObservableObject childViewModel;
+        private ObservableObject mainMenuViewModel;
 
         public MainWindowViewModel()
         {
             childViewModel = new MainMenuViewModel();
         }
 
-        [RelayCommand]
-        public void ChangeToAddWindow()
+        public MainWindowViewModel(LoginViewModel childViewModel, MainMenuViewModel mainMenuViewModel,
+            NewExpenseViewModel newExpenseViewModel, ProfileViewModel profileViewModel,
+            BoolaShared.ViewModels.SettingsViewModel settingsViewModel) : base(newExpenseViewModel, profileViewModel,
+                settingsViewModel)
         {
-            //childViewModel = new newExpensesViewModel();
+            ChildViewModel = childViewModel;
+            this.mainMenuViewModel = mainMenuViewModel;
         }
 
         [RelayCommand]
-        public void ChangeToSettingsWindow()
+        public new void ChangeToAddWindow()
         {
-            ChildViewModel = new SettingsViewModel();
+            base.ChangeToAddWindow();
+        }
+
+        [RelayCommand]
+        public new void ChangeToSettingsWindow()
+        {
+            base.ChangeToSettingsWindow();
+        }
+
+        [RelayCommand]
+        public new void ChangeToProfilesWindow()
+        {
+            base.ChangeToProfilesWindow();
         }
 
         public override void ChangeToMainWindow()
         {
-            ChildViewModel = new MainMenuViewModel();
+            ChildViewModel = mainMenuViewModel;
         }
     }
 }

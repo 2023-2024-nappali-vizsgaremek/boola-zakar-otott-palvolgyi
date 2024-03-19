@@ -7,28 +7,35 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Desktop.Service
+namespace BoolaShared.Service
 {
     public class CurrencyService : ICurrencyService
     {
-        private readonly HttpClient? httpClient;
+        public HttpClient? HttpClient { get; set; }
+        public bool IsClientAvailable => HttpClient != null;
         public CurrencyService(IHttpClientFactory? httpClientFactory)
         {
-            httpClient = httpClientFactory?.CreateClient("BoolaApi");
+            HttpClient = httpClientFactory?.CreateClient("BoolaApi");
         }
-        public async Task<List<Money>> GetAllCurrencys()
+
+        public async Task<List<Money>> GetAll()
         {
-            var resp = await httpClient.GetFromJsonAsync<List<Money>>("/api/currency");
+            var resp = await HttpClient.GetFromJsonAsync<List<Money>>("/api/currency");
             if (resp is null) return new List<Money>();
             return resp.ToList();
+            throw new NotImplementedException();
+        }
+
+        public Task<Money> GetById(string id)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<Money> GetCurrency(string code)
         {
-            var resp = await httpClient.GetStringAsync("/api/currency/" + code);
+            var resp = await HttpClient.GetStringAsync("/api/currency/" + code);
             if (resp is null) return new Money();
             return new Money(resp, code);
         }
-
     }
 }
