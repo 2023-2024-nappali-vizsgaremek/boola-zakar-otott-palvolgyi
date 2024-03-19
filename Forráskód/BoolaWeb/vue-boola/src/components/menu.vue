@@ -48,14 +48,14 @@
 
     .menu-container{
         background-color: var(--sec-background);
-        transition: background 0.5s;       
+        transition: background ease-out 0.3s;
         height: 100lvh;
         width: 70px!important;
         overflow: hidden;
         text-align: center;
         position: fixed;
 
-        transition: 0.2s ease-out;
+        transition: 0.3s ease-out;
     }
 
     .routerLink{
@@ -66,7 +66,7 @@
 
     .menu-opened{
         width: 15lvw !important;
-        transition: 0.2s ease-out;
+        transition: 0.3s ease-out;
     }
 
     .btn-menu-toggle{

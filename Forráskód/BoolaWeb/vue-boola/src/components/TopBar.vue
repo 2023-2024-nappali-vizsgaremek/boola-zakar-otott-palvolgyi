@@ -2,7 +2,7 @@
     import {ref, onMounted} from 'vue'
     
     const root = document.querySelector(':root');
-    var isDarkTheme = localStorage.getItem("isPreferedThemeDark");
+    var isDarkTheme = localStorage.getItem("isPreferedThemeDark");    
 
     onMounted (() => {        
         toggleTheme();
@@ -50,10 +50,10 @@
         height: 8lvh;
         min-height: 70px;
         overflow: hidden;
-        position: sticky;
+        position: fixed;
         
         background-color: var(--sec-background);
-        transition: background 0.5s;        
+        transition: background ease-out 0.3s;     
     }
 
     .appName{

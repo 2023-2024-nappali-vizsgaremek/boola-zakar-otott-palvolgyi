@@ -10,25 +10,30 @@
 :root{
     --border-width: 1px;
     --border-radius: 5px;
-    
-    /*Light theme colors*/
+    --border-color: #191c1e;
+    /*
+    Light theme colors
     --main-light-text-color: #006783;
-    --sec-light-text-color: #bce9ff;
-    --light-border-color: #191c1e;
+    --sec-light-text-color: #bce9ff;    
     --main-light-background: #dff4ff;
     --sec-light-background: #004d67;
 
-    /*Dark mode colors*/
+    Dark mode colors
     --dark-text-color: #bce9ff;
     --main-dark-background: #001f2a;
     --sec-dark-background: #0080aa;
-    --dark-border-color: #191c1e;
+    */
+
+    --main-background: #dff4ff;
+    --sec-background: #004d67;
+    --main-text-color: #006783;
+    --sec-text-color: #bce9ff;
 }
 
 body{
     font-size: 14pt;
     font-family: Inter-Regular;
-    margin: 0;
+    margin: 0;    
 }
 
 h2{
