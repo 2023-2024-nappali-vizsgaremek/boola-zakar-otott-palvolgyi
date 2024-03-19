@@ -19,18 +19,16 @@ namespace Desktop.ViewModels
             content = new MainContent();
         }
 
-
-        [RelayCommand]
+       [RelayCommand]
        public  new void ChangeToAddWindow()
         {
             base.ChangeToAddWindow();
         }
 
-
         [RelayCommand]
         public new void ChangeToSettingsWindow()
         {
-            base.ChangeToMainWindow();
+            base.ChangeToSettingsWindow();
         }
 
         [RelayCommand]

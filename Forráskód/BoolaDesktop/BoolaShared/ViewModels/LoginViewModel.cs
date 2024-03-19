@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Desktop.Models;
-using Desktop.Service;
+using BoolaShared.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,12 +26,13 @@ namespace BoolaShared.ViewModels
         protected async Task Logon()
         {
             var account = await loginService.GetAccount(login);
+            if(account == null) return;
             account.pwHash = login.Password;
             var tokens = await loginService.PostLogin(account);
             if (tokens is null || tokens.access is null) return;
             AuthService.AuthToken = tokens.access;
             AuthService.RefreshToken = tokens.refresh;
-            
+            AuthService.AccountEmail = account.email;
         }
     }
 }
