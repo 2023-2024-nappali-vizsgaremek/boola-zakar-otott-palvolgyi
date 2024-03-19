@@ -47,7 +47,8 @@ class DataController internal constructor(private val connection: Connection) {
     private val getProfileStatement:PreparedStatement =connection.prepareStatement(
         "SELECT * FROM profile WHERE id=?::uuid")
 
-    private val getProfilesStatement:PreparedStatement=connection.prepareStatement("SELECT * FROM  profile")
+    private val getProfilesStatement:PreparedStatement=connection.prepareStatement("SELECT * FROM  profile WHERE" +
+            " accountEmail=?")
 
     private val addProfileStatement:PreparedStatement=connection.prepareStatement(
         "INSERT INTO profile (name, isbusiness, expenselistid, languagecode, accountemail)" +
@@ -164,16 +165,19 @@ class DataController internal constructor(private val connection: Connection) {
             results.getBoolean(3),results.getString(4),
             UUID.fromString(results.getString(5)),results.getString(6))
     }
-    fun getAllProfile():ArrayList<Profile>{
+    fun getAllProfile(email: String):ArrayList<Profile>{
+        getProfilesStatement.setString(1,email)
         getProfilesStatement.execute()
         val profiles=ArrayList<Profile>()
         val results=getProfilesStatement.resultSet
         while (results.next()){
-            profiles.add(Profile(UUID.fromString(results.getString("id")),
-                results.getString("name"),results.getBoolean("isBusiness"),
-                results.getString("languageId"),
-                UUID.fromString(results.getString("expenseListId")),
-                results.getString("accountEmail")))
+            profiles.add(Profile(UUID.fromString(
+                results.getString("id")),
+                results.getString("name"),
+                results.getBoolean("isbusiness"),
+                results.getString("languagecode"),
+                UUID.fromString(results.getString("expenseListid")),
+                results.getString("accountmail")))
         }
         return profiles
     }

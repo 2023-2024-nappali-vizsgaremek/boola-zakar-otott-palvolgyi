@@ -218,7 +218,10 @@ fun Application.configureRouting() {
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else {
-                    call.respond(con.getCurrenciesAll())
+                    val principal = call.principal<JWTPrincipal>()
+                    val email: String = principal!!.payload.getClaim("email").asString()
+                    val profiles = con.getAllProfile(email)
+                    call.respond(profiles)
                     DataControllerFactory.returnController(con)
                 }
             }
@@ -296,12 +299,13 @@ fun Application.configureRouting() {
                 else {
                     val id = call.parameters["id"]
                     if(id == null) call.respond(HttpStatusCode.BadRequest)
+                    val email = call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString()
                     val uuid = UUID.fromString(id)
                     val expenseList = con.getExpenseList(uuid)
-                    val owner = con.getAllProfile().first {
+                    val owner = con.getAllProfile(email).first {
                         it.expenseListId == expenseList.id
                     }.accountEmail
-                    if(call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString() == owner){
+                    if(email == owner){
                         call.respond(expenseList)
                         DataControllerFactory.returnController(con)
                     }
@@ -316,7 +320,7 @@ fun Application.configureRouting() {
                 else {
                     val owner = call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString()
                     if(owner == null) call.respond(HttpStatusCode.BadRequest)
-                    val profile = con.getAllProfile().first{
+                    val profile = con.getAllProfile(owner).first{
                         it.accountEmail == owner
                     }.expenseListId
                     val expenseLists = con.getExpenseListsAll().filter {

@@ -32,7 +32,7 @@ namespace BoolaShared.Service
         public async Task<List<Profile>> GetAll()
         {
             if(!IsClientAvailable) return new List<Profile>();
-            var resp = await HttpClient.GetFromJsonAsync<List<Profile>>("api/profile");
+            var resp = await HttpClient.GetFromJsonAsync<List<Profile>>("api/profile/");
             if(resp is null) return new List<Profile>();
             return resp;
         }
