@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router';
 
+
 import Menu from './components/menu.vue';
 import TopBar from './components/TopBar.vue';
 </script>
@@ -26,12 +27,13 @@ import TopBar from './components/TopBar.vue';
     @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
 
     main{
-text-align: center;
       float: right;
         height: 92vh;
-      width: calc(100vw - 80px);
+      width: calc(100vw - 65px);
         background-color: var(--main-background);
+      color:var(--main-text-color);
         transition: background 0.5s;
+
     }
 
 </style>

@@ -50,11 +50,11 @@
         background-color: var(--sec-background);
         transition: background 0.5s;       
         height: 100lvh;
-        width: 50px;
+        width: 70px!important;
         overflow: hidden;
         text-align: center;
         position: fixed;
-        padding: 1rem;
+
         transition: 0.2s ease-out;
     }
 
@@ -65,7 +65,7 @@
     }
 
     .menu-opened{
-        width: 15lvw;
+        width: 15lvw !important;
         transition: 0.2s ease-out;
     }
 
