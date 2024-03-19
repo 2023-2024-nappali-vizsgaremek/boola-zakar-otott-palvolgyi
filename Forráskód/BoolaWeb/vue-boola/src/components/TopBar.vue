@@ -50,7 +50,7 @@
         height: 8lvh;
         min-height: 70px;
         overflow: hidden;
-        position: fixed;        
+        position: sticky;
         
         background-color: var(--sec-background);
         transition: background 0.5s;        
