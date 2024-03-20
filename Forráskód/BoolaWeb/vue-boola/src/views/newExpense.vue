@@ -5,24 +5,48 @@ import 'bootstrap/dist/css/bootstrap.css'
 
 <template>
     <h2>Új költség felvétele:</h2>
-
+<div class="container-fluid mx-0">
   <div class="row mx-auto">
+    
   <div class="col-lg-4 col-sm-12">
-    <h3>Payee</h3>
-    <input type="text">
+    <h3>Kedvezményezett</h3>
+    <input id="text" type="text">
   </div>
+    
     <div class="col-lg-4 col-sm-12 ">
-      <h3>Amount</h3>
+      <h3>Összeg</h3>
     <input type="number">
     </div>
+    
       <div class="col-lg-4 col-sm-12">
-        <h3>Currency</h3>
+        <h3>Pénznem</h3>
 <select name="currency" id="currencys">
   <option value="HUF">HUF</option>
   <option value="USD">USD</option>
   <option value="EUR">EUR</option>
 </select>
   </div>
+  </div>
+</div>
+  <div class="container-fluid mx-auto ">
+    <div class="row mx-auto">
+      <div class="col-lg-4 col-sm-12">
+        <h3>Dátum</h3>
+        <input id="date" type="date">
+      </div>
+      <div class="col-lg-4 col-sm-12">
+        <h3>Fizetett-e?</h3>
+        <input  type="radio" name="true" value="true" ><label>Már igen</label>
+        <input  type="radio" name="false" value="false"><label>Még nem</label>
+      </div>
+      <div class="col-lg-4 col-sm-12">
+        <h3>Hozzászólás</h3>
+        <input type="text" style="height: 10vh">
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+<button class="mx-auto">Küldés</button>
   </div>
 </template>
 
@@ -31,9 +55,20 @@ h2{
   padding: 1em;
   font-size: 40px;
 }
-div{
-  margin-left:1em;
-  padding: 0;
+#text{
+  width:15vw;
 }
-
+.container-fluid{
+  padding: 1em;
+}
+label{
+  padding:0.5em;
+}
+#date{
+  width:12vw;
+}
+button{
+  width: 8vw;
+  margin-left:1em ;
+}
 </style>
