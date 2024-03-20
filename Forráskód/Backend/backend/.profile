@@ -1,1 +1,1 @@
-chmod a+x gradlew
+chmod +x ./gradlew
