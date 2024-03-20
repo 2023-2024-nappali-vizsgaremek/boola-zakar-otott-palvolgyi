@@ -36,8 +36,10 @@ import 'bootstrap/dist/css/bootstrap.css'
       </div>
       <div class="col-lg-4 col-sm-12">
         <h3>Fizetett-e?</h3>
+
         <input  type="radio" name="true" value="true" ><label>Már igen</label>
         <input  type="radio" name="false" value="false"><label>Még nem</label>
+
       </div>
       <div class="col-lg-4 col-sm-12">
         <h3>Hozzászólás</h3>
@@ -45,9 +47,9 @@ import 'bootstrap/dist/css/bootstrap.css'
       </div>
     </div>
   </div>
-  <div class="container-fluid">
-<button class="mx-auto">Küldés</button>
-  </div>
+
+<button class="btn btn-primary rounded">Küldés</button>
+
 </template>
 
 <style scoped>
@@ -69,6 +71,15 @@ label{
 }
 button{
   width: 8vw;
-  margin-left:1em ;
+
+  background: #0080aa;
+  border: #191c1e;
+margin-top:15%;
+  margin-left: 45%!important;
+}
+button:hover{
+  background: #bce9ff;
+  color: #006783;
+
 }
 </style>

@@ -65,7 +65,7 @@
     }
 
     .menu-opened{
-        width: 15lvw !important;
+        width: 12vw !important;
         transition: 0.3s ease-out;
 
     }
