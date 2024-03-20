@@ -67,6 +67,7 @@
     .menu-opened{
         width: 15lvw !important;
         transition: 0.3s ease-out;
+
     }
 
     .btn-menu-toggle{
