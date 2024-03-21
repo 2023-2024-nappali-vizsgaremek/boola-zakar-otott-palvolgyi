@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import Axios from "axios";
 import {ref} from "vue";
 
-const NewExpense=ref({payee:null,amount:null,IsPayed:false});
+const NewExpense=ref({id:null,name:null,payee:null,amount:null,status:false,category:null,currency:null,date:new Date(),payeeId:null,tags:null,statException:false,note:null,listId:null});
 const hostName = "localhost:8080"
 const currency=ref([]);
 const category=ref([])
