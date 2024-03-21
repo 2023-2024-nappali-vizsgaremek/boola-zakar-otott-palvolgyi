@@ -1,14 +1,15 @@
 <script setup>
-import axios from "axios";
+import axios, { Axios } from "axios";
 import {ref} from "vue";
-import expense from "ExpenseContent"
+import ExpenseContent from "../components/ExpenseContent.vue";
+
 
 
 
 </script>
 <template>
 <h1>Költségek</h1>
-<expense></expense>
+<ExpenseContent></ExpenseContent>
 </template>
 <style setup>
 </style>
