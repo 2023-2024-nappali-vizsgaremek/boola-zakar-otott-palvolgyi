@@ -1,12 +1,11 @@
 <script setup>
     import { ref } from 'vue'
     import Axios from 'axios'
-    import {useRouter} from 'vue-router'
 
     const account = ref({email:null,pwHash:null,name:null})
     const submittingEmptyFields = ref(false)
     const hasLoginFailed = ref(false)
-    const hostName = "localhost:8080" //todo: get host name from file
+    const hostName = "localhost:8080" //TODO: get host name from file
     const submitLogin = () => {
         if(!account.value.email || !account.value.pwHash) {
             submittingEmptyFields.value = true;
@@ -32,7 +31,7 @@
     }
 </script>
 
-<template>  <!--todo: disable top-,sidebar for login,register-->
+<template>  <!--TODO: disable top-,sidebar for login,register-->
     <h1 class="text-center">Belépés</h1>
     <form class="container w-25 h-50 mx-auto text-justify d-flex flex-column justify-content-evenly">
             <label for="email_field">
@@ -52,4 +51,5 @@
     </form>
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>
