@@ -6,16 +6,16 @@ const settings=ref({email:null,name:null,password:null})
 const nyelv=ref([])
 const hostName = "localhost:8080"
 let settingsToSubmit=null;
-axios.get(`http://${hostName}/settings/${settings.value.email}`).then(r=>settingsToSubmit=r.data)
+axios.get(`http://${hostName}/api/settings/${settings.value.email}`).then(r=>settingsToSubmit=r.data)
     .then(()=>{
       settingsToSubmit.password=settings.value.password;
     })
-axios.post(`http://${hostName}/settings`).then(r=>{
+axios.post(`http://${hostName}/api/settings`).then(r=>{
   const tokens=r.data
   sessionStorage.setItem("authToken",tokens.accesss)
   sessionStorage.setItem("refreshToken",tokens.refresh())
 })
-axios.get(`http://${hostName}/language`).then(r=>nyelv.value=r.data)
+axios.get(`http://${hostName}/api/language`).then(r=>nyelv.value=r.data)
 
 </script>
 
