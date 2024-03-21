@@ -1,5 +1,20 @@
 <script setup>
 import 'bootstrap/dist/css/bootstrap.css'
+import Axios from "axios";
+import {ref} from "vue";
+
+const NewExpense=ref({payee:null,amount:null,IsPayed:false});
+const hostName = "localhost:8080"
+const currency=ref([]);
+const category=ref([])
+Axios.get(`http://${hostName}/category`).then(r=>category.value=r.data)
+Axios.get(`http://${hostName}/currency`).then(r=>currency.value=r.data)
+function Send(){
+Axios.post(`http://${hostName}/expense`,NewExpense).then(r=>{
+  const tokens=r.data;
+  sessionStorage.setItem("authToken",tokens.access)
+  sessionStorage.setItem("refreshToken",tokens.refresh)
+})}
 
 </script>
 
@@ -20,10 +35,9 @@ import 'bootstrap/dist/css/bootstrap.css'
     
       <div class="col-lg-4 col-sm-12">
         <h3>Pénznem</h3>
-<select name="currency" id="currencys">
-  <option value="HUF">HUF</option>
-  <option value="USD">USD</option>
-  <option value="EUR">EUR</option>
+<select name="currency" id="currencys" v-for="i in currency">
+  <option v-bind:value=i>{{i}}</option>
+
 </select>
   </div>
   </div>
@@ -37,8 +51,8 @@ import 'bootstrap/dist/css/bootstrap.css'
       <div class="col-lg-4 col-sm-12">
         <h3>Fizetett-e?</h3>
 
-        <input  type="radio" name="true" value="true" ><label>Már igen</label>
-        <input  type="radio" name="false" value="false"><label>Még nem</label>
+        <input  type="radio" name="future" value="true" ><label>Már igen</label>
+        <input  type="radio" name="future" value="false"><label>Még nem</label>
 
       </div>
       <div class="col-lg-4 col-sm-12">
@@ -48,7 +62,7 @@ import 'bootstrap/dist/css/bootstrap.css'
     </div>
   </div>
 
-<button class="btn btn-primary rounded">Küldés</button>
+<button class="btn btn-primary rounded" onclick="Send()">Küldés</button>
 
 </template>
 
