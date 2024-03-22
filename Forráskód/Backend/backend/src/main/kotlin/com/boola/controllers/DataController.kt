@@ -267,7 +267,7 @@ fun addExopenseList(newData:ExpenseList){
     fun getCategoriesAll():ArrayList<Category> {
         getCategoriesStatement.execute()
         val categories = ArrayList<Category>()
-        val results = getCurrenciesStatement.resultSet
+        val results = getCategoriesStatement.resultSet
         while (results.next()){
             categories.add(Category(results.getInt("id"),results.getString("name")))
         }

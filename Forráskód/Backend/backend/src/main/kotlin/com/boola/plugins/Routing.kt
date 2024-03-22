@@ -225,7 +225,7 @@ fun Application.configureRouting() {
                     DataControllerFactory.returnController(con)
                 }
             }
-            post("/api/profile") {
+            post("/api/profile/") {
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else {
