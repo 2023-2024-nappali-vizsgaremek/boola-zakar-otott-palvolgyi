@@ -1,12 +1,11 @@
 <script setup>
     import { ref } from 'vue'
     import Axios from 'axios'
-    import {useRouter} from 'vue-router'
 
     const account = ref({email:null,pwHash:null,name:null})
     const submittingEmptyFields = ref(false)
     const hasLoginFailed = ref(false)
-    const hostName = "localhost:8080" //todo: get host name from file
+    const hostName = "localhost:8080" //TODO: get host name from file
     const submitLogin = () => {
         if(!account.value.email || !account.value.pwHash) {
             submittingEmptyFields.value = true;
@@ -26,27 +25,32 @@
                 const tokens = r.data;
                 sessionStorage.setItem("authToken",tokens.access)
                 sessionStorage.setItem("refreshToken",tokens.refresh)
+                window.open("/","_self")
             })
         
         })
     }
 </script>
 
-<template>
-    <h1>Belépés</h1>
-    <form class="card">
-        <label for="email_field">
-            E-mail cím:
+<template>  <!--TODO: disable top-,sidebar for login,register-->
+    <h1 class="text-center">Belépés</h1>
+    <form class="container w-25 h-50 mx-auto text-justify d-flex flex-column justify-content-evenly">
+            <label for="email_field">
+                E-mail cím:
+            </label>
             <input type="email" id="email_field" v-model="account.email">
-        </label>
-        <label for="pw_field">
-            Jelszó:
+            <label for="pw_field">
+                Jelszó:
+            </label>
             <input type="password" id="pw_field" v-model="account.pwHash">
-        </label>
-        <button type="button btn btn-primary" @click="submitLogin">Belépés</button>
+        <div class="d-flex flex-row justify-content-around">
+            <button type="button" class="btn btn-primary" @click="submitLogin">Belépés</button>
+            <a href="/register" class="btn btn-primary">Regisztráció</a>
+        </div>
         <p class="text-danger" v-if="submittingEmptyFields">Minden mezőt ki kell tölteni!</p>
         <p class="text-danger" v-if="loginFailed">Hiba történt a bejelentkezés során!</p>
     </form>
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>
