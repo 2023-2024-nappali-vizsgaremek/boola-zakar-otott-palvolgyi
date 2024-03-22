@@ -52,9 +52,8 @@ axios.get(`http://${hostName}/api/language`).then(r=>nyelv.value=r.data)
       </div>
       <div class="col-lg-6">
 <select id="nyelvek" name="nyelvek">
-  <option vlaue="Magyar">Magyar</option>
-  <option value="Angol">Angol</option>
-  <option value="Német">Német</option>
+  <option v-for="nyelvs in nyelv" v-bind:vlaue="nyelvs.code">{{ nyelvs.code }}</option>
+
 </select>
       </div>
     </div>
@@ -94,7 +93,7 @@ button{
   margin-left: 45%!important;
 
 }
-button:hover{
+button:hover,button:active,button:visited{
   background: #bce9ff;
   color: #006783;
 
