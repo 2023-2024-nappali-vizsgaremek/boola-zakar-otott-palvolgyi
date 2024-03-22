@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Desktop.Models;
-using Desktop.Service;
+using BoolaShared.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,14 +12,14 @@ using System.Windows.Documents;
 
 namespace Desktop.ViewModels
 {
-    public partial class NewExpenseViewModel : AsyncInitializedViewModel
+    public partial class NewExpenseViewModel : BoolaShared.ViewModels.NewExpenseViewModel
     {
         [ObservableProperty]
         private NewExpnse expnse;
         [ObservableProperty]
-        private ObservableCollection<Category> cat = new ObservableCollection<Category>();
+        private new ObservableCollection<Category> cat;
         [ObservableProperty]
-        private ObservableCollection<Money> cur = new ObservableCollection<Money>();
+        private new ObservableCollection<Money> cur;
         [ObservableProperty]
         private string kategória;
         [ObservableProperty]
@@ -29,18 +29,25 @@ namespace Desktop.ViewModels
         private Category _SelectCategory = new Category();
         private Money _Currency = new Money();
         private ICurrencyService currencyService;
-        public NewExpenseViewModel(ICurrencyService currency)
+        private ICategoryService categoryService;
+        public NewExpenseViewModel(ICurrencyService currency,ICategoryService category,IExpenseService expense) : base(expense)
         {
             currencyService = currency;
-            Expnse = new NewExpnse();
-            Expnse.category = new Category();
-           
+            categoryService = category;
+            cat = base.cat;
+            cur = base.cur;
+            Expnse = new NewExpnse
+            {
+                category = new Category()
+            };
+
         }
         public override async Task InitializeAsync()
         {
-            var c = await currencyService.GetAllCurrencys();
+            List<Money> c = await currencyService.GetAll();
             Cur = new ObservableCollection<Money>(c);
-            
+            List<Category> categories = await categoryService.GetAll();
+            Cat = new ObservableCollection<Category>(categories);
         }
         public Category SelectCategory
         {
@@ -62,19 +69,17 @@ namespace Desktop.ViewModels
 
             }
         }
-       
-          
+        [RelayCommand]
+        public new void Add(NewExpnse newExpnse)
+        {
+            base.Add(newExpnse);
+        }
 
         [RelayCommand]
-        public void Add(NewExpnse newExpnse)
+        public new void ChangeToMainWindow()
         {
-            Lista.Add(newExpnse);
-            OnPropertyChanged(nameof(Lista));
+            base.ChangeToMainWindow();
         }
-        [RelayCommand]
-        public void ChangeToMainWindow()
-        {
-            MainWindowViewModel.Instance.ChangeToMainWindow();
-        }
+
     }
 } 

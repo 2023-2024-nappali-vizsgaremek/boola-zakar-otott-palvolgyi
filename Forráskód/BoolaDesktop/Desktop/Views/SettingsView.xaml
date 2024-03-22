@@ -6,9 +6,6 @@
              xmlns:vm="clr-namespace:Desktop.ViewModels"
              xmlns:local="clr-namespace:Desktop.Views"
              mc:Ignorable="d" Width="1064" Height="488">
-    <UserControl.DataContext>
-        <vm:SettingsViewModel/>
-    </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -52,7 +49,7 @@
         <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,4" Grid.Row="2" TextWrapping="Wrap" Text="{Binding Settings.email}" VerticalAlignment="Bottom" Width="211" RenderTransformOrigin="0.507,0.014"/>
         <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" TextWrapping="Wrap" Text="{Binding Settings.password}" VerticalAlignment="Center" Width="211"/>
         <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="10,23,0,0" Grid.Row="3" VerticalAlignment="Center" Width="211" Grid.RowSpan="2" ItemsSource="{Binding Nyelv}"
-                  SelectedItem="{Binding SelectNyelv}" SelectionChanged="ComboBox_SelectionChanged"
+                  SelectedItem="{Binding Selectnyelv}" SelectionChanged="ComboBox_SelectionChanged"
                   />
         <RadioButton Grid.Column="1" Content="igen" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="5" VerticalAlignment="Center"/>
         <RadioButton Grid.Column="1" Content="nem" HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Center" Margin="64,0,0,0"/>

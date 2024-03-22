@@ -39,7 +39,26 @@ fun Application.configureSecurity() {
             }
 
             challenge { _, _ ->
-                call.respond(HttpStatusCode.Unauthorized)
+                call.respond(HttpStatusCode.Unauthorized,"The token was incorrect")
+            }
+        }
+        jwt("boola-refresh") {
+            realm = jwtRealm
+            verifier(
+                JWT
+                    .require(Algorithm.HMAC256(jwtSecret))
+                    .withAudience("$jwtDomain/refresh")
+                    .withIssuer(jwtDomain)
+                    .build()
+            )
+            validate { credential ->
+                if (credential.payload.getClaim("email").asString() != "")
+                    JWTPrincipal(credential.payload)
+                else null
+            }
+
+            challenge { _, _ ->
+                call.respond(HttpStatusCode.Unauthorized,"The token was incorrect")
             }
         }
     }

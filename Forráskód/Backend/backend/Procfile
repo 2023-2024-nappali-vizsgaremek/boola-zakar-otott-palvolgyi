@@ -1,1 +1,2 @@
+release: ./gradlew build
 web: ./gradlew run

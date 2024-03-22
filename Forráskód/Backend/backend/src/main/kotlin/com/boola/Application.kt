@@ -14,7 +14,13 @@ import kotlinx.serialization.json.encodeToJsonElement
 import java.util.*
 
 fun main() {
-    embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module)
+    val port = try {
+        System.getenv("PORT").toInt()
+    } catch (e:NullPointerException){
+        val env = dotenv()
+        env["PORT"].toInt()
+    }
+    embeddedServer(Netty, port = port, host = "0.0.0.0", module = Application::module)
             .start(wait = true)
 
 }

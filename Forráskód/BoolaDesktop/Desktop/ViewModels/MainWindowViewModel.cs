@@ -7,62 +7,54 @@ using Desktop.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Windows;
-using Desktop.Service;
 
 namespace Desktop.ViewModels
 {
-    public partial class MainWindowViewModel : AsyncInitializedViewModel
+    public partial class MainWindowViewModel : BoolaShared.ViewModels.MainWindowViewModel
     {
-        [ObservableProperty]
-        private ObservableObject childViewModel;
-        private NewExpenseViewModel newExpenseViewModel;
+        public static new MainWindowViewModel Instance { get; private set;}
 
-        public static MainWindowViewModel Instance { get; set; }
+        protected override ObservableObject OpenedChildViewModel { get => CurrentChildViewModel;set => CurrentChildViewModel = value; }
+        [ObservableProperty] public ObservableObject currentChildViewModel;
+        private MainMenuViewModel mainMenuViewModel;
 
-        public MainWindowViewModel(NewExpenseViewModel newExpenseViewModel,LoginViewModel loginViewModel)
+        public MainWindowViewModel(NewExpenseViewModel newExpenseViewModel,
+            ProfileViewModel profileViewModel, SettingsViewModel settingsViewModel) : base(newExpenseViewModel, profileViewModel,settingsViewModel)
         {
-            
-            ChildViewModel = loginViewModel;
             Instance ??= this;
-            this.newExpenseViewModel = newExpenseViewModel;
+            mainMenuViewModel = new MainMenuViewModel();
+            CurrentChildViewModel = mainMenuViewModel;
         }
-        public MainWindowViewModel()
+
+        public MainWindowViewModel() : base(null, null, null)
         {
-         
-            ChildViewModel = new LoginViewModel(new LoginService(null));
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-            else
-            {
-                return;
-            }
-            this.newExpenseViewModel = new NewExpenseViewModel(new CurrencyService(null));
+            Instance ??= this;
+            mainMenuViewModel = new MainMenuViewModel();
+            currentChildViewModel = mainMenuViewModel;
         }
 
         [RelayCommand]
-        public void ChangeToAddWindow()
+        public new void ChangeToAddWindow()
         {
-            ChildViewModel = newExpenseViewModel;
+            base.ChangeToAddWindow();
         }
 
-
         [RelayCommand]
-        public void ChangeToSettingsWindow()
+        public new void ChangeToSettingsWindow()
         {
-            ChildViewModel = new SettingsViewModel();
-        }
-        [RelayCommand]
-        public void ChangeToProfilesWindow()
-        {
-            ChildViewModel = new ProfileViewModel();
-        }
-        [RelayCommand]
-        public void ChangeToMainWindow()
-        {
-            ChildViewModel = new MainMenuViewModel();
+            base.ChangeToSettingsWindow();
         }
 
+        [RelayCommand]
+        public new void ChangeToProfilesWindow()
+        {
+            base.ChangeToProfilesWindow();
+        }
+
+        [RelayCommand]
+        public override void ChangeToMainWindow()
+        {
+            OpenedChildViewModel = mainMenuViewModel;
+        }
     }
 }

@@ -5,11 +5,9 @@ VisualStudioVersion = 17.7.34003.232
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Desktop", "Desktop\Desktop.csproj", "{DDFBB497-5EBD-4B3D-AB71-98A5E6BA46BB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mobile", "..\BoolaMobile\Mobile\Mobile.csproj", "{7255EF6F-1330-4E06-BF97-449E89AE62BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoolaWeb", "..\BoolaWeb\BoolaWeb.csproj", "{9E526108-B7B5-44D2-BA79-91CD3754192A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoolaWeb", "..\BoolaWeb\BoolaWeb.csproj", "{9E526108-B7B5-44D2-BA79-91CD3754192A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoolaShared", "BoolaShared\BoolaShared.csproj", "{02089B95-E48B-45F7-86D8-A6A1EC61B818}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BoolaShared", "BoolaShared\BoolaShared.csproj", "{02089B95-E48B-45F7-86D8-A6A1EC61B818}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,12 +19,6 @@ Global
 		{DDFBB497-5EBD-4B3D-AB71-98A5E6BA46BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDFBB497-5EBD-4B3D-AB71-98A5E6BA46BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDFBB497-5EBD-4B3D-AB71-98A5E6BA46BB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7255EF6F-1330-4E06-BF97-449E89AE62BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7255EF6F-1330-4E06-BF97-449E89AE62BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7255EF6F-1330-4E06-BF97-449E89AE62BD}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{7255EF6F-1330-4E06-BF97-449E89AE62BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7255EF6F-1330-4E06-BF97-449E89AE62BD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7255EF6F-1330-4E06-BF97-449E89AE62BD}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{9E526108-B7B5-44D2-BA79-91CD3754192A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9E526108-B7B5-44D2-BA79-91CD3754192A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E526108-B7B5-44D2-BA79-91CD3754192A}.Release|Any CPU.ActiveCfg = Release|Any CPU

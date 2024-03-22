@@ -10,40 +10,43 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.ComponentModel;
 using System.Windows.Controls;
+using BoolaShared.Service;
 
 namespace Desktop.ViewModels
 {
-   partial  class ProfileViewModel : ObservableObject
+    public partial class ProfileViewModel : BoolaShared.ViewModels.ProfileViewModel
     {
         [ObservableProperty]
-        private Profile profile;
+        private Profile profile = new();
+        private IProfileService profileService;
         [ObservableProperty]
-       private ObservableCollection<string> lista = new ObservableCollection<string>();
-        private List<Profile> lista_ = new List<Profile>(); 
-        public ProfileViewModel()
+        private new ObservableCollection<string> lista;
+        private List<Profile> lista_ = new List<Profile>();
+        public ProfileViewModel(IProfileService profile) : base(profile)
         {
-            Profile= new Profile();
+            Profile = new Profile();
+            profileService = profile;
+            lista = base.lista;
+        }
 
+        public override async Task InitializeAsync()
+        {
+            await GetProfiles();
         }
         [RelayCommand]
-       public void DoSave(Profile profile)
+        public new void DoSave(Profile profile)
         {
-            lista_.Add(profile);
-            Lista.Add(Profile.Name);
-            OnPropertyChanged(nameof(Lista));
-           
+            base.DoSave(profile);
         }
         [RelayCommand]
-        public void Delete( Profile profile)
+        public new void Delete(Profile profile)
         {
-            lista_.Remove(profile);
-            Lista.Remove(Profile.Name);
-            OnPropertyChanged(nameof(Lista));
+            base.Delete(profile);
         }
         [RelayCommand]
-        public void ChangeToMainWindow()
+        public new void ChangeToMainWindow()
         {
-            MainWindowViewModel.Instance.ChangeToMainWindow();
+            base.ChangeToMainWindow();
         }
 
     }

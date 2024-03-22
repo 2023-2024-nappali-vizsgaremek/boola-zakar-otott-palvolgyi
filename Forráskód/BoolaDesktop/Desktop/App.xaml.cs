@@ -11,11 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Desktop.Extensions;
 using Desktop.ViewModels;
 using Desktop.Views;
-using Desktop.Service;
 using System.Security.Authentication.ExtendedProtection;
 using System.Runtime.CompilerServices;
-using Microsoft.Extensions.Http;
-using Microsoft.Extensions.Hosting;
 
 namespace Desktop
 {
@@ -25,7 +22,7 @@ namespace Desktop
     public partial class App : Application
     {
         private readonly bool _login = true;
-        private  IHost host;
+        private IHost host;
 
         protected async override void OnStartup(StartupEventArgs e)
         {
@@ -34,31 +31,54 @@ namespace Desktop
                 {
                     srevices.ConfigureHttpClient();
                     srevices.ConfigureApiServices();
+                    srevices.AddSingleton<MainWindowViewModel>();
+                    srevices.AddSingleton(s => new MainWindow()
+                    {
+                        DataContext = s.GetRequiredService<MainWindowViewModel>()
+                    });
                     srevices.AddSingleton<NewExpenseViewModel>();
                     srevices.AddSingleton<NewExpenseView>(s => new NewExpenseView()
                     {
                         DataContext = s.GetRequiredService<NewExpenseViewModel>()
                     });
-                    srevices.AddSingleton<LoginViewModel>();
+                    srevices.AddSingleton<LoginViewModelDesktop>();
                     srevices.AddSingleton<LoginWindow>(s => new LoginWindow()
                     {
-                        DataContext = s.GetRequiredService<LoginViewModel>()
+                        DataContext = s.GetRequiredService<LoginViewModelDesktop>()
+                    });
+                    srevices.AddSingleton<ProfileViewModel>();
+                    srevices.AddSingleton(s => new UserControl1()
+                    {
+                        DataContext = s.GetRequiredService<ProfileViewModel>()
+                    });
+                    srevices.AddSingleton<SettingsViewModel>();
+                    srevices.AddSingleton(s => new SettingsView()
+                    {
+                        DataContext = s.GetRequiredService<SettingsViewModel>()
                     });
                 })
                 .Build();
             await host.StartAsync();
-                var loginView = host.Services.GetRequiredService<LoginWindow>();
-                loginView.Show();
-                
-         
+            var loginView = host.Services.GetRequiredService<LoginWindow>();
+            loginView.Show();
+            loginView.IsVisibleChanged += (_,_) =>
+            {
+                if(!loginView.IsVisible)
+                {
+                    var mainView = host.Services.GetRequiredService<MainWindow>();
+                    mainView.Show();
+                    loginView.Close();
+                }
+            };
 
 
 
 
-            }
-        private void Application_Startup( object sender,StartupEventArgs e)
+
+        }
+        private void Application_Startup(object sender, StartupEventArgs e)
         {
-            
+
         }
 
     }

@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Desktop.Models;
-using Desktop.Service;
+using BoolaShared.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,25 +11,29 @@ using System.Windows;
 
 namespace Desktop.ViewModels
 {
-    public partial class LoginViewModel : ObservableObject
+    public partial class LoginViewModelDesktop : BoolaShared.ViewModels.LoginViewModel
     {
+        [ObservableProperty] public bool isVisible = true;
         [ObservableProperty]
-        private Login login;
-        private ILoginService loginService;
-        public LoginViewModel(ILoginService loginService)
+        private Login enteredLogin;
+        public LoginViewModelDesktop(ILoginService loginService) : base(loginService)
         {
-            this.loginService = loginService;
-            Login = new Login();
+            login = new Login();
+            enteredLogin = new Login();
         }
-        [RelayCommand]
-        public async Task Logon()
+
+        public LoginViewModelDesktop() : base(null)
         {
-            var account = await loginService.GetAccount(Login);
-            var tokens = await loginService.PostLogin(account);
-            if(tokens is null) return;
-            AuthService.AuthToken = tokens.access;
-            AuthService.RefreshToken = tokens.refresh;
-            MainWindowViewModel.Instance.ChangeToMainWindow();
+            enteredLogin = new Login();
+        }
+
+        [RelayCommand]
+        public async new Task Logon()
+        {
+            login = EnteredLogin;
+            await base.Logon();
+            if(AuthService.AuthToken is not "") IsVisible = false;
+            else MessageBox.Show("Nem sikerült bejelentkezni!");    //todo: better error messages
         }
     }
 }
