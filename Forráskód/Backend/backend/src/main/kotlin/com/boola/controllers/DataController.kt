@@ -40,7 +40,7 @@ class DataController internal constructor(private val connection: Connection) {
     private val getExpenseListsStatement:PreparedStatement = connection.prepareStatement(
         "SELECT * FROM expenselist")
     private val addExpenseListStatement:PreparedStatement=connection.prepareStatement(
-    "INSERT INTO expenseList VALUE (?,?,?)")
+    "INSERT INTO expenseList (id,balance,currencycode) VALUES (?,?,?)")
     private val deleteExpenseListStatement:PreparedStatement=connection.prepareStatement(
         "DELETE  FROM expenselist WHERE id=?")
 
@@ -176,8 +176,8 @@ class DataController internal constructor(private val connection: Connection) {
                 results.getString("name"),
                 results.getBoolean("isbusiness"),
                 results.getString("languagecode"),
-                UUID.fromString(results.getString("expenseListid")),
-                results.getString("accountmail")))
+                UUID.fromString(results.getString("expenselistid")),
+                results.getString("accountemail")))
         }
         return profiles
     }
@@ -239,9 +239,9 @@ class DataController internal constructor(private val connection: Connection) {
 
 fun addExopenseList(newData:ExpenseList){
     addExpenseListStatement.run {
-        setObject(0,newData.id)
-        setLong(1, newData.balance)
-        setString(  2,newData.currencyCode)
+        setObject(1,newData.id)
+        setLong(2, newData.balance)
+        setString(  3,newData.currencyCode)
         execute()
     }
 
