@@ -62,8 +62,8 @@ fun Application.configureRouting() {
                 val token = JWT.create()
                     .withClaim("email",user.email)
                     .withExpiresAt(Date(System.currentTimeMillis() + 300000))
-                    .withAudience("http://localhost:8080/login")
-                    .withIssuer("http://localhost:8080")
+                    .withAudience("https://localhost:8080/login")
+                    .withIssuer("https://localhost:8080")
                     .sign(Algorithm.HMAC256(secret))
                 call.respond(hashMapOf("token" to token))
             }
@@ -134,7 +134,7 @@ fun Application.configureRouting() {
         get("/api/category") {
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-            else call.respond(con.getCurrenciesAll())
+            else call.respond(con.getCategoriesAll())
         }
 
         get("/api/category/{id}") {
@@ -153,7 +153,7 @@ fun Application.configureRouting() {
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else call.respond(con.getAllProfile())
             }
-            post("/api/profile/{id}") {
+            post("/api/profile/") {
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else {
@@ -215,23 +215,6 @@ fun Application.configureRouting() {
                     call.respond(HttpStatusCode.Created)
                 }
 
-            }
-
-            delete("/api/profile/{id}") {
-                val con = DataControllerFactory.getController()
-                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-                else{
-                    try{
-                        call.parameters["email"]?.let {con.deleteExpenseList(con.getExpenseList(UUID.fromString(it)))}
-                        call.respond(HttpStatusCode.NoContent)
-                    }
-                    catch(e:Exception)
-                    {
-                        e.message?.let { print(it) }
-                        call.respond(HttpStatusCode.BadRequest)
-
-                    }
-                }
             }
         }
     }

@@ -11,7 +11,7 @@
             submittingEmptyFields.value = true;
             return;
         }
-        submittingEmptyFields = false;
+        submittingEmptyFields.value = false;
         hasLoginFailed.value = false;
         let accountToSubmit = null;
         Axios.get(`http://${hostName}/account/${account.value.email}`).then(r => accountToSubmit = r.data)

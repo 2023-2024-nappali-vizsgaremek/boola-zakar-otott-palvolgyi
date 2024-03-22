@@ -9,7 +9,7 @@
 
 <style scoped>
     .asd{
-        height: 200vh;
-        widows: 80vw;
+        height: 100vh;
+     
     }
 </style>

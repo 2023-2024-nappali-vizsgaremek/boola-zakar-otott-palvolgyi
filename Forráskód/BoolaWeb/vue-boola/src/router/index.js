@@ -34,6 +34,11 @@ const router = createRouter({
       path: '/settings',
       name: 'settings',
       component: () => import('../views/settings.vue')
+    },
+    {
+      path:'/expenselist',
+      name:'expenselist',
+      component: ()=> import('../views/ExpenseList.vue')
     }
   ]
 })
