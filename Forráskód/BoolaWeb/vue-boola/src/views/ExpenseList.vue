@@ -1,7 +1,7 @@
 <script setup>
 import axios from "axios";
 import {ref} from "vue";
-import expense from "ExpenseContent"
+import expense from "@/components/ExpenseContent.vue"
 
 
 
