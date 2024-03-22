@@ -7,6 +7,8 @@ import io.ktor.util.debug.*
 import java.security.MessageDigest
 import java.sql.Connection
 import java.sql.PreparedStatement
+import java.sql.SQLType
+import java.sql.Types
 import java.util.UUID
 import kotlin.random.Random
 import kotlin.text.StringBuilder
@@ -260,7 +262,7 @@ fun addExopenseList(newData:ExpenseList){
     fun getCategoriesAll():ArrayList<Category> {
         getCategoriesStatement.execute()
         val categories = ArrayList<Category>()
-        val results = getCurrenciesStatement.resultSet
+        val results = getCategoriesStatement.resultSet
         while (results.next()){
             categories.add(Category(results.getInt("id"),results.getString("name")))
         }
