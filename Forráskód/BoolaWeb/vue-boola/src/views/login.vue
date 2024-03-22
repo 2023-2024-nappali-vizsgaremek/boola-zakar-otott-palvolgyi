@@ -25,6 +25,7 @@
                 const tokens = r.data;
                 sessionStorage.setItem("authToken",tokens.access)
                 sessionStorage.setItem("refreshToken",tokens.refresh)
+                window.open("/","_self")
             })
         
         })
