@@ -230,9 +230,13 @@ fun Application.configureRouting() {
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else {
                     var profile = call.receive<Profile>()
+                    val ownerEmail = profile.accountEmail
+                    val loginEmail = call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString()
+                    if(ownerEmail != loginEmail) call.respond(HttpStatusCode.Forbidden)
                     if(profile.expenseListId == UUID.fromString("00000000-0000-0000-0000-000000000000")) {
-                        profile = profile.copy(expenseListId = null)
-                        con.addExopenseList(ExpenseList(UUID.randomUUID(),0,"HUF")) //send currency with request
+                        val expenseListId = UUID.randomUUID()
+                        con.addExopenseList(ExpenseList(expenseListId,0,"HUF")) //send currency with request
+                        profile = profile.copy(expenseListId = expenseListId)
                     }
                     con.addProfile(profile)
                     call.respond(HttpStatusCode.Created,"api/profile/" + profile.id)
