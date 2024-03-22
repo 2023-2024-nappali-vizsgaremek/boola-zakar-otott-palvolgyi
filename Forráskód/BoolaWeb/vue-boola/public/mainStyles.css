@@ -1,0 +1,64 @@
+@font-face {
+    font-family: Inter-Regular;
+    src: url('Inter.ttf') format('truetype');
+}
+@font-face {
+    font-family: Inter-Black;
+    src: url('Inter.ttf') format('truetype');
+}
+
+:root{
+    --border-width: 1px;
+    --border-radius: 5px;
+    --border-color: #191c1e;
+    /*
+    Light theme colors
+    --main-light-text-color: #006783;
+    --sec-light-text-color: #bce9ff;    
+    --main-light-background: #dff4ff;
+    --sec-light-background: #004d67;
+
+    Dark mode colors
+    --dark-text-color: #bce9ff;
+    --main-dark-background: #001f2a;
+    --sec-dark-background: #0080aa;
+    */
+
+    --main-background: #dff4ff;
+    --sec-background: #004d67;
+    --main-text-color: #006783;
+    --sec-text-color: #bce9ff;
+}
+
+body{
+    font-size: 14pt;
+    font-family: Inter-Regular;
+    margin: 0;    
+}
+
+h2{
+    font-size: 16pt;
+    font-weight: 500;
+    font-style: italic;    
+}
+
+h1{
+    font-weight: bold;
+    font-size: 18pt;
+    font-family: Inter-Black;
+}
+
+select{
+    border-width: 1px;
+    width: 211px;
+}
+
+select > option{
+    width: 211px;
+    height: 20px;
+}
+
+input[text]{
+    border-width: 1px;
+}
+
