@@ -30,7 +30,13 @@
                     <span class="material-symbols-outlined size-32">settings</span>
                     <h2 :class="`${!isMenuOpened && 'menu-text-hide'}`">Beállítások</h2>
                 </div>                  
-            </RouterLink>        
+            </RouterLink>  
+            <RouterLink class="routerLink" to='/expenselist'>
+                <div class="routerLinkContainer">
+                <span class="material-symbols-outlined size-32" >list_alt</span>
+                <h2 :class="`${!isMenuOpened&& 'menu-text-hide'}`">Költség Lista</h2>
+            </div>
+            </RouterLink>      
         </div>
     </div>
 </template>
