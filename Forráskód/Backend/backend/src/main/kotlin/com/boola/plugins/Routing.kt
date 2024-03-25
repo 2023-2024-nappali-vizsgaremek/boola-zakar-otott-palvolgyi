@@ -340,6 +340,7 @@ fun Application.configureRouting() {
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else call.respond(con.getPartnersAll())
+                con?.let { DataControllerFactory.returnController(it) }
             }
             get("/api/partner/{id}") {
                 val con = DataControllerFactory.getController()
@@ -348,6 +349,7 @@ fun Application.configureRouting() {
                     val idString = call.parameters["id"]
                     if(idString == null) call.respond(HttpStatusCode.NotFound)
                     else call.respond(con.getPartner(idString.toByte()))
+                    DataControllerFactory.returnController(con)
                 }
             }
             post("/api/partner/"){
@@ -357,6 +359,7 @@ fun Application.configureRouting() {
                     val partner = call.receive<Partner>()
                     con.addPartner(partner)
                     call.respond(HttpStatusCode.Created)
+                    DataControllerFactory.returnController(con)
                 }
             }
             put("/api/partner/{id}"){
@@ -369,6 +372,7 @@ fun Application.configureRouting() {
                         call.respond(con.setPartner(partner,it.toByte()))
                     }
                     call.respond(HttpStatusCode.NotFound)
+                    DataControllerFactory.returnController(con)
                 }
             }
             delete("/api/partner/{id}"){
@@ -381,6 +385,31 @@ fun Application.configureRouting() {
                         con.deletePartner(idString.toByte())
                         call.respond(HttpStatusCode.NoContent)
                     }
+                    DataControllerFactory.returnController(con)
+                }
+            }
+        }
+
+        authenticate("boola-auth") {
+            get("api/expense/{id}"){
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else {
+                    val idString = call.parameters["id"]
+                    if(idString == null) call.respond(HttpStatusCode.NotFound)
+                    else {
+                        val id = UUID.fromString(idString)
+                        val expense = con.getExpense(id)
+                        val email = call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString()
+                        val ownsExpense = con.getAllProfile(email).any {
+                            it.expenseListId == expense.listId
+                        }
+                        if(!ownsExpense) call.respond(HttpStatusCode.Forbidden)
+                        else {
+                            call.respond(expense)
+                        }
+                    }
+                    DataControllerFactory.returnController(con)
                 }
             }
         }
