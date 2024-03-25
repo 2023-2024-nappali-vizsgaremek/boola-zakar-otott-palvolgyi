@@ -3,10 +3,7 @@ package com.boola.controllers
 import at.favre.lib.crypto.bcrypt.BCrypt
 import com.boola.models.*
 import io.ktor.utils.io.charsets.*
-import java.sql.Connection
-import java.sql.PreparedStatement
-import java.sql.SQLType
-import java.sql.Types
+import java.sql.*
 import java.util.UUID
 import kotlin.random.Random
 import kotlin.text.StringBuilder
@@ -327,12 +324,67 @@ fun addExopenseList(newData:ExpenseList){
         getExpenseStatement.execute()
         val results = getExpenseStatement.resultSet
         results.next()
-        return Expense(results.getObject("id") as UUID,results.getString("title"),
-            results.getString("status") == "paid", results.getDate("date"),
+        return makeExpense(results)
+    }
+
+    fun getExpensesAll(email:String):ArrayList<Expense>{
+        getExpensesStatement.setString(1,email)
+        getExpensesStatement.execute()
+        val results = getExpensesStatement.resultSet
+        val expenses = ArrayList<Expense>()
+        while(results.next()){
+            expenses.add(makeExpense(results))
+        }
+        return expenses
+    }
+
+    fun addExpense(expenseToAdd:Expense){
+        addExpenseStatement.run{
+            setObject(1,expenseToAdd.id)
+            setString(2,expenseToAdd.name)
+            setInt(3,expenseToAdd.categoryId)
+            setBoolean(4,expenseToAdd.statException)
+            setString(5,expenseToAdd.tags)
+            setString(6,expenseToAdd.note)
+            setBoolean(7,expenseToAdd.status)
+            setDate(8,expenseToAdd.date as Date)
+            setInt(9,expenseToAdd.payeeId.toInt())
+            setDouble(10,expenseToAdd.amount)
+            setObject(11,expenseToAdd.listId)
+            execute()
+        }
+    }
+    fun setExpense(id:UUID,newExpense:Expense){
+        setExpenseStatement.run{
+            setString(1,newExpense.name)
+            setInt(2,newExpense.categoryId)
+            setBoolean(3,newExpense.statException)
+            setString(4,newExpense.tags)
+            setString(5,newExpense.note)
+            setBoolean(6,newExpense.status)
+            setDate(7,newExpense.date as Date)
+            setInt(8,newExpense.payeeId.toInt())
+            setDouble(9,newExpense.amount)
+            setObject(10,newExpense.id)
+            execute()
+        }
+    }
+
+    fun deleteExpense(id:UUID){
+        deleteExpenseStatement.setObject(1,id)
+        deleteExpenseStatement.execute()
+    }
+
+
+    private fun makeExpense(results: ResultSet): Expense {
+        return Expense(
+            results.getObject("id") as UUID, results.getString("title"),
+            results.getBoolean("status"), results.getDate("date"),
             results.getByte("payeeid"), results.getDouble("amount"),
             results.getInt("category"), results.getString("tags"),
             results.getBoolean("exceptstats"), results.getString("notes"),
-            results.getObject("lisid") as UUID)
+            results.getObject("lisid") as UUID
+        )
     }
 
 }
