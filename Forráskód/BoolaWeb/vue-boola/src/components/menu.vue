@@ -46,14 +46,16 @@
 
     .routerLinkContainer > h2{
         position: relative;
-        display: block;
-        height: 0;
+        display: inline;
+        height: 0px;
+        width: 0px;
         opacity: 0;
         left: 50px;
         transition: all ease-out 0.2s;     
     }
 
-    .routerLinkContainer > span{                
+    .routerLinkContainer > span{
+        display: inline;              
         position: relative;        
         top: 4px;
     }
@@ -87,10 +89,12 @@
     }
 
     .menu-text-show{
+        display: inline !important;
         height: auto !important;
+        width: auto !important;
         opacity: 1 !important;
         transition: all ease-out 0.2s;
-        transition-delay: 0.1s !important;        
+        transition-delay: 0.2s !important;        
     }
 
 

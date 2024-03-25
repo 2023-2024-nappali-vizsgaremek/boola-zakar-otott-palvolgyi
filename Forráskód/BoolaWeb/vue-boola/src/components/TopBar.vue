@@ -92,14 +92,14 @@
         margin-left: 19px;
         
         cursor: pointer;
-        z-index: 100;        
+        z-index: 9999999;        
         transition: all ease-out 0.3s;
     }       
 
-    @media screen and (min-width: 1025px) {
+    @media screen and (min-width: 1200px) {
         .btn-menu-move{
             transform: translateX(230px);
-            transition: all ease-out 300ms;    
+            transition: transform ease-out 0.3s;    
         }
     }
 </style>
