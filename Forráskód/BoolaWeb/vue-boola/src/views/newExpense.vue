@@ -7,13 +7,17 @@ const NewExpense=ref({id:null,name:null,payee:null,amount:null,status:false,cate
 const hostName = "localhost:8080"
 const currency=ref([]);
 const category=ref([])
+const authToken = sessionStorage.getItem("authToken");
+if(!authToken) window.open("/login","_self")
 Axios.get(`http://${hostName}/api/category`).then(r=>category.value=r.data)
 Axios.get(`http://${hostName}/api/currency`).then(r=>currency.value=r.data)
+
 function Send(){
-Axios.post(`http://${hostName}/api/expense`,NewExpense).then(r=>{
-  const tokens=r.data;
-  sessionStorage.setItem("authToken",tokens.access)
-  sessionStorage.setItem("refreshToken",tokens.refresh)
+Axios.post(`http://${hostName}/api/expense`,NewExpense,{
+  headers : {
+    "Authorization": `Bearer ${authToken}`
+  }
+}).then(r=>{
 })}
 
 </script>
