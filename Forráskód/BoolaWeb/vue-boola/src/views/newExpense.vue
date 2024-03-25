@@ -9,12 +9,15 @@ const currency=ref([]);
 const category=ref([])
 Axios.get(`http://${hostName}/api/category`).then(r=>category.value=r.data)
 Axios.get(`http://${hostName}/api/currency`).then(r=>currency.value=r.data)
-function Send(){
-Axios.post(`http://${hostName}/api/expense`,NewExpense).then(r=>{
-  const tokens=r.data;
-  sessionStorage.setItem("authToken",tokens.access)
-  sessionStorage.setItem("refreshToken",tokens.refresh)
-})}
+
+
+const send=()=>{
+  Axios.post(`http://${hostName}/api/expenselist`,NewExpense).then(r=>{
+if (r.status!=201){
+Alert("Hiba történt! Kérlük próbáld újra egy kicsit később!");
+}
+})
+}
 
 </script>
 
@@ -67,7 +70,7 @@ Axios.post(`http://${hostName}/api/expense`,NewExpense).then(r=>{
   </div>
 </div>
 
-<button class="btn btn-primary rounded" onclick="Send()">Küldés</button>
+<button class="btn btn-primary rounded" onclick="send()">Küldés</button>
 
 </template>
 
