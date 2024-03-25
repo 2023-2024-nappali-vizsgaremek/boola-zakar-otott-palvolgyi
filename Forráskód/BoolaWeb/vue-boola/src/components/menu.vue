@@ -12,25 +12,25 @@
             <RouterLink class="routerLink" to="/">
                 <div class="routerLinkContainer">
                     <span class="material-symbols-outlined size-32">home</span>                
-                    <h2 :class="`${!MenuStore.isMenuOpened && 'menu-text-hide'}`">Főoldal</h2>              
+                    <h2 :class="`${MenuStore.isMenuOpened && 'menu-text-show'}`">Főoldal</h2>              
                 </div>                       
             </RouterLink>
             <RouterLink class="routerLink" to="/newExpense">
                 <div class="routerLinkContainer">
                     <span class="material-symbols-outlined size-32">add_circle</span>
-                    <h2 :class="`${!MenuStore.isMenuOpened && 'menu-text-hide'}`">Új kiadás</h2>
+                    <h2 :class="`${MenuStore.isMenuOpened && 'menu-text-show'}`">Új kiadás</h2>
                 </div>                  
             </RouterLink>
             <RouterLink class="routerLink" to="/settings">
                 <div class="routerLinkContainer">
                     <span class="material-symbols-outlined size-32">settings</span>
-                    <h2 :class="`${!MenuStore.isMenuOpened && 'menu-text-hide'}`">Beállítások</h2>
+                    <h2 :class="`${MenuStore.isMenuOpened && 'menu-text-show'}`">Beállítások</h2>
                 </div>                  
             </RouterLink>
             <RouterLink class="routerLink" to='/expenselist'>
                 <div class="routerLinkContainer">
                     <span class="material-symbols-outlined size-32" >list_alt</span>
-                    <h2 :class="`${!MenuStore.isMenuOpened && 'menu-text-hide'}`">Költség Lista</h2>
+                    <h2 :class="`${MenuStore.isMenuOpened && 'menu-text-show'}`">Költség Lista</h2>
                 </div>
             </RouterLink>         
         </div>
@@ -40,20 +40,21 @@
 <style scoped>
     .routerLinkContainer{        
         padding: 1rem;
-        margin: 3px;
+        margin: 3px;        
         border-radius: var(--border-radius);
     }
 
     .routerLinkContainer > h2{
         position: relative;
-        display: inline;        
+        display: block;
+        height: 0;
+        opacity: 0;
         left: 50px;
-        transition: all ease-out 0.2s;        
+        transition: all ease-out 0.2s;     
     }
 
     .routerLinkContainer > span{                
-        position: relative;
-        
+        position: relative;        
         top: 4px;
     }
     
@@ -70,6 +71,7 @@
         overflow: hidden;
         text-align: left;
         position: fixed;
+        z-index: 9999999;
 
         transition: all ease-out 0.3s;
     }
@@ -80,11 +82,15 @@
     }    
 
     .menu-opened{
-        width: 300px;        
+        width: 300px;
+        z-index: 9999999;
     }
 
-    .menu-text-hide{
-        display: none !important;                
+    .menu-text-show{
+        height: auto !important;
+        opacity: 1 !important;
+        transition: all ease-out 0.2s;
+        transition-delay: 0.1s !important;        
     }
 
 

@@ -70,7 +70,7 @@
         text-align: center;
     }
 
-    .profile-icon-btn{        
+    .profile-icon-btn {        
         margin-right: 1.5rem;
         cursor: pointer;
     }
