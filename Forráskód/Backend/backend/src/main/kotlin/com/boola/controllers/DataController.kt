@@ -34,6 +34,17 @@ class DataController internal constructor(private val connection: Connection) {
         "SELECT name from category WHERE id = ?")
     private val getCategoriesStatement:PreparedStatement = connection.prepareStatement("SELECT * FROM category")
 
+    private val getExpenseStatement:PreparedStatement = connection.prepareStatement("SELECT * FROM expense WHERE " +
+            "id = ?")
+    private val getExpensesStatement = connection.prepareStatement("SELECT * FROM expense WHERE listid = ?")
+
+    private val addExpenseStatement:PreparedStatement = connection.prepareStatement("INSERT INTO expense " +
+            "(id,title,category,exceptstats,tags,notes,status,date,payeeid,amount,listid) VALUES " +
+            "(?,?,?,?,?,?,?,?,?,?,?)")
+    private val setExpenseStatement = connection.prepareStatement("UPDATE expense SET title=?,category=?," +
+            "exceptstats=?,tags=?,notes=?,status=?,date=?,payeeid=?,amount=? WHERE id=?")
+    private val deleteExpenseStatement = connection.prepareStatement("DELETE FROM expense WHERE id=?")
+
     private val getExpenseListStatement:PreparedStatement = connection.prepareStatement(
         "SELECT * FROM expenselist WHERE id = ?")
 
@@ -309,6 +320,19 @@ fun addExopenseList(newData:ExpenseList){
     fun deletePartner(id:Byte){
         deletePartnerStatement.setByte(1,id)
         deletePartnerStatement.execute()
+    }
+
+    fun getExpense(id:UUID):Expense{
+        getExpenseStatement.setObject(1,id)
+        getExpenseStatement.execute()
+        val results = getExpenseStatement.resultSet
+        results.next()
+        return Expense(results.getObject("id") as UUID,results.getString("title"),
+            results.getString("status") == "paid", results.getDate("date"),
+            results.getByte("payeeid"), results.getDouble("amount"),
+            results.getInt("category"), results.getString("tags"),
+            results.getBoolean("exceptstats"), results.getString("notes"),
+            results.getObject("lisid") as UUID)
     }
 
 }
