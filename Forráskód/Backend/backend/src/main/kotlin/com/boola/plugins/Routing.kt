@@ -184,7 +184,7 @@ fun Application.configureRouting() {
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
             else {
-                call.respond(con.getCurrenciesAll())
+                call.respond(con.getCategoriesAll())
                 DataControllerFactory.returnController(con)
             }
         }
