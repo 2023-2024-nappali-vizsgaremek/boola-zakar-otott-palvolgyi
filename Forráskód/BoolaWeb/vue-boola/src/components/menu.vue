@@ -1,93 +1,91 @@
 <script setup>
     import { ref, onMounted } from 'vue'
     import { RouterLink, RouterView } from 'vue-router'
-
-    const isMenuOpened = ref(false);
-
-    const toogleMenu = () => {
-        isMenuOpened.value = !isMenuOpened.value;        
-    }
+    
+    import { useMenuStore} from '@/stores/MenuStore';
+    const MenuStore = useMenuStore();
 </script>
 
 <template>
-    <div class="menu-container" :class="`${isMenuOpened && 'menu-opened'}`">        
-        <span @click="toogleMenu()" class="material-symbols-outlined size-32 btn-menu-toggle">menu</span>        
+    <div class="menu-container unselectable" :class="`${MenuStore.isMenuOpened && 'menu-opened'}`">                
         <div class="menu-link-container">        
             <RouterLink class="routerLink" to="/">
                 <div class="routerLinkContainer">
                     <span class="material-symbols-outlined size-32">home</span>                
-                    <h2 :class="`${!isMenuOpened && 'menu-text-hide'}`">Főoldal</h2>              
+                    <h2 :class="`${!MenuStore.isMenuOpened && 'menu-text-hide'}`">Főoldal</h2>              
                 </div>                       
             </RouterLink>
             <RouterLink class="routerLink" to="/newExpense">
                 <div class="routerLinkContainer">
                     <span class="material-symbols-outlined size-32">add_circle</span>
-                    <h2 :class="`${!isMenuOpened && 'menu-text-hide'}`">Új kiadás</h2>
+                    <h2 :class="`${!MenuStore.isMenuOpened && 'menu-text-hide'}`">Új kiadás</h2>
                 </div>                  
             </RouterLink>
             <RouterLink class="routerLink" to="/settings">
                 <div class="routerLinkContainer">
                     <span class="material-symbols-outlined size-32">settings</span>
-                    <h2 :class="`${!isMenuOpened && 'menu-text-hide'}`">Beállítások</h2>
+                    <h2 :class="`${!MenuStore.isMenuOpened && 'menu-text-hide'}`">Beállítások</h2>
                 </div>                  
-            </RouterLink>  
+            </RouterLink>
             <RouterLink class="routerLink" to='/expenselist'>
                 <div class="routerLinkContainer">
-                <span class="material-symbols-outlined size-32" >list_alt</span>
-                <h2 :class="`${!isMenuOpened&& 'menu-text-hide'}`">Költség Lista</h2>
-            </div>
-            </RouterLink>      
+                    <span class="material-symbols-outlined size-32" >list_alt</span>
+                    <h2 :class="`${!MenuStore.isMenuOpened && 'menu-text-hide'}`">Költség Lista</h2>
+                </div>
+            </RouterLink>         
         </div>
     </div>
 </template>
 
 <style scoped>
-    .routerLinkContainer{
-        margin-bottom: 2rem;
+    .routerLinkContainer{        
+        padding: 1rem;
+        margin: 3px;
+        border-radius: var(--border-radius);
     }
 
-    span.size-32{
-        font-size: 32px;
-        font-variation-settings: 'OPSZ' 32;
-        color: var(--sec-text-color);        
+    .routerLinkContainer > h2{
+        position: relative;
+        display: inline;        
+        left: 50px;
+        transition: all ease-out 0.2s;        
+    }
+
+    .routerLinkContainer > span{                
+        position: relative;
+        
+        top: 4px;
+    }
+    
+    div.routerLinkContainer:hover{
+        background-color: var(--main-background);        
+        transition: all ease-out 0.3s;
     }
 
     .menu-container{
         background-color: var(--sec-background);
         transition: background ease-out 0.3s;
         height: 100lvh;
-        width: 70px!important;
+        width: var(--menu-def-width);
         overflow: hidden;
-        text-align: center;
+        text-align: left;
         position: fixed;
 
-        transition: 0.3s ease-out;
+        transition: all ease-out 0.3s;
     }
 
     .routerLink{
         text-decoration: none;
-        color: var(--sec-text-color);
-        margin-bottom: 3rem;        
-    }
+        color: var(--sec-text-color);         
+    }    
 
     .menu-opened{
-        width: 12vw !important;
-        transition: 0.3s ease-out;
-
-    }
-
-    .btn-menu-toggle{
-        position: relative;
-        text-align: center;
-        cursor: pointer;
+        width: 300px;        
     }
 
     .menu-text-hide{
-        display: none;        
+        display: none !important;                
     }
 
-    .menu-link-container{
-        margin-top: 2rem;
-    }
 
 </style>
