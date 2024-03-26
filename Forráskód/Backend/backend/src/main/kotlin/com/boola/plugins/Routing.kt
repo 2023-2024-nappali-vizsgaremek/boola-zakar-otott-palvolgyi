@@ -412,6 +412,17 @@ fun Application.configureRouting() {
                     DataControllerFactory.returnController(con)
                 }
             }
+
+            get("api/expense"){
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else {
+                    val email = call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString()
+                    val expenses = con.getExpensesAll(email)
+                    call.respond(expenses)
+                    DataControllerFactory.returnController(con)
+                }
+            }
         }
     }
 }
