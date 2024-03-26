@@ -3,10 +3,7 @@ package com.boola.controllers
 import at.favre.lib.crypto.bcrypt.BCrypt
 import com.boola.models.*
 import io.ktor.utils.io.charsets.*
-import java.sql.Connection
-import java.sql.PreparedStatement
-import java.sql.SQLType
-import java.sql.Types
+import java.sql.*
 import java.util.UUID
 import kotlin.random.Random
 import kotlin.text.StringBuilder
@@ -33,6 +30,17 @@ class DataController internal constructor(private val connection: Connection) {
     private val getCategoryStatement:PreparedStatement = connection.prepareStatement(
         "SELECT name from category WHERE id = ?")
     private val getCategoriesStatement:PreparedStatement = connection.prepareStatement("SELECT * FROM category")
+
+    private val getExpenseStatement:PreparedStatement = connection.prepareStatement("SELECT * FROM expense WHERE " +
+            "id = ?")
+    private val getExpensesStatement = connection.prepareStatement("SELECT * FROM expense WHERE listid = ?")
+
+    private val addExpenseStatement:PreparedStatement = connection.prepareStatement("INSERT INTO expense " +
+            "(id,title,category,exceptstats,tags,notes,status,date,payeeid,amount,listid) VALUES " +
+            "(?,?,?,?,?,?,?,?,?,?,?)")
+    private val setExpenseStatement = connection.prepareStatement("UPDATE expense SET title=?,category=?," +
+            "exceptstats=?,tags=?,notes=?,status=?,date=?,payeeid=?,amount=? WHERE id=?")
+    private val deleteExpenseStatement = connection.prepareStatement("DELETE FROM expense WHERE id=?")
 
     private val getExpenseListStatement:PreparedStatement = connection.prepareStatement(
         "SELECT * FROM expenselist WHERE id = ?")
@@ -309,6 +317,74 @@ fun addExopenseList(newData:ExpenseList){
     fun deletePartner(id:Byte){
         deletePartnerStatement.setByte(1,id)
         deletePartnerStatement.execute()
+    }
+
+    fun getExpense(id:UUID):Expense{
+        getExpenseStatement.setObject(1,id)
+        getExpenseStatement.execute()
+        val results = getExpenseStatement.resultSet
+        results.next()
+        return makeExpense(results)
+    }
+
+    fun getExpensesAll(email:String):ArrayList<Expense>{
+        getExpensesStatement.setString(1,email)
+        getExpensesStatement.execute()
+        val results = getExpensesStatement.resultSet
+        val expenses = ArrayList<Expense>()
+        while(results.next()){
+            expenses.add(makeExpense(results))
+        }
+        return expenses
+    }
+
+    fun addExpense(expenseToAdd:Expense){
+        addExpenseStatement.run{
+            setObject(1,expenseToAdd.id)
+            setString(2,expenseToAdd.name)
+            setInt(3,expenseToAdd.categoryId)
+            setBoolean(4,expenseToAdd.statException)
+            setString(5,expenseToAdd.tags)
+            setString(6,expenseToAdd.note)
+            setBoolean(7,expenseToAdd.status)
+            setDate(8,expenseToAdd.date as Date)
+            setInt(9,expenseToAdd.payeeId.toInt())
+            setDouble(10,expenseToAdd.amount)
+            setObject(11,expenseToAdd.listId)
+            execute()
+        }
+    }
+    fun setExpense(id:UUID,newExpense:Expense){
+        setExpenseStatement.run{
+            setString(1,newExpense.name)
+            setInt(2,newExpense.categoryId)
+            setBoolean(3,newExpense.statException)
+            setString(4,newExpense.tags)
+            setString(5,newExpense.note)
+            setBoolean(6,newExpense.status)
+            setDate(7,newExpense.date as Date)
+            setInt(8,newExpense.payeeId.toInt())
+            setDouble(9,newExpense.amount)
+            setObject(10,newExpense.id)
+            execute()
+        }
+    }
+
+    fun deleteExpense(id:UUID){
+        deleteExpenseStatement.setObject(1,id)
+        deleteExpenseStatement.execute()
+    }
+
+
+    private fun makeExpense(results: ResultSet): Expense {
+        return Expense(
+            results.getObject("id") as UUID, results.getString("title"),
+            results.getBoolean("status"), results.getDate("date"),
+            results.getByte("payeeid"), results.getDouble("amount"),
+            results.getInt("category"), results.getString("tags"),
+            results.getBoolean("exceptstats"), results.getString("notes"),
+            results.getObject("lisid") as UUID
+        )
     }
 
 }

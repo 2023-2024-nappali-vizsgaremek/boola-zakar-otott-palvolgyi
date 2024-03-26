@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="29829c10-c574-44fe-9709-c77c46ed5a72" name="Changes" comment="Apis are working">
-      <change beforePath="$PROJECT_DIR$/../BoolaWeb/vue-boola/src/components/ExpenseContent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../BoolaWeb/vue-boola/src/components/ExpenseContent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.env" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/boola/controllers/DataController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/boola/controllers/DataController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/boola/models/Expense.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/boola/models/Expense.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/boola/plugins/Routing.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/boola/plugins/Routing.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BoolaWeb/Pages/NewExpense.razor" beforeDir="false" afterPath="$PROJECT_DIR$/../BoolaWeb/Pages/NewExpense.razor" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +64,7 @@
     "Kotlin.ApplicationKt.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "WebVue",
+    "git-widget-placeholder": "Merging backend",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/dsfds/boola-zakar-otott-palvolgyi/Forráskód/Backend",
     "node.js.detected.package.eslint": "true",
@@ -152,6 +157,7 @@
       <workItem from="1711018816570" duration="8361000" />
       <workItem from="1711092531425" duration="759000" />
       <workItem from="1711102396259" duration="620000" />
+      <workItem from="1711443939368" duration="53000" />
     </task>
     <task id="LOCAL-00001" summary="Apis are working">
       <option name="closed" value="true" />
