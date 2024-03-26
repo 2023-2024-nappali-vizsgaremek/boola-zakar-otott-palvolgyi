@@ -63,7 +63,8 @@ class DataController internal constructor(private val connection: Connection) {
                 " VAlUES (?,?,?::uuid,?,?)")
 
     private val setProfileStatement:PreparedStatement=connection.prepareStatement(
-        "UPDATE  profile SET name=?,isBusiness=?,languagecode=?,expenseListId=?::uuid,accountEmail=? WHERE id=?::uuid")
+        "UPDATE  profile SET name=?,isBusiness=?,languagecode=?,expenseListId=?::uuid,accountEmail=? WHERE " +
+                "id=?::uuid")
     private val deleteProfileStatement:PreparedStatement=connection.prepareStatement(
         "DELETE From profile where id=?::uuid")
     private val getPartnersStatement:PreparedStatement = connection.prepareStatement(
@@ -76,6 +77,9 @@ class DataController internal constructor(private val connection: Connection) {
     "UPDATE partner SET name=? WHERE= id=?")
     private val deletePartnerStatement:PreparedStatement = connection.prepareStatement(
     "DELETE FROM partner WHERE id=?")
+    private val getLanguagesStatement:PreparedStatement = connection.prepareStatement("SELECT * FROM language")
+    private val getLanguageStatement:PreparedStatement = connection.prepareStatement(
+        "SELECT * FROM language WHERE code=?")
 
     fun getDbStatus():Boolean {
         return connection.isValid(4)
@@ -327,8 +331,8 @@ fun addExopenseList(newData:ExpenseList){
         return makeExpense(results)
     }
 
-    fun getExpensesAll(email:String):ArrayList<Expense>{
-        getExpensesStatement.setString(1,email)
+    fun getExpensesAll(listId:UUID):ArrayList<Expense>{
+        getExpensesStatement.setObject(1,listId)
         getExpensesStatement.execute()
         val results = getExpensesStatement.resultSet
         val expenses = ArrayList<Expense>()
@@ -347,7 +351,7 @@ fun addExopenseList(newData:ExpenseList){
             setString(5,expenseToAdd.tags)
             setString(6,expenseToAdd.note)
             setBoolean(7,expenseToAdd.status)
-            setDate(8,expenseToAdd.date as Date)
+            setDate(8,Date(expenseToAdd.date.time))
             setInt(9,expenseToAdd.payeeId.toInt())
             setDouble(10,expenseToAdd.amount)
             setObject(11,expenseToAdd.listId)
@@ -362,7 +366,7 @@ fun addExopenseList(newData:ExpenseList){
             setString(4,newExpense.tags)
             setString(5,newExpense.note)
             setBoolean(6,newExpense.status)
-            setDate(7,newExpense.date as Date)
+            setDate(7,Date(newExpense.date.time))
             setInt(8,newExpense.payeeId.toInt())
             setDouble(9,newExpense.amount)
             setObject(10,newExpense.id)
@@ -383,8 +387,26 @@ fun addExopenseList(newData:ExpenseList){
             results.getByte("payeeid"), results.getDouble("amount"),
             results.getInt("category"), results.getString("tags"),
             results.getBoolean("exceptstats"), results.getString("notes"),
-            results.getObject("lisid") as UUID
+            results.getObject("listid") as UUID
         )
+    }
+
+    fun getLanguage(code:String):Language{
+        getLanguageStatement.setString(1,code)
+        getLanguageStatement.execute()
+        val results = getLanguageStatement.resultSet
+        results.next()
+        return Language(results.getString("code"),results.getString("name"))
+    }
+
+    fun getLanguages():ArrayList<Language>{
+        getLanguagesStatement.execute()
+        val results = getLanguagesStatement.resultSet
+        val languages:ArrayList<Language> = ArrayList()
+        while (results.next()){
+            languages.add(Language(results.getString("code"),results.getString("name")))
+        }
+        return languages
     }
 
 }
