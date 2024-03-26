@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm
 import com.boola.controllers.DataControllerFactory
 import com.boola.models.*
 import io.github.cdimascio.dotenv.dotenv
+import io.ktor.client.request.forms.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
@@ -500,6 +501,31 @@ fun Application.configureRouting() {
                     con.deleteExpense(expenseToDelete.id)
                     call.respond(HttpStatusCode.NoContent)
                 }
+            }
+        }
+
+        get("api/language/{code}"){
+            val con = DataControllerFactory.getController()
+            if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+            else {
+                val code = call.parameters["code"]
+                if(code == null){
+                    call.respond(HttpStatusCode.NotFound)
+                    DataControllerFactory.returnController(con)
+                }
+                val language = con.getLanguage(code!!)
+                call.respond(language)
+                DataControllerFactory.returnController(con)
+            }
+        }
+
+        get("api/language"){
+            val con = DataControllerFactory.getController()
+            if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+            else {
+                val languages = con.getLanguages()
+                call.respond(languages)
+                DataControllerFactory.returnController(con)
             }
         }
     }

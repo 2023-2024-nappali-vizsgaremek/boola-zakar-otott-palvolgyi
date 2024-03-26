@@ -63,7 +63,8 @@ class DataController internal constructor(private val connection: Connection) {
                 " VAlUES (?,?,?::uuid,?,?)")
 
     private val setProfileStatement:PreparedStatement=connection.prepareStatement(
-        "UPDATE  profile SET name=?,isBusiness=?,languagecode=?,expenseListId=?::uuid,accountEmail=? WHERE id=?::uuid")
+        "UPDATE  profile SET name=?,isBusiness=?,languagecode=?,expenseListId=?::uuid,accountEmail=? WHERE " +
+                "id=?::uuid")
     private val deleteProfileStatement:PreparedStatement=connection.prepareStatement(
         "DELETE From profile where id=?::uuid")
     private val getPartnersStatement:PreparedStatement = connection.prepareStatement(
@@ -76,8 +77,9 @@ class DataController internal constructor(private val connection: Connection) {
     "UPDATE partner SET name=? WHERE= id=?")
     private val deletePartnerStatement:PreparedStatement = connection.prepareStatement(
     "DELETE FROM partner WHERE id=?")
-    
-
+    private val getLanguagesStatement:PreparedStatement = connection.prepareStatement("SELECT * FROM language")
+    private val getLanguageStatement:PreparedStatement = connection.prepareStatement(
+        "SELECT * FROM language WHERE code=?")
 
     fun getDbStatus():Boolean {
         return connection.isValid(4)
@@ -387,6 +389,24 @@ fun addExopenseList(newData:ExpenseList){
             results.getBoolean("exceptstats"), results.getString("notes"),
             results.getObject("listid") as UUID
         )
+    }
+
+    fun getLanguage(code:String):Language{
+        getLanguageStatement.setString(1,code)
+        getLanguageStatement.execute()
+        val results = getLanguageStatement.resultSet
+        results.next()
+        return Language(results.getString("code"),results.getString("name"))
+    }
+
+    fun getLanguages():ArrayList<Language>{
+        getLanguagesStatement.execute()
+        val results = getLanguagesStatement.resultSet
+        val languages:ArrayList<Language> = ArrayList()
+        while (results.next()){
+            languages.add(Language(results.getString("code"),results.getString("name")))
+        }
+        return languages
     }
 
 }
