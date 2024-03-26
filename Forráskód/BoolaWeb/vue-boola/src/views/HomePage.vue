@@ -10,6 +10,6 @@
 <style scoped>
     .asd{
         height: 100vh;
-     
+        width: 80vw;
     }
 </style>

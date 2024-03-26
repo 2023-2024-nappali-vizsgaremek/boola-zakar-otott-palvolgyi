@@ -9,7 +9,8 @@ axios.get(`http://${hostName}/api/expense`).then(r=>expenseList.value=r.data);
 <template>
   <div class="container">
     <div v-for="i in expenseList" class="card">
-      {{i}}
+     {{i}}
+
     </div>
   </div>
 

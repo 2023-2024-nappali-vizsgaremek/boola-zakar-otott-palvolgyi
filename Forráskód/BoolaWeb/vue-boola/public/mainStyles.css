@@ -62,3 +62,43 @@ input[text]{
     border-width: 1px;
 }
 
+.unselectable {
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+span.size-32{
+    font-size: 32px;
+    font-variation-settings: 'OPSZ' 32;
+    color: var(--sec-text-color);
+    transition: color ease-out 0.2s;
+}
+
+span.icon-hover-highlight:hover{
+    color: var(--main-background);
+    transition: color ease-out 0.2s;
+}
+
+@media screen and (max-width: 576px) {
+    :root{
+        --menu-def-width: 0px;
+        --menu-width: 0px;
+    }
+}
+
+@media (min-width: 577px) and (max-width: 1199px){
+    :root{
+        --menu-def-width: 70px;
+        --menu-width: 70px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    :root{
+        --menu-def-width: 70px;
+        --menu-width: 70px;
+    }
+}
