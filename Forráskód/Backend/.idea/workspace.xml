@@ -7,7 +7,13 @@
     <list default="true" id="29829c10-c574-44fe-9709-c77c46ed5a72" name="Changes" comment="Apis are working">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/.env" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.env" afterDir="false" />
+
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/boola/controllers/DataController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/boola/controllers/DataController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/boola/models/Expense.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/boola/models/Expense.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/boola/plugins/Routing.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/boola/plugins/Routing.kt" afterDir="false" />
+
       <change beforePath="$PROJECT_DIR$/../BoolaWeb/vue-boola/src/components/ExpenseContent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../BoolaWeb/vue-boola/src/components/ExpenseContent.vue" afterDir="false" />
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,30 +69,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.Build backend.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.rest-api | #1.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.rest-api | #2.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.rest-api | #3.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP Request.rest-api | #4.executor&quot;: &quot;Run&quot;,
-    &quot;Kotlin.ApplicationKt (1).executor&quot;: &quot;Run&quot;,
-    &quot;Kotlin.ApplicationKt.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;WebVue__PP&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/dsfds/boola-zakar-otott-palvolgyi/Forráskód/Backend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Build backend.executor": "Run",
+    "HTTP Request.rest-api | #1.executor": "Run",
+    "HTTP Request.rest-api | #2.executor": "Run",
+    "HTTP Request.rest-api | #3.executor": "Run",
+    "HTTP Request.rest-api | #4.executor": "Run",
+    "Kotlin.ApplicationKt (1).executor": "Run",
+    "Kotlin.ApplicationKt.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Merging backend",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/dsfds/boola-zakar-otott-palvolgyi/Forráskód/Backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+
   },
   &quot;keyToStringList&quot;: {
     &quot;DatabaseDriversLRU&quot;: [
@@ -168,11 +176,13 @@
       <workItem from="1711018816570" duration="8361000" />
       <workItem from="1711092531425" duration="759000" />
       <workItem from="1711102396259" duration="620000" />
+
       <workItem from="1711358291762" duration="1411000" />
       <workItem from="1711363911203" duration="41000" />
       <workItem from="1711364029118" duration="268000" />
       <workItem from="1711367281142" duration="2775000" />
       <workItem from="1711440521923" duration="62000" />
+
     </task>
     <task id="LOCAL-00001" summary="Apis are working">
       <option name="closed" value="true" />
