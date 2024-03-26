@@ -435,8 +435,27 @@ fun Application.configureRouting() {
                         DataControllerFactory.returnController(con)
                     }
                     con.addExpense(expenseToAdd)
-                    call.respond(HttpStatusCode.Created)
+                    call.respond(HttpStatusCode.Created,"api/get/expense/" + expenseToAdd.id)
                     DataControllerFactory.returnController(con)
+                }
+            }
+
+            put("api/expense/{id}"){
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else {
+                    val id = UUID.fromString(call.parameters["id"] as String)
+                    val expenseToSet = call.receive<Expense>()
+                    val email = call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString()
+                    val expenseExists = con.getExpensesAll(email).any {
+                        it.id == expenseToSet.id
+                    }
+                    if(!expenseExists) {
+                        call.respond(HttpStatusCode.NotFound)
+                        DataControllerFactory.returnController(con)
+                    }
+                    con.setExpense(id,expenseToSet)
+                    call.respond(HttpStatusCode.OK)
                 }
             }
         }
