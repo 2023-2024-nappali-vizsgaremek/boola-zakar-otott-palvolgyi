@@ -449,8 +449,15 @@ fun Application.configureRouting() {
                     val id = UUID.fromString(call.parameters["id"] as String)
                     val expenseToSet = call.receive<Expense>()
                     val email = call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString()
+                    val ownsExpense = con.getAllProfile(email).any{
+                        it.expenseListId == expenseToSet.listId
+                    }
                     val expenseExists = con.getExpensesAll(email).any {
                         it.id == expenseToSet.id
+                    }
+                    if(!ownsExpense){
+                        call.respond(HttpStatusCode.Forbidden)
+                        DataControllerFactory.returnController(con)
                     }
                     if(!expenseExists) {
                         call.respond(HttpStatusCode.NotFound)
@@ -458,6 +465,32 @@ fun Application.configureRouting() {
                     }
                     con.setExpense(id,expenseToSet)
                     call.respond(HttpStatusCode.OK)
+                }
+            }
+
+            delete("api/expense/{id}"){
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else {
+                    val id = UUID.fromString(call.parameters["id"] as String)
+                    val expenseToDelete = con.getExpense(id)
+                    val email = call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString()
+                    val ownsExpense = con.getAllProfile(email).any{
+                        it.expenseListId == expenseToDelete.listId
+                    }
+                    val hasExpense = con.getExpensesAll(email).any{
+                        it.id == expenseToDelete.id
+                    }
+                    if(!ownsExpense){
+                        call.respond(HttpStatusCode.Forbidden)
+                        DataControllerFactory.returnController(con)
+                    }
+                    if(!hasExpense){
+                        call.respond(HttpStatusCode.NotFound)
+                        DataControllerFactory.returnController(con)
+                    }
+                    con.deleteExpense(expenseToDelete.id)
+                    call.respond(HttpStatusCode.NoContent)
                 }
             }
         }
