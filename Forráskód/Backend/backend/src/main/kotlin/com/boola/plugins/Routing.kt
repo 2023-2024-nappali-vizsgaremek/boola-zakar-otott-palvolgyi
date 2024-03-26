@@ -4,10 +4,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.boola.controllers.DataControllerFactory
-import com.boola.models.Account
-import com.boola.models.ExpenseList
-import com.boola.models.Partner
-import com.boola.models.Profile
+import com.boola.models.*
 import io.github.cdimascio.dotenv.dotenv
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -420,6 +417,25 @@ fun Application.configureRouting() {
                     val email = call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString()
                     val expenses = con.getExpensesAll(email)
                     call.respond(expenses)
+                    DataControllerFactory.returnController(con)
+                }
+            }
+
+            post("api/expense"){
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else {
+                    val expenseToAdd = call.receive<Expense>()
+                    val email = call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString()
+                    val hasOwnerProfile = con.getAllProfile(email).any {
+                        it.expenseListId == expenseToAdd.listId
+                    }
+                    if(!hasOwnerProfile) {
+                        call.respond(HttpStatusCode.Forbidden)
+                        DataControllerFactory.returnController(con)
+                    }
+                    con.addExpense(expenseToAdd)
+                    call.respond(HttpStatusCode.Created)
                     DataControllerFactory.returnController(con)
                 }
             }
