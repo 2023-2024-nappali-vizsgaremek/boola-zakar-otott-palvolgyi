@@ -416,8 +416,16 @@ fun Application.configureRouting() {
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else {
+                    val expenseListId = call.receive<ExpenseList>().id
                     val email = call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString()
-                    val expenses = con.getExpensesAll(email)
+                    val ownsExpenseList = con.getAllProfile(email).any{
+                        it.expenseListId == expenseListId
+                    }
+                    if(!ownsExpenseList) {
+                        call.respond(HttpStatusCode.Forbidden)
+                        DataControllerFactory.returnController(con)
+                    }
+                    val expenses = con.getExpensesAll(expenseListId)
                     call.respond(expenses)
                     DataControllerFactory.returnController(con)
                 }
@@ -452,7 +460,7 @@ fun Application.configureRouting() {
                     val ownsExpense = con.getAllProfile(email).any{
                         it.expenseListId == expenseToSet.listId
                     }
-                    val expenseExists = con.getExpensesAll(email).any {
+                    val expenseExists = con.getExpensesAll(expenseToSet.listId).any {
                         it.id == expenseToSet.id
                     }
                     if(!ownsExpense){
@@ -478,7 +486,7 @@ fun Application.configureRouting() {
                     val ownsExpense = con.getAllProfile(email).any{
                         it.expenseListId == expenseToDelete.listId
                     }
-                    val hasExpense = con.getExpensesAll(email).any{
+                    val hasExpense = con.getExpensesAll(expenseToDelete.listId).any{
                         it.id == expenseToDelete.id
                     }
                     if(!ownsExpense){

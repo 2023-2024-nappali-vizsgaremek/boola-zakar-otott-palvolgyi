@@ -76,6 +76,8 @@ class DataController internal constructor(private val connection: Connection) {
     "UPDATE partner SET name=? WHERE= id=?")
     private val deletePartnerStatement:PreparedStatement = connection.prepareStatement(
     "DELETE FROM partner WHERE id=?")
+    
+
 
     fun getDbStatus():Boolean {
         return connection.isValid(4)
@@ -327,8 +329,8 @@ fun addExopenseList(newData:ExpenseList){
         return makeExpense(results)
     }
 
-    fun getExpensesAll(email:String):ArrayList<Expense>{
-        getExpensesStatement.setString(1,email)
+    fun getExpensesAll(listId:UUID):ArrayList<Expense>{
+        getExpensesStatement.setObject(1,listId)
         getExpensesStatement.execute()
         val results = getExpensesStatement.resultSet
         val expenses = ArrayList<Expense>()
@@ -347,7 +349,7 @@ fun addExopenseList(newData:ExpenseList){
             setString(5,expenseToAdd.tags)
             setString(6,expenseToAdd.note)
             setBoolean(7,expenseToAdd.status)
-            setDate(8,expenseToAdd.date as Date)
+            setDate(8,Date(expenseToAdd.date.time))
             setInt(9,expenseToAdd.payeeId.toInt())
             setDouble(10,expenseToAdd.amount)
             setObject(11,expenseToAdd.listId)
@@ -362,7 +364,7 @@ fun addExopenseList(newData:ExpenseList){
             setString(4,newExpense.tags)
             setString(5,newExpense.note)
             setBoolean(6,newExpense.status)
-            setDate(7,newExpense.date as Date)
+            setDate(7,Date(newExpense.date.time))
             setInt(8,newExpense.payeeId.toInt())
             setDouble(9,newExpense.amount)
             setObject(10,newExpense.id)
@@ -383,7 +385,7 @@ fun addExopenseList(newData:ExpenseList){
             results.getByte("payeeid"), results.getDouble("amount"),
             results.getInt("category"), results.getString("tags"),
             results.getBoolean("exceptstats"), results.getString("notes"),
-            results.getObject("lisid") as UUID
+            results.getObject("listid") as UUID
         )
     }
 
