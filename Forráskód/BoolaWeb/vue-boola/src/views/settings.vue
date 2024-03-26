@@ -11,9 +11,9 @@ axios.get(`http://${hostName}/api/settings/${settings.value.email}`).then(r=>set
       settingsToSubmit.password=settings.value.password;
     })
 axios.post(`http://${hostName}/api/settings`).then(r=>{
-  const tokens=r.data
-  sessionStorage.setItem("authToken",tokens.accesss)
-  sessionStorage.setItem("refreshToken",tokens.refresh())
+  if (r.status!=201){
+    Alert("Hiba történt! Kérlük próbáld újra egy kicsit később!")
+  }
 })
 axios.get(`http://${hostName}/api/language`).then(r=>nyelv.value=r.data)
 
