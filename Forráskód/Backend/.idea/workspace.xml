@@ -7,10 +7,7 @@
     <list default="true" id="29829c10-c574-44fe-9709-c77c46ed5a72" name="Changes" comment="Apis are working">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/.env" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/kotlin/com/boola/plugins/Routing.kt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/kotlin/com/boola/plugins/Routing.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../BoolaWeb/vue-boola/src/components/ExpenseContent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../BoolaWeb/vue-boola/src/components/ExpenseContent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BoolaWeb/vue-boola/src/views/newExpense.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../BoolaWeb/vue-boola/src/views/newExpense.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BoolaWeb/vue-boola/src/views/settings.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../BoolaWeb/vue-boola/src/views/settings.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +74,7 @@
     &quot;Kotlin.ApplicationKt.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;WebVue__PP&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/dsfds/boola-zakar-otott-palvolgyi/Forráskód/Backend&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -174,7 +171,8 @@
       <workItem from="1711358291762" duration="1411000" />
       <workItem from="1711363911203" duration="41000" />
       <workItem from="1711364029118" duration="268000" />
-      <workItem from="1711367281142" duration="2566000" />
+      <workItem from="1711367281142" duration="2775000" />
+      <workItem from="1711440521923" duration="62000" />
     </task>
     <task id="LOCAL-00001" summary="Apis are working">
       <option name="closed" value="true" />
