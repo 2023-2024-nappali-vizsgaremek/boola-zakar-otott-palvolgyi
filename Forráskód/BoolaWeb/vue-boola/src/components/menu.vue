@@ -18,7 +18,7 @@
             <RouterLink class="routerLink" to="/newExpense">
                 <div class="routerLinkContainer">
                     <span class="material-symbols-outlined size-32">add_circle</span>
-                    <h2 :class="`${MenuStore.isMenuOpened && 'menu-text-show'}`">Új kiadás</h2>
+                    <h2 :class="`${MenuStore.isMenuOpened && 'menu-text-show'}`">Új&nbspkiadás</h2>
                 </div>                  
             </RouterLink>
             <RouterLink class="routerLink" to="/settings">
@@ -30,7 +30,7 @@
             <RouterLink class="routerLink" to='/expenselist'>
                 <div class="routerLinkContainer">
                     <span class="material-symbols-outlined size-32" >list_alt</span>
-                    <h2 :class="`${MenuStore.isMenuOpened && 'menu-text-show'}`">Költség Lista</h2>
+                    <h2 :class="`${MenuStore.isMenuOpened && 'menu-text-show'}`">Költség&nbspLista</h2>
                 </div>
             </RouterLink>         
         </div>

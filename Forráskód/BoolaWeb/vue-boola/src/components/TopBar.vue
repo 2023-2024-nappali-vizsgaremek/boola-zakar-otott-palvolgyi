@@ -93,13 +93,13 @@
         
         cursor: pointer;
         z-index: 9999999;        
-        transition: all ease-out 0.3s;
+        transition: all ease-out 0.3s !important;
     }       
 
     @media screen and (min-width: 1200px) {
         .btn-menu-move{
             transform: translateX(230px);
-            transition: transform ease-out 0.3s;    
+            transition: all ease-out 0.3s !important;    
         }
     }
 </style>
