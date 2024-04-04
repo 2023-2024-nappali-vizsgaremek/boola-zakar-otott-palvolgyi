@@ -17,7 +17,11 @@
         Axios.get(`http://${hostName}/account/${account.value.email}`).then(r => accountToSubmit = r.data)
         .then(() => {
             accountToSubmit.pwHash = account.value.pwHash
-            Axios.post(`http://${hostName}/login`,accountToSubmit).then(r => {
+            Axios.post(`http://${hostName}/login`,accountToSubmit,{
+              headers:{
+                "Access-Control-Allow-Origin": "*",
+              }
+            }).then(r => {
                 if(r.status != 200){
                     hasLoginFailed.value = true
                     return;

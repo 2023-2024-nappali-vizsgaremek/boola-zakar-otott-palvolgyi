@@ -14,16 +14,20 @@ const submitRegistration = () => {
     submittingEmptyFields.value = false;
     hasRegistrationFailed.value = false;
     let accountToSubmit = account;
-    Axios.post(`http://${hostName}/register`, accountToSubmit).then(r => {
+    Axios.post(`http://${hostName}/register`, accountToSubmit,{
+      headers:{
+        "Access-Control-Allow-Origin": "localhost",
+}
+    }).then(r => {
         if (r.status != 201) {
             hasRegistrationFailed.value = true
             //return;
         }
         //TODO: send user to login page
-        window.open("/login","_self")
+        //window.open("/login","_self")
     }).catch(_ => {
         hasRegistrationFailed.value = true;
-        window.open("/login","_self") //only here for testing purposes, remove for production
+        //window.open("/login","_self") //only here for testing purposes, remove for production
     })
 }
 </script>

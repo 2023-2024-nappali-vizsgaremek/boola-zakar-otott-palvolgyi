@@ -8,8 +8,14 @@ axios.get(`http://${hostName}/api/expense`).then(r=>expenseList.value=r.data);
 </script>
 <template>
   <div class="container">
+    <div class="card"> Demo card</div>
     <div v-for="i in expenseList" class="card">
-      {{i}}
+   Név: {{i.name}}<br>
+   Kedvezményezett: {{i.payee}}<br>
+      Összeg: {{i.amount}} <br>
+     Pénznem: {{i.currency}}<br>
+      Dátum: {{i.date}}
+
     </div>
   </div>
 

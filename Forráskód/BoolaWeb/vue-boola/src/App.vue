@@ -4,6 +4,7 @@ import { RouterLink, RouterView } from 'vue-router';
 
 import Menu from './components/menu.vue';
 import TopBar from './components/TopBar.vue';
+
 </script>
 
 <template>

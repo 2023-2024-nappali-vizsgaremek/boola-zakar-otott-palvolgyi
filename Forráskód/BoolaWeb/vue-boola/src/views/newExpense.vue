@@ -10,11 +10,17 @@ const category=ref([])
 Axios.get(`http://${hostName}/api/category`).then(r=>category.value=r.data)
 Axios.get(`http://${hostName}/api/currency`).then(r=>currency.value=r.data)
 function Send(){
-Axios.post(`http://${hostName}/api/expense`,NewExpense).then(r=>{
-  const tokens=r.data;
-  sessionStorage.setItem("authToken",tokens.access)
-  sessionStorage.setItem("refreshToken",tokens.refresh)
-})}
+Axios.post(`http://${hostName}/api/expense`,NewExpense,{
+  headers:{
+    "Access-Control-Allow-Origin": "*",
+  }
+}).then(r=>{
+  if (r.status!=201){
+    alert("Hiba!");
+  }
+}
+  )
+}
 
 </script>
 
@@ -67,7 +73,7 @@ Axios.post(`http://${hostName}/api/expense`,NewExpense).then(r=>{
   </div>
 </div>
 
-<button class="btn btn-primary rounded" onclick="Send()">Küldés</button>
+<button class="btn btn-primary rounded" @click="Send()">Küldés</button>
 
 </template>
 
