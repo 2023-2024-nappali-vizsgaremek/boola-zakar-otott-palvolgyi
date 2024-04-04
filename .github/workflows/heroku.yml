@@ -34,9 +34,11 @@ jobs:
     - name: Deploy to Heroku
       uses: behe/heroku-build@v1.2
       with:
-          # Name of Heroku application
-          app-name: boola-backend
-          # API key with the deploy role
-          api-key: ${{secrets.HEROKU_API_KEY}}
-          # Directory to upload
-          path: Forráskód/Backend/backend
+    # Email Linked to your Heroku Account
+        email: szt2otokov@vasvari.org
+    # Your Heroku API Key
+        api_key: ${{secrets.HEROKU_API_KEY}}
+    # Your Heroku App Name
+        app_name: boola-backend
+    # Dokerfile path
+        dockerfile_path: Forráskód/Backend/backend
