@@ -5,7 +5,7 @@
     const account = ref({email:null,pwHash:null,name:null})
     const submittingEmptyFields = ref(false)
     const hasLoginFailed = ref(false)
-    const hostName = "localhost:8080" //TODO: get host name from file
+    const hostName = "https://boola-backend-a71954a87e5d.herokuapp.com/" //TODO: get host name from file
     const submitLogin = () => {
         if(!account.value.email || !account.value.pwHash) {
             submittingEmptyFields.value = true;
