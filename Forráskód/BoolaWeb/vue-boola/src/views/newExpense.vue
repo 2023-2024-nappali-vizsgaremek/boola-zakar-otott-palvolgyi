@@ -4,19 +4,22 @@ import Axios from "axios";
 import {ref} from "vue";
 
 const NewExpense=ref({id:null,name:null,payee:null,amount:null,status:false,category:null,currency:null,date:new Date(),payeeId:null,tags:null,statException:false,note:null,listId:null});
-const hostName = "localhost:8080"
+const hostName = "https://boola-backend-a71954a87e5d.herokuapp.com/"
 const currency=ref([]);
 const category=ref([])
 Axios.get(`http://${hostName}/api/category`).then(r=>category.value=r.data)
 Axios.get(`http://${hostName}/api/currency`).then(r=>currency.value=r.data)
-
-
-const send=()=>{
-  Axios.post(`http://${hostName}/api/expenselist`,NewExpense).then(r=>{
-if (r.status!=201){
-Alert("Hiba történt! Kérlük próbáld újra egy kicsit később!");
+function Send(){
+Axios.post(`http://${hostName}/api/expense`,NewExpense,{
+  headers:{
+    "Access-Control-Allow-Origin": "*",
+  }
+}).then(r=>{
+  if (r.status!=201){
+    alert("Hiba!");
+  }
 }
-})
+  )
 }
 
 </script>
@@ -70,7 +73,11 @@ Alert("Hiba történt! Kérlük próbáld újra egy kicsit később!");
   </div>
 </div>
 
+<<<<<<< HEAD
+<button class="btn btn-primary rounded" @click="Send()">Küldés</button>
+=======
 <button class="btn btn-primary rounded" onclick="send()">Küldés</button>
+>>>>>>> 8657ff1832219457111bb8080d1dad050ff8c393
 
 </template>
 
