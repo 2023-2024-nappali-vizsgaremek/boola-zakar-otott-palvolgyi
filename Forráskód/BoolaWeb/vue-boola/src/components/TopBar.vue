@@ -32,8 +32,8 @@
             root.style.setProperty("--sec-text-color", "#bce9ff");
         }
     }
-            
-    import { useMenuStore} from '@/stores/MenuStore';
+
+    import { useMenuStore} from '/src/stores/MenuStore';
     const MenuStore = useMenuStore();
 
 </script>

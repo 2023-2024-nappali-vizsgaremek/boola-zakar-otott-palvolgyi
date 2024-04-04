@@ -4,7 +4,7 @@ import { RouterLink, RouterView } from 'vue-router';
 
 import Menu from './components/menu.vue';
 import TopBar from './components/TopBar.vue';
-import { useMenuStore} from '@/stores/MenuStore';
+import { useMenuStore} from '/src/stores/MenuStore';
   const MenuStore = useMenuStore();
 </script>
 

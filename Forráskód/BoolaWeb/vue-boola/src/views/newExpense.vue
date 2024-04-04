@@ -73,11 +73,9 @@ Axios.post(`http://${hostName}/api/expense`,NewExpense,{
   </div>
 </div>
 
-<<<<<<< HEAD
+
 <button class="btn btn-primary rounded" @click="Send()">Küldés</button>
-=======
-<button class="btn btn-primary rounded" onclick="send()">Küldés</button>
->>>>>>> 8657ff1832219457111bb8080d1dad050ff8c393
+
 
 </template>
 
