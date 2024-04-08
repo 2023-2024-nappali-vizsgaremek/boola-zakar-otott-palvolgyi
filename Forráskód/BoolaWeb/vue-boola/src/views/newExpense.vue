@@ -6,11 +6,12 @@ import {v4 as uuidv4} from "uuid";
 
 const NewExpense=ref({id:null,name:null,amount:null,status:false,category:null,currency:null,date:new Date(),payeeId:null,tags:null,statException:false,note:null,listId:null});
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
+const authToken = sessionStorage.getItem("authToken")
 const currency=ref([]);
 const category=ref([]);
 let partner=ref("");
 const partners=ref([]);
-Axios.get(`https://${hostName}/api/partner`).then(r=>partners.value=r.data)
+Axios.get(`https://${hostName}/api/partner`,{'Authorization':`Bearer ${authToken}`}).then(r=>partners.value=r.data)
 Axios.get(`https://${hostName}/api/category`).then(r=>category.value=r.data)
 Axios.get(`https://${hostName}/api/currency`).then(r=>currency.value=r.data)
 function Send(){
@@ -20,7 +21,7 @@ function Send(){
    Axios.post(`https://${hostName}/api/partner`,{
      "id":length,
      "name":partner.value
-   }).then(r=>{
+   },{'Authorization':`Bearer ${authToken}`}).then(r=>{
      if (r.status!=201){
        alert("Partner Hiba!");
        return;
@@ -30,7 +31,7 @@ function Send(){
    })
 
  }
-Axios.post(`https://${hostName}/api/expense`,NewExpense).then(r=>{
+Axios.post(`https://${hostName}/api/expense`,NewExpense,{'Authorization':`Bearer ${authToken}`}).then(r=>{
   if (r.status!=201){
     alert("Hiba!");
   }

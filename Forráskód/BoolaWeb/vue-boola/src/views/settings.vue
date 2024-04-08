@@ -1,21 +1,33 @@
 <script setup>
 import axios from 'axios';
-import {ref} from "vue";
+import {ref,defineProps} from "vue";
 
 const settings=ref({email:null,name:null,password:null})
 const nyelv=ref([])
+const authToken = sessionStorage.getItem("authToken")
+if(!authToken) window.open("/login","_self")
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 let settingsToSubmit=null;
-axios.get(`http://${hostName}/api/settings/${settings.value.email}`).then(r=>settingsToSubmit=r.data)
+axios.get(`http://${hostName}/api/settings/${settings.value.email}`,{
+  headers : {
+    "Authorization": `Bearer ${authToken}`
+  }
+}).then(r=>settingsToSubmit=r.data)
     .then(()=>{
       settingsToSubmit.password=settings.value.password;
     })
-axios.post(`http://${hostName}/api/settings`).then(r=>{
-  if (r.status!=201){
-    Alert("Hiba történt! Kérlük próbáld újra egy kicsit később!")
+axios.post(`http://${hostName}/api/settings`,{
+  headers : {
+    "Authorization": `Bearer ${authToken}`
   }
+}).then(r=>{
+  //TODO:finish post request
 })
-axios.get(`http://${hostName}/api/language`).then(r=>nyelv.value=r.data)
+axios.get(`http://${hostName}/api/language`,{
+  headers : {
+    "Authorization": `Bearer ${authToken}`
+  }
+}).then(r=>nyelv.value=r.data)
 
 </script>
 
