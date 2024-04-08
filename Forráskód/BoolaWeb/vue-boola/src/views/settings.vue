@@ -4,7 +4,7 @@ import {ref} from "vue";
 
 const settings=ref({email:null,name:null,password:null})
 const nyelv=ref([])
-const hostName = "https://boola-backend-a71954a87e5d.herokuapp.com/"
+const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 let settingsToSubmit=null;
 axios.get(`http://${hostName}/api/settings/${settings.value.email}`).then(r=>settingsToSubmit=r.data)
     .then(()=>{

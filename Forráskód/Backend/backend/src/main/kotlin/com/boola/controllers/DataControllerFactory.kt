@@ -21,6 +21,7 @@ class DataControllerFactory(poolSize: Int) {
         }
 
         fun returnController(controller: DataController){
+            println("returned controller")
             controllerPool.add(controller)
         }
 
