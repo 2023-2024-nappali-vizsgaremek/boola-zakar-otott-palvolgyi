@@ -6,7 +6,7 @@ const settings=ref({email:null,name:null,password:null})
 const nyelv=ref([])
 const authToken = sessionStorage.getItem("authToken")
 if(!authToken) window.open("/login","_self")
-const hostName = "localhost:8080"
+const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 let settingsToSubmit=null;
 axios.get(`http://${hostName}/api/settings/${settings.value.email}`,{
   headers : {

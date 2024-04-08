@@ -1,7 +1,7 @@
 <script setup>
 import axios, { Axios } from "axios";
 import {ref} from "vue";
-import expense from "@/components/ExpenseContent.vue"
+import ExpenseContent from "../components/ExpenseContent.vue";
 
 const authToken = sessionStorage.getItem("authToken");
 if(!authToken) window.open("/login","_self")

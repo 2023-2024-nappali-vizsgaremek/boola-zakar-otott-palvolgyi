@@ -9,8 +9,8 @@ if (!authToken) window.open("/login", "_self")
 </template>
 
 <style scoped>
-.asd {
-    height: 100vh;
-
-}
+    .asd{
+        height: 100vh;
+        width: 80vw;
+    }
 </style>

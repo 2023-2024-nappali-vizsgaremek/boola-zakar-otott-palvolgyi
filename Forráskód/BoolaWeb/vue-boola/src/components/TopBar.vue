@@ -2,7 +2,9 @@
     import {ref, onMounted} from 'vue'
     
     const root = document.querySelector(':root');
-    var isDarkTheme = localStorage.getItem("isPreferedThemeDark");    
+    
+    var isDarkTheme = localStorage.getItem("isPreferedThemeDark");
+    isDarkTheme = (isDarkTheme === "true");
 
     onMounted (() => {        
         toggleTheme();
@@ -15,40 +17,42 @@
     }
     
     const toggleTheme = () => {        
-        if(isDarkTheme)
-        {        
-            console.log("dark", isDarkTheme);
+        if(isDarkTheme === true)
+        {         
             root.style.setProperty("--main-background", "#001f2a");
             root.style.setProperty("--sec-background", "#0080aa");
             root.style.setProperty("--main-text-color", "#bce9ff");
             root.style.setProperty("--sec-text-color", "#bce9ff");
         }
         else
-        {
-            console.log("light", isDarkTheme);
+        {            
             root.style.setProperty("--main-background", "#dff4ff");
             root.style.setProperty("--sec-background", "#004d67");
             root.style.setProperty("--main-text-color", "#006783");
             root.style.setProperty("--sec-text-color", "#bce9ff");
         }
     }
+
+    import { useMenuStore} from '/src/stores/MenuStore';
+    const MenuStore = useMenuStore();
+
 </script>
 
 <template>
-    <div class="header-container">
+    <div class="TopBar-container unselectable">
+        <span @click="MenuStore.toggle" class="material-symbols-outlined size-32 btn-menu-toggle icon-hover-highlight" :class="`${MenuStore.isMenuOpened && 'btn-menu-move'}`">menu</span>
         <h1 class="appName">Boola</h1>
         <div class="profile-theme-container">                    
-            <span @click="toggleThemeValue()" class="material-symbols-outlined theme-toggle-btn size-32">contrast</span>
-            <span class="material-symbols-outlined profile-icon-btn size-32">account_circle</span>
+            <span @click="toggleThemeValue()" class="material-symbols-outlined theme-toggle-btn size-32 icon-hover-highlight">contrast</span>
+            <span class="material-symbols-outlined profile-icon-btn size-32 icon-hover-highlight">account_circle</span>
         </div>
     </div>
 </template>
 
 <style scoped>
-    .header-container{
-        width: 100lvw;
-        height: 8lvh;
-        min-height: 70px;
+    .TopBar-container{
+        width: 100lvw;        
+        height: 70px;
         overflow: hidden;
         position: fixed;
         
@@ -66,7 +70,7 @@
         text-align: center;
     }
 
-    .profile-icon-btn{        
+    .profile-icon-btn {        
         margin-right: 1.5rem;
         cursor: pointer;
     }
@@ -82,9 +86,20 @@
         top: 30%;
     }
 
-    span.size-32{
-        font-size: 32px;
-        font-variation-settings: 'OPSZ' 32;
-        color: var(--sec-text-color);        
+    .btn-menu-toggle{
+        position: absolute;
+        top: 30%;
+        margin-left: 19px;
+        
+        cursor: pointer;
+        z-index: 9999999;        
+        transition: all ease-out 0.3s !important;
+    }       
+
+    @media screen and (min-width: 1200px) {
+        .btn-menu-move{
+            transform: translateX(230px);
+            transition: all ease-out 0.3s !important;    
+        }
     }
 </style>

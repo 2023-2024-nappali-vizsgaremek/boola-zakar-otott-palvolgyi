@@ -9,8 +9,9 @@ fun Application.configureHTTP() {
         allowMethod(HttpMethod.Options)
         allowMethod(HttpMethod.Put)
         allowMethod(HttpMethod.Delete)
-        allowMethod(HttpMethod.Patch)
+        allowMethod(HttpMethod.Post)
         allowHeader(HttpHeaders.Authorization)
+        allowHeader(HttpHeaders.ContentType)
         anyHost() // @TODO: Don't do this in production if possible. Try to limit it.
     }
 }

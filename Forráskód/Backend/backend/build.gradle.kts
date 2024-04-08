@@ -43,24 +43,6 @@ dependencies {
     testImplementation("io.ktor:ktor-server-test-host-jvm:2.3.6")
 }
 
-tasks.jar {
-    manifest {
-        attributes["Main-Class"] = "Application"
-    }
-    configurations["compileClasspath"].forEach { file: File -> from(zipTree(file.absoluteFile)) }
-    duplicatesStrategy = DuplicatesStrategy.INCLUDE
-}
 
-tasks.register("copyToLib",Copy::class){
-    into("${layout.buildDirectory}/libs")
-    from(configurations.compileClasspath)
-}
 
-tasks.register("stage"){
-    dependsOn("compileKotlin","assemble","copyToLib")
-}
-
-tasks.build {
-    dependsOn("copyToLib")
-}
 
