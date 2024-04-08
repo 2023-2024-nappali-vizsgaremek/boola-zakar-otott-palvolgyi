@@ -10,7 +10,6 @@ axios.get(`http://${hostName}/api/expense`,{
     "Authorization":"Bearer " + sessionStorage.getItem("authToken")
   }
 }).then(r=>expenseList.value=r.data);
-
 </script>
 <template>
   <div class="container">

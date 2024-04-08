@@ -1,9 +1,9 @@
 <script setup>
     import { ref, onMounted } from 'vue'
     import { RouterLink, RouterView } from 'vue-router'
-    
-    import { useMenuStore} from '@/stores/MenuStore';
+    import { useMenuStore} from '/src/stores/MenuStore';
     const MenuStore = useMenuStore();
+
 </script>
 
 <template>

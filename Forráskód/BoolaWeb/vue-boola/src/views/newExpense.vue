@@ -123,6 +123,7 @@ if(t){
 
 
 
+<button class="btn btn-primary rounded" @click="Send()">Küldés</button>
 
 </template>
 
