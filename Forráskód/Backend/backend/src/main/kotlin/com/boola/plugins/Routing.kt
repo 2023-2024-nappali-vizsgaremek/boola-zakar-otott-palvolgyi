@@ -18,7 +18,7 @@ import io.ktor.server.routing.*
 import io.ktor.util.*
 import java.util.*
 
-private const val AccessTokenLifetime = 900000
+private const val AccessTokenLifetime = 9000000
 
 private const val RefreshTokenLifetime = 259200000
 
@@ -46,11 +46,13 @@ fun Application.configureRouting() {
 
         post("/login") {
             val user = call.receive<Account>()
+            println("User submitted: " + user)
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
             else {
                 val sentPw = user.pwHash.toCharArray()
                 val storedPw = con.getAccount(user.email).pwHash.toCharArray()
+                println(storedPw.concatToString())
                 val verification = BCrypt.verifyer().verify(sentPw,storedPw)
                 if(!verification.verified) {
                     call.respond(HttpStatusCode.Unauthorized)
@@ -78,6 +80,7 @@ fun Application.configureRouting() {
                     .withIssuer("https://localhost:8080")
                     .sign(Algorithm.HMAC256(secret))
                 call.respond(hashMapOf("access" to accessToken,"refresh" to refreshToken))
+                DataControllerFactory.returnController(con)
             }
 
         }
@@ -194,6 +197,7 @@ fun Application.configureRouting() {
                 val id = call.parameters["id"]
                 if(id == null) call.respond(HttpStatusCode.BadRequest)
                 else call.respond(con.getCategory(id.toInt()))
+                DataControllerFactory.returnController(con)
             }
         }
         authenticate("boola-auth") {
@@ -336,11 +340,13 @@ fun Application.configureRouting() {
             }
         }
         authenticate("boola-auth") {
-            get("/api/partner/"){
+            get("/api/partner"){
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
-                else call.respond(con.getPartnersAll())
-                con?.let { DataControllerFactory.returnController(it) }
+                else {
+                    call.respond(con.getPartnersAll())
+                    DataControllerFactory.returnController(con)
+                }
             }
             get("/api/partner/{id}") {
                 val con = DataControllerFactory.getController()
@@ -352,7 +358,7 @@ fun Application.configureRouting() {
                     DataControllerFactory.returnController(con)
                 }
             }
-            post("/api/partner/"){
+            post("/api/partner"){
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else {
@@ -369,7 +375,8 @@ fun Application.configureRouting() {
                     val partner = call.receive<Partner>()
                     val idString = call.parameters["id"]
                     idString?.let {
-                        call.respond(con.setPartner(partner,it.toByte()))
+                        call.respond(HttpStatusCode.OK)
+                        con.setPartner(partner,it.toByte())
                     }
                     call.respond(HttpStatusCode.NotFound)
                     DataControllerFactory.returnController(con)
@@ -474,6 +481,7 @@ fun Application.configureRouting() {
                     }
                     con.setExpense(id,expenseToSet)
                     call.respond(HttpStatusCode.OK)
+                    DataControllerFactory.returnController(con)
                 }
             }
 
@@ -500,6 +508,7 @@ fun Application.configureRouting() {
                     }
                     con.deleteExpense(expenseToDelete.id)
                     call.respond(HttpStatusCode.NoContent)
+                    DataControllerFactory.returnController(con)
                 }
             }
         }

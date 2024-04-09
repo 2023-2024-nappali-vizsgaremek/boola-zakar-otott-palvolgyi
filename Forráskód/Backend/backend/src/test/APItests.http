@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
   "email": "otottkovi@hotmail.com",
-  "pwHash": "fak",
+  "pwHash": "password",
   "name": "tomi"
 }
 
@@ -13,9 +13,13 @@ Content-Type: application/json
 
 {
   "email": "otottkovi@hotmail.com",
-  "pwHash": "fak",
+  "pwHash": "password",
   "name": "tomi"
 }
+
+
+###
+DELETE https://boola-backend-a71954a87e5d.herokuapp.com/api/account/patrik67895@gmail.com
 
 ###
 GET http://localhost:8080/tst
