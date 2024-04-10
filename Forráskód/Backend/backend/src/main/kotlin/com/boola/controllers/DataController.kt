@@ -5,6 +5,7 @@ import com.boola.models.*
 import io.ktor.utils.io.charsets.*
 import java.sql.*
 import java.util.UUID
+import kotlin.math.exp
 import kotlin.random.Random
 import kotlin.text.StringBuilder
 
@@ -123,12 +124,8 @@ class DataController internal constructor(private val connection: Connection) {
         }
     }
     fun deleteAccount(accountToAdd:Account){
-        deleteAccountStatement.run {
-            setString(1,accountToAdd.email)
-            setString(2,accountToAdd.pwHash)
-            setString(3,accountToAdd.name)
-            execute()
-        }
+        deleteAccountStatement.setString(1,accountToAdd.email)
+        deleteAccountStatement.execute()
     }
 
     fun setAccount(accountEmail:String,newData:Account){
@@ -173,9 +170,9 @@ class DataController internal constructor(private val connection: Connection) {
         getProfileStatement.execute()
         val results=getProfileStatement.resultSet
         results.next()
-        return Profile( UUID.fromString(results.getString(1)),results.getString(2),
-            results.getBoolean(3),results.getString(4),
-            UUID.fromString(results.getString(5)),results.getString(6))
+        return Profile( UUID.fromString(results.getString("id")),results.getString("name"),
+            results.getBoolean("isbusiness"),results.getString("languagecode"),
+            UUID.fromString(results.getString("expenselistid")),results.getString("accountemail"))
     }
     fun getAllProfile(email: String):ArrayList<Profile>{
         getProfilesStatement.setString(1,email)
