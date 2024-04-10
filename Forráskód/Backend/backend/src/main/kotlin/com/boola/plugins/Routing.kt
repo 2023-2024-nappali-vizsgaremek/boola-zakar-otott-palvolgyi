@@ -57,6 +57,7 @@ fun Application.configureRouting() {
                 if(!verification.verified) {
                     call.respond(HttpStatusCode.Unauthorized)
                     DataControllerFactory.returnController(con)
+                    return@post
                 }
                 val secret:String = try {
 
@@ -113,6 +114,7 @@ fun Application.configureRouting() {
                     call.parameters["email"]?.let { con.setAccount(it,call.receive<Account>()) }
                     call.respond(HttpStatusCode.OK)
                     DataControllerFactory.returnController(con)
+                    return@put
                 } catch (e:Exception){
                     e.message?.let { print(it) }
                     call.respond(HttpStatusCode.BadRequest)
@@ -129,7 +131,7 @@ fun Application.configureRouting() {
                 try{
                 call.parameters["email"]?.let {con.deleteAccount(con.getAccount(it))}
                 call.respond(HttpStatusCode.NoContent)
-                    DataControllerFactory.returnController(con)
+                DataControllerFactory.returnController(con)
             }
                 catch(e:Exception)
                 {
@@ -211,6 +213,7 @@ fun Application.configureRouting() {
                     if(principal!!.payload.getClaim("email").asString() == profile.accountEmail){
                         call.respond(profile)
                         DataControllerFactory.returnController(con)
+                        return@get
                     }
                     call.respond(HttpStatusCode.Forbidden)
                     DataControllerFactory.returnController(con)
@@ -236,7 +239,11 @@ fun Application.configureRouting() {
                     var profile = call.receive<Profile>()
                     val ownerEmail = profile.accountEmail
                     val loginEmail = call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString()
-                    if(ownerEmail != loginEmail) call.respond(HttpStatusCode.Forbidden)
+                    if(ownerEmail != loginEmail) {
+                        call.respond(HttpStatusCode.Forbidden)
+                        DataControllerFactory.returnController(con)
+                        return@post
+                    }
                     if(profile.expenseListId == UUID.fromString("00000000-0000-0000-0000-000000000000")) {
                         val expenseListId = UUID.randomUUID()
                         con.addExopenseList(ExpenseList(expenseListId,0,"HUF")) //send currency with request
@@ -264,7 +271,6 @@ fun Application.configureRouting() {
                             }
                             call.respond(HttpStatusCode.Forbidden)
                         }
-
                         DataControllerFactory.returnController(con)
                     } catch (e:Exception){
                         e.message?.let { print(it) }
@@ -316,6 +322,7 @@ fun Application.configureRouting() {
                     if(email == owner){
                         call.respond(expenseList)
                         DataControllerFactory.returnController(con)
+                        return@get
                     }
                     call.respond(HttpStatusCode.Forbidden)
                     DataControllerFactory.returnController(con)
@@ -327,7 +334,11 @@ fun Application.configureRouting() {
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else {
                     val owner = call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString()
-                    if(owner == null) call.respond(HttpStatusCode.BadRequest)
+                    if(owner == null) {
+                        call.respond(HttpStatusCode.BadRequest)
+                        DataControllerFactory.returnController(con)
+                        return@get
+                    }
                     val profile = con.getAllProfile(owner).first{
                         it.accountEmail == owner
                     }.expenseListId
@@ -377,6 +388,8 @@ fun Application.configureRouting() {
                     idString?.let {
                         call.respond(HttpStatusCode.OK)
                         con.setPartner(partner,it.toByte())
+                        DataControllerFactory.returnController(con)
+                        return@put
                     }
                     call.respond(HttpStatusCode.NotFound)
                     DataControllerFactory.returnController(con)
@@ -432,6 +445,7 @@ fun Application.configureRouting() {
                     if(!ownsExpenseList) {
                         call.respond(HttpStatusCode.Forbidden)
                         DataControllerFactory.returnController(con)
+                        return@get
                     }
                     val expenses = con.getExpensesAll(expenseListId)
                     call.respond(expenses)
@@ -451,6 +465,7 @@ fun Application.configureRouting() {
                     if(!hasOwnerProfile) {
                         call.respond(HttpStatusCode.Forbidden)
                         DataControllerFactory.returnController(con)
+                        return@post
                     }
                     con.addExpense(expenseToAdd)
                     call.respond(HttpStatusCode.Created,"api/get/expense/" + expenseToAdd.id)
@@ -474,10 +489,12 @@ fun Application.configureRouting() {
                     if(!ownsExpense){
                         call.respond(HttpStatusCode.Forbidden)
                         DataControllerFactory.returnController(con)
+                        return@put
                     }
                     if(!expenseExists) {
                         call.respond(HttpStatusCode.NotFound)
                         DataControllerFactory.returnController(con)
+                        return@put
                     }
                     con.setExpense(id,expenseToSet)
                     call.respond(HttpStatusCode.OK)
@@ -501,10 +518,12 @@ fun Application.configureRouting() {
                     if(!ownsExpense){
                         call.respond(HttpStatusCode.Forbidden)
                         DataControllerFactory.returnController(con)
+                        return@delete
                     }
                     if(!hasExpense){
                         call.respond(HttpStatusCode.NotFound)
                         DataControllerFactory.returnController(con)
+                        return@delete
                     }
                     con.deleteExpense(expenseToDelete.id)
                     call.respond(HttpStatusCode.NoContent)
@@ -521,8 +540,9 @@ fun Application.configureRouting() {
                 if(code == null){
                     call.respond(HttpStatusCode.NotFound)
                     DataControllerFactory.returnController(con)
+                    return@get
                 }
-                val language = con.getLanguage(code!!)
+                val language = con.getLanguage(code)
                 call.respond(language)
                 DataControllerFactory.returnController(con)
             }
