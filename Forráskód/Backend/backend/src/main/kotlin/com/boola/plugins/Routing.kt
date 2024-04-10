@@ -268,6 +268,7 @@ fun Application.configureRouting() {
                                 con.setProfile(uuid,call.receive<Profile>())
                                 call.respond(HttpStatusCode.OK)
                                 DataControllerFactory.returnController(con)
+                                return@put
                             }
                             call.respond(HttpStatusCode.Forbidden)
                         }
@@ -292,6 +293,8 @@ fun Application.configureRouting() {
                                 profile.accountEmail) {
                                 con.deleteProfile(con.getProfile(uuid))
                                 call.respond(HttpStatusCode.NoContent)
+                                DataControllerFactory.returnController(con)
+                                return@delete
                             }
                             call.respond(HttpStatusCode.Forbidden)
                         }
@@ -312,7 +315,11 @@ fun Application.configureRouting() {
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else {
                     val id = call.parameters["id"]
-                    if(id == null) call.respond(HttpStatusCode.BadRequest)
+                    if(id == null) {
+                        call.respond(HttpStatusCode.BadRequest)
+                        DataControllerFactory.returnController(con)
+                        return@get
+                    }
                     val email = call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString()
                     val uuid = UUID.fromString(id)
                     val expenseList = con.getExpenseList(uuid)
