@@ -17,8 +17,9 @@ import { useMenuStore} from '/src/stores/MenuStore';
       <Menu></Menu>
     </div>
     <div class="main-content" :class="`${MenuStore.isMenuOpened && 'menu-open-blur'}`">
-      <div :class="`${MenuStore.isMenuOpened && 'main-content-inner'}`" @click="MenuStore.toggle()"></div>
-      <RouterView></RouterView>      
+      <div :class="`${(MenuStore.isMainMenuOpened) && 'main-content-blur'} 
+        ${(MenuStore.isProfileMenuOpened) && 'main-content-blur-profileMenu'}`" 
+        @click="MenuStore.closeMenus()"></div>      
     </div>
   </div>
 </template>
