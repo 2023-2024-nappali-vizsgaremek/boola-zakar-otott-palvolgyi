@@ -1,36 +1,37 @@
 <script setup>
     import { ref, onMounted } from 'vue'
     import { RouterLink, RouterView } from 'vue-router'
+
     import { useMenuStore} from '/src/stores/MenuStore';
     const MenuStore = useMenuStore();
 
 </script>
 
 <template>
-    <div class="menu-container unselectable" :class="`${MenuStore.isMenuOpened && 'menu-opened'}`">                
+    <div class="menu-container unselectable" :class="`${MenuStore.isMainMenuOpened && 'menu-opened'}`">                
         <div class="menu-link-container">        
             <RouterLink class="routerLink" to="/">
                 <div class="routerLinkContainer">
                     <span class="material-symbols-outlined size-32">home</span>                
-                    <h2 :class="`${MenuStore.isMenuOpened && 'menu-text-show'}`">Főoldal</h2>              
+                    <h2 :class="`${MenuStore.isMainMenuOpened && 'menu-text-show'}`">Főoldal</h2>              
                 </div>                       
             </RouterLink>
             <RouterLink class="routerLink" to="/newExpense">
                 <div class="routerLinkContainer">
                     <span class="material-symbols-outlined size-32">add_circle</span>
-                    <h2 :class="`${MenuStore.isMenuOpened && 'menu-text-show'}`">Új&nbspkiadás</h2>
+                    <h2 :class="`${MenuStore.isMainMenuOpened && 'menu-text-show'}`">Új&nbspkiadás</h2>
                 </div>                  
             </RouterLink>
             <RouterLink class="routerLink" to="/settings">
                 <div class="routerLinkContainer">
                     <span class="material-symbols-outlined size-32">settings</span>
-                    <h2 :class="`${MenuStore.isMenuOpened && 'menu-text-show'}`">Beállítások</h2>
+                    <h2 :class="`${MenuStore.isMainMenuOpened && 'menu-text-show'}`">Beállítások</h2>
                 </div>                  
             </RouterLink>
             <RouterLink class="routerLink" to='/expenselist'>
                 <div class="routerLinkContainer">
                     <span class="material-symbols-outlined size-32" >list_alt</span>
-                    <h2 :class="`${MenuStore.isMenuOpened && 'menu-text-show'}`">Költség&nbspLista</h2>
+                    <h2 :class="`${MenuStore.isMainMenuOpened && 'menu-text-show'}`">Költség&nbspLista</h2>
                 </div>
             </RouterLink>         
         </div>

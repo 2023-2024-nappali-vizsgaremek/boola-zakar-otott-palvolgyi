@@ -1,8 +1,8 @@
 <script setup>
     import {ref} from "vue";
-    import { RouterLink, RouterView } from 'vue-router'    
-
-    import { useMenuStore} from '@/stores/MenuStore';
+    import { RouterLink, RouterView } from 'vue-router';
+     
+    import { useMenuStore} from '/src/stores/MenuStore';
     const MenuStore = useMenuStore();
 </script>
 

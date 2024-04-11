@@ -5,7 +5,7 @@ import { RouterLink, RouterView } from 'vue-router';
 import Menu from './components/menu.vue';
 import TopBar from './components/TopBar.vue';
 import { useMenuStore} from '/src/stores/MenuStore';
-  const MenuStore = useMenuStore();
+const MenuStore = useMenuStore();
 </script>
 
 <template>
@@ -16,11 +16,12 @@ import { useMenuStore} from '/src/stores/MenuStore';
     <div class="side">
       <Menu></Menu>
     </div>
-    <div class="main-content" :class="`${MenuStore.isMenuOpened && 'menu-open-blur'}`">
+    <div class="main-content">
       <div :class="`${(MenuStore.isMainMenuOpened) && 'main-content-blur'} 
         ${(MenuStore.isProfileMenuOpened) && 'main-content-blur-profileMenu'}`" 
-        @click="MenuStore.closeMenus()"></div>      
-    </div>
+        @click="MenuStore.closeMenus()"></div>
+      <RouterView/>
+    </div>      
   </div>
 </template>
 
@@ -52,18 +53,6 @@ import { useMenuStore} from '/src/stores/MenuStore';
       grid-template-columns: 0px calc(100lvw - 0px);
       grid-template-rows: 70px calc(100lvh - 70px);
     }
-    
-    .main-content-inner{
-      position: absolute;
-      right: 0;
-      height: calc(100lvh - 70px);
-      width: calc(100lvw - var(--menu-width));
-      padding: 0px;
-      margin: 0px;
-      backdrop-filter: blur(1px);
-      transition: ease-out 0.3s;      
-    }
-
   }
 
   @media (min-width: 577px) and (max-width: 1199px){
@@ -71,18 +60,6 @@ import { useMenuStore} from '/src/stores/MenuStore';
       grid-template-columns: 70px calc(100lvw - 70px);
       grid-template-rows: 70px calc(100lvh - 70px);
     }
-      
-    .main-content-inner{
-      position: absolute;
-      right: 0;
-      height: calc(100lvh - 70px);
-      width: calc(100lvw - var(--menu-width));
-      padding: 0px;
-      margin: 0px;
-      backdrop-filter: blur(1px);
-      transition: ease-out 0.3s;      
-    }
-
   }
 
   @media (min-width: 1200px) {

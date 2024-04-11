@@ -85,8 +85,8 @@ span.icon-hover-highlight:hover{
 .main-content-blur-profileMenu{
     position: absolute;
     right: 0;
-    height: calc(100lvh - 70px);
-    width: calc(100lvw - var(--menu-width));
+    height: calc(100lvh - 70px) !important;
+    width: calc(100lvw - var(--menu-width)) !important;
     padding: 0px;
     margin: 0px;
     backdrop-filter: blur(1px);

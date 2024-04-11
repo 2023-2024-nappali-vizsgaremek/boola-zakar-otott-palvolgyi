@@ -1,8 +1,8 @@
 <script setup>
-    import {ref, onMounted} from 'vue'
-    import { useMenuStore} from '@/stores/MenuStore';
-    import profileMenu from './ProfileMenu.vue';
+    import {ref, onMounted} from 'vue' 
+    import profileMenu from './profileMenu.vue';
     
+    import { useMenuStore} from '/src/stores/MenuStore';
     const MenuStore = useMenuStore();
     
     const root = document.querySelector(':root');
