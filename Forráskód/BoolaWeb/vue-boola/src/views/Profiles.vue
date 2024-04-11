@@ -1,17 +1,23 @@
 <script setup>
     import axios from 'axios';
-    import { onMounted, ref } from 'vue';
+    import { onMounted, ref } from 'vue';    
+    import { v4 as uuidv4 } from "uuid";
 
     const authToken = sessionStorage.getItem("authToken");
     if(!authToken) window.open("/login","_self")
     
-    const hostName = "localhost:8080"
+    const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
     const profileCreation = ref(false);
     const newProfile = ref({id: null, name: null, isBusiness: null, languageId: null, expenseListId: null, accountEmail: null})
 
     const profileCreationToggle = () => {
         profileCreation.value = !profileCreation.value;         
     }
+
+    const profiles = ref();
+    axios.get(`http://${hostName}/api/profiles`)
+    .then(r => profiles.value = r.data);
+
     /*val id:UUID, val name:String, val isBusiness:Boolean,
                    val languageId:String, @Serializable(with = UUIDSerializer::class) val expenseListId:UUID?,
                    val accountEmail:String)*/
@@ -34,28 +40,28 @@
 <template>
     <h1 class="text-center">Profilok</h1>
     <div class="profiles-container" v-if="!profileCreation">        
-        <div class="profile-asd"><h2>asd</h2>asd</div>
-        <div class="profile-asd"><h2>asd</h2>asd</div>
-        <div class="profile-asd"><h2>asd</h2>asd</div>
-        <div class="profile-asd"><h2>asd</h2>asd</div>
-        <div @click="profileCreationToggle" class="new-profile profile-asd"><span class="material-symbols-outlined size-32">add</span></div>
+        <div class="profile-container" v-for="p in profiles">
+            <h2>{{ p.name }}</h2>
+            {{ p.accountEmail }}
+        </div>
+        <div @click="profileCreationToggle" class="new-profile profile-container"><span class="material-symbols-outlined size-32">add</span></div>
     </div>
-    <div v-if="profileCreation" class="profileCreationAsd">
-        <div class="asdasd">
+    <div v-if="profileCreation" class="profileCreation-container">
+        <div class="profileCreationForm">
             <h2>Név: </h2>
             <input type="text" v-model="newProfile.name">
         </div>
-        <div class="asdasd">
+        <div class="profileCreationForm">
             <h2>Munkai-e: </h2>
             <input type="checkbox" v-model="newProfile.isBusiness">
         </div>
-        <div class="asdasd">
+        <div class="profileCreationForm">
             <h2>Nyelv: </h2>
             <select>
                 <option v-for="language in languages" v-bind:vlaue="language.code">{{ language.code }}</option>
             </select>
         </div>
-        <div class="asdasd">
+        <div class="profileCreationForm">
             <button @click="profileCreationToggle">Vissza</button>
             <button @click="createNewProfile">Létrehozás</button>
         </div>
@@ -63,11 +69,12 @@
 </template>
 
 <style scoped>
-    .profileCreationAsd{
+    .profileCreation-container{
         background-color: var(--sec-background);
         width: 400px;
         height: auto;
         border-radius: var(--border-radius);
+        padding: 5px;
 
         position: absolute;
         top: 20%;
@@ -75,10 +82,9 @@
         transform: translateX(200px);
     }
 
-    .asdasd{
+    .profileCreationForm > *{
         display: inline;
-        
-        
+        margin: 5px;        
     }
 
     .new-profile{
@@ -98,7 +104,7 @@
         transform: translateX(200px);
     }
 
-    .profile-asd{
+    .profile-container{
         padding: 5px;
         margin: 5px;
         border: 2px solid var(--main-background);
@@ -108,7 +114,7 @@
         transition: all ease-out 0.2s;
     }
 
-    .profile-asd:hover{
+    .profile-container:hover{
         background-color: var(--main-background);
         color: var(--main-text-color);
         transition: all ease-out 0.2s;
