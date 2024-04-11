@@ -21,6 +21,7 @@ class DataControllerFactory(poolSize: Int) {
         }
 
         fun returnController(controller: DataController){
+            if(controllerPool.contains(controller)) return
             println("returned controller, we've got ${controllerPool.size} left")
             controllerPool.add(controller)
         }

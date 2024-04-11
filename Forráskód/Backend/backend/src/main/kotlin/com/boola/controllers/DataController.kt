@@ -129,9 +129,12 @@ class DataController internal constructor(private val connection: Connection) {
     }
 
     fun setAccount(accountEmail:String,newData:Account){
+        val salt = getAccountSalt(accountEmail)
+        val hashedPwArray = BCrypt.withDefaults().hash(6,salt.toString().toByteArray(),newData.pwHash
+            .toByteArray())
         setAccountStatement.run {
             setString(1,newData.email)
-            setString(2,newData.pwHash)
+            setString(2,String(hashedPwArray, charset("utf-8")))
             setString(3,newData.name)
             setString(4,accountEmail)
             execute()
