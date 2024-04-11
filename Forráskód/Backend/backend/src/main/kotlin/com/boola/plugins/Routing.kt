@@ -424,7 +424,7 @@ fun Application.configureRouting() {
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
                 else {
-                    val expenseListId = call.receive<ExpenseList>().id
+                    val expenseListId = UUID.fromString(call.request.queryParameters["listId"])
                     val email = call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString()
                     val ownsExpenseList = con.getAllProfile(email).any{
                         it.expenseListId == expenseListId

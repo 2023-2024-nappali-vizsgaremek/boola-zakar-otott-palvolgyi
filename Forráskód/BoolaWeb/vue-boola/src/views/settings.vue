@@ -1,31 +1,40 @@
 <script setup>
-import axios from 'axios';
+import axios, { Axios } from 'axios';
 import {ref,defineProps} from "vue";
 
-const settings=ref({email:null,name:null,password:null})
+const settings=ref({email:null,pwHash:null,name:null})
 const nyelv=ref([])
+const profile=ref([])
 const authToken = sessionStorage.getItem("authToken")
 if(!authToken) window.open("/login","_self")
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 let settingsToSubmit=null;
-axios.get(`http://${hostName}/api/settings/${settings.value.email}`,{
+axios.get(`https://${hostName}/api/profile/1a8b8ad4-89eb-4ff8-883a-854bca6bfb19`,{
   headers : {
-    "Authorization": `Bearer ${authToken}`
-  }
-}).then(r=>settingsToSubmit=r.data)
-    .then(()=>{
-      settingsToSubmit.password=settings.value.password;
-    })
-axios.post(`http://${hostName}/api/settings`,{
-  headers : {
-    "Authorization": `Bearer ${authToken}`
+    Authorization: `Bearer ${authToken}`
   }
 }).then(r=>{
-  //TODO:finish post request
-})
-axios.get(`http://${hostName}/api/language`,{
+  profile.value=r.data
+  axios.get(`https://${hostName}/api/account/${profile.value.accountEmail}`,{
   headers : {
-    "Authorization": `Bearer ${authToken}`
+    Authorization: `Bearer ${authToken}`
+  }
+}).then(r=>settings.value=r.data)
+})
+function Save(){
+axios.put(`https://${hostName}/api/account/${profile.value.accountEmail}`,settings.value,{
+  headers : {
+    Authorization: `Bearer ${authToken}`
+  }
+}).then(r=>{
+if(r.status!=200){
+  alert("Hiba történt!")
+}
+})
+}
+axios.get(`https://${hostName}/api/language`,{
+  headers : {
+    Authorization: `Bearer ${authToken}`
   }
 }).then(r=>nyelv.value=r.data)
 
@@ -39,7 +48,7 @@ axios.get(`http://${hostName}/api/language`,{
       <h3>Név:</h3>
       </div>
       <div class="col-lg-6">
-        <input class="text" type="text">
+        <input v-model="settings.name" class="text" type="text">
     </div>
     </div>
     <div class="row">
@@ -47,7 +56,7 @@ axios.get(`http://${hostName}/api/language`,{
         <h3>E-mail:</h3>
       </div>
       <div class="col-lg-6">
-        <input id="email" class="text" type="text">
+        <input v-model="settings.email" id="email" class="text" type="text">
       </div>
     </div>
     <div class="row">
@@ -55,7 +64,7 @@ axios.get(`http://${hostName}/api/language`,{
 <h3>Jelszó</h3>
       </div>
       <div class="col-lg-6">
-<input id="password" class="text" type="text">
+<input v-model="settings.pwHash" id="password" class="text" type="password">
       </div>
     </div>
     <div class="row">
@@ -64,12 +73,12 @@ axios.get(`http://${hostName}/api/language`,{
       </div>
       <div class="col-lg-6">
 <select id="nyelvek" name="nyelvek">
-  <option v-for="nyelvs in nyelv" v-bind:vlaue="nyelvs.code">{{ nyelvs.code }}</option>
+  <option v-for="nyelvs in nyelv" v-bind:vlaue="profile.languagecode">{{ nyelvs.name }}</option>
 
 </select>
       </div>
     </div>
-    <button id="btn" class="btn btn-primary">Mentés</button>
+    <button id="btn" @click="Save()" class="btn btn-primary">Mentés</button>
     <div class="card">
       Ha bármilyen kérdése vagy észrevétele van, ne habozzon kapcsolatba lépni velünk! <br>A Boola Pénzügyi Alkalmazás ügyfélszolgálata mindig készen áll, hogy segítsen.<br><br>E-mail: info@boolaapp.com<br><br>Telefonszám: +36 1 234 5678<br><br>Köszönjük, hogy a Boola alkalmazást választotta pénzügyi szükségletei kielégítésére. <br>Tartsa velünk az úton a gazdagság és a pénzügyi függetlenség felé!
     </div>

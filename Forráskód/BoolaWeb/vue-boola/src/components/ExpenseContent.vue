@@ -2,27 +2,35 @@
 import axios, { Axios } from "axios";
 import {ref} from "vue";
  const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
+ const authToken = sessionStorage.getItem("authToken")
 
-const expenseList=ref([{id:null,name:null,amount:null,status:false,category:null,currency:null,date:new Date(),payeeId:null,tags:null,statException:false,note:null,listId:null}])
-axios.get(`http://${hostName}/api/expense`,{
+
+const expense=ref([])
+const expenseList=ref([])
+axios.get(`https://${hostName}/api/expenselist/87e02966-af04-4232-9606-9d30ce9f7d2f`,{
   headers:{
-
-    "Authorization":"Bearer " + sessionStorage.getItem("authToken")
+    Authorization: `Bearer ${authToken}`
   }
-}).then(r=>expenseList.value=r.data);
+}).then(r => {
+  expenseList.value = r.data
+  axios.get(`https://${hostName}/api/expense?listId=${expenseList.value.id}`,{
+    headers:{
+      Authorization: `Bearer ${authToken}`
+    }
+  }).then(r=>expense.value=r.data)
+})
+
 </script>
 <template>
-  <div class="container">
-    <div class="card"> Demo card</div>
-    <div v-for="i in expenseList" class="card">
-   Név: {{i.name}}<br>
-   Kedvezményezett: {{i.payee}}<br>
-      Összeg: {{i.amount}} <br>
-     Pénznem: {{i.currency}}<br>
-      Dátum: {{i.date}}
-
-    </div>
+<div class="container-fluid">
+  <div class="card" v-for="expenses in expense" >
+    <div>Név: {{expenses.name}}</div>
+    <div v-if="!expenses.status">Státusz: Fizetendő </div>
+    <div v-else>Státusz: Kifizetve</div>
+    <div>Dátum: {{new Date(expenses.date).toDateString()}}</div>
   </div>
+</div>
+
 
 
 
