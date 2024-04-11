@@ -34,7 +34,7 @@ Axios.get(`https://${hostName}/api/currency`).then(r => currency.value = r.data)
 function Send() {
   const length = partners.value.length
   NewExpense.value.id = uuidv4()
-  NewExpense.value.listId = "87e02966-af04-4232-9606-9d30ce9f7d2f"
+  NewExpense.value.listId = "5e5f526b-acdb-49e9-9252-471385c202ea"
   if (NewExpense.value.payeeId == null) {
 
     Axios.post(`https://${hostName}/api/partner`, {
