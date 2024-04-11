@@ -232,6 +232,7 @@ class DataController internal constructor(private val connection: Connection) {
         getExpenseListStatement.execute()
 
         val results = getExpenseListStatement.resultSet
+        results.next()
         return ExpenseList(
             UUID.fromString(results.getString(1)),results.getLong(2),
             results.getString(3))
