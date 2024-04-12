@@ -15,7 +15,11 @@
     }
 
     const profiles = ref();
-    axios.get(`http://${hostName}/api/profiles`)
+    axios.get(`http://${hostName}/api/profile`, {
+        headers: {
+            Authorization: `Bearer ${authToken}`
+        }
+    })
     .then(r => profiles.value = r.data);
 
     /*val id:UUID, val name:String, val isBusiness:Boolean,
@@ -28,12 +32,22 @@
         .then(r=>languages.value=r.data);
 
     const createNewProfile = () => {
-        axios.post(`http://${hostName}/api/profile`, newProfile)
-            .then(r => console.log(r));
-
         console.log(newProfile.value);
 
+        newProfile.id = uuidv4();
+        newProfile.expenseListId = uuidv4();
+        //newProfile.accountEmail = 
+
+        axios.post(`http://${hostName}/api/profile`, newProfile, {
+            headers: {
+                Authorization: `Bearer ${authToken}`
+            }
+        })
+        .then(r => console.log(r));        
+
         newProfile.value = {id: null, name: null, isBusiness: null, languageId: null, expenseListId: null, accountEmail: null};
+
+        profileCreationToggle();
     }
 </script>
 
@@ -42,7 +56,8 @@
     <div class="profiles-container" v-if="!profileCreation">        
         <div class="profile-container" v-for="p in profiles">
             <h2>{{ p.name }}</h2>
-            {{ p.accountEmail }}
+            <p>{{ p.accountEmail }}</p>            
+            <p v-if="p.isBusiness">Munkai</p>
         </div>
         <div @click="profileCreationToggle" class="new-profile profile-container"><span class="material-symbols-outlined size-32">add</span></div>
     </div>
@@ -58,7 +73,7 @@
         <div class="profileCreationForm">
             <h2>Nyelv: </h2>
             <select>
-                <option v-for="language in languages" v-bind:vlaue="language.code">{{ language.code }}</option>
+                <option v-for="language in languages" v-bind:value="language.code">{{ language.code }}</option>
             </select>
         </div>
         <div class="profileCreationForm">

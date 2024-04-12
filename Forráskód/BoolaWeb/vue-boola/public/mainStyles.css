@@ -95,6 +95,7 @@ span.icon-hover-highlight:hover{
 
 @media screen and (max-width: 576px) {
     :root{
+        --viewSize: "mobile";
         --menu-def-width: 0px;
         --menu-width: 0px;
     }
@@ -113,6 +114,7 @@ span.icon-hover-highlight:hover{
 
 @media (min-width: 577px) and (max-width: 1199px){
     :root{
+        --viewSize: "tablet laptop";
         --menu-def-width: 70px;
         --menu-width: 70px;
     }
@@ -131,6 +133,7 @@ span.icon-hover-highlight:hover{
 
 @media screen and (min-width: 1200px) {
     :root{
+        --viewSize: "desktop";
         --menu-def-width: 70px;
         --menu-width: 70px;
     }
