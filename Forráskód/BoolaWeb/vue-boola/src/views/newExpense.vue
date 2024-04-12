@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import Axios from "axios";
 import {ref} from "vue";
 import {v4 as uuidv4} from "uuid";
+import { profileStore } from '/src/stores/ProfileStore';
 
 const NewExpense = ref({
   id: null,
@@ -19,6 +20,7 @@ const NewExpense = ref({
 });
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 const authToken = sessionStorage.getItem("authToken")
+const profile = profileStore().profile
 const currency = ref([]);
 const category = ref([]);
 let partner = ref("");
@@ -34,7 +36,7 @@ Axios.get(`https://${hostName}/api/currency`).then(r => currency.value = r.data)
 function Send() {
   const length = partners.value.length
   NewExpense.value.id = uuidv4()
-  NewExpense.value.listId = "5e5f526b-acdb-49e9-9252-471385c202ea"
+  NewExpense.value.listId = profile.expenseListId
   if (NewExpense.value.payeeId == null) {
 
     Axios.post(`https://${hostName}/api/partner`, {
