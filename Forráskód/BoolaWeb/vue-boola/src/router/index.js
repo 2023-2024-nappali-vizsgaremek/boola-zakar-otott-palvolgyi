@@ -16,9 +16,9 @@ const router = createRouter({
       component: () => import('../views/newExpense.vue')
     },
     {
-      path: '/profileSelect',
-      name: 'profileSelect',
-      component: () => import('../views/profileSelect.vue')
+      path: '/profiles',
+      name: 'profiles',
+      component: () => import('../views/Profiles.vue')
     },
     {
       path: '/login',
