@@ -49,7 +49,9 @@
             <span @click="toggleThemeValue()" class="material-symbols-outlined theme-toggle-btn size-32 icon-hover-highlight">contrast</span>            
             <profileMenu/>                    
         </div>
+
     </div>
+  </div>
 </template>
 
 <style scoped>
@@ -101,4 +103,5 @@
             transition: all ease-out 0.3s !important;    
         }
     }
+
 </style>
