@@ -49,7 +49,7 @@ function selectExpense(expense) {
 </script>
 <template>
   <div class="container-fluid">
-    <div class="card" v-for="expenses in expense" @click="selectExpense(expenses)" @focus="selectExpense(expenses)"
+    <div class="card p-1 m-2" v-for="expenses in expense" @click="selectExpense(expenses)" @focus="selectExpense(expenses)"
       v-bind:tabindex="expense.indexOf(expenses)">
       <div>Név: {{ expenses.name }}</div>
       <div v-if="!expenses.status">Státusz: Fizetendő </div>
@@ -69,5 +69,18 @@ function selectExpense(expense) {
 
 .card {
   z-index: 1;
+  background-color: #dff4ff;
+  color:#006783;
+}
+
+button{
+  background-color: #004d67;
+  color:#bce9ff;
+  align-self: flex-end;
+}
+
+button:hover{
+  background-color: #dff4ff;
+  color:#006783;
 }
 </style>

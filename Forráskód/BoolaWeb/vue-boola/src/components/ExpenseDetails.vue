@@ -3,11 +3,18 @@ import { ref } from 'vue'
 import { expenseStore } from '../stores/expenseStore';
 import Axios from 'axios'
 
+const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
+const authToken = sessionStorage.getItem("authToken")
 const store = expenseStore()
 const expense = ref(null)
 expense.value = store.selectedExpense
+const categoryName = ref("unknown")
 store.$subscribe((m, s) => {
     expense.value = store.selectedExpense
+    Axios.get(`https://${hostName}/api/category/${expense.value.categoryId}`).then(r => {
+        categoryName.value = r.data
+    })
+        .catch(() => categoryName.data = "unknown")
 })
 
 function closeWindow() {
@@ -17,16 +24,16 @@ function closeWindow() {
 
 <template>
     <div id="detailsRoot" v-if="expense != null" class="card">
-        <button class="material-symbols-outlined size-32 w-25 m-1 bg-light" @click="closeWindow">close</button>
+        <button class="material-symbols-outlined size-32 m-1" @click="closeWindow">close</button>
         <h1>{{ expense.name }}</h1>
         <h3>{{ expense.amount }}</h3>
-        <div>{{ expense.categoryId }} //TODO:ide majd a kategória nevét kell írni</div>
-        <div v-if="expense.status" class="bg-success text-light">Kifizetve</div>
-        <div v-else class="bg-danger text-light">Nincs fizetve</div>
+        <div>{{ categoryName }}</div>
+        <div v-if="expense.status" class="text-success">Kifizetve</div>
+        <div v-else class="text-danger">Nincs fizetve</div>
         <div>{{ new Date(expense.date).toLocaleDateString() }}</div>
-        <div class="d-flex flex-row w-25 justify-content-around">
-            <div class="mx-2">Címkék:</div>
-            <div v-for="tag in expense.tags.split(';') " class="card p-2">{{ tag }}</div>
+        <div class="d-flex flex-rowjustify-content-around">
+            <div class="mx-2 align-self-center">Címkék:</div>
+            <div v-for="tag in expense.tags.split(';') " class="card p-2 m-1">{{ tag }}</div>
         </div>
         <div>Megjegyzés:<br>{{ expense.note }}</div>
     </div>
@@ -36,6 +43,8 @@ function closeWindow() {
 <style scoped>
 #detailsRoot {
     width: 25vw;
+    background-color: #dff4ff;
+    color:#006783;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1200px) {
@@ -49,5 +58,17 @@ function closeWindow() {
         width: 100vw;
     }
 
+}
+
+button {
+    border-radius: 5px;
+    width: 2em;
+    background-color: #004d67;
+    color:#bce9ff;
+}
+
+h1,h3,div{
+    margin:0.5em;
+    margin-top:0;
 }
 </style>
