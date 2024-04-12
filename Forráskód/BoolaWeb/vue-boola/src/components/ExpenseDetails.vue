@@ -1,15 +1,25 @@
 <script setup>
 import { ref } from 'vue'
 import { expenseStore } from '../stores/expenseStore';
+import { profileStore } from '../stores/ProfileStore';
 import Axios from 'axios'
 
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 const authToken = sessionStorage.getItem("authToken")
 const store = expenseStore()
+const profilStore = profileStore().profile
 const expense = ref(null)
 expense.value = store.selectedExpense
+const currency = ref(null)
 const categoryName = ref("unknown")
-store.$subscribe((m, s) => {
+Axios.get(`https://${hostName}/api/expenselist/${profilStore.expenseListId}`, {
+    headers: {
+        Authorization: `Bearer ${authToken}`
+    }
+}).then(r => {
+    currency.value = r.data.currencyCode
+})
+store.$subscribe(() => {
     expense.value = store.selectedExpense
     Axios.get(`https://${hostName}/api/category/${expense.value.categoryId}`).then(r => {
         categoryName.value = r.data
@@ -26,7 +36,7 @@ function closeWindow() {
     <div id="detailsRoot" v-if="expense != null" class="card">
         <button class="material-symbols-outlined size-32 m-1" @click="closeWindow">close</button>
         <h1>{{ expense.name }}</h1>
-        <h3>{{ expense.amount }}</h3>
+        <h3>{{ expense.amount }} {{ currency }}</h3>
         <div>{{ categoryName }}</div>
         <div v-if="expense.status" class="text-success">Kifizetve</div>
         <div v-else class="text-danger">Nincs fizetve</div>
@@ -44,7 +54,7 @@ function closeWindow() {
 #detailsRoot {
     width: 25vw;
     background-color: #dff4ff;
-    color:#006783;
+    color: #006783;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1200px) {
@@ -64,11 +74,13 @@ button {
     border-radius: 5px;
     width: 2em;
     background-color: #004d67;
-    color:#bce9ff;
+    color: #bce9ff;
 }
 
-h1,h3,div{
-    margin:0.5em;
-    margin-top:0;
+h1,
+h3,
+div {
+    margin: 0.5em;
+    margin-top: 0;
 }
 </style>
