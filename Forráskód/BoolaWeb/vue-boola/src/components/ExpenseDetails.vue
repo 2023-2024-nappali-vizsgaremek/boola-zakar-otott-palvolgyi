@@ -14,7 +14,7 @@ store.$subscribe((m, s) => {
     Axios.get(`https://${hostName}/api/category/${expense.value.categoryId}`).then(r => {
         categoryName.value = r.data
     })
-        .catch(() => categoryName.data = "unknown")
+        .catch(() => categoryName.value = "unknown")
 })
 
 function closeWindow() {
