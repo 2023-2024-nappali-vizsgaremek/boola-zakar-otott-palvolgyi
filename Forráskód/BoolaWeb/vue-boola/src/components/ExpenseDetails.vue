@@ -4,6 +4,7 @@ import { expenseStore } from '../stores/expenseStore';
 import { profileStore } from '../stores/ProfileStore';
 import Axios from 'axios'
 
+Axios.defaults.headers.get["Cache-Control"] = "max-age=604800"
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 const authToken = sessionStorage.getItem("authToken")
 const store = expenseStore()
@@ -14,7 +15,8 @@ const currency = ref(null)
 const categoryName = ref("unknown")
 Axios.get(`https://${hostName}/api/expenselist/${profilStore.expenseListId}`, {
     headers: {
-        Authorization: `Bearer ${authToken}`
+        Authorization: `Bearer ${authToken}`,
+        "Cache-Control": "max-age=60"
     }
 }).then(r => {
     currency.value = r.data.currencyCode

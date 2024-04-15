@@ -7,6 +7,7 @@ import { profileStore } from "/src/stores/ProfileStore"
 const authToken = sessionStorage.getItem("authToken");
 if (!authToken) window.open("/login", "_self")
 
+axios.defaults.headers.get["Cache-Control"] = "max-age=604800"
 const store = profileStore()
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 const profileCreation = ref(false);
@@ -19,7 +20,8 @@ const profileCreationToggle = () => {
 const profiles = ref();
 axios.get(`http://${hostName}/api/profile`,{
     headers: {
-        Authorization: `Bearer ${authToken}`
+        Authorization: `Bearer ${authToken}`,
+        "Cache-Control": "max-age=60"
     }
 })
     .then(r => profiles.value = r.data);
@@ -48,7 +50,8 @@ const createNewProfile = () => {
             }
             const profileAddress = r.data
             axios.get(`https://${hostName}/${profileAddress}`, {
-                Authorization: `Bearer ${authToken}`
+                Authorization: `Bearer ${authToken}`,
+                "Cache-Control":"no-store"
             }).then(p => {
                 if (p.status != 200) {
                     alert("Lekérdezési hiba történt!")
@@ -60,9 +63,6 @@ const createNewProfile = () => {
                 })
             })
         });
-
-    console.log(newProfile.value);
-
     newProfile.value = { id: uuidv4(), name: null, isBusiness: null, languageId: null, expenseListId: null, accountEmail: store.email };
 }
 
