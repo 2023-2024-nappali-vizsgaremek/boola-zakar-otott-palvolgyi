@@ -18,7 +18,7 @@ const profileCreationToggle = () => {
 }
 
 const profiles = ref();
-axios.get(`http://${hostName}/api/profile`,{
+axios.get(`http://${hostName}/api/profile`, {
     headers: {
         Authorization: `Bearer ${authToken}`,
         "Cache-Control": "max-age=60"
@@ -50,15 +50,18 @@ const createNewProfile = () => {
             }
             const profileAddress = r.data
             axios.get(`https://${hostName}/${profileAddress}`, {
-                Authorization: `Bearer ${authToken}`,
-                "Cache-Control":"no-store"
+                headers: {
+                    Authorization: `Bearer ${authToken}`,
+                    "Cache-Control": "no-store"
+                }
+
             }).then(p => {
                 if (p.status != 200) {
                     alert("Lekérdezési hiba történt!")
                     return;
                 }
                 store.$patch({
-                    email:store.email,
+                    email: store.email,
                     profile: p.data
                 })
             })
@@ -68,11 +71,19 @@ const createNewProfile = () => {
 
 const SelectProfile = (profile) => {
     store.$patch({
-        email:store.email,
-        profile:profile
+        email: store.email,
+        profile: profile
     })
-    window.open("/","_self")
+    window.open("/", "_self")
 }
+
+const DeleteProfile = (id) => {
+    if (!confirm("Biztosan törli ezt a profilt? Minden benne levő költés el fog veszni!")) return;
+    axios.delete(`https://${hostName}/api/profile/${id}`).then(r => {
+        if (r.status != 204) alert("Hiba történt a törlés során!")
+        else window.open("/profiles","_self")
+    })
+} 
 </script>
 
 <template>
@@ -80,7 +91,8 @@ const SelectProfile = (profile) => {
     <div class="profiles-container" v-if="!profileCreation">
         <div class="profile-container" v-for="p in profiles" @click="SelectProfile(p)">
             <h2>{{ p.name }}</h2>
-            {{ p.accountEmail }}
+            <div>{{ p.accountEmail }}</div>
+            <button class="btn btn-rounded btn-danger" @click="DeleteProfile(p.id)">Törlés</button>
         </div>
         <div @click="profileCreationToggle" class="new-profile profile-container"><span
                 class="material-symbols-outlined size-32">add</span></div>
