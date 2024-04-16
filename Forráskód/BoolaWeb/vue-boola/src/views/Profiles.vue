@@ -3,9 +3,6 @@ import axios from 'axios';
 import { onMounted, ref } from 'vue';
 import { v4 as uuidv4 } from "uuid";
 import { profileStore } from "/src/stores/ProfileStore"
-import { onMounted, ref } from 'vue';
-import { v4 as uuidv4 } from "uuid";
-import { profileStore } from "/src/stores/ProfileStore"
 
 const authToken = sessionStorage.getItem("authToken");
 if (!authToken) window.open("/login", "_self")
@@ -23,7 +20,6 @@ const newProfile = ref({
     accountEmail: store.email
 })
 const profileCreationToggle = () => {
-    profileCreation.value = !profileCreation.value;
     profileCreation.value = !profileCreation.value;
 }
 
