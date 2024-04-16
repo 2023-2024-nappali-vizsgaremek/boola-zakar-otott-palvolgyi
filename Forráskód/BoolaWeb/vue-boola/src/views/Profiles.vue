@@ -159,25 +159,13 @@ const DeleteProfile = (id) => {
     height: auto;
     border-radius: var(--border-radius);
     padding: 5px;
-    background-color: var(--sec-background);
-    width: 400px;
-    height: auto;
-    border-radius: var(--border-radius);
-    padding: 5px;
 
-    position: absolute;
-    top: 20%;
-    right: 50%;
-    transform: translateX(200px);
     position: absolute;
     top: 20%;
     right: 50%;
     transform: translateX(200px);
 }
 
-.profileCreationForm>* {
-    display: inline;
-    margin: 5px;
 .profileCreationForm>* {
     display: inline;
     margin: 5px;
@@ -186,15 +174,9 @@ const DeleteProfile = (id) => {
 .new-profile {
     text-align: center;
     align-items: center;
-    text-align: center;
-    align-items: center;
 }
 
 .profiles-container {
-    background-color: var(--sec-background);
-    width: 400px;
-    height: auto;
-    border-radius: var(--border-radius);
     background-color: var(--sec-background);
     width: 400px;
     height: auto;
@@ -214,19 +196,9 @@ const DeleteProfile = (id) => {
     color: var(--sec-text-color);
     cursor: pointer;
     transition: all ease-out 0.2s;
-    padding: 5px;
-    margin: 5px;
-    border: 2px solid var(--main-background);
-    border-radius: var(--border-radius);
-    color: var(--sec-text-color);
-    cursor: pointer;
-    transition: all ease-out 0.2s;
 }
 
 .profile-container:hover {
-    background-color: var(--main-background);
-    color: var(--main-text-color);
-    transition: all ease-out 0.2s;
     background-color: var(--main-background);
     color: var(--main-text-color);
     transition: all ease-out 0.2s;
