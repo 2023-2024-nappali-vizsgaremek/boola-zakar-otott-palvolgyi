@@ -11,6 +11,7 @@ axios.defaults.headers.get["Cache-Control"] = "max-age=604800"
 const store = profileStore()
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 const profileCreation = ref(false);
+
 const newProfile = ref({
     id: uuidv4(),
     name: null,
@@ -105,19 +106,25 @@ const SelectProfile = (profile) => {
 
 const DeleteProfile = (id) => {
     if (!confirm("Biztosan törli ezt a profilt? Minden benne levő költés el fog veszni!")) return;
-    axios.delete(`https://${hostName}/api/profile/${id}`).then(r => {
+    axios.delete(`https://${hostName}/api/profile/${id}`,{
+      headers: {
+        Authorization: `Bearer ${authToken}`
+      }
+    }).then(r => {
         if (r.status != 204) alert("Hiba történt a törlés során!")
         else window.open("/profiles","_self")
-    })
+
+      })
 } 
 </script>
 
 <template>
     <h1 class="text-center">Profilok</h1>
     <div class="profiles-container" v-if="!profileCreation">
-        <div class="profile-container" v-for="p in profiles" @click="SelectProfile(p)">
+        <div class="profile-container" v-for="p in profiles">
             <h2>{{ p.name }}</h2>
             <div>{{ p.accountEmail }}</div>
+            <button class="btn btn-rounded btn-success m-2" @click="SelectProfile(p)">Kiválasztás</button>
             <button class="btn btn-rounded btn-danger" @click="DeleteProfile(p.id)">Törlés</button>
         </div>
         <div @click="profileCreationToggle" class="new-profile profile-container"><span
