@@ -28,7 +28,7 @@ const profiles = ref();
 axios.get(`http://${hostName}/api/profile`, {
     headers: {
         Authorization: `Bearer ${authToken}`,
-        "Cache-Control": "max-age=60"
+        "Cache-Control": "no-cache"
     }
 })
     .then(r => profiles.value = r.data);
@@ -186,8 +186,9 @@ const DeleteProfile = (id) => {
     background-color: var(--sec-background);
     width: 400px;
     height: auto;
+    max-height: 75vh;
     border-radius: var(--border-radius);
-
+    overflow: auto;
     position: absolute;
     top: 20%;
     right: 50%;

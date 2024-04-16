@@ -31,7 +31,7 @@ function Delete(id) {
     axios.get(`https://${hostName}/api/expense?listId=${expenseListId}`, {
       headers: {
         Authorization: `Bearer ${authToken}`,
-        "Cache-Control":"max-age=60"
+        "Cache-Control":"no-store"
       }
     }).then(r => expense.value = r.data)
   })
