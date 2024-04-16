@@ -207,13 +207,9 @@ class DataController internal constructor(private val connection: Connection) {
             execute()
         }
     }
-    fun deleteProfile(newData: Profile){
+    fun deleteProfile(id:UUID){
         deleteProfileStatement.run {
-            setString(3,newData.name)
-            setBoolean(4,newData.isBusiness)
-            setString(5,newData.languageId)
-            setObject(6,newData.expenseListId)
-            setString(7,newData.accountEmail)
+            setObject(1,id)
             execute()
         }
     }
@@ -222,7 +218,7 @@ class DataController internal constructor(private val connection: Connection) {
             setObject(1,newData.id)
             setString(2,newData.name)
             setBoolean(3,newData.isBusiness)
-            setObject(4,newData.expenseListId, Types.OTHER)
+            setObject(4,newData.expenseListId)
             setString(5,newData.languageId)
             setString(6,newData.accountEmail)
             execute()

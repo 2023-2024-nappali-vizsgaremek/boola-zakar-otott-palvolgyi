@@ -17,7 +17,6 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.*
 import java.util.*
-import javax.xml.crypto.Data
 
 private const val AccessTokenLifetime = 9000000
 
@@ -245,7 +244,7 @@ fun Application.configureRouting() {
                         DataControllerFactory.returnController(con)
                         return@post
                     }
-                    if(profile.expenseListId == UUID.fromString("00000000-0000-0000-0000-000000000000")) {
+                    if(profile.expenseListId == null) {
                         val expenseListId = UUID.randomUUID()
                         con.addExopenseList(ExpenseList(expenseListId,0.0,"HUF")) //send currency with request
                         profile = profile.copy(expenseListId = expenseListId)
@@ -293,7 +292,7 @@ fun Application.configureRouting() {
                             if(call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString() ==
                                 profile.accountEmail) {
                                 con.deleteExpenseList(profile.expenseListId!!)
-                                con.deleteProfile(profile)
+                                con.deleteProfile(uuid)
                                 call.respond(HttpStatusCode.NoContent)
                                 DataControllerFactory.returnController(con)
                                 return@delete
@@ -534,6 +533,14 @@ fun Application.configureRouting() {
                         DataControllerFactory.returnController(con)
                         return@post
                     }
+                    var expenseList = con.getExpenseList(expenseToAdd.listId)
+                    if(expenseList.balance < expenseToAdd.amount) {
+                        call.respond(HttpStatusCode.BadRequest)
+                        DataControllerFactory.returnController(con)
+                        return@post
+                    }
+                    expenseList = expenseList.copy(balance = expenseList.balance-expenseToAdd.amount)
+                    con.setExpenseList(expenseList.id,expenseList)
                     con.addExpense(expenseToAdd)
                     call.respond(HttpStatusCode.Created,"api/get/expense/" + expenseToAdd.id)
                     DataControllerFactory.returnController(con)
