@@ -2,6 +2,7 @@ package com.boola.controllers
 
 import at.favre.lib.crypto.bcrypt.BCrypt
 import com.boola.models.*
+import io.ktor.util.reflect.*
 import io.ktor.utils.io.charsets.*
 import java.sql.*
 import java.util.UUID
@@ -50,6 +51,8 @@ class DataController internal constructor(private val connection: Connection) {
         "SELECT * FROM expenselist")
     private val addExpenseListStatement:PreparedStatement=connection.prepareStatement(
     "INSERT INTO expenseList (id,balance,currencycode) VALUES (?,?,?)")
+    private val setExpenseListStatement:PreparedStatement = connection.prepareStatement("UPDATE expenselist SET id=?," +
+            "balance=?,currencycode=? WHERE id=?")
     private val deleteExpenseListStatement:PreparedStatement=connection.prepareStatement(
         "DELETE  FROM expenselist WHERE id=?")
 
@@ -60,8 +63,8 @@ class DataController internal constructor(private val connection: Connection) {
             " accountEmail=?")
 
     private val addProfileStatement:PreparedStatement=connection.prepareStatement(
-        "INSERT INTO profile (name, isbusiness, expenselistid, languagecode, accountemail)" +
-                " VAlUES (?,?,?::uuid,?,?)")
+        "INSERT INTO profile (id,name, isbusiness, expenselistid, languagecode, accountemail)" +
+                " VAlUES (?::uuid,?,?,?::uuid,?,?)")
 
     private val setProfileStatement:PreparedStatement=connection.prepareStatement(
         "UPDATE  profile SET name=?,isBusiness=?,languagecode=?,expenseListId=?::uuid,accountEmail=? WHERE " +
@@ -216,11 +219,12 @@ class DataController internal constructor(private val connection: Connection) {
     }
     fun addProfile(newData:Profile){
         addProfileStatement.run {
-            setString(1,newData.name)
-            setBoolean(2,newData.isBusiness)
-            setObject(3,newData.expenseListId, Types.OTHER)
-            setString(4,newData.languageId)
-            setString(5,newData.accountEmail)
+            setObject(1,newData.id)
+            setString(2,newData.name)
+            setBoolean(3,newData.isBusiness)
+            setObject(4,newData.expenseListId, Types.OTHER)
+            setString(5,newData.languageId)
+            setString(6,newData.accountEmail)
             execute()
         }
     }
@@ -234,7 +238,7 @@ class DataController internal constructor(private val connection: Connection) {
         val results = getExpenseListStatement.resultSet
         results.next()
         return ExpenseList(
-            UUID.fromString(results.getString(1)),results.getLong(2),
+            UUID.fromString(results.getString(1)),results.getDouble(2),
             results.getString(3))
     }
 
@@ -244,7 +248,7 @@ class DataController internal constructor(private val connection: Connection) {
         val results = getExpenseListsStatement.resultSet
         while(results.next()) {
             lists.add(ExpenseList(
-                UUID.fromString(results.getString(1)),results.getLong(2),
+                UUID.fromString(results.getString(1)),results.getDouble(2),
                 results.getString(3)))
         }
         return lists
@@ -253,16 +257,26 @@ class DataController internal constructor(private val connection: Connection) {
 fun addExopenseList(newData:ExpenseList){
     addExpenseListStatement.run {
         setObject(1,newData.id)
-        setLong(2, newData.balance)
-        setString(  3,newData.currencyCode)
+        setDouble(2, newData.balance)
+        setString(3,newData.currencyCode)
         execute()
     }
 
 }
+
+    fun setExpenseList(id:UUID,newData: ExpenseList){
+        setExpenseListStatement.run{
+            setObject(1,newData.id)
+            setDouble(2,newData.balance)
+            setString(3,newData.currencyCode)
+            setObject(4,id)
+            execute()
+        }
+    }
+
     fun  deleteExpenseList(newData: UUID){
         deleteExpenseListStatement.run {
             setObject(1,newData)
-
             execute()
         }
     }

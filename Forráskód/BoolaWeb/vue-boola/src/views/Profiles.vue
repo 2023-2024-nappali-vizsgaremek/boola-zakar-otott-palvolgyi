@@ -1,8 +1,8 @@
 <script setup>
 import axios from 'axios';
-import { onMounted, ref } from 'vue';
-import { v4 as uuidv4 } from "uuid";
-import { profileStore } from "/src/stores/ProfileStore"
+import {onMounted, ref} from 'vue';
+import {v4 as uuidv4} from "uuid";
+import {profileStore} from "/src/stores/ProfileStore"
 
 const authToken = sessionStorage.getItem("authToken");
 if (!authToken) window.open("/login", "_self")
@@ -12,6 +12,7 @@ const store = profileStore()
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 const profileCreation = ref(false);
 
+
 const newProfile = ref({
     id: uuidv4(),
     name: null,
@@ -19,9 +20,10 @@ const newProfile = ref({
     languageId: null,
     expenseListId: null,
     accountEmail: store.email
+
 })
 const profileCreationToggle = () => {
-    profileCreation.value = !profileCreation.value;
+  profileCreation.value = !profileCreation.value;
 }
 
 const profiles = ref();
@@ -30,6 +32,7 @@ axios.get(`http://${hostName}/api/profile`, {
         Authorization: `Bearer ${authToken}`,
         "Cache-Control": "no-cache"
     }
+
 })
     .then(r => profiles.value = r.data);
 
@@ -45,12 +48,21 @@ const languages = ref([]);
 const selectedLanguage = ref(null)
 axios.get(`http://${hostName}/api/language`)
     .then(r => languages.value = r.data);
-
+const currencies = ref([])
+const selectedCurrency = ref(null)
+axios.get(`https://${hostName}/api/currency`)
+    .then(r => currencies.value = r.data)
 const createNewProfile = () => {
-    newProfile.value.languageId = selectedLanguage.value;
-    axios.post(`http://${hostName}/api/profile`, newProfile.value, {
-        headers: {
-            Authorization: `Bearer ${authToken}`
+  newProfile.value.languageId = selectedLanguage.value;
+  axios.post(`http://${hostName}/api/profile`, newProfile.value, {
+    headers: {
+      Authorization: `Bearer ${authToken}`
+    }
+  })
+      .then(r => {
+        if (r.status != 201) {
+          alert("Hiba történt!")
+          return;
         }
     })
         .then(r => {
@@ -102,6 +114,7 @@ const SelectProfile = (profile) => {
         profile: profile
     })
     window.open("/", "_self")
+
 }
 
 const DeleteProfile = (id) => {
@@ -155,31 +168,33 @@ const DeleteProfile = (id) => {
             <button @click="profileCreationToggle">Vissza</button>
             <button @click="createNewProfile">Létrehozás</button>
         </div>
+
     </div>
+  </div>
 </template>
 
 <style scoped>
 .profileCreation-container {
-    background-color: var(--sec-background);
-    width: 400px;
-    height: auto;
-    border-radius: var(--border-radius);
-    padding: 5px;
+  background-color: var(--sec-background);
+  width: 400px;
+  height: auto;
+  border-radius: var(--border-radius);
+  padding: 5px;
 
-    position: absolute;
-    top: 20%;
-    right: 50%;
-    transform: translateX(200px);
+  position: absolute;
+  top: 20%;
+  right: 50%;
+  transform: translateX(200px);
 }
 
-.profileCreationForm>* {
-    display: inline;
-    margin: 5px;
+.profileCreationForm > * {
+  display: inline;
+  margin: 5px;
 }
 
 .new-profile {
-    text-align: center;
-    align-items: center;
+  text-align: center;
+  align-items: center;
 }
 
 .profiles-container {
@@ -193,21 +208,22 @@ const DeleteProfile = (id) => {
     top: 20%;
     right: 50%;
     transform: translateX(200px);
+
 }
 
 .profile-container {
-    padding: 5px;
-    margin: 5px;
-    border: 2px solid var(--main-background);
-    border-radius: var(--border-radius);
-    color: var(--sec-text-color);
-    cursor: pointer;
-    transition: all ease-out 0.2s;
+  padding: 5px;
+  margin: 5px;
+  border: 2px solid var(--main-background);
+  border-radius: var(--border-radius);
+  color: var(--sec-text-color);
+  cursor: pointer;
+  transition: all ease-out 0.2s;
 }
 
 .profile-container:hover {
-    background-color: var(--main-background);
-    color: var(--main-text-color);
-    transition: all ease-out 0.2s;
+  background-color: var(--main-background);
+  color: var(--main-text-color);
+  transition: all ease-out 0.2s;
 }
 </style>
