@@ -5,6 +5,7 @@ import {ref} from "vue";
 import {v4 as uuidv4} from "uuid";
 import { profileStore } from '/src/stores/ProfileStore';
 
+Axios.defaults.headers.get["Cache-Control"] = "max-age=604800,public"
 const NewExpense = ref({
   id: null,
   name: null,
@@ -27,11 +28,11 @@ let partner = ref("");
 const partners = ref([]);
 Axios.get(`https://${hostName}/api/partner`, {
   headers: {
-    Authorization: `Bearer ${authToken}`
+    Authorization: `Bearer ${authToken}`,
+    "Cache-Control":"max-age=60"
   }
 }).then(r => partners.value = r.data)
 Axios.get(`https://${hostName}/api/category`).then(r => category.value = r.data)
-Axios.get(`https://${hostName}/api/currency`).then(r => currency.value = r.data)
 
 function Send() {
   const length = partners.value.length

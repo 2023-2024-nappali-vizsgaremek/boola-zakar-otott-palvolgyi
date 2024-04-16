@@ -1,18 +1,19 @@
 <script setup>
-import axios, { Axios } from "axios";
+import axios from "axios";
 import { ref } from "vue";
 import { expenseStore } from "../stores/expenseStore";
 import { profileStore } from "../stores/ProfileStore";
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 const authToken = sessionStorage.getItem("authToken")
 
-
+axios.defaults.headers.get["Cache-Control"] = "max-age=604800,public"
 const expense = ref([])
 const store = expenseStore()
 const expenseListId = profileStore().profile.expenseListId
 axios.get(`https://${hostName}/api/expense?listId=${expenseListId}`, {
   headers: {
-    Authorization: `Bearer ${authToken}`
+    Authorization: `Bearer ${authToken}`,
+    "Cache-Control":"max-age=60"
   }
 }).then(r => expense.value = r.data)
 
@@ -29,14 +30,14 @@ function Delete(id) {
     }
     axios.get(`https://${hostName}/api/expense?listId=${expenseListId}`, {
       headers: {
-        Authorization: `Bearer ${authToken}`
+        Authorization: `Bearer ${authToken}`,
+        "Cache-Control":"no-store"
       }
     }).then(r => expense.value = r.data)
   })
 }
 
 function selectExpense(expense) {
-  console.log("hello from expense")
   store.$patch({ selectedExpense: expense })
 }
 
