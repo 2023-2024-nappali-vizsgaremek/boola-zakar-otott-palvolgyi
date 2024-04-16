@@ -17,7 +17,6 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.*
 import java.util.*
-import javax.xml.crypto.Data
 
 private const val AccessTokenLifetime = 9000000
 
@@ -293,7 +292,7 @@ fun Application.configureRouting() {
                             if(call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString() ==
                                 profile.accountEmail) {
                                 con.deleteExpenseList(profile.expenseListId!!)
-                                con.deleteProfile(profile)
+                                con.deleteProfile(uuid)
                                 call.respond(HttpStatusCode.NoContent)
                                 DataControllerFactory.returnController(con)
                                 return@delete
