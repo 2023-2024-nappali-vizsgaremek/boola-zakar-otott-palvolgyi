@@ -35,7 +35,10 @@ axios.get(`http://${hostName}/api/profile`, {
 /*val id:UUID, val name:String, val isBusiness:Boolean,
                val languageId:String, @Serializable(with = UUIDSerializer::class) val expenseListId:UUID?,
                val accountEmail:String)*/
-
+               const currencies = ref([])
+const selectedCurrency = ref(null)
+axios.get(`https://${hostName}/api/currency`)
+    .then(r => currencies.value = r.data)
 
 const languages = ref([]);
 const selectedLanguage = ref(null)
