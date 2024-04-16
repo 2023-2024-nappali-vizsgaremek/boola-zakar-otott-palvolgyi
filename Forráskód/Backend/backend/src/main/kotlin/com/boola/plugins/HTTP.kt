@@ -12,6 +12,7 @@ fun Application.configureHTTP() {
         allowMethod(HttpMethod.Post)
         allowHeader(HttpHeaders.Authorization)
         allowHeader(HttpHeaders.ContentType)
+        allowHeader(HttpHeaders.CacheControl)
         anyHost() // @TODO: Don't do this in production if possible. Try to limit it.
     }
 }
