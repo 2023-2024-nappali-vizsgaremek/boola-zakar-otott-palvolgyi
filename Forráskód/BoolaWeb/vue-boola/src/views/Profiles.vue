@@ -3,6 +3,9 @@ import axios from 'axios';
 import { onMounted, ref } from 'vue';
 import { v4 as uuidv4 } from "uuid";
 import { profileStore } from "/src/stores/ProfileStore"
+import { onMounted, ref } from 'vue';
+import { v4 as uuidv4 } from "uuid";
+import { profileStore } from "/src/stores/ProfileStore"
 
 const authToken = sessionStorage.getItem("authToken");
 if (!authToken) window.open("/login", "_self")
@@ -11,9 +14,16 @@ axios.defaults.headers.get["Cache-Control"] = "max-age=604800"
 const store = profileStore()
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 const profileCreation = ref(false);
-const newProfile = ref({ id: uuidv4(), name: null, isBusiness: false, languageId: null, expenseListId: null, accountEmail: store.email })
-
+const newProfile = ref({
+    id: uuidv4(),
+    name: null,
+    isBusiness: false,
+    languageId: null,
+    expenseListId: null,
+    accountEmail: store.email
+})
 const profileCreationToggle = () => {
+    profileCreation.value = !profileCreation.value;
     profileCreation.value = !profileCreation.value;
 }
 
@@ -54,19 +64,36 @@ const createNewProfile = () => {
                     Authorization: `Bearer ${authToken}`,
                     "Cache-Control": "no-store"
                 }
-
             }).then(p => {
                 if (p.status != 200) {
                     alert("Lekérdezési hiba történt!")
                     return;
                 }
+                axios.put(`https://${hostName}/api/expenselist/${p.data.expenseListId}`, {
+                    id: p.data.expenseListId,
+                    balance: 0,
+                    currencyCode: selectedCurrency.value
+                },{
+                    headers:{
+                        Authorization: `Bearer ${authToken}`,
+                        "Cache-Control": "no-store"
+                    }
+                })
                 store.$patch({
                     email: store.email,
                     profile: p.data
                 })
             })
         });
-    newProfile.value = { id: uuidv4(), name: null, isBusiness: null, languageId: null, expenseListId: null, accountEmail: store.email };
+
+    newProfile.value = {
+        id: uuidv4(),
+        name: null,
+        isBusiness: null,
+        languageId: null,
+        expenseListId: null,
+        accountEmail: store.email
+    };
 }
 
 const SelectProfile = (profile) => {
@@ -113,6 +140,12 @@ const DeleteProfile = (id) => {
             </select>
         </div>
         <div class="profileCreationForm">
+            <h2>Pénznem: </h2>
+            <select v-model="selectedCurrency">
+                <option v-for="currency in currencies" v-bind:value="currency.code">{{ currency.name }}</option>
+            </select>
+        </div>
+        <div class="profileCreationForm">
             <button @click="profileCreationToggle">Vissza</button>
             <button @click="createNewProfile">Létrehozás</button>
         </div>
@@ -126,7 +159,16 @@ const DeleteProfile = (id) => {
     height: auto;
     border-radius: var(--border-radius);
     padding: 5px;
+    background-color: var(--sec-background);
+    width: 400px;
+    height: auto;
+    border-radius: var(--border-radius);
+    padding: 5px;
 
+    position: absolute;
+    top: 20%;
+    right: 50%;
+    transform: translateX(200px);
     position: absolute;
     top: 20%;
     right: 50%;
@@ -136,14 +178,23 @@ const DeleteProfile = (id) => {
 .profileCreationForm>* {
     display: inline;
     margin: 5px;
+.profileCreationForm>* {
+    display: inline;
+    margin: 5px;
 }
 
 .new-profile {
     text-align: center;
     align-items: center;
+    text-align: center;
+    align-items: center;
 }
 
 .profiles-container {
+    background-color: var(--sec-background);
+    width: 400px;
+    height: auto;
+    border-radius: var(--border-radius);
     background-color: var(--sec-background);
     width: 400px;
     height: auto;
@@ -163,9 +214,19 @@ const DeleteProfile = (id) => {
     color: var(--sec-text-color);
     cursor: pointer;
     transition: all ease-out 0.2s;
+    padding: 5px;
+    margin: 5px;
+    border: 2px solid var(--main-background);
+    border-radius: var(--border-radius);
+    color: var(--sec-text-color);
+    cursor: pointer;
+    transition: all ease-out 0.2s;
 }
 
 .profile-container:hover {
+    background-color: var(--main-background);
+    color: var(--main-text-color);
+    transition: all ease-out 0.2s;
     background-color: var(--main-background);
     color: var(--main-text-color);
     transition: all ease-out 0.2s;
