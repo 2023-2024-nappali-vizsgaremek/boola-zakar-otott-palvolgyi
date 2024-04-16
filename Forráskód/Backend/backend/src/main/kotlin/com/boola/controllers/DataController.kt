@@ -222,7 +222,7 @@ class DataController internal constructor(private val connection: Connection) {
             setObject(1,newData.id)
             setString(2,newData.name)
             setBoolean(3,newData.isBusiness)
-            setObject(4,newData.expenseListId, Types.OTHER)
+            setObject(4,newData.expenseListId)
             setString(5,newData.languageId)
             setString(6,newData.accountEmail)
             execute()
