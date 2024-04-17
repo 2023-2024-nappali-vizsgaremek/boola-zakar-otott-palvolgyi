@@ -102,7 +102,7 @@ expenses.value=expenseList2.value.slice(-2).reverse()
         margin: 10px;
     }
 
-    .activeProfileInfo{
+    .info-container-card{
         background-color: var(--sec-background);
         height: 600px;
         width: 500px;        
@@ -110,11 +110,12 @@ expenses.value=expenseList2.value.slice(-2).reverse()
       padding: 3em 1em 1em;
     }
 
-    .spendingStats{
-        background-color: var(--sec-background);
-        height: 600px;
-        width: 500px;        
-        border-radius: var(--border-radius);
+    .profileInfo-container{
+        
+    }
+
+    .spendinginfo-container{
+        
     }
 
     .prevSpending{
