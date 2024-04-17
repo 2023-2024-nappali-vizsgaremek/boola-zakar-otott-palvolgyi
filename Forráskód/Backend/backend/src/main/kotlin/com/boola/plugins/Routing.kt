@@ -231,7 +231,7 @@ fun Application.configureRouting() {
                 }
             }
 
-            post("/api/profile/") {
+            post("/api/profile") {
 
                 val con = DataControllerFactory.getController()
                 if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
@@ -244,9 +244,9 @@ fun Application.configureRouting() {
                         DataControllerFactory.returnController(con)
                         return@post
                     }
-                    if(profile.expenseListId == UUID.fromString("00000000-0000-0000-0000-000000000000")) {
+                    if(profile.expenseListId == null) {
                         val expenseListId = UUID.randomUUID()
-                        con.addExopenseList(ExpenseList(expenseListId,0,"HUF")) //send currency with request
+                        con.addExopenseList(ExpenseList(expenseListId,0.0,"HUF")) //send currency with request
                         profile = profile.copy(expenseListId = expenseListId)
                     }
                     con.addProfile(profile)
@@ -291,7 +291,8 @@ fun Application.configureRouting() {
                             val profile = con.getProfile(uuid)
                             if(call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString() ==
                                 profile.accountEmail) {
-                                con.deleteProfile(con.getProfile(uuid))
+                                con.deleteExpenseList(profile.expenseListId!!)
+                                con.deleteProfile(uuid)
                                 call.respond(HttpStatusCode.NoContent)
                                 DataControllerFactory.returnController(con)
                                 return@delete
@@ -353,6 +354,64 @@ fun Application.configureRouting() {
                         profile == it.id
                     }
                     call.respond(expenseLists)
+                    DataControllerFactory.returnController(con)
+                }
+            }
+
+            put("/api/expenselist/{id}"){
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else {
+                    val idString = call.parameters["id"] as String
+                    val id = UUID.fromString(idString)
+                    val newExpenseList = call.receive<ExpenseList>()
+                    val email = call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString()
+                    try{
+                        con.getExpenseList(id)
+                    } catch (_:Exception) {
+                        call.respond(HttpStatusCode.NotFound)
+                        DataControllerFactory.returnController(con)
+                        return@put
+                    }
+                    val ownsProfile = con.getAllProfile(email).any{
+                        it.expenseListId == id
+                    }
+                    if(!ownsProfile) {
+                        call.respond(HttpStatusCode.Forbidden)
+                        DataControllerFactory.returnController(con)
+                        return@put
+                    }
+                    con.setExpenseList(id,newExpenseList)
+                    call.respond(HttpStatusCode.OK)
+                    DataControllerFactory.returnController(con)
+                }
+            }
+
+            delete("/api/expenselist/{id}") {
+                val con = DataControllerFactory.getController()
+                if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
+                else {
+                    val idString = call.parameters["id"] as String
+                    val id = UUID.fromString(idString)
+                    val newExpenseList = call.receive<ExpenseList>()
+                    val email = call.principal<JWTPrincipal>()!!.payload.getClaim("email").asString()
+                    try{
+                        con.getExpenseList(id)
+                    } catch (_:Exception) {
+                        call.respond(HttpStatusCode.NotFound)
+                        DataControllerFactory.returnController(con)
+                        return@delete
+                    }
+                    val ownsProfile = con.getAllProfile(email).any{
+                        it.expenseListId == id
+                    }
+                    if(!ownsProfile) {
+                        call.respond(HttpStatusCode.Forbidden)
+                        DataControllerFactory.returnController(con)
+                        return@delete
+                    }
+                    con.deleteExpenseList(id)
+                    call.respond(HttpStatusCode.NoContent)
                     DataControllerFactory.returnController(con)
                 }
             }
@@ -474,6 +533,14 @@ fun Application.configureRouting() {
                         DataControllerFactory.returnController(con)
                         return@post
                     }
+                    var expenseList = con.getExpenseList(expenseToAdd.listId)
+                    if(expenseList.balance < expenseToAdd.amount) {
+                        call.respond(HttpStatusCode.BadRequest)
+                        DataControllerFactory.returnController(con)
+                        return@post
+                    }
+                    expenseList = expenseList.copy(balance = expenseList.balance-expenseToAdd.amount)
+                    con.setExpenseList(expenseList.id,expenseList)
                     con.addExpense(expenseToAdd)
                     call.respond(HttpStatusCode.Created,"api/get/expense/" + expenseToAdd.id)
                     DataControllerFactory.returnController(con)

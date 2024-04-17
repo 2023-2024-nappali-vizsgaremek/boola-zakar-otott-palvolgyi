@@ -33,7 +33,14 @@
                     <span class="material-symbols-outlined size-32" >list_alt</span>
                     <h2 :class="`${MenuStore.isMainMenuOpened && 'menu-text-show'}`">Költség&nbspLista</h2>
                 </div>
-            </RouterLink>         
+            </RouterLink>   
+            <RouterLink class="routerlink" to="/topUp">
+<div class="routerLinkContainer">
+    <span class="material-symbols-outlined size-32">savings</span>
+    <h2>Egyenleg&nbspFeltöltés</h2>
+
+</div>
+            </RouterLink>      
         </div>
     </div>
 </template>

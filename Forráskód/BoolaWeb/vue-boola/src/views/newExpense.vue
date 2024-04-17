@@ -1,28 +1,44 @@
 <script setup>
 import 'bootstrap/dist/css/bootstrap.css'
 import Axios from "axios";
-import { ref } from "vue";
-import { v4 as uuidv4 } from "uuid";
+import {ref} from "vue";
+import {v4 as uuidv4} from "uuid";
+import { profileStore } from '/src/stores/ProfileStore';
 
-const NewExpense = ref({ id: null, name: null, status: "false", date: new Date(), payeeId: null, amount:null,categoryId:null, tags: null, statException: "false", note: null, listId: null });
+Axios.defaults.headers.get["Cache-Control"] = "max-age=604800,public"
+const NewExpense = ref({
+  id: null,
+  name: null,
+  status: "false",
+  date: new Date(),
+  payeeId: null,
+  amount: null,
+  categoryId: null,
+  tags: null,
+  statException: "false",
+  note: null,
+  listId: null
+});
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 const authToken = sessionStorage.getItem("authToken")
+const profile = profileStore().profile
 const currency = ref([]);
 const category = ref([]);
 let partner = ref("");
 const partners = ref([]);
 Axios.get(`https://${hostName}/api/partner`, {
   headers: {
-    Authorization: `Bearer ${authToken}`
+    Authorization: `Bearer ${authToken}`,
+    "Cache-Control":"max-age=60"
   }
 }).then(r => partners.value = r.data)
 Axios.get(`https://${hostName}/api/category`).then(r => category.value = r.data)
-Axios.get(`https://${hostName}/api/currency`).then(r => currency.value = r.data)
+
 function Send() {
   const length = partners.value.length
   NewExpense.value.id = uuidv4()
-  NewExpense.value.listId = "87e02966-af04-4232-9606-9d30ce9f7d2f"
-  if (NewExpense.value.payeeId==null) {
+  NewExpense.value.listId = profile.expenseListId
+  if (NewExpense.value.payeeId == null) {
 
     Axios.post(`https://${hostName}/api/partner`, {
       "id": length,
@@ -32,35 +48,36 @@ function Send() {
         Authorization: `Bearer ${authToken}`
       }
     }).then(r => {
-      
-      if (r.status != 201) {
-        alert("Partner Hiba!");
-        return;
+          if (r.status != 201) {
+            alert("Partner Hiba!");
+            return;
+          }
+          NewExpense.value.payeeId = length
+      postExpense()
+        }
+    )
+  } else {
+    postExpense()
+  }
+  function postExpense(){
+    Axios.post(`https://${hostName}/api/expense`, NewExpense.value, {
+      headers: {
+        Authorization: `Bearer ${authToken}`
       }
-      NewExpense.value.payeeId = length;
-
+    }).then(r => {
+      if (r.status != 201) {
+        alert("Hiba!");
+      }
     })
-
-  }
-  Axios.post(`https://${hostName}/api/expense`, NewExpense.value, {
-    headers: {
-      Authorization: `Bearer ${authToken}`
-    }
-  }).then(r => {
-    if (r.status != 201) {
-      alert("Hiba!");
-    }
-
-
-  }
-  )
-}
-function getPartner() {
-  let t = partners.value.find(r => r.name == partner.value)
-  if (t) {
-    NewExpense.value.payeeId = t.id;
   }
 }
+
+  function getPartner() {
+    let t = partners.value.find(r => r.name == partner.value)
+    if (t) {
+      NewExpense.value.payeeId = t.id;
+    }
+  }
 
 </script>
 
@@ -82,9 +99,6 @@ function getPartner() {
         <h3>Összeg</h3>
         <input v-model="NewExpense.amount" type="number">
       </div>
-
-
-
 
 
       <div class="row mx-auto">
@@ -128,9 +142,6 @@ function getPartner() {
     </div>
     <button class="btn btn-primary rounded" @click="Send()">Küldés</button>
   </div>
-
-
-
 
 
 </template>
