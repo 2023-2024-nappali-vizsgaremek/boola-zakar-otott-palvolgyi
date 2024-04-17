@@ -33,6 +33,7 @@ axios.get(`http://${hostName}/api/profile`, {
         "Cache-Control": "no-cache"
     }
 
+
 })
     .then(r => profiles.value = r.data);
 
@@ -131,9 +132,11 @@ const DeleteProfile = (id) => {
     <div class="profiles-container" v-if="!profileCreation">
         <div class="profile-container" v-for="p in profiles">
             <h2>{{ p.name }}</h2>
+
             <div>{{ p.accountEmail }}</div>
             <button class="btn btn-rounded btn-success m-2" @click="SelectProfile(p)">Kiválasztás</button>
             <button class="btn btn-rounded btn-danger" @click="DeleteProfile(p.id)">Törlés</button>
+
         </div>
         <div @click="profileCreationToggle" class="new-profile profile-container"><span
                 class="material-symbols-outlined size-32">add</span></div>
@@ -149,6 +152,7 @@ const DeleteProfile = (id) => {
         </div>
         <div class="profileCreationForm">
             <h2>Nyelv: </h2>
+
             <select v-model="selectedLanguage">
                 <option v-for="language in languages" v-bind:value="language.code">{{ language.name }}</option>
             </select>
@@ -157,6 +161,7 @@ const DeleteProfile = (id) => {
             <h2>Pénznem: </h2>
             <select v-model="selectedCurrency">
                 <option v-for="currency in currencies" v-bind:value="currency.code">{{ currency.name }}</option>
+
             </select>
         </div>
         <div class="profileCreationForm">
