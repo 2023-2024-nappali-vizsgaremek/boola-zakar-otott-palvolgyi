@@ -1,7 +1,8 @@
 <script setup>
-import axios, { Axios } from 'axios';
+import axios from 'axios';
 import {ref,defineProps} from "vue";
 
+axios.defaults.headers.get["Cache-Control"] = "max-age=604800,public"
 const settings=ref({email:null,pwHash:null,name:null})
 const nyelv=ref([])
 const profile=ref([])
@@ -11,13 +12,15 @@ const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 let settingsToSubmit=null;
 axios.get(`https://${hostName}/api/profile/1a8b8ad4-89eb-4ff8-883a-854bca6bfb19`,{
   headers : {
-    Authorization: `Bearer ${authToken}`
+    Authorization: `Bearer ${authToken}`,
+    "Cache-Control":"max-age=60"
   }
 }).then(r=>{
   profile.value=r.data
   axios.get(`https://${hostName}/api/account/${profile.value.accountEmail}`,{
   headers : {
-    Authorization: `Bearer ${authToken}`
+    Authorization: `Bearer ${authToken}`,
+    "Cache-Control":"max-age=60"
   }
 }).then(r=>settings.value=r.data)
 })
