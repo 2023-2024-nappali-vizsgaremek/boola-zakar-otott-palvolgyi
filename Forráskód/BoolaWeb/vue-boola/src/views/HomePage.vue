@@ -1,16 +1,75 @@
 <script setup>
-const authToken = sessionStorage.getItem("authToken");
-if (!authToken) window.open("/login", "_self")
+    import axios from 'axios';
+    import { onMounted, ref } from 'vue';
+    
+    const expenseList = ref();
+    const profiles = ref([]);
 </script>
 
 <template>
-    <h2>Főoldal</h2>
-    <div class="asd"></div>
+    <div class="homePage-grid">
+        <h1 class="text-center">Jelenlegi Profil Név</h1>
+
+        <div class="info-container">
+            <div class="activeProfileInfo">
+                <h2 class="title">Jelenlegi profil</h2>
+            </div>
+
+            <div class="spendingStats">
+                <h2 class="title">Költések</h2>
+            </div>
+        </div>
+
+        <div class="prevSpending">
+            <h2 class="title">Előző kiadások</h2>
+        </div>
+    </div>
 </template>
 
 <style scoped>
-    .asd{
-        height: 100vh;
-        width: 80vw;
+
+    .info-container{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 100px;
+    }
+
+    .title{
+        margin: 5px;   
+    }
+
+    .homePage-grid{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 200px, 600px, 600px;
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+        margin: 10px;
+    }
+
+    .activeProfileInfo{
+        background-color: var(--sec-background);
+        height: 600px;
+        width: 500px;        
+        border-radius: var(--border-radius);
+    }
+
+    .spendingStats{
+        background-color: var(--sec-background);
+        height: 600px;
+        width: 500px;        
+        border-radius: var(--border-radius);
+    }
+
+    .prevSpending{
+        background-color: var(--sec-background);
+        height: 600px;
+        width: 800px;        
+        border-radius: var(--border-radius);
+        display: flex;
+        justify-self: center;
+        margin: 50px;
     }
 </style>
