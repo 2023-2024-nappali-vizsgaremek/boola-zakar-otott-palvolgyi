@@ -11,11 +11,15 @@
         <h1 class="text-center">Jelenlegi Profil Név</h1>
 
         <div class="info-container">
-            <div class="activeProfileInfo">
+            <div class="profileInfo-container info-container-card">
                 <h2 class="title">Jelenlegi profil</h2>
+                <div class="profileInfo">                    
+                    <h2 class="profileBalance">123123 HUF</h2>
+                    <h2></h2>
+                </div>
             </div>
 
-            <div class="spendingStats">
+            <div class="spendinginfo-container info-container-card">
                 <h2 class="title">Költések</h2>
             </div>
         </div>
@@ -49,18 +53,19 @@
         margin: 10px;
     }
 
-    .activeProfileInfo{
+    .info-container-card{
         background-color: var(--sec-background);
         height: 600px;
         width: 500px;        
         border-radius: var(--border-radius);
     }
 
-    .spendingStats{
-        background-color: var(--sec-background);
-        height: 600px;
-        width: 500px;        
-        border-radius: var(--border-radius);
+    .profileInfo-container{
+        
+    }
+
+    .spendinginfo-container{
+        
     }
 
     .prevSpending{
