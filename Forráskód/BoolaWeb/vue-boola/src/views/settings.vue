@@ -1,31 +1,21 @@
 <script setup>
 import axios from 'axios';
 import {ref,defineProps} from "vue";
+import { profileStore } from '../stores/ProfileStore';
 
+const authToken = sessionStorage.getItem("authToken");
+if (!authToken) window.open("/login", "_self")
 axios.defaults.headers.get["Cache-Control"] = "max-age=604800,public"
 const settings=ref({email:null,pwHash:null,name:null})
 const nyelv=ref([])
 const profile=ref([])
-const authToken = sessionStorage.getItem("authToken")
+const ProfilStore = profileStore().profile
 if(!authToken) window.open("/login","_self")
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 let settingsToSubmit=null;
-axios.get(`https://${hostName}/api/profile/1a8b8ad4-89eb-4ff8-883a-854bca6bfb19`,{
-  headers : {
-    Authorization: `Bearer ${authToken}`,
-    "Cache-Control":"max-age=60"
-  }
-}).then(r=>{
-  profile.value=r.data
-  axios.get(`https://${hostName}/api/account/${profile.value.accountEmail}`,{
-  headers : {
-    Authorization: `Bearer ${authToken}`,
-    "Cache-Control":"max-age=60"
-  }
-}).then(r=>settings.value=r.data)
-})
+axios.get(`https://${hostName}/api/account/${profileStore().email}`).then(r=>settings.value=r.data)
 function Save(){
-axios.put(`https://${hostName}/api/account/${profile.value.accountEmail}`,settings.value,{
+axios.put(`https://${hostName}/api/account/${profileStore().email}`,settings.value,{
   headers : {
     Authorization: `Bearer ${authToken}`
   }
@@ -35,6 +25,7 @@ if(r.status!=200){
 }
 })
 }
+axios.get(`https://${hostName}/api/profile/${profileStore().$id}`).then(r=>profile.value=r.data)
 axios.get(`https://${hostName}/api/language`,{
   headers : {
     Authorization: `Bearer ${authToken}`
@@ -75,8 +66,8 @@ axios.get(`https://${hostName}/api/language`,{
 <h3>Nyelv: </h3>
       </div>
       <div class="col-lg-6">
-<select id="nyelvek" name="nyelvek">
-  <option v-for="nyelvs in nyelv" v-bind:vlaue="profile.languagecode">{{ nyelvs.name }}</option>
+<select id="nyelvek" name="nyelvek" v-model="ProfilStore.languageId">
+  <option v-for="nyelvs in nyelv" v-bind:value="nyelvs.code">{{ nyelvs.name }}</option>
 
 </select>
       </div>

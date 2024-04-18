@@ -1,9 +1,17 @@
 <script setup>
     import {ref} from "vue";
     import { RouterLink, RouterView } from 'vue-router';
-     
+    import { profileStore } from '/src/stores/ProfileStore';
+
     import { useMenuStore} from '/src/stores/MenuStore';
-    const MenuStore = useMenuStore();
+    const MenuStore = useMenuStore()
+    const Dob=()=>{
+      sessionStorage.clear()
+      profileStore().profile=null;
+      profileStore().email=null;
+alert("Viszlát!")
+      MenuStore.toggleProfileMenu()
+    }
 </script>
 
 <template>        
@@ -17,10 +25,12 @@
                     <h2>Profilok</h2>              
                 </div> 
             </RouterLink>
+          <RouterLink class="routerLink" to="/login" @click="Dob()">
             <div class="routerLinkContainer routerLink" :class="`${MenuStore.isProfileMenuOpened && 'menu-text-show'}`">
                 <span class="material-symbols-outlined size-32">logout</span>                
                 <h2>Kijelentkezés</h2>              
-            </div> 
+            </div>
+          </RouterLink>
         </div>
     </div>
 </template>

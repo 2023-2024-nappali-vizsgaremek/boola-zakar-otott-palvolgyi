@@ -40,14 +40,16 @@ axios.get(`http://${hostName}/api/profile`, {
 /*val id:UUID, val name:String, val isBusiness:Boolean,
                val languageId:String, @Serializable(with = UUIDSerializer::class) val expenseListId:UUID?,
                val accountEmail:String)*/
+               const currencies = ref([])
+const selectedCurrency = ref(null)
+axios.get(`https://${hostName}/api/currency`)
+    .then(r => currencies.value = r.data)
+
 const languages = ref([]);
 const selectedLanguage = ref(null)
 axios.get(`http://${hostName}/api/language`)
     .then(r => languages.value = r.data);
-const currencies = ref([])
-const selectedCurrency = ref(null)
-axios.get(`https://${hostName}/api/currency`)
-    .then(r => currencies.value = r.data)
+
 const createNewProfile = () => {
   newProfile.value.languageId = selectedLanguage.value;
   axios.post(`http://${hostName}/api/profile`, newProfile.value, {
@@ -170,6 +172,7 @@ const DeleteProfile = (id) => {
         </div>
 
     </div>
+
 </template>
 
 <style scoped>

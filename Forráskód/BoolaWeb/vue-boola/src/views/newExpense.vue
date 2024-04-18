@@ -5,7 +5,10 @@ import {ref} from "vue";
 import {v4 as uuidv4} from "uuid";
 import { profileStore } from '/src/stores/ProfileStore';
 
+const authToken = sessionStorage.getItem("authToken");
+if (!authToken) window.open("/login", "_self")
 Axios.defaults.headers.get["Cache-Control"] = "max-age=604800,public"
+
 const NewExpense = ref({
   id: null,
   name: null,
@@ -20,12 +23,12 @@ const NewExpense = ref({
   listId: null
 });
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
-const authToken = sessionStorage.getItem("authToken")
 const profile = profileStore().profile
 const currency = ref([]);
 const category = ref([]);
 let partner = ref("");
 const partners = ref([]);
+const hasFaild=ref(false);
 Axios.get(`https://${hostName}/api/partner`, {
   headers: {
     Authorization: `Bearer ${authToken}`,
@@ -66,7 +69,7 @@ function Send() {
       }
     }).then(r => {
       if (r.status != 201) {
-        alert("Hiba!");
+        hasFaild.value=true
       }
     })
   }
@@ -83,44 +86,44 @@ function Send() {
 
 <template>
   <h2 style="text-align: center">Új költség felvétele:</h2>
-  <div>
+  <div style="text-align: center; padding-bottom: 1em">
     <h2>Költség neve</h2>
-    <input v-model="NewExpense.name" type="text" style="width: 10vw; height: 3vh">
+    <input v-model="NewExpense.name" type="text" style="width: 15em; height: 1.5em">
   </div>
-  <div class="container-fluid mx-0">
-    <div class="row mx-auto">
+  <div class="container-fluid mx-auto">
+    <div class="row align-items-center" style="text-align: center">
 
-      <div class="col-lg-4 col-sm-12">
+      <div class="col-lg-6 col-sm-12">
         <h3>Kedvezményezett</h3>
-        <input v-model="partner" @blur="getPartner" id="text" type="text">
+        <input v-model="partner" @blur="getPartner" id="text" type="text" style="width: 15em; height: 1.5em" >
       </div>
 
-      <div class="col-lg-4 col-sm-12 ">
+      <div class="col-lg-6 col-sm-12  ">
         <h3>Összeg</h3>
-        <input v-model="NewExpense.amount" type="number">
+        <input v-model="NewExpense.amount" type="number" style="width: 15em; height: 1.5em">
       </div>
+    </div>
 
-
-      <div class="row mx-auto">
-        <div class="col-lg-4 col-sm-12">
+      <div class="row align-items-center" style="text-align: center">
+        <div class="col-lg-6 col-sm-12">
           <h3>Kategória</h3>
-          <select v-model="NewExpense.categoryId" name="category" id="categorys">
+          <select v-model="NewExpense.categoryId" name="category" id="categorys" style="width: 15em; height: 1.5em">
             <option v-for="categorys in category" v-bind:value="categorys.id">{{ categorys.name }}</option>
           </select>
         </div>
 
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-6 col-sm-12">
           <h3>Dátum</h3>
-          <input v-model="NewExpense.date" id="date" type="date">
+          <input v-model="NewExpense.date" id="date" type="date" style="width: 15em; height: 1.5em">
         </div>
-        <div class="col-lg-4 col-sm-12">
-          <h3>Címke</h3>
 
-          <input v-model="NewExpense.tags" type="text" style="width: 10vw; height: 3vh">
-
-        </div>
 
       </div>
+
+    <div style="text-align: center; padding: 2em">
+    <h3>Címke</h3>
+
+    <input v-model="NewExpense.tags" type="text" style="width: 15em; height: 1.5em">
     </div>
     <div class="mx-auto text-center" style="padding-top: 2em">
       <h3>Statisztikában megjelenjen-e?</h3>
@@ -140,7 +143,10 @@ function Send() {
       Megjegyzés<br>
       <input v-model="NewExpense.note" type="text" style="width: 25vw; height: 15vh">
     </div>
-    <button class="btn btn-primary rounded" @click="Send()">Küldés</button>
+    <p v-if="hasFaild" class="text-bg-danger">Hibás adatok</p>
+
+    <button class="btn btn-primary rounded"  @click="Send()">Küldés</button>
+
   </div>
 
 
@@ -152,9 +158,7 @@ h2 {
   font-size: 40px;
 }
 
-#text {
-  width: 15vw;
-}
+
 
 .container-fluid {
   padding: 1em;
@@ -164,9 +168,7 @@ label {
   padding: 0.5em;
 }
 
-#date {
-  width: 12vw;
-}
+
 
 button {
   width: 8vw;
