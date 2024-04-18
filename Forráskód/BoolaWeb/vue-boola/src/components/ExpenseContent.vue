@@ -37,6 +37,7 @@ function Delete(id) {
     }).then(r => expense.value = r.data)
     store.$reset()
   })
+  store.$reset()
 }
 
 function selectExpense(expense) {

@@ -33,7 +33,14 @@
 body{
     font-size: 14pt;
     font-family: Inter-Regular;
-    margin: 0;    
+    margin: 0;
+
+}
+body,html{
+    height: 100%;
+    width:100%;
+    background-color: var(--main-background) !important;
+
 }
 
 h2{
