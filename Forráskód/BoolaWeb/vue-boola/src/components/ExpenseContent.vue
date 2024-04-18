@@ -9,6 +9,7 @@ const authToken = sessionStorage.getItem("authToken")
 axios.defaults.headers.get["Cache-Control"] = "max-age=604800,public"
 const expense = ref([])
 const store = expenseStore()
+store.$reset();
 const expenseListId = profileStore().profile.expenseListId
 axios.get(`https://${hostName}/api/expense?listId=${expenseListId}`, {
   headers: {
@@ -34,6 +35,7 @@ function Delete(id) {
         "Cache-Control":"no-store"
       }
     }).then(r => expense.value = r.data)
+    store.$reset()
   })
 }
 
