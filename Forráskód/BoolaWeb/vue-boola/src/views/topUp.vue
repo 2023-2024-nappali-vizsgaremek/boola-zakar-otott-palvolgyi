@@ -9,6 +9,7 @@ const currency = ref(null)
 const expenselist=ref([])
 const balance=ref(0.0)
 if (!authToken) window.open("/login", "_self")
+if (profilStore==null) window.open("/profile", "_self")
  axios.get(`https://${hostName}/api/currency`)
     .then(r => currency.value = r.data)
 axios.get(`https://${hostName}/api/expenselist/${profilStore.expenseListId}`,{
