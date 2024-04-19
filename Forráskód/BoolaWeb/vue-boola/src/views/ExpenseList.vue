@@ -1,11 +1,13 @@
 <script setup>
 import axios, { Axios } from "axios";
 import { ref } from "vue";
+import {profileStore} from "@/stores/ProfileStore.js";
 import ExpenseContent from "../components/ExpenseContent.vue";
 import ExpenseDetails from "../components/ExpenseDetails.vue"
 
 const authToken = sessionStorage.getItem("authToken");
 if (!authToken) window.open("/login", "_self")
+if (profileStore().profile==null) window.open("/profile", "_self")
 
 
 </script>
