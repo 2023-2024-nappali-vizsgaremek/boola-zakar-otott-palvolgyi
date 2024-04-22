@@ -72,7 +72,7 @@
         
         position: relative;
         top: 20%;        
-        text-align: center;
+        text-align: center;        
     }
 
     .theme-toggle-btn{        
@@ -100,6 +100,16 @@
         .btn-menu-move{
             transform: translateX(230px);
             transition: all ease-out 0.3s !important;    
+        }
+        .appName{
+            transform: translateX(calc(var(--menu-width)/2));
+            transition: all ease-out 0.3s;
+        }
+    }
+    @media (min-width: 577px) and (max-width: 1199px){
+        .appName{
+            transform: translateX(calc(var(--menu-def-width)/2));
+            transition: all ease-out 0.3s;
         }
     }
 

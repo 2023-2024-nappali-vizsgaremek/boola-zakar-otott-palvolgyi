@@ -20,7 +20,11 @@ const MenuStore = useMenuStore();
       <div :class="`${(MenuStore.isMainMenuOpened) && 'main-content-blur'} 
         ${(MenuStore.isProfileMenuOpened) && 'main-content-blur-profileMenu'}`" 
         @click="MenuStore.closeMenus()"></div>
-      <RouterView/>
+        <router-view v-slot="{ Component }">
+          <transition name="fade">
+            <component :is="Component" />
+          </transition>
+        </router-view>
     </div>      
   </div>
 </template>
@@ -32,6 +36,16 @@ const MenuStore = useMenuStore();
   .wide {
     grid-column: span 2;
   }   
+
+  .v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
 
   .outer-grid {    
     display: grid;
@@ -46,6 +60,7 @@ const MenuStore = useMenuStore();
     background-color: var(--main-background);
     color:var(--main-text-color);
     transition: background ease-out 0.3s;
+    z-index: 1000;
   }
 
   @media (max-width: 576px) {

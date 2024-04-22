@@ -114,7 +114,7 @@ span.icon-hover-highlight:hover{
         width: calc(100lvw - var(--menu-width));
         padding: 0px;
         margin: 0px;
-        backdrop-filter: blur(1px);
+        backdrop-filter: blur(1px) !important;
         transition: ease-out 0.3s;      
     }
 }
@@ -133,7 +133,7 @@ span.icon-hover-highlight:hover{
         width: calc(100lvw - var(--menu-width));
         padding: 0px;
         margin: 0px;
-        backdrop-filter: blur(1px);
+        backdrop-filter: blur(1px) !important;
         transition: ease-out 0.3s;      
     }
 }
