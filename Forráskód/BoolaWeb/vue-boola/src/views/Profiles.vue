@@ -126,7 +126,7 @@ const DeleteProfile = (id) => {
         else window.open("/profiles","_self")
 
       })
-} 
+}
 </script>
 
 <template>

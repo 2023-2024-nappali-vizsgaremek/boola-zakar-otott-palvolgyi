@@ -21,7 +21,7 @@ const MenuStore = useMenuStore();
         ${(MenuStore.isProfileMenuOpened) && 'main-content-blur-profileMenu'}`" 
         @click="MenuStore.closeMenus()"></div>
         <router-view v-slot="{ Component }">
-          <transition name="fade">
+          <transition name="fade" mode="out-in">
             <component :is="Component" />
           </transition>
         </router-view>
@@ -37,15 +37,16 @@ const MenuStore = useMenuStore();
     grid-column: span 2;
   }   
 
-  .v-enter-active,
-.v-leave-active {
-  transition: opacity 0.5s ease;
-}
 
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
-}
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.3s ease;
+  }
+
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
+  }
 
   .outer-grid {    
     display: grid;

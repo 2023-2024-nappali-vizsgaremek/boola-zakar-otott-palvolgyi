@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../views/HomePage.vue'
 
+import { useMenuStore} from '../stores/MenuStore';
+const MenuStore = useMenuStore();
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -47,5 +49,11 @@ const router = createRouter({
     }
   ]
 })
+
+
+router.beforeEach((to) => {
+  MenuStore.closeMenus();
+  next();
+});
 
 export default router
