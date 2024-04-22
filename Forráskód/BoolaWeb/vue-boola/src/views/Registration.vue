@@ -17,7 +17,9 @@ const submitRegistration = () => {
     hasRegistrationFailed.value = false;
     let accountToSubmit = account;
   if (!account.value.email.match(`^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$`)) {
+
     toast.error("Hibás e-mail cím")
+
     return;
   }
     Axios.post(`https://${hostName}/register`, accountToSubmit.value).then(r => {

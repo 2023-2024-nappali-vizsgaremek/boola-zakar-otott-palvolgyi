@@ -21,7 +21,9 @@ const submitLogin = () => {
     let accountToSubmit = null;
 
     if (!account.value.email.match(`^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$`)) {
+
       toast.error("Helytelen e-mail")
+
       return;
     }
     Axios.get(`https://${hostName}/api/account/${account.value.email}`).then(r => accountToSubmit = r.data)

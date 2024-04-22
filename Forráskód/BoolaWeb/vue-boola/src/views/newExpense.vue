@@ -38,6 +38,9 @@ let partner = ref("");
 const partners = ref([]);
 const hasFaild=ref(false);
 
+if (profile==null) window.open("/profile", "_self")
+
+
 Axios.get(`https://${hostName}/api/partner`, {
   headers: {
     Authorization: `Bearer ${authToken}`,

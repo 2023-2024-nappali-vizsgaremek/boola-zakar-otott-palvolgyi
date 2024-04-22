@@ -12,7 +12,7 @@ axios.defaults.headers.get["Cache-Control"] = "max-age=604800"
 const store = profileStore()
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 const profileCreation = ref(false);
-
+if (store==null) window.open("/profile", "_self")
 
 const newProfile = ref({
     id: uuidv4(),
