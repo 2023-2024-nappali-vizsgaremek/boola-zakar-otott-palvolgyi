@@ -2,7 +2,8 @@
 import axios from 'axios';
 import {ref,defineProps} from "vue";
 import { profileStore } from '../stores/ProfileStore';
-
+import {useToast} from "vue-toastification";
+const toast=useToast()
 const authToken = sessionStorage.getItem("authToken");
 if (!authToken) window.open("/login", "_self")
 axios.defaults.headers.get["Cache-Control"] = "max-age=604800,public"
@@ -10,7 +11,15 @@ const settings=ref({email:null,pwHash:null,name:null})
 const nyelv=ref([])
 const profile=ref([])
 const ProfilStore = profileStore().profile
-if(!authToken) window.open("/login","_self")
+toast.info("A fordítás jelenleg nem működik",{
+  timeout: 4000,
+})
+if (!authToken) {
+  window.open("/login", "_self")
+}
+else if (profileStore().profile==null){
+  window.open("/profiles", "_self")
+}
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 let settingsToSubmit=null;
 axios.get(`https://${hostName}/api/account/${profileStore().email}`).then(r=>settings.value=r.data)
@@ -21,8 +30,9 @@ axios.put(`https://${hostName}/api/account/${profileStore().email}`,settings.val
   }
 }).then(r=>{
 if(r.status!=200){
-  alert("Hiba történt!")
+  toast.error("Hiba történt!")
 }
+toast.success("Sikeres mentés")
 })
 }
 axios.get(`https://${hostName}/api/profile/${profileStore().$id}`).then(r=>profile.value=r.data)
