@@ -96,8 +96,9 @@ span.icon-hover-highlight:hover{
     width: calc(100lvw - var(--menu-width)) !important;
     padding: 0px;
     margin: 0px;
-    backdrop-filter: blur(1px);
-    transition: ease-out 0.3s;      
+    backdrop-filter: blur(1px) !important;
+    transition: ease-out 0.3s;  
+    z-index: 1000;    
 }
 
 @media screen and (max-width: 576px) {
@@ -115,7 +116,8 @@ span.icon-hover-highlight:hover{
         padding: 0px;
         margin: 0px;
         backdrop-filter: blur(1px) !important;
-        transition: ease-out 0.3s;      
+        transition: ease-out 0.3s;
+        z-index: 1000; 
     }
 }
 
@@ -134,7 +136,8 @@ span.icon-hover-highlight:hover{
         padding: 0px;
         margin: 0px;
         backdrop-filter: blur(1px) !important;
-        transition: ease-out 0.3s;      
+        transition: ease-out 0.3s;
+        z-index: 1000;
     }
 }
 
