@@ -64,7 +64,7 @@ function Send() {
       }
     }).then(r => {
           if (r.status != 201) {
-            alert("Partner Hiba!");
+            toast.error("Partner Hiba!");
             return;
           }
           NewExpense.value.payeeId = length
@@ -87,6 +87,9 @@ function Send() {
     }).catch(r=>{
       if (hasFaild.value==true){
         toast.error("Hiba!");
+      }
+      if(r.status==400){
+        toast.error("Nincs elég egyenleg")
       }
     })
   }
