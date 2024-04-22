@@ -2,6 +2,9 @@
 import {ref, withModifiers} from 'vue'
 import Axios from 'axios'
 import { profileStore } from '/src/stores/ProfileStore';
+import {useToast} from "vue-toastification";
+
+const toast=useToast()
 
 const account = ref({ email: null, pwHash: null, name: null })
 const submittingEmptyFields = ref(false)
@@ -18,7 +21,9 @@ const submitLogin = () => {
     let accountToSubmit = null;
 
     if (!account.value.email.match(`^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$`)) {
-      alert("Hibás e-mail cím")
+
+      toast.error("Helytelen e-mail")
+
       return;
     }
     Axios.get(`https://${hostName}/api/account/${account.value.email}`).then(r => accountToSubmit = r.data)
@@ -28,17 +33,24 @@ const submitLogin = () => {
             Axios.post(`https://${hostName}/login`, accountToSubmit).then(r => {
                 if (r.status != 200) {
                     hasLoginFailed.value = true
+                  toast.error("Hiba történt!")
                     return;
                 }
+
                 const tokens = r.data;
                 sessionStorage.setItem("authToken", tokens.access)
                 sessionStorage.setItem("refreshToken", tokens.refresh)
                 profilStore.$patch({ email: account.value.email, profile: null })
-                window.open("/profiles", "_self")
+              toast.success("Sikeres bejelentkezés")
+              setTimeout(()=>(window.open("/profiles", "_self")),2000)
+          }
+               )
             })
 
-        })
+
+
 }
+
 </script>
 
 <template> <!--TODO: disable top-,sidebar for login,register-->
@@ -61,4 +73,6 @@ const submitLogin = () => {
     </form>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+</style>

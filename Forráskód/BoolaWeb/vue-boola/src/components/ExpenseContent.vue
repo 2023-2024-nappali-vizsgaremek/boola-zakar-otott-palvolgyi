@@ -3,8 +3,12 @@ import axios from "axios";
 import { ref } from "vue";
 import { expenseStore } from "../stores/expenseStore";
 import { profileStore } from "../stores/ProfileStore";
+import {useToast} from "vue-toastification";
+const toast=useToast()
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 const authToken = sessionStorage.getItem("authToken")
+
+
 
 axios.defaults.headers.get["Cache-Control"] = "max-age=604800,public"
 const expense = ref([])
@@ -26,8 +30,10 @@ function Delete(id) {
     }
   }).then(r => {
     if (r.status != 204) {
-      alert("Hiba történt a törlés során!")
+      toast.error("Hiba történt a törlés során!")
       return;
+    }else{
+      toast.success("Sikeres törlés")
     }
     axios.get(`https://${hostName}/api/expense?listId=${expenseListId}`, {
       headers: {
@@ -38,6 +44,7 @@ function Delete(id) {
     store.$reset()
   })
   store.$reset()
+
 }
 
 function selectExpense(expense) {

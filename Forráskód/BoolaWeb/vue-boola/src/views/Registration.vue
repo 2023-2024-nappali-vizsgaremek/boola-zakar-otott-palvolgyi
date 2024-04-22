@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 import Axios from 'axios'
+import {useToast} from "vue-toastification";
+const toast=useToast()
 
 const account = ref({ email: null, pwHash: null, name: null })
 const submittingEmptyFields = ref(false)
@@ -15,19 +17,23 @@ const submitRegistration = () => {
     hasRegistrationFailed.value = false;
     let accountToSubmit = account;
   if (!account.value.email.match(`^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$`)) {
-    alert("Hibás e-mail cím")
+
+    toast.error("Hibás e-mail cím")
+
     return;
   }
     Axios.post(`https://${hostName}/register`, accountToSubmit.value).then(r => {
         if (r.status != 201) {
             hasRegistrationFailed.value = true
-            //return;
+            return;
         }
-        //TODO: send user to login page
-        //window.open("/login","_self")
+        toast.success("Sikeres Regisztráció")
+       setTimeout(()=> window.open("/login","_self"),2000)
     }).catch(_ => {
-        hasRegistrationFailed.value = true;
-        //window.open("/login","_self") //only here for testing purposes, remove for production
+        if(hasRegistrationFailed.value == true){
+          toast.error("Hiba történt")
+        }
+
     })
 }
 </script>
