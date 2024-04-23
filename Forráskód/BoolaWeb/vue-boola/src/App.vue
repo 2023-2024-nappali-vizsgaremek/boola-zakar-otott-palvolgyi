@@ -40,9 +40,12 @@ const MenuStore = useMenuStore();
   }   
 
 
-  .fade-enter-active,
+  .fade-enter-active{
+    transition: opacity .3s ease;
+  }
+
   .fade-leave-active {
-    transition: opacity 0.2s ease;
+    transition: opacity .1s ease;
   }
 
   .fade-enter-from,
