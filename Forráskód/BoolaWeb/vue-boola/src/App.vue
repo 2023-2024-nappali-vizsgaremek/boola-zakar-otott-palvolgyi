@@ -20,11 +20,13 @@ const MenuStore = useMenuStore();
       <div :class="`${(MenuStore.isMainMenuOpened) && 'main-content-blur'} 
         ${(MenuStore.isProfileMenuOpened) && 'main-content-blur-profileMenu'}`" 
         @click="MenuStore.closeMenus()"></div>
+        <!--
         <router-view v-slot="{ Component }">
           <transition name="fade" mode="out-in">
             <component :is="Component" />
           </transition>
-        </router-view>
+        </router-view>-->
+        <RouterView></RouterView>
     </div>      
   </div>
 </template>

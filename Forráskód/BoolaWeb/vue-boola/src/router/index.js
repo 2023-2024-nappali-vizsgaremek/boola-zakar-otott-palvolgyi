@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../views/HomePage.vue'
-
-import { useMenuStore} from '../stores/MenuStore';
-const MenuStore = useMenuStore();
+import App from '../App.vue'
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,10 +50,18 @@ const router = createRouter({
   ]
 })
 
+const pinia = createPinia()
+const app = createApp(App)
 
-router.beforeEach((to) => {
+app.use(router)
+app.use(pinia)
+
+import { useMenuStore} from '../stores/MenuStore'
+const MenuStore = useMenuStore(pinia);
+
+router.afterEach((to, from) => {  
   MenuStore.closeMenus();
-  next();
+  console.log(MenuStore.isMainMenuOpened, MenuStore.isProfileMenuOpened);
 });
 
 export default router
