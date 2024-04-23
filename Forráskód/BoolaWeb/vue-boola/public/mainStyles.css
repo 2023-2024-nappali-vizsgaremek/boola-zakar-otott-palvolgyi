@@ -56,8 +56,11 @@ h1{
 }
 
 select{
-    border-width: 1px;
     width: 211px;
+    background-color: var(--sec-background);
+    border: var(--main-text-color) 2px solid;
+    border-radius: var(--border-radius);
+    color: var(--sec-text-color);
 }
 
 select > option{
@@ -65,8 +68,11 @@ select > option{
     height: 20px;
 }
 
-input[text]{
-    border-width: 1px;
+input{
+    background-color: var(--sec-background);
+    border: var(--main-text-color) 2px solid;
+    border-radius: var(--border-radius);
+    color: var(--sec-text-color);
 }
 
 .unselectable {
