@@ -61,7 +61,6 @@ const MenuStore = useMenuStore(pinia);
 
 router.afterEach((to, from) => {  
   MenuStore.closeMenus();
-  console.log(MenuStore.isMainMenuOpened, MenuStore.isProfileMenuOpened);
 });
 
 export default router
