@@ -2,20 +2,23 @@
     import {ref} from "vue";
     import { RouterLink, RouterView } from 'vue-router';
     import { profileStore } from '/src/stores/ProfileStore';
-
+import {useToast} from "vue-toastification";
+const toast=useToast();
     import { useMenuStore} from '/src/stores/MenuStore';
     const MenuStore = useMenuStore()
+    const profil=profileStore().profile;
     const Dob=()=>{
+      toast.info("Viszlát!")
       sessionStorage.clear()
       profileStore().profile=null;
       profileStore().email=null;
-alert("Viszlát!")
+
       MenuStore.toggleProfileMenu()
     }
 </script>
 
 <template>        
-    <span @click="MenuStore.toggleProfileMenu" class="material-symbols-outlined profile-icon-btn size-32 icon-hover-highlight">account_circle</span>            
+    <span v-if="profil!=null"   @click="MenuStore.toggleProfileMenu" class="material-symbols-outlined profile-icon-btn size-32 icon-hover-highlight">account_circle</span>
     
     <div class="profileMenu-container" :class="`${MenuStore.isProfileMenuOpened && 'profileMenu-container-open'}`">
         <div class="profileLinks-container">            

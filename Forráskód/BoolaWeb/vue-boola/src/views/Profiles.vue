@@ -3,7 +3,8 @@ import axios from 'axios';
 import {onMounted, ref} from 'vue';
 import {v4 as uuidv4} from "uuid";
 import {profileStore} from "/src/stores/ProfileStore"
-
+import {useToast} from "vue-toastification";
+const toast=useToast()
 const authToken = sessionStorage.getItem("authToken");
 if (!authToken) window.open("/login", "_self")
 
@@ -11,7 +12,7 @@ axios.defaults.headers.get["Cache-Control"] = "max-age=604800"
 const store = profileStore()
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 const profileCreation = ref(false);
-
+if (store==null) window.open("/profile", "_self")
 
 const newProfile = ref({
     id: uuidv4(),
@@ -59,13 +60,15 @@ const createNewProfile = () => {
   })
       .then(r => {
         if (r.status != 201) {
-          alert("Hiba történt!")
+toast.error("hiba")
           return;
+        }else{
+          toast.success("Sikeres profil létrehozás")
         }
     })
         .then(r => {
             if (r.status != 201) {
-                alert("Hiba történt!")
+              toast.error("hiba")
                 return;
             }
             const profileAddress = r.data
@@ -75,10 +78,7 @@ const createNewProfile = () => {
                     "Cache-Control": "no-store"
                 }
             }).then(p => {
-                if (p.status != 200) {
-                    alert("Lekérdezési hiba történt!")
-                    return;
-                }
+
                 axios.put(`https://${hostName}/api/expenselist/${p.data.expenseListId}`, {
                     id: p.data.expenseListId,
                     balance: 0,
@@ -93,6 +93,7 @@ const createNewProfile = () => {
                     email: store.email,
                     profile: p.data
                 })
+
             })
         });
 
@@ -104,6 +105,8 @@ const createNewProfile = () => {
         expenseListId: null,
         accountEmail: store.email
     };
+
+
 }
 
 const SelectProfile = (profile) => {
@@ -121,11 +124,16 @@ const DeleteProfile = (id) => {
       headers: {
         Authorization: `Bearer ${authToken}`
       }
+
     }).then(r => {
-        if (r.status != 204) alert("Hiba történt a törlés során!")
-        else window.open("/profiles","_self")
+        if (r.status != 204) toast.error("Hiba történt a törlés során!")
+        else{
+          toast.success("Sikeres törlés!")
+          window.open("/profiles","_self")
+        }
 
       })
+
 }
 </script>
 
@@ -167,8 +175,8 @@ const DeleteProfile = (id) => {
             </select>
         </div>
         <div class="profileCreationForm">
-            <button @click="profileCreationToggle">Vissza</button>
-            <button @click="createNewProfile">Létrehozás</button>
+            <button class="btn btn-primary btn-rounded" @click="profileCreationToggle">Vissza</button>
+            <button class="btn btn-primary btn-rounded"  @click="createNewProfile">Létrehozás</button>
         </div>
 
     </div>
@@ -222,10 +230,15 @@ const DeleteProfile = (id) => {
   cursor: pointer;
   transition: all ease-out 0.2s;
 }
-
-.profile-container:hover {
-  background-color: var(--main-background);
-  color: var(--main-text-color);
-  transition: all ease-out 0.2s;
+.btn-primary:hover{
+  background:  #006783;
+  color: #bce9ff;
+  border: none;
 }
+.btn-primary{
+  background: #bce9ff;
+  color: #006783;
+  border: none;
+}
+
 </style>

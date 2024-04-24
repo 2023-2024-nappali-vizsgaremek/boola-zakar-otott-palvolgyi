@@ -12,6 +12,7 @@
     const language=ref([])
     const currency=ref([])
     if (!authToken) window.open("/login", "_self")
+    if (profiles==null) window.open("/profile", "_self")
     const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
     axios.get(`https://${hostName}/api/expenselist/${profiles.expenseListId}`,{
       headers:{
@@ -52,7 +53,7 @@ expenses.value=expenseList2.value.slice(-2).reverse()
       <h1 class="text-center" style="margin-top: 0.5em;margin-bottom:1em; ">Egyenleged: <i><strong>{{expenseList.balance}} {{expenseList.currencyCode}}</strong></i></h1>
         <div class="info-container">
             <div class="activeProfileInfo">
-              <h2 class="text-center" style="font-size: xxx-large ">Legutóbbi fizetett költségek</h2>
+              <h2 class="text-center" style="font-size: xxx-large ">Legutóbbi költségek</h2>
 
               <div class="card" v-for="pay in expenses">
                 <div>Név: {{ pay.name }}</div>

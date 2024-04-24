@@ -2,13 +2,22 @@
 import axios from 'axios';
 import {ref} from 'vue'
 import { profileStore } from '../stores/ProfileStore';
+import {useToast} from "vue-toastification";
+const toast=useToast()
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 const authToken = sessionStorage.getItem("authToken")
 const profilStore = profileStore().profile
 const currency = ref(null)
 const expenselist=ref([])
 const balance=ref(0.0)
-if (!authToken) window.open("/login", "_self")
+
+if (!authToken) {
+  window.open("/login", "_self")
+}
+else if (profilStore==null){
+  window.open("/profiles", "_self")
+}
+
  axios.get(`https://${hostName}/api/currency`)
     .then(r => currency.value = r.data)
 axios.get(`https://${hostName}/api/expenselist/${profilStore.expenseListId}`,{
@@ -30,6 +39,7 @@ const Save=()=>{
                         Authorization: `Bearer ${authToken}`,
                     } 
     })
+  toast.success("Sikeres egyenleg feltöltés!")
 }
 </script>
 <template>

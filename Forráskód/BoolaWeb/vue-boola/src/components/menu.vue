@@ -63,7 +63,7 @@
 
     .routerLinkContainer > span{
         display: inline;              
-        position: relative;        
+        position: relative;
         top: 4px;
     }
     

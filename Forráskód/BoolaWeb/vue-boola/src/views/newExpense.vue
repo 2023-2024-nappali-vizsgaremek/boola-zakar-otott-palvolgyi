@@ -4,9 +4,17 @@ import Axios from "axios";
 import {ref} from "vue";
 import {v4 as uuidv4} from "uuid";
 import { profileStore } from '/src/stores/ProfileStore';
+import {useToast} from "vue-toastification";
+const toast=useToast()
 
 const authToken = sessionStorage.getItem("authToken");
-if (!authToken) window.open("/login", "_self")
+if (!authToken) {
+  window.open("/login", "_self")
+}
+else if (profileStore().profile==null){
+  window.open("/profiles", "_self")
+}
+
 Axios.defaults.headers.get["Cache-Control"] = "max-age=604800,public"
 
 const NewExpense = ref({
@@ -29,6 +37,10 @@ const category = ref([]);
 let partner = ref("");
 const partners = ref([]);
 const hasFaild=ref(false);
+
+if (profile==null) window.open("/profile", "_self")
+
+
 Axios.get(`https://${hostName}/api/partner`, {
   headers: {
     Authorization: `Bearer ${authToken}`,
@@ -52,7 +64,7 @@ function Send() {
       }
     }).then(r => {
           if (r.status != 201) {
-            alert("Partner Hiba!");
+            toast.error("Partner Hiba!");
             return;
           }
           NewExpense.value.payeeId = length
@@ -70,9 +82,18 @@ function Send() {
     }).then(r => {
       if (r.status != 201) {
         hasFaild.value=true
+
+      }
+    }).catch(r=>{
+      if (hasFaild.value==true){
+        toast.error("Hiba!");
+      }
+      if(r.status==400){
+        toast.error("Nincs elég egyenleg")
       }
     })
   }
+  toast.success("Sikeres küldés")
 }
 
   function getPartner() {

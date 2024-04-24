@@ -44,6 +44,7 @@
 <template>
     <div class="TopBar-container unselectable">
         <span @click="MenuStore.toggleMainMenu" class="material-symbols-outlined size-32 btn-menu-toggle icon-hover-highlight" :class="`${MenuStore.isMainMenuOpened && '' /*'btn-menu-move'*/}`">menu</span>
+
         <h1 class="appName">Boola</h1>
         <div class="profile-theme-container">                    
             <span @click="toggleThemeValue()" class="material-symbols-outlined theme-toggle-btn size-32 icon-hover-highlight">contrast</span>            
@@ -90,7 +91,6 @@
         position: absolute;
         top: 30%;
         margin-left: 19px;
-        
         cursor: pointer;
         z-index: 9999999;        
         transition: all ease-out 0.3s !important;
@@ -99,7 +99,7 @@
     @media screen and (min-width: 1200px) {
         .btn-menu-move{
             transform: translateX(230px);
-            transition: all ease-out 0.3s !important;    
+            transition: all ease-out 0.3s !important;
         }
         .appName{
             transform: translateX(calc(var(--menu-width)/2));
@@ -112,5 +112,8 @@
             transition: all ease-out 0.3s;
         }
     }
-
+.hamburger{
+  transform: none !important;
+  transition: none !important;
+}
 </style>
