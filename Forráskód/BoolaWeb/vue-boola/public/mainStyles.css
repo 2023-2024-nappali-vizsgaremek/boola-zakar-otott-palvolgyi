@@ -56,8 +56,11 @@ h1{
 }
 
 select{
-    border-width: 1px;
     width: 211px;
+    background-color: var(--sec-background);
+    border: var(--main-text-color) 2px solid;
+    border-radius: var(--border-radius);
+    color: var(--sec-text-color);
 }
 
 select > option{
@@ -65,8 +68,11 @@ select > option{
     height: 20px;
 }
 
-input[text]{
-    border-width: 1px;
+input{
+    background-color: var(--sec-background);
+    border: var(--main-text-color) 2px solid;
+    border-radius: var(--border-radius);
+    color: var(--sec-text-color);
 }
 
 .unselectable {
@@ -96,8 +102,9 @@ span.icon-hover-highlight:hover{
     width: calc(100lvw - var(--menu-width)) !important;
     padding: 0px;
     margin: 0px;
-    backdrop-filter: blur(1px);
-    transition: ease-out 0.3s;      
+    backdrop-filter: blur(1px) !important;
+    transition: ease-out 0.3s;  
+    z-index: 1000;    
 }
 
 @media screen and (max-width: 576px) {
@@ -114,8 +121,9 @@ span.icon-hover-highlight:hover{
         width: calc(100lvw - var(--menu-width));
         padding: 0px;
         margin: 0px;
-        backdrop-filter: blur(1px);
-        transition: ease-out 0.3s;      
+        backdrop-filter: blur(1px) !important;
+        transition: ease-out 0.3s;
+        z-index: 1000; 
     }
 }
 
@@ -133,8 +141,9 @@ span.icon-hover-highlight:hover{
         width: calc(100lvw - var(--menu-width));
         padding: 0px;
         margin: 0px;
-        backdrop-filter: blur(1px);
-        transition: ease-out 0.3s;      
+        backdrop-filter: blur(1px) !important;
+        transition: ease-out 0.3s;
+        z-index: 1000;
     }
 }
 

@@ -43,7 +43,8 @@
 
 <template>
     <div class="TopBar-container unselectable">
-        <span @click="MenuStore.toggleMainMenu" class="hamburger material-symbols-outlined size-32 btn-menu-toggle icon-hover-highlight" :class="`${MenuStore.isMainMenuOpened && 'btn-menu-move'}`">menu</span>
+        <span @click="MenuStore.toggleMainMenu" class="material-symbols-outlined size-32 btn-menu-toggle icon-hover-highlight" :class="`${MenuStore.isMainMenuOpened && '' /*'btn-menu-move'*/}`">menu</span>
+
         <h1 class="appName">Boola</h1>
         <div class="profile-theme-container">                    
             <span @click="toggleThemeValue()" class="material-symbols-outlined theme-toggle-btn size-32 icon-hover-highlight">contrast</span>            
@@ -72,7 +73,7 @@
         
         position: relative;
         top: 20%;        
-        text-align: center;
+        text-align: center;        
     }
 
     .theme-toggle-btn{        
@@ -99,6 +100,16 @@
         .btn-menu-move{
             transform: translateX(230px);
             transition: all ease-out 0.3s !important;
+        }
+        .appName{
+            transform: translateX(calc(var(--menu-width)/2));
+            transition: all ease-out 0.3s;
+        }
+    }
+    @media (min-width: 577px) and (max-width: 1199px){
+        .appName{
+            transform: translateX(calc(var(--menu-def-width)/2));
+            transition: all ease-out 0.3s;
         }
     }
 .hamburger{

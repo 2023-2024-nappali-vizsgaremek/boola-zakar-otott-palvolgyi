@@ -23,7 +23,7 @@ export const useMenuStore = defineStore('menu', {
     closeMenus(){      
       this.isProfileMenuOpened = false;
       var root = document.querySelector(':root');
-      var style = getComputedStyle(document.documentElement);
+      var style = getComputedStyle(document.documentElement);      
 
       if(!(style.getPropertyValue('--viewSize') == `"desktop"`))
       {
