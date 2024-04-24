@@ -131,7 +131,7 @@ span.icon-hover-highlight:hover{
     :root{
         --viewSize: "tablet laptop";
         --menu-def-width: 70px;
-        --menu-width: 70px;
+        --menu-width: 0px;
     }
 
     .main-content-blur{
@@ -151,6 +151,6 @@ span.icon-hover-highlight:hover{
     :root{
         --viewSize: "desktop";
         --menu-def-width: 70px;
-        --menu-width: 70px;
+        --menu-width: 0px;
     }
 }

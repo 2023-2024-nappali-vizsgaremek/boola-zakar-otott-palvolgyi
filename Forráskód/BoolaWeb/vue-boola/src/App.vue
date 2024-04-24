@@ -6,6 +6,14 @@ import Menu from './components/menu.vue';
 import TopBar from './components/TopBar.vue';
 import { useMenuStore} from '/src/stores/MenuStore';
 const MenuStore = useMenuStore();
+import {profileStore} from "/src/stores/ProfileStore"
+const profiles = profileStore().profile
+const authToken = sessionStorage.getItem("authToken");
+if(profiles!=null)
+  MenuStore.showMainMenu();
+  MenuStore.showProfileMenu();
+if(authToken)
+  MenuStore.showProfileMenu();
 </script>
 
 <template>

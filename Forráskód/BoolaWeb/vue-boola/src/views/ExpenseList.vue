@@ -7,7 +7,7 @@ import ExpenseDetails from "../components/ExpenseDetails.vue"
 
 const authToken = sessionStorage.getItem("authToken");
 if (!authToken) router.push("/login")
-if (profileStore().profile==null) router.push("/profile")
+if (profileStore().profile==null) router.push("/profiles")
 
 
 </script>

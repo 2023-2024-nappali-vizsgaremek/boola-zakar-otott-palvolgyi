@@ -40,7 +40,7 @@ let partner = ref("");
 const partners = ref([]);
 const hasFaild=ref(false);
 
-if (profile==null) router.push("/profile")
+if (profile==null) router.push("/profiles")
 
 
 Axios.get(`https://${hostName}/api/partner`, {

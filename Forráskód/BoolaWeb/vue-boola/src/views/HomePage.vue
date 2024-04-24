@@ -13,7 +13,7 @@
     const language=ref([])
     const currency=ref([])
     if (!authToken) router.push("/login")
-    if (profiles==null) router.push("/profile")
+    if (profiles==null) router.push("/profiles")
     const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
     axios.get(`https://${hostName}/api/expenselist/${profiles.expenseListId}`,{
       headers:{

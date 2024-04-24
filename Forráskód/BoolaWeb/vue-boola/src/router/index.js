@@ -16,8 +16,8 @@ const router = createRouter({
       component: () => import('../views/newExpense.vue')
     },
     {
-      path: '/profile',
-      name: 'profile',
+      path: '/profiles',
+      name: 'profiles',
       component: () => import('../views/Profiles.vue')
     },
     {
@@ -59,13 +59,14 @@ router.afterEach(() => {
 const authToken = ref(sessionStorage.getItem("authToken"));
 import {profileStore} from "/src/stores/ProfileStore"
 
-
+/*
 router.beforeEach((to, from) => {
   const profiles = profileStore().profile
-  if(to.path == "/login" && !authToken)
+  //console.log(profiles, authToken);
+  if(!authToken)
+    router.push("/login");
+  if(profiles==null && authToken)
     return false;
-  if(to.path == "/profile" && profiles==null)
-    return false;
-})
+})*/
 
 export default router

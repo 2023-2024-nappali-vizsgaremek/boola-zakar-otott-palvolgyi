@@ -7,6 +7,8 @@ import {useToast} from "vue-toastification";
 const toast=useToast()
 import { useRouter } from 'vue-router'
 const router = useRouter()
+import { useMenuStore} from '/src/stores/MenuStore';
+const MenuStore = useMenuStore();    
 
 const authToken = sessionStorage.getItem("authToken");
 if (!authToken) router.push("/login")
@@ -15,7 +17,7 @@ axios.defaults.headers.get["Cache-Control"] = "max-age=604800"
 const store = profileStore()
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 const profileCreation = ref(false);
-if (store==null) router.push("/profile")
+if (store==null) router.push("/profiles")
 
 const newProfile = ref({
     id: uuidv4(),
@@ -118,6 +120,7 @@ const SelectProfile = (profile) => {
         profile: profile
     })
     router.push("/")
+    MenuStore.showMainMenu();
 }
 
 const DeleteProfile = (id) => {
