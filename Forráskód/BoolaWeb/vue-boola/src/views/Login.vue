@@ -45,7 +45,7 @@ const submitLogin = () => {
                 sessionStorage.setItem("refreshToken", tokens.refresh)
                 profilStore.$patch({ email: account.value.email, profile: null })
               toast.success("Sikeres bejelentkezés")
-              setTimeout(()=>(router.push("/profiles")),2000)
+              setTimeout(()=>(router.push("/profile")),2000)
           }
                )
             })

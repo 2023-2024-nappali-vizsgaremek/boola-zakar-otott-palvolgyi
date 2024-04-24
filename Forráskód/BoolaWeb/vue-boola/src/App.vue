@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router';
-
+import {ref, onMounted} from 'vue';
 
 import Menu from './components/menu.vue';
 import TopBar from './components/TopBar.vue';

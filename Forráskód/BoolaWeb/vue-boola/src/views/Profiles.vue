@@ -5,14 +5,17 @@ import {v4 as uuidv4} from "uuid";
 import {profileStore} from "/src/stores/ProfileStore"
 import {useToast} from "vue-toastification";
 const toast=useToast()
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
 const authToken = sessionStorage.getItem("authToken");
-if (!authToken) window.open("/login", "_self")
+if (!authToken) router.push("/login")
 
 axios.defaults.headers.get["Cache-Control"] = "max-age=604800"
 const store = profileStore()
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 const profileCreation = ref(false);
-if (store==null) window.open("/profile", "_self")
+if (store==null) router.push("/profile")
 
 const newProfile = ref({
     id: uuidv4(),
@@ -128,7 +131,7 @@ const DeleteProfile = (id) => {
         if (r.status != 204) toast.error("Hiba történt a törlés során!")
         else{
           toast.success("Sikeres törlés!")
-          window.open("/profiles","_self")
+          router.push("/profiles")
         }
 
       })

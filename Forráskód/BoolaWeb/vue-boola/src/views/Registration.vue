@@ -28,7 +28,7 @@ const submitRegistration = () => {
             return;
         }
         toast.success("Sikeres Regisztráció")
-       setTimeout(()=> window.open("/login","_self"),2000)
+       setTimeout(()=> router.push("/login"),2000)
     }).catch(_ => {
         if(hasRegistrationFailed.value == true){
           toast.error("Hiba történt")
