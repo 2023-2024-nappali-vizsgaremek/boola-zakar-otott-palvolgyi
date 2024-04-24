@@ -93,24 +93,22 @@ axios.get(`https://${hostName}/api/language`,{
 <style scoped>
 h1{
   padding-bottom: 1em;
+  text-align: center;
 }
 .text{
-  width:11vw
-}
-.radio{
-padding: 0.5em;
+  width: 250px
 }
 .card{
   text-align: center;
   background: #bce9ff;
-margin-left: 20vw ;
+  margin-left: 20vw ;
   margin-right: 20vW ;
   padding: 1em;
   margin-top:10vh;
 
 }
 button{
-  width: 8vw;
+  width: 100px;
 
   background: #0080aa;
   border: #191c1e;

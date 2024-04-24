@@ -114,8 +114,7 @@ const SelectProfile = (profile) => {
         email: store.email,
         profile: profile
     })
-    window.open("/", "_self")
-
+    router.push("/")
 }
 
 const DeleteProfile = (id) => {
