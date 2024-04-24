@@ -11,13 +11,18 @@
     const expenses=ref([])
     const language=ref([])
     const currency=ref([])
-    if (!authToken) window.open("/login", "_self")
-    if (profiles==null) window.open("/profile", "_self")
+    if (!authToken)
+    {
+      window.open("/login", "_self")
+    }else if
+    (profiles==null) {
+      window.open("/profile", "_self")
+    }
     const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
     axios.get(`https://${hostName}/api/expenselist/${profiles.expenseListId}`,{
       headers:{
         Authorization: `Bearer ${authToken}`,
-        "Cache-Control": "max-age=60"
+        "Cache-Control": "no-cache"
       }
     }).then(r=>{
       expenseList.value = r.data
@@ -31,7 +36,7 @@
     axios.get(`https://${hostName}/api/expense?listId=${profileStore().profile.expenseListId}`, {
       headers: {
         Authorization: `Bearer ${authToken}`,
-        "Cache-Control":"max-age=60"
+        "Cache-Control":"no-cache"
       }
     }).then(r => {
       expenseList2.value = r.data

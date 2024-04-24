@@ -7,8 +7,8 @@ import {useToast} from "vue-toastification";
 const toast=useToast()
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 const authToken = sessionStorage.getItem("authToken")
-
-
+const filtered=ref([])
+const beker=ref(null);
 
 axios.defaults.headers.get["Cache-Control"] = "max-age=604800,public"
 const expense = ref([])
@@ -18,7 +18,7 @@ const expenseListId = profileStore().profile.expenseListId
 axios.get(`https://${hostName}/api/expense?listId=${expenseListId}`, {
   headers: {
     Authorization: `Bearer ${authToken}`,
-    "Cache-Control":"max-age=60"
+    "Cache-Control":"no-cache"
   }
 }).then(r => expense.value = r.data)
 
@@ -45,8 +45,14 @@ function Delete(id) {
   })
   store.$reset()
 
-}
 
+}
+function filter() {
+  if (beker.value != null) {
+    filtered.value = expense.value.filter(r => r.name.match(`/${beker.value}/g`))
+    console.log(filtered.value.length)
+  }
+}
 function selectExpense(expense) {
   store.$patch({ selectedExpense: expense })
 }
@@ -54,8 +60,18 @@ function selectExpense(expense) {
 </script>
 <template>
   <div class="container-fluid">
-    <div class="card p-1 m-2" v-for="expenses in expense" @click="selectExpense(expenses)"
+    <input type="text"  v-model="beker" placeholder="🔍 Keresés" style="width: 50%; height: 30px;margin-left: 25vw">
+    <button type="submit" @click="filter()">Kérés</button>
+    <div v-if="beker==null" class="card p-1 m-2" v-for="expenses in expense" @click="selectExpense(expenses)"
       @focus="selectExpense(expenses)" v-bind:tabindex="expense.indexOf(expenses)">
+      <div>Név: {{ expenses.name }}</div>
+      <div v-if="!expenses.status">Státusz: Fizetendő </div>
+      <div v-else>Státusz: Kifizetve</div>
+      <div>Dátum: {{ new Date(expenses.date).toDateString() }}</div>
+      <button class="btn btn-primary btn-rounded w-25" @click="Delete(expenses.id)">Törlés</button>
+    </div>
+    <div v-else class="card p-1 m-2" v-for="expenses in filtered" @click="selectExpense(expenses)"
+         @focus="selectExpense(expenses)" v-bind:tabindex="filtered.indexOf(expenses)">
       <div>Név: {{ expenses.name }}</div>
       <div v-if="!expenses.status">Státusz: Fizetendő </div>
       <div v-else>Státusz: Kifizetve</div>

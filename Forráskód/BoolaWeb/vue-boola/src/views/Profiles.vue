@@ -28,10 +28,10 @@ const profileCreationToggle = () => {
 }
 
 const profiles = ref();
-axios.get(`http://${hostName}/api/profile`, {
+axios.get(`https://${hostName}/api/profile`, {
     headers: {
         Authorization: `Bearer ${authToken}`,
-        "Cache-Control": "no-cache"
+        "Cache-Control": "no-store"
     }
 
 
@@ -48,12 +48,12 @@ axios.get(`https://${hostName}/api/currency`)
 
 const languages = ref([]);
 const selectedLanguage = ref(null)
-axios.get(`http://${hostName}/api/language`)
+axios.get(`https://${hostName}/api/language`)
     .then(r => languages.value = r.data);
 
 const createNewProfile = () => {
   newProfile.value.languageId = selectedLanguage.value;
-  axios.post(`http://${hostName}/api/profile`, newProfile.value, {
+  axios.post(`https://${hostName}/api/profile`, newProfile.value, {
     headers: {
       Authorization: `Bearer ${authToken}`
     }
@@ -64,6 +64,15 @@ toast.error("hiba")
           return;
         }else{
           toast.success("Sikeres profil létrehozás")
+          axios.get(`https://${hostName}/api/profile`, {
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+              "Cache-Control": "no-store"
+            }
+
+
+          })
+              .then(r => profiles.value = r.data);
         }
     })
         .then(r => {
@@ -128,8 +137,16 @@ const DeleteProfile = (id) => {
     }).then(r => {
         if (r.status != 204) toast.error("Hiba történt a törlés során!")
         else{
+          axios.get(`https://${hostName}/api/profile`, {
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+              "Cache-Control": "no-store"
+            }
+
+
+          })
+              .then(r => profiles.value = r.data);
           toast.success("Sikeres törlés!")
-          window.open("/profiles","_self")
         }
 
       })
