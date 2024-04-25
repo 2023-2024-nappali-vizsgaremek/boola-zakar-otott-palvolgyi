@@ -56,16 +56,4 @@ router.afterEach(() => {
   MenuStore.closeMenus();
 });
 
-
-import {profileStore} from "/src/stores/ProfileStore"
-
-router.beforeEach((to, from) => {
-  const profiles = profileStore().profile;
-  const authToken = ref(sessionStorage.getItem("authToken"));  
-  if(!authToken && from.path == "/login")    
-    return false;
-  if(profiles==null && from.path == "/profiles")
-    return false;
-})
-
 export default router
