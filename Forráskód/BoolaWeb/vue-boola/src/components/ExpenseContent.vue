@@ -60,7 +60,7 @@ function selectExpense(expense) {
 </script>
 <template>
   <div class="container-fluid">
-    <input type="text" v-model="beker" @input="filter()" placeholder="🔍 Keresés" style="width: 50%; height: 30px;margin-left: 25vw; padding-bottom: 1em; ">
+    <input type="text" v-model="beker" @input="filter()" placeholder="🔍 Keresés" style="width: 50%; height: 30px;margin-left: 25vw; margin-bottom: 1em; ">
   
     <div v-if="beker!=null" class="card p-1 m-2" v-for="expenses in filtered" @click="selectExpense(expenses)"
          @focus="selectExpense(expenses)" v-bind:tabindex="filtered.indexOf(expenses)">
