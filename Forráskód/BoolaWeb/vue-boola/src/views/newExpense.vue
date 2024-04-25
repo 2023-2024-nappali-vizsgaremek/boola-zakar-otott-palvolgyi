@@ -6,15 +6,21 @@ import {v4 as uuidv4} from "uuid";
 import { profileStore } from '/src/stores/ProfileStore';
 import {useToast} from "vue-toastification";
 const toast=useToast()
+
 import { useRouter } from 'vue-router';
 const router = useRouter();
+
+const profilStore=profileStore().profile
+
 
 const authToken = sessionStorage.getItem("authToken");
 if (!authToken) {
   router.push("/login")
 }
+
 else if (profileStore().profile==null){
   router.push("/profiles")
+
 }
 
 Axios.defaults.headers.get["Cache-Control"] = "max-age=604800,public"
@@ -40,7 +46,7 @@ let partner = ref("");
 const partners = ref([]);
 const hasFaild=ref(false);
 
-if (profile==null) router.push("/profiles")
+
 
 
 Axios.get(`https://${hostName}/api/partner`, {
