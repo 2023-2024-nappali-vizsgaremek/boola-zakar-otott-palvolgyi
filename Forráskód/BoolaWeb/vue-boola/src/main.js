@@ -8,7 +8,7 @@ import Toast from "vue-toastification"
 import 'vue-toastification/dist/index.css'
 
 const app = createApp(App)
-
+const pinia = createPinia();
 
 const option={
     timeout: 2000,

@@ -56,7 +56,7 @@ const Save=()=>{
 <style scoped>
 
 .card {
-    width: calc(100vw / 3);
+    width: 350px;
     margin-top:2em;
     padding: 1em;
     background-color: #004d67;
