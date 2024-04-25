@@ -7,7 +7,6 @@ import piniaPluginPersistedState from "pinia-plugin-persistedstate"
 import Toast from "vue-toastification"
 import 'vue-toastification/dist/index.css'
 
-const pinia = createPinia()
 const app = createApp(App)
 
 

@@ -6,12 +6,13 @@ import {v4 as uuidv4} from "uuid";
 import { profileStore } from '/src/stores/ProfileStore';
 import {useToast} from "vue-toastification";
 const toast=useToast()
+const profilStore=profileStore().profile
 
 const authToken = sessionStorage.getItem("authToken");
 if (!authToken) {
   window.open("/login", "_self")
 }
-else if (profileStore().profile==null){
+else if (profilStore==null){
   window.open("/profiles", "_self")
 }
 
@@ -38,7 +39,6 @@ let partner = ref("");
 const partners = ref([]);
 const hasFaild=ref(false);
 
-if (profile==null) window.open("/profile", "_self")
 
 
 Axios.get(`https://${hostName}/api/partner`, {
