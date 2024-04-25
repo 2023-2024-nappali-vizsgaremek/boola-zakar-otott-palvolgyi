@@ -6,6 +6,7 @@
   "main": "main.js",
   "author": "Pálvölgyi Patrik",
   "description": "Boola",
+
   "scripts": {
     "dev": "vite",
     "build": "vite build",
