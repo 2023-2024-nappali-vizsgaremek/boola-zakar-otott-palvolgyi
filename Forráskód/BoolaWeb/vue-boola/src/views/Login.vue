@@ -66,7 +66,7 @@ const submitLogin = () => {
         <input type="password" id="pw_field" v-model="account.pwHash">
         <div class="d-flex flex-row justify-content-around">
             <button type="button" class="btn btn-primary" @click="submitLogin">Belépés</button>
-            <a href="/register" class="btn btn-primary">Regisztráció</a>
+            <a href="/register" class="btn btn-primary ">Regisztráció</a>
         </div>
         <p class="text-danger" v-if="submittingEmptyFields">Minden mezőt ki kell tölteni!</p>
         <p class="text-danger" v-if="loginFailed">Hiba történt a bejelentkezés során!</p>
