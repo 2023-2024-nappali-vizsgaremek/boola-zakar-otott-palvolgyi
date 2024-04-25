@@ -63,7 +63,8 @@
     .profile-icon-btn {        
         margin-right: 1.5rem;
         cursor: pointer;
-        position: relative;    
+        position: relative;
+        transition: all ease-out .3s;
     }
 
     .routerLinkContainer{        

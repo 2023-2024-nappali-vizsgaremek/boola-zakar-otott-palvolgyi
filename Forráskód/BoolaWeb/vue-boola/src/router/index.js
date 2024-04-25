@@ -56,17 +56,16 @@ router.afterEach(() => {
   MenuStore.closeMenus();
 });
 
-const authToken = ref(sessionStorage.getItem("authToken"));
+
 import {profileStore} from "/src/stores/ProfileStore"
 
-/*
 router.beforeEach((to, from) => {
-  const profiles = profileStore().profile
-  //console.log(profiles, authToken);
-  if(!authToken)
-    router.push("/login");
-  if(profiles==null && authToken)
+  const profiles = profileStore().profile;
+  const authToken = ref(sessionStorage.getItem("authToken"));  
+  if(!authToken && from.path == "/login")    
     return false;
-})*/
+  if(profiles==null && from.path == "/profiles")
+    return false;
+})
 
 export default router

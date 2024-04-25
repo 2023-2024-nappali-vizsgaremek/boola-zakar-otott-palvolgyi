@@ -41,7 +41,7 @@ axios.get(`http://${hostName}/api/profile`, {
 
 
 })
-    .then(r => profiles.value = r.data);
+.then(r => profiles.value = r.data);
 
 /*val id:UUID, val name:String, val isBusiness:Boolean,
                val languageId:String, @Serializable(with = UUIDSerializer::class) val expenseListId:UUID?,
@@ -65,10 +65,11 @@ const createNewProfile = () => {
   })
       .then(r => {
         if (r.status != 201) {
-toast.error("hiba")
+          toast.error("hiba")
           return;
         }else{
           toast.success("Sikeres profil létrehozás")
+          profileCreationToggle();
         }
     })
         .then(r => {
