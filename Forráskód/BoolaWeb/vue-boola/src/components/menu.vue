@@ -4,11 +4,10 @@
 
     import { useMenuStore} from '/src/stores/MenuStore';
     const MenuStore = useMenuStore();
-
 </script>
 
 <template>
-    <div class="menu-container unselectable" :class="`${MenuStore.isMainMenuOpened && 'menu-opened'}`">                
+    <div v-if="MenuStore.isMainMenuDisplayed" class="menu-container unselectable" :class="`${MenuStore.isMainMenuOpened && 'menu-opened'}`">                
         <div class="menu-link-container">        
             <RouterLink class="routerLink" to="/">
                 <div class="routerLinkContainer">

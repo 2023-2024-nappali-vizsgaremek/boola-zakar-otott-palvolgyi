@@ -2,7 +2,8 @@
     import axios from 'axios';
     import { onMounted, ref } from 'vue';
     import {profileStore} from "/src/stores/ProfileStore"
-
+    import { useRouter } from 'vue-router';
+    const router = useRouter();
 
     const expenseList = ref([]);
     const expenseList2=ref([]);
@@ -11,13 +12,14 @@
     const expenses=ref([])
     const language=ref([])
     const currency=ref([])
-    if (!authToken)
-    {
-      window.open("/login", "_self")
-    }else if
-    (profiles==null) {
-      window.open("/profile", "_self")
+
+    if (!authToken){
+    router.push("/login")
     }
+    else if (profiles==null) 
+    {
+    router.push("/profiles")
+}
     const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
     axios.get(`https://${hostName}/api/expenselist/${profiles.expenseListId}`,{
       headers:{

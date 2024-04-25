@@ -3,6 +3,11 @@ import {ref, withModifiers} from 'vue'
 import Axios from 'axios'
 import { profileStore } from '/src/stores/ProfileStore';
 import {useToast} from "vue-toastification";
+import { useRouter } from 'vue-router'
+import { useMenuStore} from '/src/stores/MenuStore'
+const MenuStore = useMenuStore()
+
+const router = useRouter()
 
 const toast=useToast()
 
@@ -41,9 +46,10 @@ const submitLogin = () => {
                 sessionStorage.setItem("authToken", tokens.access)
                 sessionStorage.setItem("refreshToken", tokens.refresh)
                 profilStore.$patch({ email: account.value.email, profile: null })
-              toast.success("Sikeres bejelentkezés")
-              setTimeout(()=>(window.open("/profiles", "_self")),2000)
-          }
+                toast.success("Sikeres bejelentkezés")
+                setTimeout(()=>(router.push("/profiles")),2000)
+                MenuStore.showProfileMenu();
+                }
                )
             })
 

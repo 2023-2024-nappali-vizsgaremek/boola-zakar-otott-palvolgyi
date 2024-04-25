@@ -10,12 +10,14 @@ const profilStore = profileStore().profile
 const currency = ref(null)
 const expenselist=ref([])
 const balance=ref(0.0)
+import { useRouter } from 'vue-router';
+const router = useRouter();
 
 if (!authToken) {
-  window.open("/login", "_self")
+  router.push("/login")
 }
 else if (profilStore==null){
-  window.open("/profiles", "_self")
+  router.push("/profiles")
 }
 
  axios.get(`https://${hostName}/api/currency`)
