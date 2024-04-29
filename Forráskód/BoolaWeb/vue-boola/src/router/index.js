@@ -3,7 +3,7 @@ import HomePage from '../views/HomePage.vue'
 import {ref} from 'vue'
 
 const router = createRouter({
-  history: createWebHashHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
