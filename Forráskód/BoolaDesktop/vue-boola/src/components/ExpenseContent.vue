@@ -28,7 +28,11 @@ function filter() {
 }
 
 function Delete(id) {
+
   if (!confirm("Biztos törölni szeretné ezt a kiadást?")) return;
+  if (filtered.value.some(r=>r.id==id)){
+    filtered.value=filtered.value.filter(r=>r.id!=id)
+  }
   axios.delete(`https://${hostName}/api/expense/${id}`, {
     headers: {
       Authorization: `Bearer ${authToken}`
