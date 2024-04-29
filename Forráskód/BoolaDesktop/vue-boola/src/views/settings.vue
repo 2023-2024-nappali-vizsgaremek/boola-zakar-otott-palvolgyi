@@ -5,7 +5,7 @@ import { profileStore } from '../stores/ProfileStore';
 import {useToast} from "vue-toastification";
 const toast=useToast()
 const authToken = sessionStorage.getItem("authToken");
-if (!authToken) router.push("/login")
+if (!authToken) window.open("/login", "_self")
 axios.defaults.headers.get["Cache-Control"] = "max-age=604800,public"
 const settings=ref({email:null,pwHash:null,name:null})
 const nyelv=ref([])
@@ -15,10 +15,10 @@ toast.info("A fordítás jelenleg nem működik",{
   timeout: 4000,
 })
 if (!authToken) {
-  router.push("/login")
+  window.open("/login", "_self")
 }
 else if (profileStore().profile==null){
-  router.push("/profiles")
+  window.open("/profiles", "_self")
 }
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 let settingsToSubmit=null;
@@ -94,22 +94,17 @@ axios.get(`https://${hostName}/api/language`,{
 <style scoped>
 h1{
   padding-bottom: 1em;
-  text-align: center;
 }
 .text{
-
   width: 200px
 }
 .radio{
 padding: 0.5em;
-
-  width: 250px
-
 }
 .card{
   text-align: center;
   background: #bce9ff;
-  margin-left: 20vw ;
+margin-left: 20vw ;
   margin-right: 20vW ;
   padding: 1em;
   margin-top: 20vh;
