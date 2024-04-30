@@ -176,6 +176,7 @@ const DeleteProfile = (id) => {
 </script>
 
 <template>
+  <div class="outer-container">
     <h1 class="text-center">Profilok</h1>
     <div class="profiles-container" v-if="!profileCreation">
         <div class="profile-container" v-for="p in profiles">
@@ -218,21 +219,24 @@ const DeleteProfile = (id) => {
         </div>
 
     </div>
-
+  </div>
 </template>
 
 <style scoped>
+.outer-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .profileCreation-container {
   background-color: var(--sec-background);
   width: 400px;
   height: auto;
   border-radius: var(--border-radius);
   padding: 5px;
-
-  position: absolute;
-  top: 20%;
-  right: 50%;
-  transform: translateX(200px);
+  color: var(--main-text-color);
 }
 
 .profileCreationForm > * {
@@ -252,11 +256,6 @@ const DeleteProfile = (id) => {
     max-height: 75vh;
     border-radius: var(--border-radius);
     overflow: auto;
-    position: absolute;
-    top: 20%;
-    right: 50%;
-    transform: translateX(200px);
-
 }
 
 .profile-container {
@@ -269,13 +268,13 @@ const DeleteProfile = (id) => {
   transition: all ease-out 0.2s;
 }
 .btn-primary:hover{
-  background:  #006783;
-  color: #bce9ff;
+  background:  var(--main-text-color);
+  color: var(--sec-text-color);
   border: none;
 }
 .btn-primary{
-  background: #bce9ff;
-  color: #006783;
+  background: var(--sec-text-color);
+  color: var(--main-text-color);
   border: none;
 }
 

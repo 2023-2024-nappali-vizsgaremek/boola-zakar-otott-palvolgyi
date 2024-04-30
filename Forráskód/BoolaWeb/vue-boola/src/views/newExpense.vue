@@ -170,11 +170,11 @@ function Send() {
     </div>
     <div style="text-align: center" class="mx-auto">
       Megjegyzés<br>
-      <input v-model="NewExpense.note" type="text" style="width: 25vw; height: 15vh">
+      <input v-model="NewExpense.note" type="text" style="width: 25vw; height: 15vh; min-width: 200px;">
     </div>
     <p v-if="hasFaild" class="text-bg-danger">Hibás adatok</p>
 
-    <button class="btn btn-primary rounded"  @click="Send()">Küldés</button>
+    <button class="btn btn-primary rounded mx-auto"  @click="Send()">Küldés</button>
 
   </div>
 
@@ -200,17 +200,16 @@ label {
 
 
 button {
-  width: 8vw;
-
+  width: 70px;
   background: var(--sec-background);
   border: #191c1e;
   margin-top: 7%;
-  margin-left: 45% !important;
+  display: flex;
+  align-self: center;
 }
 
 button:hover {
   background: #bce9ff;
   color: #006783;
-
 }
 </style>
