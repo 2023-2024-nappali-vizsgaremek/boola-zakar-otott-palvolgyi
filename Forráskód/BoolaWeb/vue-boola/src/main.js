@@ -17,7 +17,7 @@ const option={
     newestOnTop:true,
     position: "bottom-center"
 }
-
+const pinia=createPinia()
 pinia.use(piniaPluginPersistedState)
 app.use(pinia)
 app.use(router)

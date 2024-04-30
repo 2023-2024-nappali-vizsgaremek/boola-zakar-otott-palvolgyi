@@ -46,47 +46,48 @@ axios.get(`https://${hostName}/api/language`,{
 
 <template>
     <h1>Beállítások</h1>
-  <div class="container-fluid mx-auto">
+  <div class="container-fluid text-center">
     <div class="row">
-      <div class="col-lg-6">
+      <div class="col-lg-6 col-sm-12">
       <h3>Név:</h3>
       </div>
-      <div class="col-lg-6">
+      <div class="col-lg-6 col-sm-12">
         <input v-model="settings.name" class="text" type="text">
     </div>
     </div>
     <div class="row">
-      <div class="col-lg-6">
+      <div class="col-lg-6 col-sm-12">
         <h3>E-mail:</h3>
       </div>
-      <div class="col-lg-6">
+      <div class="col-lg-6 col-sm-12">
         <input v-model="settings.email" id="email" class="text" type="text">
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-6">
+      <div class="col-lg-6 col-sm-12">
 <h3>Jelszó</h3>
       </div>
-      <div class="col-lg-6">
+      <div class="col-lg-6 col-sm-12">
 <input v-model="settings.pwHash" id="password" class="text" type="password">
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-6">
+      <div class="col-lg-6 col-sm-12">
 <h3>Nyelv: </h3>
       </div>
-      <div class="col-lg-6">
+      <div class="col-lg-6 col-sm-12">
 <select id="nyelvek" name="nyelvek" v-model="ProfilStore.languageId">
   <option v-for="nyelvs in nyelv" v-bind:value="nyelvs.code">{{ nyelvs.name }}</option>
 
 </select>
       </div>
     </div>
+
     <button id="btn" @click="Save()" class="btn btn-primary mx-auto">Mentés</button>
     <div class="card mx-auto">
+
       Ha bármilyen kérdése vagy észrevétele van, ne habozzon kapcsolatba lépni velünk! <br>A Boola Pénzügyi Alkalmazás ügyfélszolgálata mindig készen áll, hogy segítsen.<br><br>E-mail: info@boolaapp.com<br><br>Telefonszám: +36 1 234 5678<br><br>Köszönjük, hogy a Boola alkalmazást választotta pénzügyi szükségletei kielégítésére. <br>Tartsa velünk az úton a gazdagság és a pénzügyi függetlenség felé!
     </div>
-  </div>
   
 </template>
 
@@ -96,7 +97,14 @@ h1{
   text-align: center;
 }
 .text{
+
+  width: 200px
+}
+.radio{
+padding: 0.5em;
+
   width: 250px
+
 }
 .card{
   text-align: center;
@@ -107,12 +115,15 @@ h1{
   margin-top:10vh;
   width: 50vw;
   min-width: 300px;
+
 }
 button{
   width: 75px;
 
+
   margin-top:5%;
   display: flex;
+
 }
 
 </style>

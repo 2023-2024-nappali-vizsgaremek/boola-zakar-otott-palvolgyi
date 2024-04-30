@@ -14,7 +14,9 @@
     const currency=ref([])
 
     if (!authToken){
+
     window.open("/login", "_self")
+
     }
     else if (profiles==null) 
     {
