@@ -1,24 +1,24 @@
 <script setup>
     import {ref} from "vue";
     import { RouterLink, RouterView } from 'vue-router';
-    import { profileStore } from '/src/stores/ProfileStore';
-import {useToast} from "vue-toastification";
-const toast=useToast();
-    import { useMenuStore} from '/src/stores/MenuStore';
-    const MenuStore = useMenuStore()
-    const profil=profileStore().profile;
+    import {useToast} from "vue-toastification";
+    const toast=useToast();
+    import { useMenuStore} from '/src/stores/MenuStore';    
+    const MenuStore = useMenuStore();
+    import { profileStore } from "/src/stores/ProfileStore";
+    
     const Dob=()=>{
+      MenuStore.hideMenus();
+        
       toast.info("Viszlát!")
       sessionStorage.clear()
       profileStore().profile=null;
-      profileStore().email=null;
-
-      MenuStore.toggleProfileMenu()
+      profileStore().email=null;      
     }
 </script>
 
 <template>        
-    <span v-if="profil!=null"   @click="MenuStore.toggleProfileMenu" class="material-symbols-outlined profile-icon-btn size-32 icon-hover-highlight">account_circle</span>
+    <span v-if="MenuStore.isProfileMenuDisplayed" @click="MenuStore.toggleProfileMenu" class="material-symbols-outlined profile-icon-btn size-32 icon-hover-highlight">account_circle</span>
     
     <div class="profileMenu-container" :class="`${MenuStore.isProfileMenuOpened && 'profileMenu-container-open'}`">
         <div class="profileLinks-container">            
@@ -63,7 +63,8 @@ const toast=useToast();
     .profile-icon-btn {        
         margin-right: 1.5rem;
         cursor: pointer;
-        position: relative;    
+        position: relative;
+        transition: all ease-out .3s;
     }
 
     .routerLinkContainer{        

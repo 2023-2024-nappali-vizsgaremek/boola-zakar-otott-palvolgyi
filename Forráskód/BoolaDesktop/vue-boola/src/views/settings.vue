@@ -5,7 +5,7 @@ import { profileStore } from '../stores/ProfileStore';
 import {useToast} from "vue-toastification";
 const toast=useToast()
 const authToken = sessionStorage.getItem("authToken");
-if (!authToken) window.open("/login", "_self")
+if (!authToken) router.push("/login")
 axios.defaults.headers.get["Cache-Control"] = "max-age=604800,public"
 const settings=ref({email:null,pwHash:null,name:null})
 const nyelv=ref([])
@@ -15,10 +15,10 @@ toast.info("A fordítás jelenleg nem működik",{
   timeout: 4000,
 })
 if (!authToken) {
-  window.open("/login", "_self")
+  router.push("/login")
 }
 else if (profileStore().profile==null){
-  window.open("/profiles", "_self")
+  router.push("/profiles")
 }
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 let settingsToSubmit=null;
@@ -82,10 +82,10 @@ axios.get(`https://${hostName}/api/language`,{
 </select>
       </div>
     </div>
-   
-  </div>
-  <button id="btn" @click="Save()" class="btn btn-primary">Mentés</button>
-    <div class="card">
+
+    <button id="btn" @click="Save()" class="btn btn-primary mx-auto">Mentés</button>
+    <div class="card mx-auto">
+
       Ha bármilyen kérdése vagy észrevétele van, ne habozzon kapcsolatba lépni velünk! <br>A Boola Pénzügyi Alkalmazás ügyfélszolgálata mindig készen áll, hogy segítsen.<br><br>E-mail: info@boolaapp.com<br><br>Telefonszám: +36 1 234 5678<br><br>Köszönjük, hogy a Boola alkalmazást választotta pénzügyi szükségletei kielégítésére. <br>Tartsa velünk az úton a gazdagság és a pénzügyi függetlenség felé!
     </div>
   
@@ -94,39 +94,36 @@ axios.get(`https://${hostName}/api/language`,{
 <style scoped>
 h1{
   padding-bottom: 1em;
+  text-align: center;
 }
 .text{
+
   width: 200px
 }
 .radio{
 padding: 0.5em;
+
+  width: 250px
+
 }
 .card{
   text-align: center;
   background: #bce9ff;
-margin-left: 20vw ;
+  margin-left: 20vw ;
   margin-right: 20vW ;
   padding: 1em;
-  margin-top: 20vh;
+  margin-top:10vh;
+  width: 50vw;
+  min-width: 300px;
 
 }
 button{
-  width: 100px;
+  width: 75px;
 
-  background: #0080aa;
-  border: #191c1e;
-  margin: 0;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  margin-top: 10vh;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+
+  margin-top:5%;
+  display: flex;
 
 }
-button:hover,button:active,button:visited{
-  background: #bce9ff;
-  color: #006783;
 
-}
 </style>

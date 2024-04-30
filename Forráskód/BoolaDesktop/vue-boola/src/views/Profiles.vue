@@ -5,14 +5,28 @@ import {v4 as uuidv4} from "uuid";
 import {profileStore} from "/src/stores/ProfileStore"
 import {useToast} from "vue-toastification";
 const toast=useToast()
+import { useRouter } from 'vue-router'
+const router = useRouter()
+import { useMenuStore} from '/src/stores/MenuStore';
+const MenuStore = useMenuStore();    
+
 const authToken = sessionStorage.getItem("authToken");
-if (!authToken) window.open("/login", "_self")
+const store = profileStore();
+console.log(authToken);
+if (!authToken) 
+{
+  console.log(authToken);
+  router.push("/login", "_self")
+}
+else if (store==null) 
+{
+  router.push("/profiles")
+}
 
 axios.defaults.headers.get["Cache-Control"] = "max-age=604800"
-const store = profileStore()
+
 const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
 const profileCreation = ref(false);
-if (store==null) window.open("/profile", "_self")
 
 const newProfile = ref({
     id: uuidv4(),
@@ -36,7 +50,7 @@ axios.get(`https://${hostName}/api/profile`, {
 
 
 })
-    .then(r => profiles.value = r.data);
+.then(r => profiles.value = r.data);
 
 /*val id:UUID, val name:String, val isBusiness:Boolean,
                val languageId:String, @Serializable(with = UUIDSerializer::class) val expenseListId:UUID?,
@@ -60,10 +74,13 @@ const createNewProfile = () => {
   })
       .then(r => {
         if (r.status != 201) {
-toast.error("hiba")
+          toast.error("hiba")
           return;
         }else{
           toast.success("Sikeres profil létrehozás")
+
+          profileCreationToggle();
+
           axios.get(`https://${hostName}/api/profile`, {
             headers: {
               Authorization: `Bearer ${authToken}`,
@@ -73,6 +90,7 @@ toast.error("hiba")
 
           })
               .then(r => profiles.value = r.data);
+
         }
     })
         .then(r => {
@@ -123,8 +141,8 @@ const SelectProfile = (profile) => {
         email: store.email,
         profile: profile
     })
-    window.open("/", "_self")
-
+    router.push("/")
+    MenuStore.showMainMenu();
 }
 
 const DeleteProfile = (id) => {
@@ -147,6 +165,9 @@ const DeleteProfile = (id) => {
           })
               .then(r => profiles.value = r.data);
           toast.success("Sikeres törlés!")
+
+          router.push("/profiles")
+
         }
 
       })
@@ -155,6 +176,7 @@ const DeleteProfile = (id) => {
 </script>
 
 <template>
+  <div class="outer-container">
     <h1 class="text-center">Profilok</h1>
     <div class="profiles-container" v-if="!profileCreation">
         <div class="profile-container" v-for="p in profiles">
@@ -197,21 +219,24 @@ const DeleteProfile = (id) => {
         </div>
 
     </div>
-
+  </div>
 </template>
 
 <style scoped>
+.outer-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .profileCreation-container {
   background-color: var(--sec-background);
   width: 400px;
   height: auto;
   border-radius: var(--border-radius);
   padding: 5px;
-
-  position: absolute;
-  top: 20%;
-  right: 50%;
-  transform: translateX(200px);
+  color: var(--main-text-color);
 }
 
 .profileCreationForm > * {
@@ -231,11 +256,6 @@ const DeleteProfile = (id) => {
     max-height: 75vh;
     border-radius: var(--border-radius);
     overflow: auto;
-    position: absolute;
-    top: 20%;
-    right: 50%;
-    transform: translateX(200px);
-
 }
 
 .profile-container {
@@ -248,13 +268,13 @@ const DeleteProfile = (id) => {
   transition: all ease-out 0.2s;
 }
 .btn-primary:hover{
-  background:  #006783;
-  color: #bce9ff;
+  background:  var(--main-text-color);
+  color: var(--sec-text-color);
   border: none;
 }
 .btn-primary{
-  background: #bce9ff;
-  color: #006783;
+  background: var(--sec-text-color);
+  color: var(--main-text-color);
   border: none;
 }
 

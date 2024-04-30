@@ -8,7 +8,7 @@ import Toast from "vue-toastification"
 import 'vue-toastification/dist/index.css'
 
 const app = createApp(App)
-
+const pinia = createPinia();
 
 const option={
     timeout: 2000,
@@ -17,8 +17,7 @@ const option={
     newestOnTop:true,
     position: "bottom-center"
 }
-const pinia = createPinia()
-
+const pinia=createPinia()
 pinia.use(piniaPluginPersistedState)
 app.use(pinia)
 app.use(router)

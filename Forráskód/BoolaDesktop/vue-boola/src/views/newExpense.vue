@@ -6,14 +6,21 @@ import {v4 as uuidv4} from "uuid";
 import { profileStore } from '/src/stores/ProfileStore';
 import {useToast} from "vue-toastification";
 const toast=useToast()
+
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
 const profilStore=profileStore().profile
+
 
 const authToken = sessionStorage.getItem("authToken");
 if (!authToken) {
-  window.open("/login", "_self")
+  router.push("/login")
 }
-else if (profilStore==null){
-  window.open("/profiles", "_self")
+
+else if (profileStore().profile==null){
+  router.push("/profiles")
+
 }
 
 Axios.defaults.headers.get["Cache-Control"] = "max-age=604800,public"
@@ -38,6 +45,7 @@ const category = ref([]);
 let partner = ref("");
 const partners = ref([]);
 const hasFaild=ref(false);
+
 
 
 
@@ -162,11 +170,11 @@ function Send() {
     </div>
     <div style="text-align: center" class="mx-auto">
       Megjegyzés<br>
-      <input v-model="NewExpense.note" type="text" style="width: 25vw; height: 15vh">
+      <input v-model="NewExpense.note" type="text" style="width: 25vw; height: 15vh; min-width: 200px;">
     </div>
     <p v-if="hasFaild" class="text-bg-danger">Hibás adatok</p>
 
-    <button class="btn btn-primary rounded"  @click="Send()">Küldés</button>
+    <button class="btn btn-primary rounded mx-auto"  @click="Send()">Küldés</button>
 
   </div>
 
@@ -192,17 +200,16 @@ label {
 
 
 button {
-  width: 8vw;
-
+  width: 70px;
   background: var(--sec-background);
   border: #191c1e;
   margin-top: 7%;
-  margin-left: 45% !important;
+  display: flex;
+  align-self: center;
 }
 
 button:hover {
   background: #bce9ff;
   color: #006783;
-
 }
 </style>

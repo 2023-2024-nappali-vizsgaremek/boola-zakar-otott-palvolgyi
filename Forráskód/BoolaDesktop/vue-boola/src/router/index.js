@@ -1,10 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../views/HomePage.vue'
+import {ref} from 'vue'
 
 const router = createRouter({
-
   history: createWebHistory(import.meta.env.BASE_URL),
-
   routes: [
     {
       path: '/',
@@ -48,11 +47,9 @@ const router = createRouter({
     }
   ]
 })
-console.log(router)
-console.log(history)
-
 
 import { useMenuStore} from '../stores/MenuStore'
+
 
 router.afterEach(() => {
   const MenuStore = useMenuStore();
