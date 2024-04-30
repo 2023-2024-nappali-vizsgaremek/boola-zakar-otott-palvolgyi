@@ -19,7 +19,8 @@
     --sec-light-background: #004d67;
 
     Dark mode colors
-    --dark-text-color: #bce9ff;
+    --main-dark-text-color: #bce9ff;
+    --sec-dark-text-color: #bce9ff;
     --main-dark-background: #001f2a;
     --sec-dark-background: #0080aa;
     */
@@ -31,7 +32,7 @@
 }
 
 body{
-    font-size: 14pt;
+    font-size: .5em;
     font-family: Inter-Regular;
     margin: 0;
 
@@ -44,14 +45,14 @@ body,html{
 }
 
 h2{
-    font-size: 16pt;
+    font-size: 1em;
     font-weight: 500;
     font-style: italic;    
 }
 
 h1{
     font-weight: bold;
-    font-size: 18pt;
+    font-size: 2em;
     font-family: Inter-Black;
 }
 
@@ -99,13 +100,24 @@ span.icon-hover-highlight:hover{
     position: absolute;
     right: 0;
     height: calc(100lvh - 70px) !important;
-    width: calc(100lvw - var(--menu-width)) !important;
+    width: calc(100lvw - var(--menu-def-width)) !important;
     padding: 0px;
     margin: 0px;
     backdrop-filter: blur(1px) !important;
     transition: ease-out 0.3s;  
     z-index: 1000;    
 }
+
+  button{
+    min-width: 75px;
+    background: var(--sec-background)!important;
+    border: #191c1e!important;
+  
+  }
+  button:hover,button:active,button:visited{
+    background: var(--sec-text-color)!important;
+    color: var(--main-background)!important;
+  }
 
 @media screen and (max-width: 576px) {
     :root{
