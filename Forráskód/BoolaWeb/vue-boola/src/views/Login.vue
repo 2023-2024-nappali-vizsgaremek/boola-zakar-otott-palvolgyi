@@ -62,17 +62,17 @@ const submitLogin = () => {
 <template> <!--TODO: disable top-,sidebar for login,register-->
     <h1 class="text-center">Belépés</h1>
     <form class="container w-25 h-50 mx-auto text-justify d-flex flex-column justify-content-evenly">
-        <label for="email_field">
+        <label for="email_field" class="d-flex mx-auto">
             E-mail cím:
         </label>
-        <input type="email" id="email_field" v-model="account.email">
-        <label for="pw_field">
+        <input type="email" id="email_field" v-model="account.email" class="d-flex mx-auto">
+        <label for="pw_field" class="d-flex mx-auto">
             Jelszó:
         </label>
-        <input type="password" id="pw_field" v-model="account.pwHash">
-        <div class="d-flex flex-row justify-content-around m-3">
-            <button type="button" class="btn btn-primary" @click="submitLogin">Belépés</button>
-            <a href="/register" class="btn btn-primary ">Regisztráció</a>
+        <input type="password" id="pw_field" v-model="account.pwHash" class="d-flex mx-auto">
+        <div class="d-flex flex-row justify-content-around m-3 mx-auto">
+            <button type="button" class="btn btn-primary m-2" @click="submitLogin">Belépés</button>
+            <a href="/register" class="btn btn-primary m-2">Regisztráció</a>
         </div>
         <p class="text-danger" v-if="submittingEmptyFields">Minden mezőt ki kell tölteni!</p>
         <p class="text-danger" v-if="loginFailed">Hiba történt a bejelentkezés során!</p>
@@ -80,5 +80,11 @@ const submitLogin = () => {
 </template>
 
 <style scoped>
-
+    input{
+        min-width: 300px;
+        width: 25vw;        
+    }
+    .container{
+        min-width: 300px;
+    }
 </style>
