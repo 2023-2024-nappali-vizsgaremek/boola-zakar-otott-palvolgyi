@@ -49,18 +49,19 @@ const Save=()=>{
 <div class="card mx-auto">
 <h2>Töltsd fel egyenleged!</h2>
 <div><input v-model="balance" type="number"> {{ expenselist.currencyCode }}</div>
-<button class="btn btn-primary btn rounded" @click="Save()">Mentés</button>
 </div>
+<button class="btn btn-primary btn rounded mx-auto" @click="Save()">Mentés</button>
     </div>
 </template>
 <style scoped>
 
 .card {
     width: calc(100vw / 3);
+    min-width: 250px;
     margin-top:2em;
     padding: 1em;
-    background-color: #004d67;
-    color: #bce9ff;
+    background-color: var(--sec-background);
+    color: var(--sec-text-color);
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -75,13 +76,9 @@ h2 {
     text-align: center;
 }
 
-button {
-    background-color: #dff4ff;
-    color: #006783;
+button{
+    margin-top: 1rem;
+    display: flex;
 }
 
-button:hover {
-    background-color: #004d67;
-    color:#bce9ff;
-}
 </style>
