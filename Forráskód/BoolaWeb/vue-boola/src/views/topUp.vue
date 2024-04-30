@@ -57,6 +57,7 @@ const Save=()=>{
 
 .card {
     width: calc(100vw / 3);
+  min-width: 300px;
     margin-top:2em;
     padding: 1em;
     background-color: #004d67;

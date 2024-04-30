@@ -168,13 +168,13 @@ function Send() {
       <input v-model="NewExpense.status" type="radio" name="future" value="false"><label>Még nem</label>
 
     </div>
-    <div style="text-align: center" class="mx-auto">
+    <div style="text-align: center; " class="mx-auto">
       Megjegyzés<br>
-      <input v-model="NewExpense.note" type="text" style="width: 25vw; height: 15vh">
+      <input v-model="NewExpense.note" type="text" style="width: 25vw; height: 15vh; min-width: 300px">
     </div>
     <p v-if="hasFaild" class="text-bg-danger">Hibás adatok</p>
 
-    <button class="btn btn-primary rounded"  @click="Send()">Küldés</button>
+    <button class="btn btn-primary rounded"   @click="Send()">Küldés</button>
 
   </div>
 
@@ -200,14 +200,18 @@ label {
 
 
 button {
-  width: 8vw;
+  width: 150px;
 
   background: var(--sec-background);
   border: #191c1e;
   margin-top: 7%;
-  margin-left: 45% !important;
+  margin-left: 46% !important;
 }
-
+@media only screen and (max-width: 768px){
+  button{
+    margin-left: 32%!important;
+  }
+}
 button:hover {
   background: #bce9ff;
   color: #006783;

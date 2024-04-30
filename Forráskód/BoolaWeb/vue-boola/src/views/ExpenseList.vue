@@ -29,6 +29,16 @@ router.push("/profiles")
 <style scoped>
 #expense-body {
     display: flex;
+
     height: 95vh;
+
+}
+@media only screen and (max-width: 768px) {
+  #expense-body {
+flex-direction: column;
+  min-height: 90vh;
+
+
+  }
 }
 </style>

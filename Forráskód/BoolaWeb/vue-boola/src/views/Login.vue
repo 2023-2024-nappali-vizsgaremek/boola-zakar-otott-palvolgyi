@@ -62,17 +62,17 @@ const submitLogin = () => {
 <template> <!--TODO: disable top-,sidebar for login,register-->
     <h1 class="text-center">Belépés</h1>
     <form class="container w-25 h-50 mx-auto text-justify d-flex flex-column justify-content-evenly">
-        <label for="email_field">
+        <label for="email_field" class="align-self-center">
             E-mail cím:
         </label>
-        <input type="email" id="email_field" v-model="account.email">
-        <label for="pw_field">
+        <input type="email" id="email_field" class="align-self-center" style="min-width: 200px; width: 25vw" v-model="account.email">
+        <label for="pw_field" class="align-self-center">
             Jelszó:
         </label>
-        <input type="password" id="pw_field" v-model="account.pwHash">
-        <div class="d-flex flex-row justify-content-around">
-            <button type="button" class="btn btn-primary" @click="submitLogin">Belépés</button>
-            <a href="/register" class="btn btn-primary ">Regisztráció</a>
+        <input  type="password" id="pw_field"  class="align-self-center" style="min-width: 200px; width: 25vw" v-model="account.pwHash">
+        <div class="d-flex flex-row justify-content-around  row">
+            <button type="button" style="width: 150px" class="btn btn-primary col-sm-12 m-3" @click="submitLogin">Belépés</button>
+            <a href="/register" style="width: 150px" class="btn btn-primary col-sm-12 m-3">Regisztráció</a>
         </div>
         <p class="text-danger" v-if="submittingEmptyFields">Minden mezőt ki kell tölteni!</p>
         <p class="text-danger" v-if="loginFailed">Hiba történt a bejelentkezés során!</p>

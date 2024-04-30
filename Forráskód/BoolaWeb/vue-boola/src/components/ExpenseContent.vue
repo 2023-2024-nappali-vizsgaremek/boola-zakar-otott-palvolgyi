@@ -55,6 +55,7 @@ function Delete(id) {
 
 function selectExpense(expense) {
   store.$patch({ selectedExpense: expense })
+  window.open("#details","_self")
 }
 
 </script>
