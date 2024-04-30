@@ -108,13 +108,12 @@ span.icon-hover-highlight:hover{
     z-index: 1000;    
 }
 
-  button{
+.btn-primary,.btn-primary:visited{
     min-width: 75px;
-    background: var(--sec-background)!important;
-    border: #191c1e!important;
-  
+    background: var(--sec-background)!important;    
+    border: #191c1e!important;    
   }
-  button:hover,button:active,button:visited{
+  .btn-primary:hover,.btn-primary:active{
     background: var(--sec-text-color)!important;
     color: var(--main-background)!important;
   }

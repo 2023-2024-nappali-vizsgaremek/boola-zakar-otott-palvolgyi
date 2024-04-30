@@ -70,7 +70,7 @@ const submitLogin = () => {
             Jelszó:
         </label>
         <input type="password" id="pw_field" v-model="account.pwHash">
-        <div class="d-flex flex-row justify-content-around">
+        <div class="d-flex flex-row justify-content-around m-3">
             <button type="button" class="btn btn-primary" @click="submitLogin">Belépés</button>
             <a href="/register" class="btn btn-primary ">Regisztráció</a>
         </div>

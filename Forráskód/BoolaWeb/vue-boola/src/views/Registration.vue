@@ -3,6 +3,8 @@ import { ref } from 'vue'
 import Axios from 'axios'
 import {useToast} from "vue-toastification";
 const toast=useToast()
+import {useRouter} from 'vue-router';
+const router = useRouter();
 
 const account = ref({ email: null, pwHash: null, name: null })
 const submittingEmptyFields = ref(false)
@@ -53,7 +55,7 @@ const submitRegistration = () => {
             Név:
         </label>
         <input type="text" id="name_field" v-model="account.name">
-        <div class="d-flex flex-row justify-content-around">
+        <div class="d-flex flex-row justify-content-around m-3">
             <button type="button" class="btn btn-primary" @click="submitRegistration">Regisztráció</button>
             <a href="/login" class="btn btn-primary">Bejelenkezés</a>
         </div>
