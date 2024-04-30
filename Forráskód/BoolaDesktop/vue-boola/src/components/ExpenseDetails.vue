@@ -35,7 +35,7 @@ function closeWindow() {
 </script>
 
 <template>
-    <div id="detailsRoot" v-if="expense != null" class="card">
+    <div id="detailsRoot" v-if="expense != null"  class="card" >
         <button class="material-symbols-outlined size-32 m-1" @click="closeWindow">close</button>
         <h1>{{ expense.name }}</h1>
         <h3>{{ expense.amount }} {{ currency }}</h3>
@@ -59,7 +59,7 @@ function closeWindow() {
     color: #006783;
 }
 
-@media screen and (min-width: 768px) and (max-width: 1200px) {
+@media screen and (min-width: 768px)and  (max-width: 1200px) {
     #detailsRoot {
         width: 50vw;
     }
@@ -67,7 +67,12 @@ function closeWindow() {
 
 @media screen and (max-width:768px) {
     #detailsRoot {
-        width: 100vw;
+position: sticky;
+      bottom: 2%;
+      width: 100vw;
+      height: 80vh;
+flex-shrink: 0;
+z-index: 99999999;
     }
 
 }
@@ -83,6 +88,8 @@ h1,
 h3,
 div {
     margin: 0.5em;
+    margin: 0.5em;
     margin-top: 0;
 }
+
 </style>

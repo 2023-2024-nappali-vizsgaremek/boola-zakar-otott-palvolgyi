@@ -14,7 +14,7 @@
     const currency=ref([])
 
     if (!authToken){
-    window.open("/login","_self")
+    router.push("/login")
     }
     else if (profiles==null) 
     {

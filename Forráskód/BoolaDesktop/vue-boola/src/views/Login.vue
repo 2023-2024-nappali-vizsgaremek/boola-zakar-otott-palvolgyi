@@ -3,6 +3,11 @@ import {ref, withModifiers} from 'vue'
 import Axios from 'axios'
 import { profileStore } from '/src/stores/ProfileStore';
 import {useToast} from "vue-toastification";
+import { useRouter } from 'vue-router'
+import { useMenuStore} from '/src/stores/MenuStore'
+const MenuStore = useMenuStore()
+
+const router = useRouter()
 
 const toast=useToast()
 
@@ -41,9 +46,10 @@ const submitLogin = () => {
                 sessionStorage.setItem("authToken", tokens.access)
                 sessionStorage.setItem("refreshToken", tokens.refresh)
                 profilStore.$patch({ email: account.value.email, profile: null })
-              toast.success("Sikeres bejelentkezés")
-              setTimeout(()=>(window.open("/profiles", "_self")),2000)
-          }
+                toast.success("Sikeres bejelentkezés")
+                setTimeout(()=>(router.push("/profiles")),2000)
+                MenuStore.showProfileMenu();
+                }
                )
             })
 
@@ -56,20 +62,20 @@ const submitLogin = () => {
 <template> <!--TODO: disable top-,sidebar for login,register-->
     <h1 class="text-center">Belépés</h1>
     <form class="container w-25 h-50 mx-auto text-justify d-flex flex-column justify-content-evenly">
-        <label for="email_field">
+        <label for="email_field" class="align-self-center">
             E-mail cím:
         </label>
-        <input type="email" id="email_field" v-model="account.email">
-        <label for="pw_field">
+        <input type="email" id="email_field" class="align-self-center" style="min-width: 200px; width: 25vw" v-model="account.email">
+        <label for="pw_field" class="align-self-center">
             Jelszó:
         </label>
-        <input style="margin-bottom: 1em " type="password" id="pw_field" v-model="account.pwHash"><br>
-        <div class="d-flex flex-row justify-content-around">
-            <button style="margin: 1em !important;" type="button" class="btn btn-primary" @click="submitLogin">Belépés</button>
-            <a style="margin: 1em !important;" href="/register" class="btn btn-primary ">Regisztráció</a>
+        <input  type="password" id="pw_field"  class="align-self-center" style="min-width: 200px; width: 25vw" v-model="account.pwHash">
+        <div class="d-flex flex-row justify-content-around  row">
+            <button type="button" style="width: 150px" class="btn btn-primary col-sm-12 m-3" @click="submitLogin">Belépés</button>
+            <a href="/register" style="width: 150px" class="btn btn-primary col-sm-12 m-3">Regisztráció</a>
         </div>
-        <p class="text-danger"  v-if="submittingEmptyFields">Minden mezőt ki kell tölteni!</p>
-        <p class="text-danger"  v-if="loginFailed">Hiba történt a bejelentkezés során!</p>
+        <p class="text-danger" v-if="submittingEmptyFields">Minden mezőt ki kell tölteni!</p>
+        <p class="text-danger" v-if="loginFailed">Hiba történt a bejelentkezés során!</p>
     </form>
 </template>
 

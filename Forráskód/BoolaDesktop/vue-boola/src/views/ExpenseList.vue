@@ -6,12 +6,14 @@ import ExpenseContent from "../components/ExpenseContent.vue";
 import ExpenseDetails from "../components/ExpenseDetails.vue"
 
 const authToken = sessionStorage.getItem("authToken");
-if (!authToken) {
-  window.open("/login", "_self")
+
+if (!authToken){
+router.push("/login")
 }
 else if (profileStore().profile==null){
-  window.open("/profiles", "_self")
+router.push("/profiles")
 }
+
 
 
 </script>
@@ -27,6 +29,16 @@ else if (profileStore().profile==null){
 <style scoped>
 #expense-body {
     display: flex;
+
     height: 95vh;
+
+}
+@media only screen and (max-width: 768px) {
+  #expense-body {
+flex-direction: column;
+  min-height: 90vh;
+
+
+  }
 }
 </style>

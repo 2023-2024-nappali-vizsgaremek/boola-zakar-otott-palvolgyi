@@ -2,7 +2,8 @@
     import axios from 'axios';
     import { onMounted, ref } from 'vue';
     import {profileStore} from "/src/stores/ProfileStore"
-
+    import { useRouter } from 'vue-router';
+    const router = useRouter();
 
     const expenseList = ref([]);
     const expenseList2=ref([]);
@@ -11,13 +12,14 @@
     const expenses=ref([])
     const language=ref([])
     const currency=ref([])
-    if (!authToken)
-    {
-      window.open("/login", "_self")
-    }else if
-    (profiles==null) {
-      window.open("/profile", "_self")
+
+    if (!authToken){
+    window.open("/login","_self")
     }
+    else if (profiles==null) 
+    {
+    router.push("/profiles")
+}
     const hostName = "boola-backend-a71954a87e5d.herokuapp.com"
     axios.get(`https://${hostName}/api/expenselist/${profiles.expenseListId}`,{
       headers:{
@@ -71,13 +73,12 @@ expenses.value=expenseList2.value.slice(-2).reverse()
 
         </div>
       <div class="info-container" style="text-align: center">
-        <div class="prevSpending" style="text-align: center">
+        <div class="prevSpending" style="text-align: center;">
           <div style="margin-top:5em">
             <h2 class="text-center" style="font-size: xxx-large">Profil adatok</h2>
-
-            <div class="meret mx-auto" >Név: <br>{{profileStore().profile.name}}</div><br>
-          <div class="meret mx-auto">Pénznem:<br> {{currency}}</div><br>
-          <div class="meret mx-auto">Nyelv:<br> {{language.name}}</div><br>
+            <div class="text-center meret" >Név: <br>{{profileStore().profile.name}}</div><br>
+          <div class="text-center meret">Pénznem:<br> {{currency}}</div><br>
+          <div class="text-center meret">Nyelv:<br> {{language.name}}</div><br>
           </div>
         </div>
       </div>
@@ -93,6 +94,7 @@ expenses.value=expenseList2.value.slice(-2).reverse()
         justify-content: center;
         gap: 100px;
       width: 100%;
+
     }
 
     .title{
@@ -126,16 +128,17 @@ expenses.value=expenseList2.value.slice(-2).reverse()
 
     .prevSpending{
         background-color: var(--sec-background);
-        width: 30vw;
+
         border-radius: var(--border-radius);
         display: flex;
         justify-self: center;
         margin: 50px;
+
+
     }
    .meret {
      font-size: xxx-large;
-     text-align: center;
-     width: 30vw
+
    }
 
     .card {
