@@ -13,6 +13,6 @@ fun Application.configureHTTP() {
         allowHeader(HttpHeaders.Authorization)
         allowHeader(HttpHeaders.ContentType)
         allowHeader(HttpHeaders.CacheControl)
-        anyHost() // @TODO: Don't do this in production if possible. Try to limit it.
+        anyHost()
     }
 }

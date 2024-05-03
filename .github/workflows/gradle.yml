@@ -23,7 +23,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: making gradlew executable
-      run: chmod +x Forráskód/Backend/backend/gradlew
+      run: chmod +x Forraskod/Backend/backend/gradlew
     - name: Gradle Build
       env: 
         DATABASE_URL: ${{secrets.DB_URL}}
@@ -32,5 +32,5 @@ jobs:
       uses: gradle/gradle-build-action@v2.11.0
       with:
         # Path to the root directory of the build. Default is the root of the GitHub workspace.
-        build-root-directory: Forráskód/Backend/backend
+        build-root-directory: Forraskod/Backend/backend
         arguments: build
