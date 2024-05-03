@@ -12,10 +12,8 @@ const MenuStore = useMenuStore();
 
 const authToken = sessionStorage.getItem("authToken");
 const store = profileStore();
-console.log(authToken);
 if (!authToken) 
 {
-  console.log(authToken);
   router.push("/login", "_self")
 }
 else if (store==null) 
