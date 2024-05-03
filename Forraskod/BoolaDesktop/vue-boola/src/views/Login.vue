@@ -62,6 +62,19 @@ const submitLogin = () => {
 <template> <!--TODO: disable top-,sidebar for login,register-->
     <h1 class="text-center">Belépés</h1>
     <form class="container w-25 h-50 mx-auto text-justify d-flex flex-column justify-content-evenly">
+<<<<<<< HEAD:Forráskód/BoolaWeb/vue-boola/src/views/Login.vue
+        <label for="email_field" class="d-flex mx-auto">
+            E-mail cím:
+        </label>
+        <input type="email" id="email_field" v-model="account.email" class="d-flex mx-auto">
+        <label for="pw_field" class="d-flex mx-auto">
+            Jelszó:
+        </label>
+        <input type="password" id="pw_field" v-model="account.pwHash" class="d-flex mx-auto">
+        <div class="d-flex flex-row justify-content-around m-3 mx-auto">
+            <button type="button" class="btn btn-primary m-2" @click="submitLogin">Belépés</button>
+            <a href="/register" class="btn btn-primary m-2">Regisztráció</a>
+=======
         <label for="email_field" class="align-self-center">
             E-mail cím:
         </label>
@@ -76,6 +89,7 @@ const submitLogin = () => {
 
           <a href="/register" style="width: 150px; margin-top: 20px " class="btn btn-primary col-sm-12">Regisztráció</a>
 
+>>>>>>> main:Forraskod/BoolaDesktop/vue-boola/src/views/Login.vue
         </div>
         <p class="text-danger" v-if="submittingEmptyFields">Minden mezőt ki kell tölteni!</p>
         <p class="text-danger" v-if="loginFailed">Hiba történt a bejelentkezés során!</p>
@@ -83,5 +97,11 @@ const submitLogin = () => {
 </template>
 
 <style scoped>
-
+    input{
+        min-width: 300px;
+        width: 25vw;        
+    }
+    .container{
+        min-width: 300px;
+    }
 </style>

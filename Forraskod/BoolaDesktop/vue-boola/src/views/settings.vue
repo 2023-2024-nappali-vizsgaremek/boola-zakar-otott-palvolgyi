@@ -82,7 +82,7 @@ axios.get(`https://${hostName}/api/language`,{
 </select>
       </div>
     </div>
-
+    </div>
     <button id="btn" @click="Save()" class="btn btn-primary mx-auto">Mentés</button>
     <div class="card mx-auto">
 

@@ -85,7 +85,7 @@ expenses.value=expenseList2.value.slice(-2).reverse()
           </div>
         </div>
       </div>
-    </div>>
+    </div>
 </template>
 
 <style scoped>

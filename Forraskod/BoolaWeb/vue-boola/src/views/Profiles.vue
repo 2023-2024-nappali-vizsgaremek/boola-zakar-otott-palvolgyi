@@ -210,13 +210,12 @@ const DeleteProfile = (id) => {
                 <option v-for="currency in currencies" v-bind:value="currency.code">{{ currency.name }}</option>
 
             </select>
-        </div>
-        <div class="profileCreationForm">
-            <button class="btn btn-primary btn-rounded" @click="profileCreationToggle">Vissza</button>
-            <button class="btn btn-primary btn-rounded"  @click="createNewProfile">Létrehozás</button>
-        </div>
-
+        </div>          
     </div>
+    <div v-if="profileCreation" class="profileCreationForm">
+      <button class="btn btn-primary btn-rounded" @click="profileCreationToggle">Vissza</button>
+      <button class="btn btn-primary btn-rounded"  @click="createNewProfile">Létrehozás</button>
+    </div>   
   </div>
 </template>
 
@@ -230,11 +229,12 @@ const DeleteProfile = (id) => {
 
 .profileCreation-container {
   background-color: var(--sec-background);
-  width: 400px;
+  width: 30vw;
+  min-width: 300px;
   height: auto;
   border-radius: var(--border-radius);
   padding: 5px;
-  color: var(--main-text-color);
+  color: var(--sec-text-color);
 }
 
 .profileCreationForm > * {
@@ -249,7 +249,8 @@ const DeleteProfile = (id) => {
 
 .profiles-container {
     background-color: var(--sec-background);
-    width: 400px;
+    width: 30vw;
+    min-width: 300px;
     height: auto;
     max-height: 75vh;
     border-radius: var(--border-radius);
@@ -265,15 +266,4 @@ const DeleteProfile = (id) => {
   cursor: pointer;
   transition: all ease-out 0.2s;
 }
-.btn-primary:hover{
-  background:  var(--main-text-color);
-  color: var(--sec-text-color);
-  border: none;
-}
-.btn-primary{
-  background: var(--sec-text-color);
-  color: var(--main-text-color);
-  border: none;
-}
-
 </style>

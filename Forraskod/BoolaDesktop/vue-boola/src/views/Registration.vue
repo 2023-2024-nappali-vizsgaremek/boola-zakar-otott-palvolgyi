@@ -3,6 +3,8 @@ import { ref } from 'vue'
 import Axios from 'axios'
 import {useToast} from "vue-toastification";
 const toast=useToast()
+import {useRouter} from 'vue-router';
+const router = useRouter();
 
 const account = ref({ email: null, pwHash: null, name: null })
 const submittingEmptyFields = ref(false)
@@ -52,10 +54,17 @@ const submitRegistration = () => {
         <label for="name_field" class="align-self-center">
             Név:
         </label>
+<<<<<<< HEAD:Forráskód/BoolaWeb/vue-boola/src/views/Registration.vue
+        <input type="text" id="name_field" v-model="account.name">
+        <div class="d-flex flex-row justify-content-around m-3">
+            <button type="button" class="btn btn-primary" @click="submitRegistration">Regisztráció</button>
+            <a href="/login" class="btn btn-primary">Bejelenkezés</a>
+=======
         <input type="text" id="name_field" class="align-self-center" v-model="account.name">
         <div class="d-flex flex-row justify-content-around row">
             <button type="button" class="btn btn-primary col-sm-12" style="margin-top: 20px"  @click="submitRegistration">Regisztráció</button>
             <a href="/login" class="btn btn-primary col-sm-12 " style="margin-top: 20px">Bejelenkezés</a>
+>>>>>>> main:Forraskod/BoolaDesktop/vue-boola/src/views/Registration.vue
         </div>
         <p class="text-danger" v-if="submittingEmptyFields">Minden mezőt ki kell tölteni!</p>
         <p class="text-danger" v-if="hasRegistrationFailed">Hiba történt a Regisztráció során!</p>
