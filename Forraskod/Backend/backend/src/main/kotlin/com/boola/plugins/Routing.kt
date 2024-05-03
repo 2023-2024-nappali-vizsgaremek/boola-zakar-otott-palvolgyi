@@ -46,13 +46,11 @@ fun Application.configureRouting() {
 
         post("/login") {
             val user = call.receive<Account>()
-            println("User submitted: " + user)
             val con = DataControllerFactory.getController()
             if(con == null) call.respond(HttpStatusCode.ServiceUnavailable)
             else {
                 val sentPw = user.pwHash.toCharArray()
                 val storedPw = con.getAccount(user.email).pwHash.toCharArray()
-                println(storedPw.concatToString())
                 val verification = BCrypt.verifyer().verify(sentPw,storedPw)
                 if(!verification.verified) {
                     call.respond(HttpStatusCode.Unauthorized)

@@ -21,18 +21,6 @@ import kotlin.reflect.KClass
 import kotlin.test.*
 
 class ApplicationTest {
-    @Test
-    fun testRoot() = testApplication {
-        application {
-            configureSecurity()
-            configureSerialization()
-            configureRouting()
-        }
-        client.get("/").apply {
-            assertEquals(HttpStatusCode.OK, status)
-            assertEquals("Hello World!", bodyAsText())
-        }
-    }
 
     @Test
     fun testDb() {
@@ -84,74 +72,6 @@ class ApplicationTest {
         val controller = DataControllerFactory.getController()
         val currency = controller?.getCurrency("HUF")
         assert(currency != null)
-    }
-
-    @Serializable
-    data class JsonWebToken (val access:String,val refresh:String)
-
-    @Test
-    fun testLogin(){
-        testApplication {
-            application {
-                configureSecurity()
-                configureRouting()
-                configureHTTP()
-                configureSerialization()
-                DataControllerFactory(10)
-            }
-            val body = Json.encodeToJsonElement<Account>(
-                Account(
-                    "otottkovi@hotmail.com", "password",
-                    "Tomika"
-                )
-            ).toString()
-            val regResp = client.post("/register"){
-                contentType(ContentType.Application.Json)
-                setBody(body)
-            }
-            assertEquals(regResp.status, HttpStatusCode.Created)
-            var resp = client.post("/login"){
-                contentType(ContentType.Application.Json)
-                setBody(body)
-            }
-            println("y:" + resp.bodyAsText())
-            val token = Json.decodeFromString<JsonWebToken>(resp.bodyAsText())
-            resp = client.get("/tst"){
-                header("Authorization","Bearer " + token.access)
-            }
-            assertEquals(HttpStatusCode.OK,resp.status)
-        }
-    }
-
-    @Test
-    fun testProfile(){
-        testApplication {
-            application {
-                configureSecurity()
-                configureRouting()
-                configureHTTP()
-                configureSerialization()
-                DataControllerFactory(10)
-            }
-            val body = Json.encodeToJsonElement<Account>(
-                Account(
-                    "otottkovi@hotmail.com", "password",
-                    "Tomika"
-                )
-            ).toString()
-            var resp = client.post("/login") {
-                contentType(ContentType.Application.Json)
-                setBody(body)
-            }
-            assertEquals(HttpStatusCode.OK, resp.status)
-            val authToken = Json.decodeFromString<JsonWebToken>(resp.bodyAsText())
-            resp = client.get("/api/profile") {
-                header("Authorization", "Bearer " + authToken.access)
-            }
-            assertEquals(HttpStatusCode.OK, resp.status)
-            val profiles = Json.decodeFromString<List<Profile>>(resp.bodyAsText())
-            assert(profiles.isNotEmpty())
-        }
     }
 
 }

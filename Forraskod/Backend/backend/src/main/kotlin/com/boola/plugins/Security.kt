@@ -20,7 +20,6 @@ fun Application.configureSecurity() {
         val env = dotenv()
         env["JWT_SECRET"]
     }
-    println("$jwtSecret is the secret")
 
     authentication {
        jwt("boola-auth") {

@@ -115,7 +115,6 @@ class DataController internal constructor(private val connection: Connection) {
             val salt = StringBuilder()
             for(i in 0..15){
                 val code = Random.nextInt(1, Byte.MAX_VALUE.toInt())
-                println("Adding a $code to the salt")
                 salt.append(Char(code))
             }
             val hashedPwArray = BCrypt.withDefaults().hash(6,salt.toString().toByteArray(),accountToAdd.pwHash
