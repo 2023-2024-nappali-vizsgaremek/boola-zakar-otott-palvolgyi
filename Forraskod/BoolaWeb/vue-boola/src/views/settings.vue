@@ -88,7 +88,7 @@ axios.get(`https://${hostName}/api/language`,{
 
       Ha bármilyen kérdése vagy észrevétele van, ne habozzon kapcsolatba lépni velünk! <br>A Boola Pénzügyi Alkalmazás ügyfélszolgálata mindig készen áll, hogy segítsen.<br><br>E-mail: info@boolaapp.com<br><br>Telefonszám: +36 1 234 5678<br><br>Köszönjük, hogy a Boola alkalmazást választotta pénzügyi szükségletei kielégítésére. <br>Tartsa velünk az úton a gazdagság és a pénzügyi függetlenség felé!
     </div>
-  
+</div>  
 </template>
 
 <style scoped>
