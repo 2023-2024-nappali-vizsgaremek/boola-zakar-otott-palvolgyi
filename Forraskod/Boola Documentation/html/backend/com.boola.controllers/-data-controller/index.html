@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>DataController</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="../../../index.html">
+                            backend
+                    </a>
+            </div>
+            <div class="library-version">
+0.0.1            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":dokkaHtml/main">jvm</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="backend::com.boola.controllers/DataController///PointingToDeclaration//769193423">
+  <div class="breadcrumbs"><a href="../../../index.html">backend</a><span class="delimiter">/</span><a href="../index.html">com.boola.controllers</a><span class="delimiter">/</span><span class="current">DataController</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Data</span><wbr></wbr><span><span>Controller</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">DataController</a></div><p class="paragraph">Az adatbázissal való kommunikáló függvényeket tartalmazó osztály.</p><p class="paragraph">Kell egy élő <a href="https://docs.oracle.com/javase/8/docs/api/java/sql/Connection.html">Connection</a> a használathoz.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1240316663%2FFunctions%2F769193423" anchor-label="addAccount" id="1240316663%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-account.html"><span>add</span><wbr></wbr><span><span>Account</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1240316663%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="add-account.html"><span class="token function">addAccount</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">accountToAdd<span class="token operator">: </span><a href="../../com.boola.models/-account/index.html">Account</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Hozzáadja <a href="add-account.html">accountToAdd</a> fiókot az adatbázishoz.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1217339738%2FFunctions%2F769193423" anchor-label="addExopenseList" id="-1217339738%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-exopense-list.html"><span>add</span><wbr></wbr><span>Exopense</span><wbr></wbr><span><span>List</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1217339738%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="add-exopense-list.html"><span class="token function">addExopenseList</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">newData<span class="token operator">: </span><a href="../../com.boola.models/-expense-list/index.html">ExpenseList</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Hozzáadja <a href="add-exopense-list.html">newData</a> számlát.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1857870431%2FFunctions%2F769193423" anchor-label="addExpense" id="-1857870431%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-expense.html"><span>add</span><wbr></wbr><span><span>Expense</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1857870431%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="add-expense.html"><span class="token function">addExpense</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">expenseToAdd<span class="token operator">: </span><a href="../../com.boola.models/-expense/index.html">Expense</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Hozzáad egy új költést a táblához.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="381562049%2FFunctions%2F769193423" anchor-label="addPartner" id="381562049%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-partner.html"><span>add</span><wbr></wbr><span><span>Partner</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="381562049%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="add-partner.html"><span class="token function">addPartner</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">partnerToAdd<span class="token operator">: </span><a href="../../com.boola.models/-partner/index.html">Partner</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Hozzáad egy új partnert a táblához.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="221276159%2FFunctions%2F769193423" anchor-label="addProfile" id="221276159%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-profile.html"><span>add</span><wbr></wbr><span><span>Profile</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="221276159%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="add-profile.html"><span class="token function">addProfile</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">newData<span class="token operator">: </span><a href="../../com.boola.models/-profile/index.html">Profile</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Hozzáadja <a href="add-profile.html">newData</a> profilt a táblához.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1524200955%2FFunctions%2F769193423" anchor-label="deleteAccount" id="1524200955%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="delete-account.html"><span>delete</span><wbr></wbr><span><span>Account</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1524200955%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="delete-account.html"><span class="token function">deleteAccount</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">accountToAdd<span class="token operator">: </span><a href="../../com.boola.models/-account/index.html">Account</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Törli <a href="delete-account.html">accountToAdd</a> fiókot.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-165973502%2FFunctions%2F769193423" anchor-label="deleteExpense" id="-165973502%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="delete-expense.html"><span>delete</span><wbr></wbr><span><span>Expense</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-165973502%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="delete-expense.html"><span class="token function">deleteExpense</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html">UUID</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">törli az <a href="delete-expense.html">id</a> azonosítójú költést.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-582610044%2FFunctions%2F769193423" anchor-label="deleteExpenseList" id="-582610044%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="delete-expense-list.html"><span>delete</span><wbr></wbr><span>Expense</span><wbr></wbr><span><span>List</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-582610044%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="delete-expense-list.html"><span class="token function">deleteExpenseList</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html">UUID</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">törli az <a href="delete-expense-list.html">id</a> azonosítójú számlát.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-291073856%2FFunctions%2F769193423" anchor-label="deletePartner" id="-291073856%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="delete-partner.html"><span>delete</span><wbr></wbr><span><span>Partner</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-291073856%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="delete-partner.html"><span class="token function">deletePartner</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte/index.html">Byte</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">törli az <a href="delete-partner.html">id</a> azonosítójú partnert.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1936967569%2FFunctions%2F769193423" anchor-label="deleteProfile" id="1936967569%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="delete-profile.html"><span>delete</span><wbr></wbr><span><span>Profile</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1936967569%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="delete-profile.html"><span class="token function">deleteProfile</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html">UUID</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">törli az <a href="delete-profile.html">id</a> azonosítójú profilt.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2136528021%2FFunctions%2F769193423" anchor-label="getAccount" id="-2136528021%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-account.html"><span>get</span><wbr></wbr><span><span>Account</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2136528021%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-account.html"><span class="token function">getAccount</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">email<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.boola.models/-account/index.html">Account</a></div><div class="brief "><p class="paragraph">Lekéri a megadott <a href="get-account.html">email</a>-lel rendelkező fiókot.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1050678219%2FFunctions%2F769193423" anchor-label="getAccountsAll" id="1050678219%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-accounts-all.html"><span>get</span><wbr></wbr><span>Accounts</span><wbr></wbr><span><span>All</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1050678219%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-accounts-all.html"><span class="token function">getAccountsAll</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html">ArrayList</a><span class="token operator">&lt;</span><a href="../../com.boola.models/-account/index.html">Account</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Lekéri az összes fiókot.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1665649311%2FFunctions%2F769193423" anchor-label="getAccountSalt" id="-1665649311%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-account-salt.html"><span>get</span><wbr></wbr><span>Account</span><wbr></wbr><span><span>Salt</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1665649311%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-account-salt.html"><span class="token function">getAccountSalt</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">accountEmail<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Lekéri az <a href="get-account-salt.html">accountEmail</a> azonosítójú fiók sóját (salt).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="695072056%2FFunctions%2F769193423" anchor-label="getAllProfile" id="695072056%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-all-profile.html"><span>get</span><wbr></wbr><span>All</span><wbr></wbr><span><span>Profile</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="695072056%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-all-profile.html"><span class="token function">getAllProfile</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">email<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html">ArrayList</a><span class="token operator">&lt;</span><a href="../../com.boola.models/-profile/index.html">Profile</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Lekéri az <a href="get-all-profile.html">email</a>-hez tartozó összes profilt.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2117407425%2FFunctions%2F769193423" anchor-label="getCategoriesAll" id="2117407425%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-categories-all.html"><span>get</span><wbr></wbr><span>Categories</span><wbr></wbr><span><span>All</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2117407425%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-categories-all.html"><span class="token function">getCategoriesAll</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html">ArrayList</a><span class="token operator">&lt;</span><a href="../../com.boola.models/-category/index.html">Category</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Lekéri az összes kategóriát.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="306037684%2FFunctions%2F769193423" anchor-label="getCategory" id="306037684%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-category.html"><span>get</span><wbr></wbr><span><span>Category</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="306037684%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-category.html"><span class="token function">getCategory</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Lekér egy megadott kategória nevét.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1693049492%2FFunctions%2F769193423" anchor-label="getCurrenciesAll" id="1693049492%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-currencies-all.html"><span>get</span><wbr></wbr><span>Currencies</span><wbr></wbr><span><span>All</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1693049492%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-currencies-all.html"><span class="token function">getCurrenciesAll</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html">ArrayList</a><span class="token operator">&lt;</span><a href="../../com.boola.models/-currency/index.html">Currency</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Lekéri az összes pénznemet</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1319152639%2FFunctions%2F769193423" anchor-label="getCurrency" id="-1319152639%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-currency.html"><span>get</span><wbr></wbr><span><span>Currency</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1319152639%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-currency.html"><span class="token function">getCurrency</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">code<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Lekéri az <a href="get-currency.html">code</a> azonosítójú pénznemet.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2109173564%2FFunctions%2F769193423" anchor-label="getDbStatus" id="-2109173564%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-db-status.html"><span>get</span><wbr></wbr><span>Db</span><wbr></wbr><span><span>Status</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2109173564%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-db-status.html"><span class="token function">getDbStatus</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Lekéri az adatbázis állapotát.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1979898893%2FFunctions%2F769193423" anchor-label="getExpense" id="-1979898893%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-expense.html"><span>get</span><wbr></wbr><span><span>Expense</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1979898893%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-expense.html"><span class="token function">getExpense</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html">UUID</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.boola.models/-expense/index.html">Expense</a></div><div class="brief "><p class="paragraph">lekéri az <a href="get-expense.html">id</a> azonosítójú költést.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1680565493%2FFunctions%2F769193423" anchor-label="getExpenseList" id="1680565493%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-expense-list.html"><span>get</span><wbr></wbr><span>Expense</span><wbr></wbr><span><span>List</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1680565493%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-expense-list.html"><span class="token function">getExpenseList</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html">UUID</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.boola.models/-expense-list/index.html">ExpenseList</a></div><div class="brief "><p class="paragraph">Lekéri az <a href="get-expense-list.html">id</a> azonosítójú számlát.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1758045442%2FFunctions%2F769193423" anchor-label="getExpenseListsAll" id="1758045442%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-expense-lists-all.html"><span>get</span><wbr></wbr><span>Expense</span><wbr></wbr><span>Lists</span><wbr></wbr><span><span>All</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1758045442%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-expense-lists-all.html"><span class="token function">getExpenseListsAll</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html">ArrayList</a><span class="token operator">&lt;</span><a href="../../com.boola.models/-expense-list/index.html">ExpenseList</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Lekéri az összes számlát.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1744682107%2FFunctions%2F769193423" anchor-label="getExpensesAll" id="-1744682107%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-expenses-all.html"><span>get</span><wbr></wbr><span>Expenses</span><wbr></wbr><span><span>All</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1744682107%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-expenses-all.html"><span class="token function">getExpensesAll</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">listId<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html">UUID</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html">ArrayList</a><span class="token operator">&lt;</span><a href="../../com.boola.models/-expense/index.html">Expense</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">lekéri az összes költést egy számláról.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="924338696%2FFunctions%2F769193423" anchor-label="getLanguage" id="924338696%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-language.html"><span>get</span><wbr></wbr><span><span>Language</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="924338696%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-language.html"><span class="token function">getLanguage</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">code<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.boola.models/-language/index.html">Language</a></div><div class="brief "><p class="paragraph">Lekér egy megadott nyelvet.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1958623797%2FFunctions%2F769193423" anchor-label="getLanguages" id="-1958623797%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-languages.html"><span>get</span><wbr></wbr><span><span>Languages</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1958623797%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-languages.html"><span class="token function">getLanguages</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html">ArrayList</a><span class="token operator">&lt;</span><a href="../../com.boola.models/-language/index.html">Language</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Lekéri az összes nyelvet.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-405894033%2FFunctions%2F769193423" anchor-label="getPartner" id="-405894033%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-partner.html"><span>get</span><wbr></wbr><span><span>Partner</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-405894033%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-partner.html"><span class="token function">getPartner</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte/index.html">Byte</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.boola.models/-partner/index.html">Partner</a></div><div class="brief "><p class="paragraph">Lekéri az <a href="get-partner.html">id</a> azonosítójú partnert.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-740562160%2FFunctions%2F769193423" anchor-label="getPartnersAll" id="-740562160%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-partners-all.html"><span>get</span><wbr></wbr><span>Partners</span><wbr></wbr><span><span>All</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-740562160%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-partners-all.html"><span class="token function">getPartnersAll</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html">ArrayList</a><span class="token operator">&lt;</span><a href="../../com.boola.models/-partner/index.html">Partner</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Lekéri az összes partnert.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="123042178%2FFunctions%2F769193423" anchor-label="getProfile" id="123042178%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-profile.html"><span>get</span><wbr></wbr><span><span>Profile</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="123042178%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-profile.html"><span class="token function">getProfile</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html">UUID</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.boola.models/-profile/index.html">Profile</a></div><div class="brief "><p class="paragraph">Lekéri az <a href="get-profile.html">id</a> azonosítójú profilt.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="32075763%2FFunctions%2F769193423" anchor-label="setAccount" id="32075763%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-account.html"><span>set</span><wbr></wbr><span><span>Account</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="32075763%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-account.html"><span class="token function">setAccount</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">accountEmail<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">newData<span class="token operator">: </span><a href="../../com.boola.models/-account/index.html">Account</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Felülírja az <a href="set-account.html">accountEmail</a> azonosítójú fiókot.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1183284040%2FFunctions%2F769193423" anchor-label="setExpense" id="1183284040%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-expense.html"><span>set</span><wbr></wbr><span><span>Expense</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1183284040%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-expense.html"><span class="token function">setExpense</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html">UUID</a><span class="token punctuation">, </span></span><span class="parameter ">newExpense<span class="token operator">: </span><a href="../../com.boola.models/-expense/index.html">Expense</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Felülírja az <a href="set-expense.html">id</a> azonosítójú költést.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1878018440%2FFunctions%2F769193423" anchor-label="setExpenseList" id="1878018440%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-expense-list.html"><span>set</span><wbr></wbr><span>Expense</span><wbr></wbr><span><span>List</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1878018440%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-expense-list.html"><span class="token function">setExpenseList</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html">UUID</a><span class="token punctuation">, </span></span><span class="parameter ">newData<span class="token operator">: </span><a href="../../com.boola.models/-expense-list/index.html">ExpenseList</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Felülírja az <a href="set-expense-list.html">id</a> azonosítójú számlát.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-821396016%2FFunctions%2F769193423" anchor-label="setPartner" id="-821396016%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-partner.html"><span>set</span><wbr></wbr><span><span>Partner</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-821396016%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-partner.html"><span class="token function">setPartner</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">newData<span class="token operator">: </span><a href="../../com.boola.models/-partner/index.html">Partner</a><span class="token punctuation">, </span></span><span class="parameter ">id<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte/index.html">Byte</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Felülírja az <a href="set-partner.html">id</a> azonosítójú partnert.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-559314904%2FFunctions%2F769193423" anchor-label="setProfile" id="-559314904%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-profile.html"><span>set</span><wbr></wbr><span><span>Profile</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-559314904%2FFunctions%2F769193423"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-profile.html"><span class="token function">setProfile</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html">UUID</a><span class="token punctuation">, </span></span><span class="parameter ">newData<span class="token operator">: </span><a href="../../com.boola.models/-profile/index.html">Profile</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Felülírja az <a href="set-profile.html">id</a> azonosítójú profilt.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
