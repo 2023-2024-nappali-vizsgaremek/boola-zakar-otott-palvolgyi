@@ -14,7 +14,9 @@
     const currency=ref([])
 
     if (!authToken){
-    window.open("/login","_self")
+
+    window.open("/login", "_self")
+
     }
     else if (profiles==null) 
     {
@@ -59,7 +61,7 @@ expenses.value=expenseList2.value.slice(-2).reverse()
       <h1 class="text-center" style="margin-top: 0.5em">Jelenleg a <i><strong>{{profiles.name}}</strong></i> nevű profilban vagy.</h1>
       <h1 class="text-center" style="margin-top: 0.5em;margin-bottom:1em; ">Egyenleged: <i><strong>{{expenseList.balance}} {{expenseList.currencyCode}}</strong></i></h1>
         <div class="info-container">
-            <div class="activeProfileInfo">
+            <div class="">
               <h2 class="text-center" style="font-size: xxx-large ">Legutóbbi költségek</h2>
 
               <div class="card" v-for="pay in expenses">
@@ -72,13 +74,14 @@ expenses.value=expenseList2.value.slice(-2).reverse()
 
 
         </div>
-      <div class="info-container" style="text-align: center">
-        <div class="prevSpending" style="text-align: center;">
-          <div style="margin-top:5em">
+      <div class="info-container">
+        <div class="activeProfileInfo">
+          <div style="margin-top:5em; color: var(--sec-text-color);">
             <h2 class="text-center" style="font-size: xxx-large">Profil adatok</h2>
-            <div class="text-center meret" >Név: <br>{{profileStore().profile.name}}</div><br>
-          <div class="text-center meret">Pénznem:<br> {{currency}}</div><br>
-          <div class="text-center meret">Nyelv:<br> {{language.name}}</div><br>
+
+            <div class="meret mx-auto">Név: <br>{{profileStore().profile.name}}</div><br>
+            <div class="meret mx-auto">Pénznem:<br> {{currency}}</div><br>
+            <div class="meret mx-auto">Nyelv:<br> {{language.name}}</div><br>
           </div>
         </div>
       </div>
@@ -92,13 +95,13 @@ expenses.value=expenseList2.value.slice(-2).reverse()
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
+        justify-self: center;
         gap: 100px;
-      width: 100%;
-
+        width: 100%;
     }
 
     .title{
-        margin: 5px;   
+        margin: 0px;   
     }
 
     .homePage-grid{
@@ -107,7 +110,7 @@ expenses.value=expenseList2.value.slice(-2).reverse()
         grid-template-rows: 200px, 600px, 600px;
         grid-column-gap: 0px;
         grid-row-gap: 0px;
-        margin: 10px;
+        margin: 0px;
     }
 
     .info-container-card{
@@ -118,27 +121,10 @@ expenses.value=expenseList2.value.slice(-2).reverse()
       padding: 3em 1em 1em;
     }
 
-    .profileInfo-container{
-        
-    }
-
-    .spendinginfo-container{
-        
-    }
-
-    .prevSpending{
-        background-color: var(--sec-background);
-
-        border-radius: var(--border-radius);
-        display: flex;
-        justify-self: center;
-        margin: 50px;
-
-
-    }
+    
    .meret {
      font-size: xxx-large;
-
+     text-align: center;
    }
 
     .card {
@@ -147,5 +133,40 @@ expenses.value=expenseList2.value.slice(-2).reverse()
       color: #006783;
       margin-top: 2em;
       padding: 1em;
+    }
+    @media (max-width: 576px) {
+      .activeProfileInfo{
+        background-color: var(--sec-background);
+        width: 80vw;
+        border-radius: var(--border-radius);
+        display: flex;
+        justify-self: center;
+        justify-content: center;
+        margin: 0px;
+    }
+    }
+
+    @media (min-width: 577px) and (max-width: 1199px){
+      .activeProfileInfo{
+        background-color: var(--sec-background);
+        width: 50vw;
+        border-radius: var(--border-radius);
+        display: flex;
+        justify-self: center;
+        justify-content: center;
+        margin: 0px;
+    }
+    }
+
+    @media (min-width: 1200px) {
+      .activeProfileInfo{
+        background-color: var(--sec-background);
+        width: 30vw;
+        border-radius: var(--border-radius);
+        display: flex;
+        justify-self: center;
+        justify-content: center;
+        margin: 0px;
+    }
     }
 </style>

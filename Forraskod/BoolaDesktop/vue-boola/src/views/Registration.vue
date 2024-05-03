@@ -41,25 +41,30 @@ const submitRegistration = () => {
 <template>
     <h1 class="text-center">Regisztráció</h1>
     <form class="container w-25 h-50 mx-auto text-justify d-flex flex-column justify-content-evenly">
-        <label for="email_field">
+        <label for="email_field" class="align-self-center">
             E-mail cím:
         </label>
-        <input type="email" id="email_field" v-model="account.email">
-        <label for="pw_field">
+        <input type="email" id="email_field" class="align-self-center" v-model="account.email">
+        <label for="pw_field" class="align-self-center">
             Jelszó:
         </label>
-        <input type="password" id="pw_field" v-model="account.pwHash">
-        <label for="name_field">
+        <input type="password" id="pw_field" class="align-self-center" v-model="account.pwHash">
+        <label for="name_field" class="align-self-center">
             Név:
         </label>
-        <input type="text" id="name_field" v-model="account.name">
-        <div class="d-flex flex-row justify-content-around">
-            <button type="button" class="btn btn-primary" @click="submitRegistration">Regisztráció</button>
-            <a href="/login" class="btn btn-primary">Bejelenkezés</a>
+        <input type="text" id="name_field" class="align-self-center" v-model="account.name">
+        <div class="d-flex flex-row justify-content-around row">
+            <button type="button" class="btn btn-primary col-sm-12" style="margin-top: 20px"  @click="submitRegistration">Regisztráció</button>
+            <a href="/login" class="btn btn-primary col-sm-12 " style="margin-top: 20px">Bejelenkezés</a>
         </div>
         <p class="text-danger" v-if="submittingEmptyFields">Minden mezőt ki kell tölteni!</p>
         <p class="text-danger" v-if="hasRegistrationFailed">Hiba történt a Regisztráció során!</p>
     </form>
 </template>
 
-<style scoped></style>
+<style scoped>
+input{
+  min-width: 200px;
+  width:30vw;
+}
+</style>
